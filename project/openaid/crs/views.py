@@ -10,11 +10,19 @@ class ProjectList(ListView):
     paginate_by = 50
 
     def get_queryset(self):
+
         order_by = self.request.GET.get('order_by', None)
         # add `activities_count` field to project
         queryset = super(ProjectList, self).get_queryset().annotate(
             activities_count=Count('activity')
         )
+
+        for valid_filter in ('recipient', 'crs'):
+            if valid_filter in self.request.GET:
+                queryset = queryset.filter(**{
+                    valid_filter: self.request.GET.get(valid_filter)
+                })
+
         if order_by:
             direction = ''
             if order_by.startswith('-'):

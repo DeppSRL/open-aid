@@ -2,13 +2,15 @@
 
 {% block content %}
 
-    <h1>Activity #{{ object.pk }}</h1>
+    <h1>Activity <small>#{{ object.pk }}</small></h1>
 
     <dl class="dl-horizontal">
         <dt>Project Recipient</dt>
-        <dd>{{ object.project.recipient }}
+        <dd><a href="{% url 'crs:project-detail' pk=object.project.pk %}">#{{ object.project.pk }}</a></dd>
+        <dt>Project Recipient</dt>
+        <dd><a href="{% url 'crs:project-list' %}?recipient={{ object.project.recipient.pk }}">{{ object.project.recipient }}</a></dd>
         <dt>Project CRS</dt>
-        <dd>{{ object.project.crs }}</dd>
+        <dd><a href="{% url 'crs:project-list' %}?crs={{ object.project.crs }}">{{ object.project.crs }}</a></dd>
     </dl>
 
     {% include 'crs/activity_panel.html' with activity=object %}

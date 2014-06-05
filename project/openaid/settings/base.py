@@ -34,10 +34,12 @@ env = Env()
 
 
 ########## OPENAID CONFIGURATION
+EARLYBIRD_ENABLE = env.bool('EARLYBIRD_ENABLE', True)
+
 OPENAID_CRS_DONOR = 6 # Italy
 OPENAID_DSD_FILE = join(RESOURCES_PATH, 'crs', 'dsd.xml')
-
 ########## END OPENAID CONFIGURATION
+
 
 ########## DEBUG CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#debug
@@ -178,6 +180,8 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # openaid earlybird middleware
+    'openaid.middlewares.PrivateBetaMiddleware'
 )
 ########## END MIDDLEWARE CONFIGURATION
 
