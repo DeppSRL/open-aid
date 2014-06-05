@@ -207,6 +207,7 @@ DJANGO_APPS = (
 
     # Django helper
     'django_extensions',
+    'mptt',
 )
 
 # Apps specific for this project go here.

@@ -4,6 +4,7 @@
 # Bleeding edge Django
 Django>=1.6,<1.7
 django-extensions
+pytz
 
 # Configuration
 django-environ>=0.3
@@ -14,6 +15,7 @@ django-braces
 # Models
 South
 django-model-utils
+django-mptt
 
 # OpenAID specific
 csvkit
