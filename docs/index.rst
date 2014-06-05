@@ -4,13 +4,14 @@
    contain the root `toctree` directive.
 
 Welcome to OpenAID's documentation!
-====================================================================
+===================================
 
 Contents:
 
 .. toctree::
    :maxdepth: 2
 
+   analysis
    install
    deploy
    tests

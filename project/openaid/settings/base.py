@@ -33,6 +33,12 @@ env = Env()
 ########## END PATH CONFIGURATION
 
 
+########## OPENAID CONFIGURATION
+OPENAID_CRS_DONOR = 6 # Italy
+OPENAID_DSD_FILE = join(RESOURCES_PATH, 'crs', 'dsd.xml')
+
+########## END OPENAID CONFIGURATION
+
 ########## DEBUG CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#debug
 DEBUG = env.bool('DEBUG', False)

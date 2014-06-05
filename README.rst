@@ -1,11 +1,17 @@
 OpenAID
-=============================
-
-A short description of the project.
+=======
 
 Vedi la cartella `project/` per il codice sorgente.
 
 Vedi la cartella `docs/` per la documentazione completa del progetto.
+
+
+Configuration
+-------------
+
+`OPENAID_CRS_DONOR`: definisce il codice del donor del sito. (6 italy)
+`OPENAID_DSD_FILE`: file sdmx contenete la struttura delle codelist. (resources/crs/dsd.xml)
+
 
 Development
 -----------
