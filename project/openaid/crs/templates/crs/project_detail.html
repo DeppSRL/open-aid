@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <h1>Project #{{ object.pk }}</h1>
+
+    <dl class="dl-horizontal">
+        <dt>Recipient</dt>
+        <dd>{{ object.recipient }}
+        <dt>CRS</dt>
+        <dd>{{ object.crs }}</dd>
+    </dl>
+
+    <h2>Activities</h2>
+
+    <div class="panel-group">
+    {% for activity in object.activity_set.all %}
+    {% include 'crs/activity_panel.html' %}
+    {% endfor %}
+    </div>
+
+{% endblock content %}

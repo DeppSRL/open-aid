@@ -1,0 +1,22 @@
+{% extends 'commons/page_list.html' %}
+
+{% block list_title %}Project list{% endblock %}
+
+{% block list_header %}<th>id</th><th>CRS</th><th>Recipient</th><th>Activities</th>{% endblock %}
+
+{% block list_filters %}
+<ul>
+    <li><a href="?order_by=-activities">Mostra i progetti con più attività</a></li>
+</ul>
+{% endblock %}
+
+{% block list_body %}
+{% for object in object_list %}
+<tr>
+    <td><a href="{{ object.get_absolute_url }}">{{ object.pk }}</a></td>
+    <td>{{ object.crs }}</td>
+    <td>{{ object.recipient }}</td>
+    <td>{{ object.activities_count }}</td>
+</tr>
+{% endfor %}
+{% endblock %}

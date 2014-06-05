@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <h1>{% block list_title %}List view{% endblock %}</h1>
+
+    {% block list_filters %}{% endblock %}
+
+    <table class="table table-bordered">
+
+        <thead>
+        <tr>
+            {% block list_header %}<th>id</th>{% endblock %}
+        </tr>
+        </thead>
+
+        <tbody>{% block list_body %}
+        {% for object in object_list %}
+        <tr>
+            <td>{{ object.pk }}</td>
+        </tr>
+        {% endfor %}
+        {% endblock %}</tbody>
+
+    </table>
+
+    {% if is_paginated %}
+    <ul class="pager">
+        {% if page_obj.has_previous %}
+        <li class="previous"><a href="?page={{ page_obj.previous_page_number }}">&larr; Previous</a></li>
+        {% endif %}
+
+        <li>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.</li>
+
+        {% if page_obj.has_next %}
+        <li class="next"><a href="?page={{ page_obj.next_page_number }}">Next &rarr;</a></li>
+        {% endif %}
+    </ul>
+    {% endif %}
+
+{% endblock content %}

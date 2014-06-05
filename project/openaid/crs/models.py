@@ -1,3 +1,4 @@
+from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils.translation import ugettext as _
 from model_utils import Choices
@@ -117,6 +118,9 @@ class Project(models.Model):
     def __unicode__(self):
         return "%s:%s" % (self.crs, self.recipient_id)
 
+    def get_absolute_url(self):
+        return reverse('crs:project-detail', args=[str(self.id)])
+
     class Meta:
         unique_together = ('crs', 'recipient')
 
@@ -229,6 +233,9 @@ class Activity(models.Model):
 
     def __unicode__(self):
         return "{year}:{project}:{number}:{title}".format(year=self.year, project=self.project, number=self.number, title=self.title)
+
+    def get_absolute_url(self):
+        return reverse('crs:activity-detail', args=[str(self.id)])
 
 
 PROJECT_CODE_LIST_MODELS = [Recipient, IncomeGroup, Region]
