@@ -1,6 +1,26 @@
-from django.views.generic import DetailView, ListView
-from django.db.models import Count
+from django.views.generic import DetailView, ListView, TemplateView
+from django.db.models import Count, Max, Min, Sum
 from . import models
+
+class Home(TemplateView):
+    template_name = 'crs/home.html'
+
+    def get_context_data(self, **kwargs):
+
+        context = {
+            'projects_count': models.Project.objects.count(),
+            'activities_count': models.Activity.objects.count(),
+            'recipients_count': models.Project.objects.values('recipient').distinct().count(),
+            'start_year': models.Activity.objects.aggregate(Min('year'))['year__min'],
+            'end_year': models.Activity.objects.aggregate(Max('year'))['year__max'],
+            'usd_commitment_sum': models.Activity.objects.aggregate(Sum('usd_commitment'))['usd_commitment__sum'],
+            'usd_disbursement_sum': models.Activity.objects.aggregate(Sum('usd_disbursement'))['usd_disbursement__sum'],
+        }
+
+        kwargs.update(context)
+
+        return super(Home, self).get_context_data(**kwargs)
+
 
 class ProjectDetail(DetailView):
     model = models.Project

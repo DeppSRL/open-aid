@@ -12,11 +12,11 @@ admin.autodiscover()
 
 
 urls = (
-    url(r'^$', TemplateView.as_view(template_name='base.html')),
+    # url(r'^$', TemplateView.as_view(template_name='base.html')),
 
     # Examples:
     # url(r'^$', 'openaid.views.home', name='home'),
-    url(r'^crs/', include('openaid.crs.urls', namespace='crs')),
+    url(r'^', include('openaid.crs.urls', namespace='crs')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),

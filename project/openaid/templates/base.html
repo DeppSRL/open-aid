@@ -38,7 +38,7 @@
             <li><a href="{% url 'crs:activity-list' %}">Activities</a></li>
 
             {% if request.user.is_authenticated %}
-            <li><a href="/logout">{% trans "Logout" %}</a></li>
+            <li><a href="/admin/logout/">{% trans "Logout" %}</a></li>
             {% else %}
             <li><a href="/admin/">{% trans "Log In" %}</a></li>
             {% endif %}
