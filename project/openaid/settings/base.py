@@ -204,10 +204,14 @@ DJANGO_APPS = (
     # Admin panel and documentation:
     'django.contrib.admin',
     # 'django.contrib.admindocs',
+
+    # Django helper
+    'django_extensions',
 )
 
 # Apps specific for this project go here.
 LOCAL_APPS = (
+    'openaid.crs',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
