@@ -1,1 +1,4 @@
-/* Project specific Javascript goes here. */
+$(document).ready(function(){
+    // activate popover
+    $('a[rel=info-popover]').popover();
+});

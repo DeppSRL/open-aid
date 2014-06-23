@@ -15,8 +15,9 @@ django-braces
 # Models
 South
 django-model-utils
-django-mptt
 
 # OpenAID specific
 csvkit
 sdmx
+iconfonts
+-e git://github.com/openpolis/django-idioticon.git#egg=django-idioticon

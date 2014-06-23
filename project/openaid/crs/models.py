@@ -2,13 +2,8 @@ from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils.translation import ugettext as _
 from model_utils import Choices
-from mptt.fields import TreeForeignKey
-from mptt.models import MPTTModel
 from openaid.crs import code_lists
 from openaid.crs import fields
-
-
-__author__ = 'joke2k'
 
 
 class CodeListModel(models.Model):
@@ -33,14 +28,36 @@ class CodeListModel(models.Model):
         abstract = True
 
 
-class Recipient(MPTTModel, CodeListModel):
+class HierarchicalCodeListModel(CodeListModel):
+
+    parent = models.ForeignKey('self', related_name='children', blank=True, null=True)
+
+    def is_root(self):
+        return bool(self.parent is None)
+
+    def get_ancestors(self, include_self=False):
+        parents = []
+        if self.is_root():
+            return parents
+        if include_self:
+            parents.append(self)
+        parents.append(self.parent)
+        for node in self.parent.get_ancestors():
+            parents.append(node)
+        return parents
+
+    class Meta:
+        abstract = True
+
+
+class Recipient(HierarchicalCodeListModel):
 
     code_list = 'recipient'
     # code_list_sdmx = 'CL_CRS1_DAC_RECIPIENT'
 
-    parent = TreeForeignKey('self', null=True, blank=True, related_name='children')
     income_group = models.ForeignKey('crs.IncomeGroup', null=True, blank=True)
     region = models.ForeignKey('crs.Region', null=True, blank=True)
+
 
 class IncomeGroup(CodeListModel):
     """
@@ -65,44 +82,36 @@ class Flow(CodeListModel):
     code_list = 'flow'
     code_list_sdmx = 'CL_CRS1_FLOW'
 
-class Channel(MPTTModel, CodeListModel):
+class Channel(HierarchicalCodeListModel):
     """
     Channels of delivery.
     """
     code_list = 'channel'
     code_list_sdmx = 'CL_CRS1_CHANNEL'
 
-    parent = TreeForeignKey('self', null=True, blank=True, related_name='children')
-
-class Sector(MPTTModel, CodeListModel):
+class Sector(HierarchicalCodeListModel):
     """
 
     """
     code_list = 'sector'
     code_list_sdmx = 'CL_CRS1_SECTOR'
 
-    parent = TreeForeignKey('self', null=True, blank=True, related_name='children')
-
-class FinanceType(MPTTModel, CodeListModel):
+class FinanceType(HierarchicalCodeListModel):
     """
     Used to distinguish financial instruments, e.g. grants or loans.
     """
     code_list = 'finance_type'
 
-    parent = TreeForeignKey('self', null=True, blank=True, related_name='children')
-
     @classmethod
     def get_csv_fields_map(cls):
         return {'finance_t': 'code'}
 
-class AidType(MPTTModel, CodeListModel):
+class AidType(HierarchicalCodeListModel):
     """
     Used to distinguish aid modalities.
     """
     code_list = 'aid_type'
     code_list_sdmx = 'CL_CRS1_AIDTYPE'
-
-    parent = TreeForeignKey('self', null=True, blank=True, related_name='children')
 
     @classmethod
     def get_csv_fields_map(cls):
@@ -163,7 +172,7 @@ class Activity(models.Model):
     purpose = models.ForeignKey(Sector, null=True, blank=True)
     flow = models.ForeignKey(Flow, null=True, blank=True)
 
-    report_type = models.IntegerField('Nature of Submission', choices=Choices(
+    report_type = models.IntegerField(_('Nature of Submission'), choices=Choices(
         # prese da resources/crs/Codelist04042014.osd:Nature of submission
         (0, _('Unkwnon')),
         (1, _('New activity reported')),
@@ -180,7 +189,7 @@ class Activity(models.Model):
     description = models.TextField(blank=True)
     long_description = models.TextField(blank=True)
     geography = models.CharField(max_length=100, blank=True)
-    outflow = models.IntegerField('Bi/Multilateral', choices=Choices(
+    outflow = models.IntegerField(_('Bi/Multilateral'), choices=Choices(
         # prese da resources/crs/Codelist04042014.osd:Bi_Multi
         (0, _('Unknown')),
         (1, _('Bilateral')),

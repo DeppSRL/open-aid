@@ -35,3 +35,7 @@ class DesertificationMarkerField(MarkerField):
     choices = MarkerField.choices + Choices(
         (3, 'principal_objective', _('Principal objectives and in support of an action programme')),
     )
+
+from south.modelsinspector import add_introspection_rules
+add_introspection_rules([], ["^openaid\.crs\.fields\.MarkerField"])
+add_introspection_rules([], ["^openaid\.crs\.fields\.DesertificationMarkerField"])

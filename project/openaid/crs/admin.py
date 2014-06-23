@@ -1,5 +1,4 @@
 from django.contrib import admin
-from mptt.admin import MPTTModelAdmin
 from openaid.crs import models
 
 admin.site.register(models.Project)
@@ -7,7 +6,7 @@ admin.site.register(models.Activity)
 admin.site.register(models.Markers)
 admin.site.register(models.ChannelReported)
 
-class HierarchicalCodeListAdmin(MPTTModelAdmin):
+class HierarchicalCodeListAdmin(admin.ModelAdmin):
     raw_id_fields = ('parent',)
     search_fields = ('name',)
     list_display = ('code', 'name',)

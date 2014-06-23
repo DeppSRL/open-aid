@@ -4,7 +4,7 @@
 from os.path import abspath, basename, dirname, join, normpath
 from sys import path
 from environ import Env
-
+gettext = _ = lambda s: s
 
 ########## PATH CONFIGURATION
 PACKAGE_PATH = dirname(dirname(abspath(__file__)))
@@ -77,7 +77,7 @@ DATABASES = {
 TIME_ZONE = 'Europe/Rome'
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#language-code
-LANGUAGE_CODE = 'it-IT'
+LANGUAGE_CODE = 'en-US'
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#site-id
 SITE_ID = 1
@@ -155,6 +155,8 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.tz',
     'django.contrib.messages.context_processors.messages',
     'django.core.context_processors.request',
+    # openaid contexts
+    'openaid.contexts.project_context',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#template-loaders
@@ -176,6 +178,7 @@ MIDDLEWARE_CLASSES = (
     # Default Django middleware.
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -205,13 +208,18 @@ DJANGO_APPS = (
     # Useful template tags:
     # 'django.contrib.humanize',
 
+    # If you want to use the admin integration, modeltranslation must be put before django.contrib.admin.
+    # see: https://django-modeltranslation.readthedocs.org/en/latest/installation.html#installed-apps
+    'modeltranslation', # model field translations
+
     # Admin panel and documentation:
     'django.contrib.admin',
     # 'django.contrib.admindocs',
 
     # Django helper
-    'django_extensions',
-    'mptt',
+    'django_extensions', # django helpers
+    'iconfonts.django', # icon renderer
+    'idioticon', # term glossary
 )
 
 # Apps specific for this project go here.
@@ -291,3 +299,13 @@ INSTALLED_APPS += (
 # Don't need to use South when setting up a test database.
 SOUTH_TESTS_MIGRATE = False
 ########## END SOUTH CONFIGURATION
+
+
+########## DJANGO-MODELTRANSLATION CONFIGURATION
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#languages
+LANGUAGES = (
+    ('en', _('English')),
+    ('it', _('Italian')),
+)
+########## END DJANGO-MODELTRANSLATION CONFIGURATION
+
