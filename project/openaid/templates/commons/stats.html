@@ -1,0 +1,130 @@
+{% load staticfiles %}
+{% load humanize %}
+{% load crs %}
+
+<div class="row">
+<div class="container">
+
+<div class="col-md-12">
+
+    <div class="panel panel-default">
+        <div class="panel-heading clearfix">
+            <div class="col-md-4 bg-red no-margin">
+                <h4>{{ projects_count|intcomma }}</h4>
+                <p>I PROGETTI DELLA COOPERAZIONE ITALIANA NEL MONDO</p>
+            </div>
+            <div class="col-md-4 bg-red no-margin">
+                <h4>€ {{ commitments_sum|currency }}</h4>
+                <p>I FINANZIAMENTI COMPLESSIVI STANZIATI</p>
+            </div>
+            <div class="col-md-4 bg-red no-margin">
+                <h4>€ {{ disbursements_sum|currency }}</h4>
+                <p>I FINANZIAMENTI COMPLESSIVI EROGATI</p>
+            </div>
+        </div><!-- .panel-heading -->
+
+        <div class="map">
+            <img src="{% static 'img/contents/mappa-home.png' %}" class="img-responsive">
+        </div>
+
+
+        <div class="years-navigation">
+            <nav class="navbar navbar-default" role="navigation">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#years">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="years">
+                    <ul class="nav navbar-nav">
+                        {% for year in years %}
+                        <li class="{% if forloop.first %}first{% elif forloop.last %}last{% endif %}"><a href="#"><span class="point hidden-xs hidden-sm"> </span> {{ year }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </nav>
+        </div><!-- .years-navigation -->
+
+        <div class="row panel-pad">
+
+            <div class="col-md-12"><h2>GLI AIUTI IN NUMERI</h2></div>
+
+            <div class="col-md-4">
+                <h3>PER COSA VENGONO UTILIZZATI?</h3>
+                <p class="twelve">I progetti per settore ... Lorem ipsum dolor sit amet è un testo segnaposto utilizzato nel settore della stampa e della tipografia...
+                    <a href="#" class="read-more pull-right">LEGGI TUTTO <span class="fa fa-caret-down"> </span></a>
+                </p>
+
+                <div id="highcharts-bubble"></div>
+
+                <div class="table-responsive">
+                    <table class="table table-condensed table-hover">
+                        <tbody>
+                        {% for sector, tot in sector_stats %}
+                        <tr class="dotted">
+                            <td class="col-sm-8"><a href="{{ sector.get_absolute_url }}">{{ sector.name }}</a></td>
+                            <td class="col-sm-4">{{ tot|currency }}</td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div><!-- .row -->
+
+            <div class="col-md-4">
+                <h3>CHI FINANZIA?</h3>
+                <p class="twelve">I progetti per settore ... Lorem ipsum dolor sit amet è un testo segnaposto utilizzato nel settore della stampa e della tipografia...
+                    <a href="#" class="read-more pull-right">LEGGI TUTTO <span class="fa fa-caret-down"> </span></a></p>
+
+                <div id="highcharts-bubble2"></div>
+
+                <div class="table-responsive">
+                    <table class="table table-condensed table-hover">
+                        <tbody>
+                        {% for channel, tot in channel_stats %}
+                        <tr class="dotted">
+                            <td class="col-sm-8"><a href="{{ channel.get_absolute_url }}">{{ channel.name }}</a></td>
+                            <td class="col-sm-4">{{ tot|currency }}</td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <h3>CON QUALI STRUMENTI?</h3>
+                <p class="twelve">I progetti per settore ... Lorem ipsum dolor sit amet è un testo segnaposto utilizzato nel settore della stampa e della tipografia...
+                    <a href="#" class="read-more pull-right">LEGGI TUTTO <span class="fa fa-caret-down"> </span></a></p>
+
+                <div id="highcharts-donut" ></div>
+
+                <div class="table-responsive">
+                    <table class="table table-condensed table-hover">
+                        <tbody>
+                        {% for aid, tot in aid_stats %}
+                        <tr class="dotted">
+                            <td class="col-sm-8"><a href="{{ aid.get_absolute_url }}">{{ aid.name }}</a></td>
+                            <td class="col-sm-4">{{ tot|currency }}</td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+
+        </div><!-- .row -->
+
+    </div><!-- .panel -->
+
+</div>
+
+</div><!-- .container -->
+</div><!-- .row -->

@@ -8,7 +8,7 @@ from openaid.crs import mapping
 from openaid.crs.management import loaders
 import sdmx
 
-SAMPLE_FILE = os.path.join(settings.RESOURCES_DIR, 'crs', 'crs.sample.csv')
+SAMPLE_FILE = os.path.join(settings.RESOURCES_PATH, 'crs', 'crs.sample.csv')
 SAMPLE_FILE_ENCODING = 'utf-8'
 def file_len(filename):
     i = 0

@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load idioticon %}
+{% load icons %}
+
+
+{% block content %}
+
+    <div class="row">
+
+        <div class="col-sm-4">
+            <h4>Projects {% term_tag 'prova' %}</h4>
+            <p>{{ projects_count }}</p>
+        </div>
+
+        <div class="col-sm-4">
+            <h4>Activities</h4>
+            <p>{{ activities_count }}</p>
+        </div>
+
+        <div class="col-sm-4">
+            <h4>Recipients</h4>
+            <p>{{ recipients_count }}</p>
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-sm-4">
+            <h4>Years</h4>
+            <p>{{ start_year }} - {{ end_year }}</p>
+        </div>
+
+        <div class="col-sm-4">
+            <h4>Total commitment</h4>
+            <p>{{ usd_commitment_sum }}</p>
+        </div>
+
+        <div class="col-sm-4">
+            <h4>Total disbursement</h4>
+            <p>{{ usd_disbursement_sum }}</p>
+        </div>
+
+    </div>
+
+{% endblock %}

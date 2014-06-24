@@ -1,7 +1,11 @@
+from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.db import models
+from django.db.models import Sum
 from django.utils.translation import ugettext as _
 from model_utils import Choices
+from mptt.fields import TreeForeignKey
+from mptt.models import MPTTModel
 from openaid.crs import code_lists
 from openaid.crs import fields
 
@@ -18,6 +22,9 @@ class CodeListModel(models.Model):
             '%sname' % cls.code_list: 'name',
         }
 
+    def get_absolute_url(self):
+        return reverse('crs:%s-detail' % self.code_list, kwargs={'code': self.code})
+
     def __unicode__(self):
         return self.name
 
@@ -26,25 +33,36 @@ class CodeListModel(models.Model):
 
     class Meta:
         abstract = True
+        ordering = ('code', 'name', )
 
 
-class HierarchicalCodeListModel(CodeListModel):
+class HierarchicalCodeListModel(MPTTModel, CodeListModel):
 
-    parent = models.ForeignKey('self', related_name='children', blank=True, null=True)
+    parent = TreeForeignKey('self', null=True, blank=True, related_name='children')
 
     def is_root(self):
         return bool(self.parent is None)
 
-    def get_ancestors(self, include_self=False):
-        parents = []
-        if self.is_root():
-            return parents
-        if include_self:
-            parents.append(self)
-        parents.append(self.parent)
-        for node in self.parent.get_ancestors():
-            parents.append(node)
-        return parents
+    def get_descendants_pks(self, include_self=False):
+        return [d.pk for d in self.get_descendants(include_self)]
+
+    def get_total(self, field, **filters):
+
+        assert field in ('commitment', 'disbursement')
+
+        descendants_pks = self.get_descendants_pks(True)
+        filters.update({
+            '%s__in' % getattr(self, 'code_list_activity_field', self.code_list): descendants_pks,
+        })
+        summer = Sum('usd_%s' % field)
+        total = Activity.objects.filter(**filters).aggregate(tot=summer)['tot'] or 0.0
+        return total
+
+    def get_total_commitment(self, **filters):
+        return self.get_total('commitment', **filters)
+
+    def get_total_disbursement(self, **filters):
+        return self.get_total('disbursement', **filters)
 
     class Meta:
         abstract = True
@@ -95,6 +113,7 @@ class Sector(HierarchicalCodeListModel):
     """
     code_list = 'sector'
     code_list_sdmx = 'CL_CRS1_SECTOR'
+    code_list_activity_field = 'purpose'
 
 class FinanceType(HierarchicalCodeListModel):
     """

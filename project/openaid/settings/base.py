@@ -38,6 +38,7 @@ EARLYBIRD_ENABLE = env.bool('EARLYBIRD_ENABLE', True)
 
 OPENAID_CRS_DONOR = 6 # Italy
 OPENAID_DSD_FILE = join(RESOURCES_PATH, 'crs', 'dsd.xml')
+OPENAID_MULTIPLIER = 1000000.0
 ########## END OPENAID CONFIGURATION
 
 
@@ -204,9 +205,7 @@ DJANGO_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
-    # Useful template tags:
-    # 'django.contrib.humanize',
+    'django.contrib.humanize',
 
     # If you want to use the admin integration, modeltranslation must be put before django.contrib.admin.
     # see: https://django-modeltranslation.readthedocs.org/en/latest/installation.html#installed-apps
@@ -220,6 +219,7 @@ DJANGO_APPS = (
     'django_extensions', # django helpers
     'iconfonts.django', # icon renderer
     'idioticon', # term glossary
+    'mptt', # tree structure for models
 )
 
 # Apps specific for this project go here.

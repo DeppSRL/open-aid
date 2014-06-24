@@ -1,0 +1,30 @@
+{% load staticfiles %}
+<header id="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="navbar navbar-default navbar-main" role="navigation">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="sr-only">Mostra/nascondi navigazione</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'img/layout/openaid.png' %}" class="img-responsive"></a>
+                    </div>
+
+                    <div class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="#"><span class="icon sprite-confronti"></span> la cooperazione italiana</a></li>
+                            <li><a href="#"><span class="icon sprite-classifiche"></span> notizie</a></li>
+                            <li><a href="#"><span class="icon sprite-blog"></span> login</a></li>
+                        </ul>
+                        <a href="#" class="language">english</a>
+                    </div><!-- /.nav-collapse -->
+                </div><!-- /.navbar -->
+            </div>
+        </div><!-- .row -->
+    </div><!-- .container -->
+</header><!-- #header -->
+
