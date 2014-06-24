@@ -16,6 +16,7 @@ django-braces
 South
 django-model-utils
 django-mptt
+django-modeltranslation
 
 # OpenAID specific
 csvkit
