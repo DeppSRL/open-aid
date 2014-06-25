@@ -1,4 +1,5 @@
 # coding=utf-8
+from optparse import make_option
 import time
 from django.core.management.base import LabelCommand
 from django.db import transaction
@@ -12,6 +13,12 @@ class DryRunException(Exception):
 class Command(LabelCommand):
     args = '<crs_file crs_file ...>'
     help = 'Speficica i CRS file da lavorare'
+
+    option_list = LabelCommand.option_list + (
+        make_option('-n', '--dry-run',
+            action='store_true', dest='dry_run', default=False,
+            help="Do everything except modify the database."),
+    )
 
     def handle_label(self, crs_filename, **options):
         """

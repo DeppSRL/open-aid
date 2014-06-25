@@ -277,3 +277,35 @@ class ActivityRowLoader(object):
                     Errors: %s
                     ROW: %s
                     """ % (activity, code_list, mapping.convert_names(self.row, code_list.get_csv_fields_map()), code_list_form.errors.as_text(), self.row))
+
+class ActivityTranslator(object):
+
+    def __init__(self, csv_file, field, **options):
+        self.csv_file = csv_file
+        self.field = field
+        self.options = options
+
+    def translate(self):
+        rows = csvkit.DictReader(self.csv_file, **self.options)
+        languages = [lang[0].split('-')[0] for lang in settings.LANGUAGES]
+        for i, row in enumerate(rows):
+
+            field_value = row[self.field]
+            if field_value == '':
+                continue
+
+            translations ={}
+            for lang in languages:
+
+                translated_field = '%s_%s' % (self.field, lang)
+
+                if translated_field not in row.keys():
+                    continue
+
+                translations[translated_field] = row[translated_field] or field_value
+
+            updates = models.Activity.objects.filter(**{
+                '%s__iexact' % self.field: field_value
+            }).update(**translations)
+
+            yield field_value, updates

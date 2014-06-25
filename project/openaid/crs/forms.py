@@ -3,6 +3,10 @@ from openaid.crs.models import Project, Markers, Activity
 
 __author__ = 'joke2k'
 
+def text_cleaner(text):
+    # http://stackoverflow.com/questions/2077897/substitute-multiple-whitespace-with-single-whitespace-in-python
+    return u' '.join(text.split())
+
 
 class ProjectForm(forms.ModelForm):
 
@@ -10,6 +14,14 @@ class ProjectForm(forms.ModelForm):
         model = Project
 
 class ActivityForm(forms.ModelForm):
+
+    def clean_title(self):
+        title = self.cleaned_data.get('title')
+        return text_cleaner(title)
+
+    def clean_description(self):
+        description = self.cleaned_data.get('description')
+        return text_cleaner(description)
 
     class Meta:
         model = Activity
