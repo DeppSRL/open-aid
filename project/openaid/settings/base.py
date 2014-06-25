@@ -39,6 +39,21 @@ EARLYBIRD_ENABLE = env.bool('EARLYBIRD_ENABLE', True)
 OPENAID_CRS_DONOR = 6 # Italy
 OPENAID_DSD_FILE = join(RESOURCES_PATH, 'crs', 'dsd.xml')
 OPENAID_MULTIPLIER = 1000000.0
+OPENAID_CURRENCY = 918
+OPENAID_CURRENCY_CONVERSIONS = {
+    # USD
+    302: {
+        2004: 0.8049,
+        2005: 0.8046,
+        2006: 0.7967,
+        2007: 0.7305,
+        2008: 0.6933,
+        2009: 0.7181,
+        2010: 0.755,
+        2011: 0.7192,
+        2012: 0.778,
+    }
+}
 ########## END OPENAID CONFIGURATION
 
 

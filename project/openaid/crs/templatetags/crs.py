@@ -11,7 +11,6 @@ register = template.Library()
 @register.filter(is_safe=True)
 def currency(amount):
     return intcomma(floatformat(amount * settings.OPENAID_MULTIPLIER, 0))
-    # return intcomma(floatformat(amount * settings.OPENAID_MULTIPLIER, 0))
 
 
 @register.inclusion_tag('commons/stats.html', takes_context=True)

@@ -3,6 +3,7 @@ from optparse import make_option
 import time
 from django.core.management.base import LabelCommand
 from django.db import transaction
+from django.core.management import call_command
 from openaid.crs.management import loaders
 
 
@@ -18,6 +19,8 @@ class Command(LabelCommand):
         make_option('-n', '--dry-run',
             action='store_true', dest='dry_run', default=False,
             help="Do everything except modify the database."),
+        make_option('-c', '--fix-currency',
+                    action='store_true', dest='fix_currency', default=True),
     )
 
     def handle_label(self, crs_filename, **options):
@@ -32,6 +35,10 @@ class Command(LabelCommand):
                     for i, activity in enumerate(loaders.CRSFileLoader(crs_file, encoding='utf-8').load(), start=1):
                         self.stdout.write("\rImported project: %d" % (i), ending='')
                         self.stdout.flush()
+
+                    if options.get('fix_currency'):
+                        call_command('crs_fix_currencies', dry_run=options.get('dry_run'))
+
                     if options.get('dry_run', False):
                         raise DryRunException()
 
