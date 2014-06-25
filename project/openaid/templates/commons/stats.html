@@ -65,12 +65,12 @@
                 <div class="table-responsive">
                     <table class="table table-condensed table-hover">
                         <tbody>
-                        {% for sector, tot in sector_stats %}
+                        {% for sector, tot in sector_stats %}{% if tot > 0.0 %}
                         <tr class="dotted">
                             <td class="col-sm-8"><a href="{{ sector.get_absolute_url }}">{{ sector.name }}</a></td>
                             <td class="col-sm-4">{{ tot|currency }}</td>
                         </tr>
-                        {% endfor %}
+                        {% endif %}{% empty %}<tr><td>-- empty --</td></tr>{% endfor %}
                         </tbody>
                     </table>
                 </div>
@@ -86,12 +86,12 @@
                 <div class="table-responsive">
                     <table class="table table-condensed table-hover">
                         <tbody>
-                        {% for channel, tot in channel_stats %}
+                        {% for channel, tot in channel_stats %}{% if tot > 0.0 %}
                         <tr class="dotted">
                             <td class="col-sm-8"><a href="{{ channel.get_absolute_url }}">{{ channel.name }}</a></td>
                             <td class="col-sm-4">{{ tot|currency }}</td>
                         </tr>
-                        {% endfor %}
+                        {% endif %}{% empty %}<tr><td>-- empty --</td></tr>{% endfor %}
                         </tbody>
 
                     </table>
@@ -108,12 +108,12 @@
                 <div class="table-responsive">
                     <table class="table table-condensed table-hover">
                         <tbody>
-                        {% for aid, tot in aid_stats %}
+                        {% for aid, tot in aid_stats %}{% if tot > 0.0 %}
                         <tr class="dotted">
                             <td class="col-sm-8"><a href="{{ aid.get_absolute_url }}">{{ aid.name }}</a></td>
                             <td class="col-sm-4">{{ tot|currency }}</td>
                         </tr>
-                        {% endfor %}
+                        {% endif %}{% empty %}<tr><td>-- empty --</td></tr>{% endfor %}
                         </tbody>
 
                     </table>
