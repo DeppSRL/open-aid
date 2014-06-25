@@ -260,10 +260,13 @@ class Activity(models.Model):
     usd_future_DS_interest = models.FloatField(blank=True, null=True)
 
     def __unicode__(self):
-        return "{year}:{project}:{number}:{title}".format(year=self.year, project=self.project, number=self.number, title=self.title)
+        return u"{year}:{project}:{number}:{title}".format(year=self.year, project=self.project, number=self.number, title=self.title)
 
     def get_absolute_url(self):
         return reverse('crs:activity-detail', args=[str(self.id)])
+
+    class Meta:
+        ordering = ('-year', 'number', 'title')
 
 
 PROJECT_CODE_LIST_MODELS = [Recipient, IncomeGroup, Region]

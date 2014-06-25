@@ -9,6 +9,7 @@ from openaid.crs import code_lists
 from openaid.crs import forms
 from openaid.crs import mapping
 from openaid.crs import models
+from openaid.crs.forms import text_cleaner
 
 __author__ = 'joke2k'
 
@@ -290,7 +291,7 @@ class ActivityTranslator(object):
         languages = [lang[0].split('-')[0] for lang in settings.LANGUAGES]
         for i, row in enumerate(rows):
 
-            field_value = row[self.field]
+            field_value = text_cleaner(row[self.field])
             if field_value == '':
                 continue
 
@@ -302,7 +303,7 @@ class ActivityTranslator(object):
                 if translated_field not in row.keys():
                     continue
 
-                translations[translated_field] = row[translated_field] or field_value
+                translations[translated_field] = text_cleaner(row[translated_field] or field_value)
 
             updates = models.Activity.objects.filter(**{
                 '%s__iexact' % self.field: field_value
