@@ -15,6 +15,7 @@ admin.autodiscover()
 urlpatterns = [
     url(r'^$', views.Home.as_view()),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^i18n/', include('django.conf.urls.i18n')),
 ]
 
 openaid_urls = (
