@@ -21,5 +21,5 @@ django-modeltranslation
 # OpenAID specific
 csvkit
 sdmx
-iconfonts
+-e git://github.com/joke2k/iconfonts.git#egg=iconfonts
 -e git://github.com/openpolis/django-idioticon.git#egg=django-idioticon
