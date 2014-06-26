@@ -18,8 +18,13 @@ django-model-utils
 django-mptt
 django-modeltranslation
 
+# Searching
+django-haystack
+requests
+pyelasticsearch
+
 # OpenAID specific
 csvkit
 sdmx
--e git://github.com/joke2k/iconfonts.git#egg=iconfonts
+IconFonts
 -e git://github.com/openpolis/django-idioticon.git#egg=django-idioticon

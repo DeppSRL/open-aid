@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load i18n %}
 <header id="header">
     <div class="container">
         <div class="row">
@@ -20,7 +21,17 @@
                             <li><a href="#"><span class="icon sprite-classifiche"></span> notizie</a></li>
                             <li><a href="#"><span class="icon sprite-blog"></span> login</a></li>
                         </ul>
-                        <a href="#" class="language">english</a>
+
+                        <div class="language">
+                            {% get_current_language as LANGUAGE_CODE %}
+                            {% get_language_info_list for LANGUAGES as languages %}
+                            {% with full_path=request.get_full_path lang_prefix='/'|add:LANGUAGE_CODE|add:'/' %}
+                            {% for language in languages %}{% if language.code != LANGUAGE_CODE %}
+                                <a href="{% if full_path|slice:':4' == lang_prefix %}/{{ language.code }}{{ full_path|slice:'3:' }}{% else %}{{ full_path }}{% endif %}">{{ language.name_local }}</a>
+                            {% endif %}{% endfor %}
+                            {% endwith %}
+
+                        </div>
                     </div><!-- /.nav-collapse -->
                 </div><!-- /.navbar -->
             </div>

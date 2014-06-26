@@ -4,20 +4,26 @@ from django.conf import settings
 from django.contrib.humanize.templatetags.humanize import intcomma
 from django.db.models import Min, Max, Sum
 from .. import models
+from ... import contexts
 from django.template.defaultfilters import floatformat
 
 register = template.Library()
 
 @register.filter(is_safe=True)
 def currency(amount):
-    return intcomma(floatformat(amount * settings.OPENAID_MULTIPLIER, 0))
-    # return intcomma(floatformat(amount * settings.OPENAID_MULTIPLIER, 0))
+    return intcomma(floatformat((amount or 0.0) * settings.OPENAID_MULTIPLIER, 0))
 
 
 @register.inclusion_tag('commons/stats.html', takes_context=True)
 def crs_stats(context, recipient=None, **kwargs):
 
-    filters = {}
+    start_year = contexts.START_YEAR
+    end_year = contexts.END_YEAR
+    selected_year = context.get(contexts.YEAR_FIELD, None) or end_year
+
+    filters = {
+        'year': selected_year,
+    }
 
     if recipient:
         filters['project__recipient'] = recipient
@@ -40,21 +46,20 @@ def crs_stats(context, recipient=None, **kwargs):
 
     statistify = lambda item: (item, item.get_total_commitment(**filters))
 
-    activites = models.Activity.objects.all()
-    if len(filters):
-        activites = activites.filter(**filters)
+    activities = models.Activity.objects.all()
+    if len(filters.keys()):
+        activities = activities.filter(**filters)
 
     ctx = {
-        'start_year': models.Activity.objects.aggregate(Min('year'))['year__min'],
-        'end_year': models.Activity.objects.aggregate(Max('year'))['year__max'],
+        'start_year': start_year,
+        'end_year': end_year,
         'sector_stats': map(statistify, sectors),
         'channel_stats': map(statistify, channels),
         'aid_stats': map(statistify, aids),
-        'projects_count': activites.distinct('project').count(),
-        'commitments_sum': activites.aggregate(Sum('usd_commitment'))['usd_commitment__sum'],
-        'disbursements_sum': activites.aggregate(Sum('usd_disbursement'))['usd_disbursement__sum'],
+        'projects_count': activities.distinct('project').count(),
+        'commitments_sum': activities.aggregate(Sum('usd_commitment'))['usd_commitment__sum'],
+        'disbursements_sum': activities.aggregate(Sum('usd_disbursement'))['usd_disbursement__sum'],
+        'years': range(start_year, end_year + 1),
     }
-
-    ctx['years'] = range(ctx['start_year'], ctx['end_year'] + 1)
 
     return ctx

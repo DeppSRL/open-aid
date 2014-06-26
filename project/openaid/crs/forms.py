@@ -1,4 +1,5 @@
 from django import forms
+from django.conf import settings
 from openaid.crs.models import Project, Markers, Activity
 
 __author__ = 'joke2k'

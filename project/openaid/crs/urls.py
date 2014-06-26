@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.conf.urls import patterns, url
+from django.conf.urls import patterns, url, include
 from . import views
 
 # load admin modules
@@ -20,5 +20,6 @@ urls = (
     url(r'^channels/(?P<code>\w+)/$', views.ChannelView.as_view(), name='channel-detail'),
     url(r'^aid_type/(?P<code>\w+)/$', views.AidTypeView.as_view(), name='aid_type-detail'),
 
+    url(r'^search/', include('haystack.urls')),
 )
 urlpatterns = patterns('', *urls)
