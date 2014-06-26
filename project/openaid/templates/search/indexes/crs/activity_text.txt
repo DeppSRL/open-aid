@@ -1,0 +1,13 @@
+{{ object.year }}
+{{ object.title }}
+{{ object.description }}
+{% if object.project %}
+{{ object.project.crs }}
+{{ object.project.recipient.region.name }} {{ object.project.recipient.name }}
+{% endif %}
+{{ object.purpose.name }}
+{{ object.agency.name }}
+{{ object.aid_type.name }}
+{{ object.finance_type.name }}
+{{ object.channel.name }}
+{{ object.flow.name }}
