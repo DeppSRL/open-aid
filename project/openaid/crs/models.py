@@ -76,6 +76,13 @@ class Recipient(HierarchicalCodeListModel):
     income_group = models.ForeignKey('crs.IncomeGroup', null=True, blank=True)
     region = models.ForeignKey('crs.Region', null=True, blank=True)
 
+    # isocodes and statistical data from wb
+    iso_code = models.CharField(max_length=3, blank=True, null=True)
+    iso_alpha2 = models.CharField(max_length=2, blank=True, null=True)
+    popolazione = models.BigIntegerField(null=True, blank=True)
+    crescita_popolazione = models.FloatField(null=True, blank=True)
+    pil = models.BigIntegerField(null=True, blank=True)
+    pil_procapite = models.IntegerField(null=True, blank=True)
 
 class IncomeGroup(CodeListModel):
     """
@@ -140,7 +147,7 @@ class AidType(HierarchicalCodeListModel):
 
 class Project(models.Model):
 
-    crs = models.CharField(max_length=100)
+    crs = models.CharField(max_length=128)
     recipient = models.ForeignKey(Recipient)
 
     def __unicode__(self):
@@ -172,7 +179,7 @@ class Markers(models.Model):
 
 class ChannelReported(models.Model):
 
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=128)
 
     def __unicode__(self):
         return self.name
@@ -203,11 +210,11 @@ class Activity(models.Model):
 
     # project report parameters
     year = models.IntegerField()
-    number = models.CharField(max_length=100, blank=True)
-    title = models.CharField(max_length=500, blank=True)
+    number = models.CharField(max_length=128, blank=True)
+    title = models.CharField(max_length=512, blank=True)
     description = models.TextField(blank=True)
     long_description = models.TextField(blank=True)
-    geography = models.CharField(max_length=100, blank=True)
+    geography = models.CharField(max_length=128, blank=True)
     outflow = models.IntegerField(_('Bi/Multilateral'), choices=Choices(
         # prese da resources/crs/Codelist04042014.osd:Bi_Multi
         (0, _('Unknown')),

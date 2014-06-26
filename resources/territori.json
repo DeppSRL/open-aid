@@ -1,0 +1,2558 @@
+[
+{
+    "pk": 55, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 583655912060, 
+        "popolazione": 73997128, 
+        "iso_alpha2": "TR", 
+        "label": "Turchia", 
+        "geojson_label": null, 
+        "label_en": "Turkey", 
+        "pil_procapite": 7888, 
+        "crescita_popolazione": 1.28, 
+        "reportage_url": null, 
+        "iso_code": "TUR", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10010"
+    }
+},
+{
+    "pk": 57, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": null, 
+        "popolazione": null, 
+        "iso_alpha2": "XK", 
+        "label": "Kosovo", 
+        "geojson_label": "", 
+        "label_en": "Kosovo", 
+        "pil_procapite": null, 
+        "crescita_popolazione": null, 
+        "reportage_url": null, 
+        "iso_code": "UNK", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10010"
+    }
+},
+{
+    "pk": 62, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 41738568734, 
+        "popolazione": 4267000, 
+        "iso_alpha2": "HR", 
+        "label": "Croazia", 
+        "geojson_label": null, 
+        "label_en": "Croatia", 
+        "pil_procapite": 9782, 
+        "crescita_popolazione": -0.32, 
+        "reportage_url": null, 
+        "iso_code": "HRV", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10010"
+    }
+},
+{
+    "pk": 63, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 27723067440, 
+        "popolazione": 7223887, 
+        "iso_alpha2": "RS", 
+        "label": "Serbia", 
+        "geojson_label": null, 
+        "label_en": "Serbia", 
+        "pil_procapite": 3838, 
+        "crescita_popolazione": -0.48, 
+        "reportage_url": null, 
+        "iso_code": "SRB", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10010"
+    }
+},
+{
+    "pk": 64, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 12606687200, 
+        "popolazione": 3833916, 
+        "iso_alpha2": "BA", 
+        "label": "Bosnia-Erzegovina", 
+        "geojson_label": "", 
+        "label_en": "Bosnia-Herzegovina", 
+        "pil_procapite": 3288, 
+        "crescita_popolazione": -0.14, 
+        "reportage_url": null, 
+        "iso_code": "BIH", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10010"
+    }
+},
+{
+    "pk": 65, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 3129158754, 
+        "popolazione": 621081, 
+        "iso_alpha2": "ME", 
+        "label": "Montenegro", 
+        "geojson_label": null, 
+        "label_en": "Montenegro", 
+        "pil_procapite": 5038, 
+        "crescita_popolazione": 0.07, 
+        "reportage_url": null, 
+        "iso_code": "MNE", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10010"
+    }
+},
+{
+    "pk": 66, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 7112041329, 
+        "popolazione": 2105575, 
+        "iso_alpha2": "MK", 
+        "label": "Macedonia, ex Repubblica iugoslava", 
+        "geojson_label": "", 
+        "label_en": "Macedonia, FYR", 
+        "pil_procapite": 3378, 
+        "crescita_popolazione": 0.08, 
+        "reportage_url": null, 
+        "iso_code": "MKD", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10010"
+    }
+},
+{
+    "pk": 71, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 9701510373, 
+        "popolazione": 3162083, 
+        "iso_alpha2": "AL", 
+        "label": "Albania", 
+        "geojson_label": null, 
+        "label_en": "Albania", 
+        "pil_procapite": 3068, 
+        "crescita_popolazione": 0.26, 
+        "reportage_url": null, 
+        "iso_code": "ALB", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10010"
+    }
+},
+{
+    "pk": 85, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 130381394555, 
+        "popolazione": 45593300, 
+        "iso_alpha2": "UA", 
+        "label": "Ucraina", 
+        "geojson_label": null, 
+        "label_en": "Ukraine", 
+        "pil_procapite": 2860, 
+        "crescita_popolazione": -0.25, 
+        "reportage_url": null, 
+        "iso_code": "UKR", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10010"
+    }
+},
+{
+    "pk": 86, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 46785968268, 
+        "popolazione": 9464000, 
+        "iso_alpha2": "BY", 
+        "label": "Bielorussia", 
+        "geojson_label": null, 
+        "label_en": "Belarus", 
+        "pil_procapite": 4944, 
+        "crescita_popolazione": -0.1, 
+        "reportage_url": null, 
+        "iso_code": "BLR", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10010"
+    }
+},
+{
+    "pk": 93, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 5364417026, 
+        "popolazione": 3559541, 
+        "iso_alpha2": "MD", 
+        "label": "Moldova", 
+        "geojson_label": "", 
+        "label_en": "Moldova", 
+        "pil_procapite": 1507, 
+        "crescita_popolazione": -0.04, 
+        "reportage_url": null, 
+        "iso_code": "MDA", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10010"
+    }
+},
+{
+    "pk": 130, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 153782799294, 
+        "popolazione": 38481705, 
+        "iso_alpha2": "DZ", 
+        "label": "Algeria", 
+        "geojson_label": null, 
+        "label_en": "Algeria", 
+        "pil_procapite": 3996, 
+        "crescita_popolazione": 1.89, 
+        "reportage_url": null, 
+        "iso_code": "DZA", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10002"
+    }
+},
+{
+    "pk": 133, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": null, 
+        "popolazione": 6154623, 
+        "iso_alpha2": "LY", 
+        "label": "Libia", 
+        "geojson_label": null, 
+        "label_en": "Libya", 
+        "pil_procapite": null, 
+        "crescita_popolazione": 0.84, 
+        "reportage_url": null, 
+        "iso_code": "LBY", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10002"
+    }
+},
+{
+    "pk": 136, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 70978372876, 
+        "popolazione": 32521143, 
+        "iso_alpha2": "MA", 
+        "label": "Marocco", 
+        "geojson_label": null, 
+        "label_en": "Morocco", 
+        "pil_procapite": 2146, 
+        "crescita_popolazione": 1.43, 
+        "reportage_url": null, 
+        "iso_code": "MAR", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10002"
+    }
+},
+{
+    "pk": 139, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 33767081063, 
+        "popolazione": 10777500, 
+        "iso_alpha2": "TN", 
+        "label": "Tunisia", 
+        "geojson_label": null, 
+        "label_en": "Tunisia", 
+        "pil_procapite": 3133, 
+        "crescita_popolazione": 0.97, 
+        "reportage_url": null, 
+        "iso_code": "TUN", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10002"
+    }
+},
+{
+    "pk": 142, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 190262882642, 
+        "popolazione": 80721874, 
+        "iso_alpha2": "EG", 
+        "label": "Egitto", 
+        "geojson_label": null, 
+        "label_en": "Egypt", 
+        "pil_procapite": 2357, 
+        "crescita_popolazione": 1.66, 
+        "reportage_url": null, 
+        "iso_code": "EGY", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10002"
+    }
+},
+{
+    "pk": 218, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 284199222752, 
+        "popolazione": 51189307, 
+        "iso_alpha2": "ZA", 
+        "label": "Sud Africa", 
+        "geojson_label": "", 
+        "label_en": "South Africa", 
+        "pil_procapite": 5552, 
+        "crescita_popolazione": 1.18, 
+        "reportage_url": "http://www.lastampa.it/scienza/ambiente/speciali/fondi-cooperazione-sviluppo/reportage1", 
+        "iso_code": "ZAF", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10003"
+    }
+},
+{
+    "pk": 225, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 84448787688, 
+        "popolazione": 20820525, 
+        "iso_alpha2": "AO", 
+        "label": "Angola", 
+        "geojson_label": null, 
+        "label_en": "Angola", 
+        "pil_procapite": 4056, 
+        "crescita_popolazione": 3.12, 
+        "reportage_url": null, 
+        "iso_code": "AGO", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10003"
+    }
+},
+{
+    "pk": 228, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 1828010034, 
+        "popolazione": 9849569, 
+        "iso_alpha2": "BI", 
+        "label": "Burundi", 
+        "geojson_label": null, 
+        "label_en": "Burundi", 
+        "pil_procapite": 186, 
+        "crescita_popolazione": 3.19, 
+        "reportage_url": null, 
+        "iso_code": "BDI", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10003"
+    }
+},
+{
+    "pk": 229, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 18475653568, 
+        "popolazione": 21699631, 
+        "iso_alpha2": "CM", 
+        "label": "Camerun", 
+        "geojson_label": null, 
+        "label_en": "Cameroon", 
+        "pil_procapite": 851, 
+        "crescita_popolazione": 2.54, 
+        "reportage_url": null, 
+        "iso_code": "CMR", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10003"
+    }
+},
+{
+    "pk": 230, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 1403090676, 
+        "popolazione": 494401, 
+        "iso_alpha2": "CV", 
+        "label": "Capo Verde", 
+        "geojson_label": null, 
+        "label_en": "Cape Verde", 
+        "pil_procapite": 2838, 
+        "crescita_popolazione": 0.78, 
+        "reportage_url": null, 
+        "iso_code": "CPV", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10003"
+    }
+},
+{
+    "pk": 231, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 1581765088, 
+        "popolazione": 4525209, 
+        "iso_alpha2": "CF", 
+        "label": "Rep. Centro Africana", 
+        "geojson_label": "", 
+        "label_en": "Central African Rep.", 
+        "pil_procapite": 350, 
+        "crescita_popolazione": 1.99, 
+        "reportage_url": null, 
+        "iso_code": "CAF", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10003"
+    }
+},
+{
+    "pk": 232, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 8147828406, 
+        "popolazione": 12448175, 
+        "iso_alpha2": "TD", 
+        "label": "Ciad", 
+        "geojson_label": null, 
+        "label_en": "Chad", 
+        "pil_procapite": 655, 
+        "crescita_popolazione": 3.0, 
+        "reportage_url": null, 
+        "iso_code": "TCD", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10003"
+    }
+},
+{
+    "pk": 233, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 440668311, 
+        "popolazione": 717503, 
+        "iso_alpha2": "KM", 
+        "label": "Comore", 
+        "geojson_label": null, 
+        "label_en": "Comoros", 
+        "pil_procapite": 614, 
+        "crescita_popolazione": 2.44, 
+        "reportage_url": null, 
+        "iso_code": "COM", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10003"
+    }
+},
+{
+    "pk": 234, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 10114828409, 
+        "popolazione": 4337051, 
+        "iso_alpha2": "CG", 
+        "label": "Congo, Rep.", 
+        "geojson_label": "", 
+        "label_en": "Congo, Rep.", 
+        "pil_procapite": 2332, 
+        "crescita_popolazione": 2.61, 
+        "reportage_url": null, 
+        "iso_code": "COG", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10003"
+    }
+},
+{
+    "pk": 235, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 13214656616, 
+        "popolazione": 65705093, 
+        "iso_alpha2": "CD", 
+        "label": "Congo, Dem. Rep.", 
+        "geojson_label": "", 
+        "label_en": "Congo, Dem. Rep.", 
+        "pil_procapite": 201, 
+        "crescita_popolazione": 2.74, 
+        "reportage_url": null, 
+        "iso_code": "COD", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10003"
+    }
+},
+{
+    "pk": 236, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 5588613610, 
+        "popolazione": 10050702, 
+        "iso_alpha2": "BJ", 
+        "label": "Benin", 
+        "geojson_label": null, 
+        "label_en": "Benin", 
+        "pil_procapite": 556, 
+        "crescita_popolazione": 2.73, 
+        "reportage_url": null, 
+        "iso_code": "BEN", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10003"
+    }
+},
+{
+    "pk": 238, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 31896907557, 
+        "popolazione": 91728849, 
+        "iso_alpha2": "ET", 
+        "label": "Etiopia", 
+        "geojson_label": null, 
+        "label_en": "Ethiopia", 
+        "pil_procapite": 348, 
+        "crescita_popolazione": 2.58, 
+        "reportage_url": null, 
+        "iso_code": "ETH", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10003"
+    }
+},
+{
+    "pk": 239, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 13799886440, 
+        "popolazione": 1632572, 
+        "iso_alpha2": "GA", 
+        "label": "Gabon", 
+        "geojson_label": null, 
+        "label_en": "Gabon", 
+        "pil_procapite": 8453, 
+        "crescita_popolazione": 2.39, 
+        "reportage_url": null, 
+        "iso_code": "GAB", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10003"
+    }
+},
+{
+    "pk": 240, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 678337473, 
+        "popolazione": 1791225, 
+        "iso_alpha2": "GM", 
+        "label": "Gambia", 
+        "geojson_label": null, 
+        "label_en": "Gambia", 
+        "pil_procapite": 379, 
+        "crescita_popolazione": 3.19, 
+        "reportage_url": null, 
+        "iso_code": "GMB", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10003"
+    }
+},
+{
+    "pk": 241, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 30105622948, 
+        "popolazione": 25366462, 
+        "iso_alpha2": "GH", 
+        "label": "Ghana", 
+        "geojson_label": null, 
+        "label_en": "Ghana", 
+        "pil_procapite": 1187, 
+        "crescita_popolazione": 2.17, 
+        "reportage_url": null, 
+        "iso_code": "GHA", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10003"
+    }
+},
+{
+    "pk": 243, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 5004876347, 
+        "popolazione": 11451273, 
+        "iso_alpha2": "GN", 
+        "label": "Guinea", 
+        "geojson_label": null, 
+        "label_en": "Guinea", 
+        "pil_procapite": 437, 
+        "crescita_popolazione": 2.56, 
+        "reportage_url": null, 
+        "iso_code": "GIN", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10003"
+    }
+},
+{
+    "pk": 244, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 663633374, 
+        "popolazione": 1663558, 
+        "iso_alpha2": "GW", 
+        "label": "Guinea-Bissau", 
+        "geojson_label": null, 
+        "label_en": "Guinea-Bissau", 
+        "pil_procapite": 399, 
+        "crescita_popolazione": 2.39, 
+        "reportage_url": null, 
+        "iso_code": "GNB", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10003"
+    }
+},
+{
+    "pk": 245, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 13087223049, 
+        "popolazione": 736296, 
+        "iso_alpha2": "GQ", 
+        "label": "Guinea Equatoriale", 
+        "geojson_label": null, 
+        "label_en": "Equatorial Guinea", 
+        "pil_procapite": 17774, 
+        "crescita_popolazione": 2.8, 
+        "reportage_url": null, 
+        "iso_code": "GNQ", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10003"
+    }
+},
+{
+    "pk": 247, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 18251135630, 
+        "popolazione": 19839750, 
+        "iso_alpha2": "CI", 
+        "label": "Costa d'Avorio", 
+        "geojson_label": "", 
+        "label_en": "Cote d'Ivoire", 
+        "pil_procapite": 920, 
+        "crescita_popolazione": 2.29, 
+        "reportage_url": null, 
+        "iso_code": "CIV", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10003"
+    }
+},
+{
+    "pk": 248, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 27611504682, 
+        "popolazione": 43178141, 
+        "iso_alpha2": "KE", 
+        "label": "Kenya", 
+        "geojson_label": null, 
+        "label_en": "Kenya", 
+        "pil_procapite": 639, 
+        "crescita_popolazione": 2.7, 
+        "reportage_url": null, 
+        "iso_code": "KEN", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10003"
+    }
+},
+{
+    "pk": 249, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 1809980455, 
+        "popolazione": 2051545, 
+        "iso_alpha2": "LS", 
+        "label": "Lesotho", 
+        "geojson_label": null, 
+        "label_en": "Lesotho", 
+        "pil_procapite": 882, 
+        "crescita_popolazione": 1.08, 
+        "reportage_url": null, 
+        "iso_code": "LSO", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10003"
+    }
+},
+{
+    "pk": 251, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 1306786557, 
+        "popolazione": 4190435, 
+        "iso_alpha2": "LR", 
+        "label": "Liberia", 
+        "geojson_label": null, 
+        "label_en": "Liberia", 
+        "pil_procapite": 312, 
+        "crescita_popolazione": 2.68, 
+        "reportage_url": null, 
+        "iso_code": "LBR", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10003"
+    }
+},
+{
+    "pk": 252, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 7376604843, 
+        "popolazione": 22293914, 
+        "iso_alpha2": "MG", 
+        "label": "Madagascar", 
+        "geojson_label": null, 
+        "label_en": "Madagascar", 
+        "pil_procapite": 331, 
+        "crescita_popolazione": 2.8, 
+        "reportage_url": null, 
+        "iso_code": "MDG", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10003"
+    }
+},
+{
+    "pk": 253, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 3153076391, 
+        "popolazione": 15906483, 
+        "iso_alpha2": "MW", 
+        "label": "Malawi", 
+        "geojson_label": null, 
+        "label_en": "Malawi", 
+        "pil_procapite": 198, 
+        "crescita_popolazione": 2.86, 
+        "reportage_url": null, 
+        "iso_code": "MWI", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10003"
+    }
+},
+{
+    "pk": 255, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 7622874467, 
+        "popolazione": 14853572, 
+        "iso_alpha2": "ML", 
+        "label": "Mali", 
+        "geojson_label": null, 
+        "label_en": "Mali", 
+        "pil_procapite": 513, 
+        "crescita_popolazione": 2.99, 
+        "reportage_url": null, 
+        "iso_code": "MLI", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10003"
+    }
+},
+{
+    "pk": 256, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 3105198819, 
+        "popolazione": 3796141, 
+        "iso_alpha2": "MR", 
+        "label": "Mauritania", 
+        "geojson_label": null, 
+        "label_en": "Mauritania", 
+        "pil_procapite": 818, 
+        "crescita_popolazione": 2.49, 
+        "reportage_url": null, 
+        "iso_code": "MRT", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10003"
+    }
+},
+{
+    "pk": 259, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 10787611064, 
+        "popolazione": 25203395, 
+        "iso_alpha2": "MZ", 
+        "label": "Mozambico", 
+        "geojson_label": null, 
+        "label_en": "Mozambique", 
+        "pil_procapite": 428, 
+        "crescita_popolazione": 2.5, 
+        "reportage_url": null, 
+        "iso_code": "MOZ", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10003"
+    }
+},
+{
+    "pk": 260, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 4857207487, 
+        "popolazione": 17157042, 
+        "iso_alpha2": "NE", 
+        "label": "Niger", 
+        "geojson_label": null, 
+        "label_en": "Niger", 
+        "pil_procapite": 283, 
+        "crescita_popolazione": 3.84, 
+        "reportage_url": null, 
+        "iso_code": "NER", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10003"
+    }
+},
+{
+    "pk": 261, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 194197069536, 
+        "popolazione": 168833776, 
+        "iso_alpha2": "NG", 
+        "label": "Nigeria", 
+        "geojson_label": null, 
+        "label_en": "Nigeria", 
+        "pil_procapite": 1150, 
+        "crescita_popolazione": 2.79, 
+        "reportage_url": null, 
+        "iso_code": "NGA", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10003"
+    }
+},
+{
+    "pk": 265, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 7996889599, 
+        "popolazione": 13724317, 
+        "iso_alpha2": "ZW", 
+        "label": "Zimbabwe", 
+        "geojson_label": null, 
+        "label_en": "Zimbabwe", 
+        "pil_procapite": 583, 
+        "crescita_popolazione": 2.7, 
+        "reportage_url": null, 
+        "iso_code": "ZWE", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10003"
+    }
+},
+{
+    "pk": 266, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 5252669137, 
+        "popolazione": 11457801, 
+        "iso_alpha2": "RW", 
+        "label": "Ruanda", 
+        "geojson_label": null, 
+        "label_en": "Rwanda", 
+        "pil_procapite": 458, 
+        "crescita_popolazione": 2.77, 
+        "reportage_url": null, 
+        "iso_code": "RWA", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10003"
+    }
+},
+{
+    "pk": 268, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 195027615, 
+        "popolazione": 188098, 
+        "iso_alpha2": "ST", 
+        "label": "Sao Tome & Principe", 
+        "geojson_label": "", 
+        "label_en": "Sao Tome & Principe", 
+        "pil_procapite": 1037, 
+        "crescita_popolazione": 2.65, 
+        "reportage_url": null, 
+        "iso_code": "STP", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10003"
+    }
+},
+{
+    "pk": 269, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 10471141327, 
+        "popolazione": 13726021, 
+        "iso_alpha2": "SN", 
+        "label": "Senegal", 
+        "geojson_label": null, 
+        "label_en": "Senegal", 
+        "pil_procapite": 763, 
+        "crescita_popolazione": 2.92, 
+        "reportage_url": null, 
+        "iso_code": "SEN", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10003"
+    }
+},
+{
+    "pk": 270, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 763295656, 
+        "popolazione": 87785, 
+        "iso_alpha2": "SC", 
+        "label": "Seychelles", 
+        "geojson_label": null, 
+        "label_en": "Seychelles", 
+        "pil_procapite": 8695, 
+        "crescita_popolazione": 0.39, 
+        "reportage_url": null, 
+        "iso_code": "SYC", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10003"
+    }
+},
+{
+    "pk": 271, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 2286413756, 
+        "popolazione": 6130922, 
+        "iso_alpha2": "ER", 
+        "label": "Eritrea", 
+        "geojson_label": null, 
+        "label_en": "Eritrea", 
+        "pil_procapite": 373, 
+        "crescita_popolazione": 3.28, 
+        "reportage_url": null, 
+        "iso_code": "ERI", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10003"
+    }
+},
+{
+    "pk": 272, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 2807164218, 
+        "popolazione": 5978727, 
+        "iso_alpha2": "SL", 
+        "label": "Sierra Leone", 
+        "geojson_label": null, 
+        "label_en": "Sierra Leone", 
+        "pil_procapite": 470, 
+        "crescita_popolazione": 1.91, 
+        "reportage_url": null, 
+        "iso_code": "SLE", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10003"
+    }
+},
+{
+    "pk": 273, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": null, 
+        "popolazione": 10195134, 
+        "iso_alpha2": "SO", 
+        "label": "Somalia", 
+        "geojson_label": null, 
+        "label_en": "Somalia", 
+        "pil_procapite": null, 
+        "crescita_popolazione": 2.86, 
+        "reportage_url": null, 
+        "iso_code": "SOM", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10003"
+    }
+},
+{
+    "pk": 274, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": null, 
+        "popolazione": 859652, 
+        "iso_alpha2": "DJ", 
+        "label": "Djibouti", 
+        "geojson_label": null, 
+        "label_en": "Djibouti", 
+        "pil_procapite": null, 
+        "crescita_popolazione": 1.52, 
+        "reportage_url": null, 
+        "iso_code": "DJI", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10003"
+    }
+},
+{
+    "pk": 275, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 9666950278, 
+        "popolazione": 2259393, 
+        "iso_alpha2": "NA", 
+        "label": "Namibia", 
+        "geojson_label": null, 
+        "label_en": "Namibia", 
+        "pil_procapite": 4279, 
+        "crescita_popolazione": 1.87, 
+        "reportage_url": null, 
+        "iso_code": "NAM", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10003"
+    }
+},
+{
+    "pk": 278, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 43459528216, 
+        "popolazione": 37195349, 
+        "iso_alpha2": "SD", 
+        "label": "Sudan", 
+        "geojson_label": null, 
+        "label_en": "Sudan", 
+        "pil_procapite": 1168, 
+        "crescita_popolazione": 2.08, 
+        "reportage_url": null, 
+        "iso_code": "SDN", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10003"
+    }
+},
+{
+    "pk": 279, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 6904942728, 
+        "popolazione": 10837527, 
+        "iso_alpha2": "SS", 
+        "label": "il Sud Sudan", 
+        "geojson_label": null, 
+        "label_en": "South Sudan", 
+        "pil_procapite": 637, 
+        "crescita_popolazione": 4.3, 
+        "reportage_url": null, 
+        "iso_code": "SSD", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10003"
+    }
+},
+{
+    "pk": 280, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 2770541433, 
+        "popolazione": 1230985, 
+        "iso_alpha2": "SZ", 
+        "label": "Swaziland", 
+        "geojson_label": null, 
+        "label_en": "Swaziland", 
+        "pil_procapite": 2251, 
+        "crescita_popolazione": 1.54, 
+        "reportage_url": null, 
+        "iso_code": "SWZ", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10003"
+    }
+},
+{
+    "pk": 282, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 20890020702, 
+        "popolazione": 47783107, 
+        "iso_alpha2": "TZ", 
+        "label": "Tanzania", 
+        "geojson_label": "", 
+        "label_en": "Tanzania", 
+        "pil_procapite": 450, 
+        "crescita_popolazione": 3.04, 
+        "reportage_url": null, 
+        "iso_code": "TZA", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10003"
+    }
+},
+{
+    "pk": 283, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 2820330724, 
+        "popolazione": 6642928, 
+        "iso_alpha2": "TG", 
+        "label": "Togo", 
+        "geojson_label": null, 
+        "label_en": "Togo", 
+        "pil_procapite": 425, 
+        "crescita_popolazione": 2.6, 
+        "reportage_url": null, 
+        "iso_code": "TGO", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10003"
+    }
+},
+{
+    "pk": 285, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 14702304500, 
+        "popolazione": 36345860, 
+        "iso_alpha2": "UG", 
+        "label": "Uganda", 
+        "geojson_label": null, 
+        "label_en": "Uganda", 
+        "pil_procapite": 405, 
+        "crescita_popolazione": 3.35, 
+        "reportage_url": null, 
+        "iso_code": "UGA", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10003"
+    }
+},
+{
+    "pk": 287, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 7721128878, 
+        "popolazione": 16460141, 
+        "iso_alpha2": "BF", 
+        "label": "Burkina Faso", 
+        "geojson_label": null, 
+        "label_en": "Burkina Faso", 
+        "pil_procapite": 469, 
+        "crescita_popolazione": 2.86, 
+        "reportage_url": null, 
+        "iso_code": "BFA", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10003"
+    }
+},
+{
+    "pk": 288, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 15291400081, 
+        "popolazione": 14075099, 
+        "iso_alpha2": "ZM", 
+        "label": "Zambia", 
+        "geojson_label": null, 
+        "label_en": "Zambia", 
+        "pil_procapite": 1086, 
+        "crescita_popolazione": 3.19, 
+        "reportage_url": null, 
+        "iso_code": "ZMB", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10003"
+    }
+},
+{
+    "pk": 329, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": null, 
+        "popolazione": 283221, 
+        "iso_alpha2": "BB", 
+        "label": "Barbados", 
+        "geojson_label": null, 
+        "label_en": "Barbados", 
+        "pil_procapite": null, 
+        "crescita_popolazione": 0.5, 
+        "reportage_url": null, 
+        "iso_code": "BRB", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10005"
+    }
+},
+{
+    "pk": 336, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 33390436602, 
+        "popolazione": 4805295, 
+        "iso_alpha2": "CR", 
+        "label": "Costa Rica", 
+        "geojson_label": null, 
+        "label_en": "Costa Rica", 
+        "pil_procapite": 6949, 
+        "crescita_popolazione": 1.42, 
+        "reportage_url": null, 
+        "iso_code": "CRI", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10005"
+    }
+},
+{
+    "pk": 338, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": null, 
+        "popolazione": 11270957, 
+        "iso_alpha2": "CU", 
+        "label": "Cuba", 
+        "geojson_label": null, 
+        "label_en": "Cuba", 
+        "pil_procapite": null, 
+        "crescita_popolazione": -0.05, 
+        "reportage_url": null, 
+        "iso_code": "CUB", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10005"
+    }
+},
+{
+    "pk": 340, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 43594441378, 
+        "popolazione": 10276621, 
+        "iso_alpha2": "DO", 
+        "label": "Repubblica Dominicana", 
+        "geojson_label": null, 
+        "label_en": "Dominican Republic", 
+        "pil_procapite": 4242, 
+        "crescita_popolazione": 1.26, 
+        "reportage_url": null, 
+        "iso_code": "DOM", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10005"
+    }
+},
+{
+    "pk": 342, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 17647723800, 
+        "popolazione": 6297394, 
+        "iso_alpha2": "SV", 
+        "label": "El Salvador", 
+        "geojson_label": null, 
+        "label_en": "El Salvador", 
+        "pil_procapite": 2802, 
+        "crescita_popolazione": 0.66, 
+        "reportage_url": null, 
+        "iso_code": "SLV", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10005"
+    }
+},
+{
+    "pk": 347, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 37377794416, 
+        "popolazione": 15082831, 
+        "iso_alpha2": "GT", 
+        "label": "Guatemala", 
+        "geojson_label": null, 
+        "label_en": "Guatemala", 
+        "pil_procapite": 2478, 
+        "crescita_popolazione": 2.53, 
+        "reportage_url": null, 
+        "iso_code": "GTM", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10005"
+    }
+},
+{
+    "pk": 349, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 5800256757, 
+        "popolazione": 10173775, 
+        "iso_alpha2": "HT", 
+        "label": "Haiti", 
+        "geojson_label": null, 
+        "label_en": "Haiti", 
+        "pil_procapite": 570, 
+        "crescita_popolazione": 1.39, 
+        "reportage_url": null, 
+        "iso_code": "HTI", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10005"
+    }
+},
+{
+    "pk": 351, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 13701723946, 
+        "popolazione": 7935846, 
+        "iso_alpha2": "HN", 
+        "label": "Honduras", 
+        "geojson_label": null, 
+        "label_en": "Honduras", 
+        "pil_procapite": 1727, 
+        "crescita_popolazione": 2.03, 
+        "reportage_url": null, 
+        "iso_code": "HND", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10005"
+    }
+},
+{
+    "pk": 354, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 10974075295, 
+        "popolazione": 2712100, 
+        "iso_alpha2": "JM", 
+        "label": "Giamaica", 
+        "geojson_label": null, 
+        "label_en": "Jamaica", 
+        "pil_procapite": 4046, 
+        "crescita_popolazione": 0.21, 
+        "reportage_url": null, 
+        "iso_code": "JAM", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10005"
+    }
+},
+{
+    "pk": 358, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 871098100838, 
+        "popolazione": 120847477, 
+        "iso_alpha2": "MX", 
+        "label": "Messico", 
+        "geojson_label": null, 
+        "label_en": "Mexico", 
+        "pil_procapite": 7208, 
+        "crescita_popolazione": 1.24, 
+        "reportage_url": null, 
+        "iso_code": "MEX", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10005"
+    }
+},
+{
+    "pk": 364, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 7770190381, 
+        "popolazione": 5991733, 
+        "iso_alpha2": "NI", 
+        "label": "Nicaragua", 
+        "geojson_label": null, 
+        "label_en": "Nicaragua", 
+        "pil_procapite": 1297, 
+        "crescita_popolazione": 1.46, 
+        "reportage_url": null, 
+        "iso_code": "NIC", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10005"
+    }
+},
+{
+    "pk": 366, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 26808723750, 
+        "popolazione": 3802281, 
+        "iso_alpha2": "PA", 
+        "label": "Panama", 
+        "geojson_label": null, 
+        "label_en": "Panama", 
+        "pil_procapite": 7051, 
+        "crescita_popolazione": 1.64, 
+        "reportage_url": null, 
+        "iso_code": "PAN", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10005"
+    }
+},
+{
+    "pk": 378, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 354692908, 
+        "popolazione": 71684, 
+        "iso_alpha2": "DM", 
+        "label": "Dominica", 
+        "geojson_label": null, 
+        "label_en": "Dominica", 
+        "pil_procapite": 4948, 
+        "crescita_popolazione": 0.4, 
+        "reportage_url": null, 
+        "iso_code": "DMA", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10005"
+    }
+},
+{
+    "pk": 382, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 553510257, 
+        "popolazione": 53584, 
+        "iso_alpha2": "KN", 
+        "label": "St Kitts-Nevis", 
+        "geojson_label": "", 
+        "label_en": "St. Kitts-Nevis", 
+        "pil_procapite": 10330, 
+        "crescita_popolazione": 1.15, 
+        "reportage_url": null, 
+        "iso_code": "KNA", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10005"
+    }
+},
+{
+    "pk": 425, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 347958997103, 
+        "popolazione": 41086927, 
+        "iso_alpha2": "AR", 
+        "label": "Argentina", 
+        "geojson_label": null, 
+        "label_en": "Argentina", 
+        "pil_procapite": 8469, 
+        "crescita_popolazione": 0.88, 
+        "reportage_url": null, 
+        "iso_code": "ARG", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10006"
+    }
+},
+{
+    "pk": 428, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 19992463941, 
+        "popolazione": 10496285, 
+        "iso_alpha2": "BO", 
+        "label": "Bolivia", 
+        "geojson_label": "", 
+        "label_en": "Bolivia", 
+        "pil_procapite": 1905, 
+        "crescita_popolazione": 1.65, 
+        "reportage_url": null, 
+        "iso_code": "BOL", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10006"
+    }
+},
+{
+    "pk": 431, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 1665845117315, 
+        "popolazione": 198656019, 
+        "iso_alpha2": "BR", 
+        "label": "Brasile", 
+        "geojson_label": null, 
+        "label_en": "Brazil", 
+        "pil_procapite": 8386, 
+        "crescita_popolazione": 0.87, 
+        "reportage_url": null, 
+        "iso_code": "BRA", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10006"
+    }
+},
+{
+    "pk": 434, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 198324863477, 
+        "popolazione": 17464814, 
+        "iso_alpha2": "CL", 
+        "label": "Cile", 
+        "geojson_label": null, 
+        "label_en": "Chile", 
+        "pil_procapite": 11356, 
+        "crescita_popolazione": 0.9, 
+        "reportage_url": null, 
+        "iso_code": "CHL", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10006"
+    }
+},
+{
+    "pk": 437, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 273459236082, 
+        "popolazione": 47704427, 
+        "iso_alpha2": "CO", 
+        "label": "Colombia", 
+        "geojson_label": null, 
+        "label_en": "Colombia", 
+        "pil_procapite": 5732, 
+        "crescita_popolazione": 1.32, 
+        "reportage_url": null, 
+        "iso_code": "COL", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10006"
+    }
+},
+{
+    "pk": 440, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 62147473512, 
+        "popolazione": 15492264, 
+        "iso_alpha2": "EC", 
+        "label": "Ecuador", 
+        "geojson_label": null, 
+        "label_en": "Ecuador", 
+        "pil_procapite": 4012, 
+        "crescita_popolazione": 1.6, 
+        "reportage_url": null, 
+        "iso_code": "ECU", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10006"
+    }
+},
+{
+    "pk": 446, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 2107998295, 
+        "popolazione": 795369, 
+        "iso_alpha2": "GY", 
+        "label": "Guyana", 
+        "geojson_label": null, 
+        "label_en": "Guyana", 
+        "pil_procapite": 2650, 
+        "crescita_popolazione": 0.57, 
+        "reportage_url": null, 
+        "iso_code": "GUY", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10006"
+    }
+},
+{
+    "pk": 451, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 18858773741, 
+        "popolazione": 6687361, 
+        "iso_alpha2": "PY", 
+        "label": "Paraguay", 
+        "geojson_label": null, 
+        "label_en": "Paraguay", 
+        "pil_procapite": 2820, 
+        "crescita_popolazione": 1.72, 
+        "reportage_url": null, 
+        "iso_code": "PRY", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10006"
+    }
+},
+{
+    "pk": 454, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 145652695506, 
+        "popolazione": 29987800, 
+        "iso_alpha2": "PE", 
+        "label": "Per\u00f9", 
+        "geojson_label": "", 
+        "label_en": "Peru", 
+        "pil_procapite": 4857, 
+        "crescita_popolazione": 1.25, 
+        "reportage_url": null, 
+        "iso_code": "PER", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10006"
+    }
+},
+{
+    "pk": 460, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 36279651980, 
+        "popolazione": 3395253, 
+        "iso_alpha2": "UY", 
+        "label": "Uruguay", 
+        "geojson_label": null, 
+        "label_en": "Uruguay", 
+        "pil_procapite": 10685, 
+        "crescita_popolazione": 0.35, 
+        "reportage_url": null, 
+        "iso_code": "URY", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10006"
+    }
+},
+{
+    "pk": 463, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 281961179785, 
+        "popolazione": 29954782, 
+        "iso_alpha2": "VE", 
+        "label": "Venezuela", 
+        "geojson_label": "", 
+        "label_en": "Venezuela", 
+        "pil_procapite": 9413, 
+        "crescita_popolazione": 1.53, 
+        "reportage_url": null, 
+        "iso_code": "VEN", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10006"
+    }
+},
+{
+    "pk": 540, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": null, 
+        "popolazione": 76424443, 
+        "iso_alpha2": "IR", 
+        "label": "Iran", 
+        "geojson_label": "", 
+        "label_en": "Iran", 
+        "pil_procapite": null, 
+        "crescita_popolazione": 1.32, 
+        "reportage_url": null, 
+        "iso_code": "IRN", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10011"
+    }
+},
+{
+    "pk": 543, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 155502020995, 
+        "popolazione": 32578209, 
+        "iso_alpha2": "IQ", 
+        "label": "Iraq", 
+        "geojson_label": null, 
+        "label_en": "Iraq", 
+        "pil_procapite": 4773, 
+        "crescita_popolazione": 2.54, 
+        "reportage_url": null, 
+        "iso_code": "IRQ", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10011"
+    }
+},
+{
+    "pk": 549, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 23104438098, 
+        "popolazione": 6318000, 
+        "iso_alpha2": "JO", 
+        "label": "Giordania", 
+        "geojson_label": null, 
+        "label_en": "Jordan", 
+        "pil_procapite": 3657, 
+        "crescita_popolazione": 2.19, 
+        "reportage_url": null, 
+        "iso_code": "JOR", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10011"
+    }
+},
+{
+    "pk": 550, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": null, 
+        "popolazione": 4046901, 
+        "iso_alpha2": "PS", 
+        "label": "West Bank e Striscia di Gaza", 
+        "geojson_label": "", 
+        "label_en": "West Bank & Gaza Strip", 
+        "pil_procapite": null, 
+        "crescita_popolazione": 3.01, 
+        "reportage_url": null, 
+        "iso_code": "PSE", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10011"
+    }
+},
+{
+    "pk": 555, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 31758029851, 
+        "popolazione": 4424888, 
+        "iso_alpha2": "LB", 
+        "label": "Libano", 
+        "geojson_label": "", 
+        "label_en": "Lebanon", 
+        "pil_procapite": 7177, 
+        "crescita_popolazione": 0.96, 
+        "reportage_url": "http://www.lastampa.it/scienza/ambiente/speciali/fondi-cooperazione-sviluppo/reportage4", 
+        "iso_code": "LBN", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10011"
+    }
+},
+{
+    "pk": 558, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": null, 
+        "popolazione": 3314001, 
+        "iso_alpha2": "OM", 
+        "label": "Oman", 
+        "geojson_label": null, 
+        "label_en": "Oman", 
+        "pil_procapite": null, 
+        "crescita_popolazione": 9.13, 
+        "reportage_url": null, 
+        "iso_code": "OMN", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10011"
+    }
+},
+{
+    "pk": 573, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 54480745743, 
+        "popolazione": 22399254, 
+        "iso_alpha2": "SY", 
+        "label": "Siria", 
+        "geojson_label": "", 
+        "label_en": "Syria", 
+        "pil_procapite": 2432, 
+        "crescita_popolazione": 1.97, 
+        "reportage_url": null, 
+        "iso_code": "SYR", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10011"
+    }
+},
+{
+    "pk": 580, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 26360086206, 
+        "popolazione": 23852409, 
+        "iso_alpha2": "YE", 
+        "label": "Yemen", 
+        "geojson_label": null, 
+        "label_en": "Yemen", 
+        "pil_procapite": 1105, 
+        "crescita_popolazione": 2.33, 
+        "reportage_url": null, 
+        "iso_code": "YEM", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10011"
+    }
+},
+{
+    "pk": 610, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 7328731673, 
+        "popolazione": 2969081, 
+        "iso_alpha2": "AM", 
+        "label": "Armenia", 
+        "geojson_label": null, 
+        "label_en": "Armenia", 
+        "pil_procapite": 2468, 
+        "crescita_popolazione": 0.17, 
+        "reportage_url": null, 
+        "iso_code": "ARM", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10009"
+    }
+},
+{
+    "pk": 611, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 50823571383, 
+        "popolazione": 9297507, 
+        "iso_alpha2": "AZ", 
+        "label": "Azerbaijan", 
+        "geojson_label": null, 
+        "label_en": "Azerbaijan", 
+        "pil_procapite": 5466, 
+        "crescita_popolazione": 1.35, 
+        "reportage_url": null, 
+        "iso_code": "AZE", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10009"
+    }
+},
+{
+    "pk": 612, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 11705712227, 
+        "popolazione": 4511800, 
+        "iso_alpha2": "GE", 
+        "label": "Georgia", 
+        "geojson_label": null, 
+        "label_en": "Georgia", 
+        "pil_procapite": 2594, 
+        "crescita_popolazione": 0.63, 
+        "reportage_url": null, 
+        "iso_code": "GEO", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10009"
+    }
+},
+{
+    "pk": 613, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 148258596251, 
+        "popolazione": 16797459, 
+        "iso_alpha2": "KZ", 
+        "label": "Kazakistan", 
+        "geojson_label": null, 
+        "label_en": "Kazakhstan", 
+        "pil_procapite": 8826, 
+        "crescita_popolazione": 1.43, 
+        "reportage_url": null, 
+        "iso_code": "KAZ", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10009"
+    }
+},
+{
+    "pk": 614, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 4786913392, 
+        "popolazione": 5582100, 
+        "iso_alpha2": "KG", 
+        "label": "Kirghizistan", 
+        "geojson_label": "", 
+        "label_en": "Kyrgyz Republic", 
+        "pil_procapite": 858, 
+        "crescita_popolazione": 1.22, 
+        "reportage_url": null, 
+        "iso_code": "KGZ", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10009"
+    }
+},
+{
+    "pk": 615, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 5166544412, 
+        "popolazione": 8008990, 
+        "iso_alpha2": "TJ", 
+        "label": "Tagikistan", 
+        "geojson_label": null, 
+        "label_en": "Tajikistan", 
+        "pil_procapite": 645, 
+        "crescita_popolazione": 2.45, 
+        "reportage_url": null, 
+        "iso_code": "TJK", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10009"
+    }
+},
+{
+    "pk": 616, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": null, 
+        "popolazione": null, 
+        "iso_alpha2": null, 
+        "label": "Turkmenistan", 
+        "geojson_label": null, 
+        "label_en": "Turkmenistan", 
+        "pil_procapite": null, 
+        "crescita_popolazione": null, 
+        "reportage_url": null, 
+        "iso_code": null, 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": null
+    }
+},
+{
+    "pk": 617, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 37797875422, 
+        "popolazione": 29776850, 
+        "iso_alpha2": "UZ", 
+        "label": "Uzbekistan", 
+        "geojson_label": null, 
+        "label_en": "Uzbekistan", 
+        "pil_procapite": 1269, 
+        "crescita_popolazione": 1.47, 
+        "reportage_url": null, 
+        "iso_code": "UZB", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10009"
+    }
+},
+{
+    "pk": 625, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": null, 
+        "popolazione": 29824536, 
+        "iso_alpha2": "AF", 
+        "label": "Afghanistan", 
+        "geojson_label": null, 
+        "label_en": "Afghanistan", 
+        "pil_procapite": null, 
+        "crescita_popolazione": 2.44, 
+        "reportage_url": null, 
+        "iso_code": "AFG", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10009"
+    }
+},
+{
+    "pk": 635, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": null, 
+        "popolazione": 52797319, 
+        "iso_alpha2": "MM", 
+        "label": "Myanmar", 
+        "geojson_label": null, 
+        "label_en": "Myanmar", 
+        "pil_procapite": null, 
+        "crescita_popolazione": 0.85, 
+        "reportage_url": null, 
+        "iso_code": "MMR", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10009"
+    }
+},
+{
+    "pk": 640, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 43942144582, 
+        "popolazione": 20328000, 
+        "iso_alpha2": "LK", 
+        "label": "Sri Lanka", 
+        "geojson_label": null, 
+        "label_en": "Sri Lanka", 
+        "pil_procapite": 2162, 
+        "crescita_popolazione": null, 
+        "reportage_url": null, 
+        "iso_code": "LKA", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10009"
+    }
+},
+{
+    "pk": 645, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 1361949996424, 
+        "popolazione": 1236686732, 
+        "iso_alpha2": "IN", 
+        "label": "India", 
+        "geojson_label": null, 
+        "label_en": "India", 
+        "pil_procapite": 1101, 
+        "crescita_popolazione": 1.26, 
+        "reportage_url": null, 
+        "iso_code": "IND", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10009"
+    }
+},
+{
+    "pk": 660, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 14357144126, 
+        "popolazione": 27474377, 
+        "iso_alpha2": "NP", 
+        "label": "Nepal", 
+        "geojson_label": null, 
+        "label_en": "Nepal", 
+        "pil_procapite": 523, 
+        "crescita_popolazione": 1.16, 
+        "reportage_url": null, 
+        "iso_code": "NPL", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10009"
+    }
+},
+{
+    "pk": 665, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 170959030942, 
+        "popolazione": 179160111, 
+        "iso_alpha2": "PK", 
+        "label": "Pakistan", 
+        "geojson_label": null, 
+        "label_en": "Pakistan", 
+        "pil_procapite": 954, 
+        "crescita_popolazione": 1.69, 
+        "reportage_url": null, 
+        "iso_code": "PAK", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10009"
+    }
+},
+{
+    "pk": 666, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 85493336563, 
+        "popolazione": 154695368, 
+        "iso_alpha2": "BD", 
+        "label": "Bangladesh", 
+        "geojson_label": null, 
+        "label_en": "Bangladesh", 
+        "pil_procapite": 553, 
+        "crescita_popolazione": 1.19, 
+        "reportage_url": null, 
+        "iso_code": "BGD", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10009"
+    }
+},
+{
+    "pk": 728, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 10398698460, 
+        "popolazione": 14864646, 
+        "iso_alpha2": "KH", 
+        "label": "Cambogia", 
+        "geojson_label": "", 
+        "label_en": "Cambodia", 
+        "pil_procapite": 700, 
+        "crescita_popolazione": 1.76, 
+        "reportage_url": "http://www.lastampa.it/scienza/ambiente/speciali/fondi-cooperazione-sviluppo/reportage3", 
+        "iso_code": "KHM", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10008"
+    }
+},
+{
+    "pk": 730, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 6181009538843, 
+        "popolazione": 1350695000, 
+        "iso_alpha2": "CN", 
+        "label": "Cina", 
+        "geojson_label": null, 
+        "label_en": "China", 
+        "pil_procapite": 4576, 
+        "crescita_popolazione": 0.49, 
+        "reportage_url": null, 
+        "iso_code": "CHN", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10008"
+    }
+},
+{
+    "pk": 738, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 649423634652, 
+        "popolazione": 246864191, 
+        "iso_alpha2": "ID", 
+        "label": "Indonesia", 
+        "geojson_label": null, 
+        "label_en": "Indonesia", 
+        "pil_procapite": 2631, 
+        "crescita_popolazione": 1.25, 
+        "reportage_url": null, 
+        "iso_code": "IDN", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10008"
+    }
+},
+{
+    "pk": 740, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 835337857476, 
+        "popolazione": 50004000, 
+        "iso_alpha2": "KR", 
+        "label": "Repubblica democratica della Corea", 
+        "geojson_label": "", 
+        "label_en": "Korea, Dem. Rep.", 
+        "pil_procapite": 16705, 
+        "crescita_popolazione": 0.45, 
+        "reportage_url": null, 
+        "iso_code": "KOR", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10008"
+    }
+},
+{
+    "pk": 745, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 6876556186, 
+        "popolazione": 6645827, 
+        "iso_alpha2": "LA", 
+        "label": "Laos", 
+        "geojson_label": "", 
+        "label_en": "Laos", 
+        "pil_procapite": 1035, 
+        "crescita_popolazione": 1.89, 
+        "reportage_url": null, 
+        "iso_code": "LAO", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10008"
+    }
+},
+{
+    "pk": 751, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 224457627389, 
+        "popolazione": 29239927, 
+        "iso_alpha2": "MY", 
+        "label": "Malesia", 
+        "geojson_label": null, 
+        "label_en": "Malaysia", 
+        "pil_procapite": 7676, 
+        "crescita_popolazione": 1.66, 
+        "reportage_url": null, 
+        "iso_code": "MYS", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10008"
+    }
+},
+{
+    "pk": 753, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 7595695332, 
+        "popolazione": 2796484, 
+        "iso_alpha2": "MN", 
+        "label": "Mongolia", 
+        "geojson_label": null, 
+        "label_en": "Mongolia", 
+        "pil_procapite": 2716, 
+        "crescita_popolazione": 1.52, 
+        "reportage_url": null, 
+        "iso_code": "MNG", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10008"
+    }
+},
+{
+    "pk": 755, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 185009595276, 
+        "popolazione": 96706764, 
+        "iso_alpha2": "PH", 
+        "label": "Filippine", 
+        "geojson_label": "", 
+        "label_en": "Philippines", 
+        "pil_procapite": 1913, 
+        "crescita_popolazione": 1.72, 
+        "reportage_url": null, 
+        "iso_code": "PHL", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10008"
+    }
+},
+{
+    "pk": 764, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 270631720799, 
+        "popolazione": 66785001, 
+        "iso_alpha2": "TH", 
+        "label": "Thailandia", 
+        "geojson_label": null, 
+        "label_en": "Thailand", 
+        "pil_procapite": 4052, 
+        "crescita_popolazione": 0.31, 
+        "reportage_url": null, 
+        "iso_code": "THA", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10008"
+    }
+},
+{
+    "pk": 765, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 955951650, 
+        "popolazione": 1210233, 
+        "iso_alpha2": "TL", 
+        "label": "Timor Est", 
+        "geojson_label": null, 
+        "label_en": "Timor-Leste", 
+        "pil_procapite": 790, 
+        "crescita_popolazione": 2.88, 
+        "reportage_url": null, 
+        "iso_code": "TLS", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10008"
+    }
+},
+{
+    "pk": 769, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 104764298925, 
+        "popolazione": 88775500, 
+        "iso_alpha2": "VN", 
+        "label": "Vietnam", 
+        "geojson_label": "", 
+        "label_en": "Vietnam", 
+        "pil_procapite": 1180, 
+        "crescita_popolazione": 1.06, 
+        "reportage_url": null, 
+        "iso_code": "VNM", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10008"
+    }
+},
+{
+    "pk": 831, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": null, 
+        "popolazione": null, 
+        "iso_alpha2": "CK", 
+        "label": "Isole Cook", 
+        "geojson_label": null, 
+        "label_en": "Cook Islands", 
+        "pil_procapite": null, 
+        "crescita_popolazione": null, 
+        "reportage_url": null, 
+        "iso_code": "COK", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10012"
+    }
+},
+{
+    "pk": 832, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 2870658171, 
+        "popolazione": 874742, 
+        "iso_alpha2": "FJ", 
+        "label": "Figi", 
+        "geojson_label": null, 
+        "label_en": "Fiji", 
+        "pil_procapite": 3282, 
+        "crescita_popolazione": 0.78, 
+        "reportage_url": null, 
+        "iso_code": "FJI", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10012"
+    }
+},
+{
+    "pk": 836, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 129936995, 
+        "popolazione": 100786, 
+        "iso_alpha2": "KI", 
+        "label": "Kiribati", 
+        "geojson_label": null, 
+        "label_en": "Kiribati", 
+        "pil_procapite": 1289, 
+        "crescita_popolazione": 1.54, 
+        "reportage_url": null, 
+        "iso_code": "KIR", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10012"
+    }
+},
+{
+    "pk": 845, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": null, 
+        "popolazione": null, 
+        "iso_alpha2": "NR", 
+        "label": "Nauru", 
+        "geojson_label": null, 
+        "label_en": "Nauru", 
+        "pil_procapite": null, 
+        "crescita_popolazione": null, 
+        "reportage_url": null, 
+        "iso_code": "NRU", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10012"
+    }
+},
+{
+    "pk": 859, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 138213437, 
+        "popolazione": 52555, 
+        "iso_alpha2": "MH", 
+        "label": "Isole Marshall", 
+        "geojson_label": null, 
+        "label_en": "Marshall Islands", 
+        "pil_procapite": 2630, 
+        "crescita_popolazione": 0.11, 
+        "reportage_url": null, 
+        "iso_code": "MHL", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10012"
+    }
+},
+{
+    "pk": 862, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 11576074851, 
+        "popolazione": 7167010, 
+        "iso_alpha2": "PG", 
+        "label": "Papua Nuova Guinea", 
+        "geojson_label": null, 
+        "label_en": "Papua New Guinea", 
+        "pil_procapite": 1615, 
+        "crescita_popolazione": 2.17, 
+        "reportage_url": null, 
+        "iso_code": "PNG", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10012"
+    }
+},
+{
+    "pk": 866, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 745729720, 
+        "popolazione": 549598, 
+        "iso_alpha2": "SB", 
+        "label": "Isole Salomone", 
+        "geojson_label": "", 
+        "label_en": "Solomon Islands", 
+        "pil_procapite": 1357, 
+        "crescita_popolazione": 2.13, 
+        "reportage_url": null, 
+        "iso_code": "SLB", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10012"
+    }
+},
+{
+    "pk": 870, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 348741725, 
+        "popolazione": 104941, 
+        "iso_alpha2": "TO", 
+        "label": "Tonga", 
+        "geojson_label": null, 
+        "label_en": "Tonga", 
+        "pil_procapite": 3323, 
+        "crescita_popolazione": 0.37, 
+        "reportage_url": null, 
+        "iso_code": "TON", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10012"
+    }
+},
+{
+    "pk": 880, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": 500672079, 
+        "popolazione": 188889, 
+        "iso_alpha2": "WS", 
+        "label": "Samoa", 
+        "geojson_label": null, 
+        "label_en": "Samoa", 
+        "pil_procapite": 2651, 
+        "crescita_popolazione": 0.78, 
+        "reportage_url": null, 
+        "iso_code": "WSM", 
+        "tipo_territorio": "nazione", 
+        "territorio_superiore": "10012"
+    }
+},
+{
+    "pk": 9998, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": null, 
+        "popolazione": null, 
+        "iso_alpha2": "", 
+        "label": "Paesi non specificati", 
+        "geojson_label": "", 
+        "label_en": "Developing Countries unspecified", 
+        "pil_procapite": null, 
+        "crescita_popolazione": null, 
+        "reportage_url": null, 
+        "iso_code": "", 
+        "tipo_territorio": "zona", 
+        "territorio_superiore": "10100"
+    }
+},
+{
+    "pk": 10002, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": null, 
+        "popolazione": null, 
+        "iso_alpha2": "", 
+        "label": "Nord del Sahara", 
+        "geojson_label": "", 
+        "label_en": "North of Sahara, Total", 
+        "pil_procapite": null, 
+        "crescita_popolazione": null, 
+        "reportage_url": null, 
+        "iso_code": "", 
+        "tipo_territorio": "zona", 
+        "territorio_superiore": "10100"
+    }
+},
+{
+    "pk": 10003, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": null, 
+        "popolazione": null, 
+        "iso_alpha2": "", 
+        "label": "Sud del Sahara", 
+        "geojson_label": "", 
+        "label_en": "South of Sahara, Total", 
+        "pil_procapite": null, 
+        "crescita_popolazione": null, 
+        "reportage_url": null, 
+        "iso_code": "", 
+        "tipo_territorio": "zona", 
+        "territorio_superiore": "10100"
+    }
+},
+{
+    "pk": 10005, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": null, 
+        "popolazione": null, 
+        "iso_alpha2": "", 
+        "label": "Nord e Centro America", 
+        "geojson_label": "", 
+        "label_en": "North & Central America, Total", 
+        "pil_procapite": null, 
+        "crescita_popolazione": null, 
+        "reportage_url": null, 
+        "iso_code": "", 
+        "tipo_territorio": "zona", 
+        "territorio_superiore": "10100"
+    }
+},
+{
+    "pk": 10006, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": null, 
+        "popolazione": null, 
+        "iso_alpha2": "", 
+        "label": "Sud America", 
+        "geojson_label": "", 
+        "label_en": "South America, Total", 
+        "pil_procapite": null, 
+        "crescita_popolazione": null, 
+        "reportage_url": null, 
+        "iso_code": "", 
+        "tipo_territorio": "zona", 
+        "territorio_superiore": "10100"
+    }
+},
+{
+    "pk": 10008, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": null, 
+        "popolazione": null, 
+        "iso_alpha2": "", 
+        "label": "Far East Asia", 
+        "geojson_label": "", 
+        "label_en": "Far East Asia, Total", 
+        "pil_procapite": null, 
+        "crescita_popolazione": null, 
+        "reportage_url": null, 
+        "iso_code": "", 
+        "tipo_territorio": "zona", 
+        "territorio_superiore": "10100"
+    }
+},
+{
+    "pk": 10009, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": null, 
+        "popolazione": null, 
+        "iso_alpha2": "", 
+        "label": "Sud e Asia Centrale", 
+        "geojson_label": "", 
+        "label_en": "South & Central Asia, Total", 
+        "pil_procapite": null, 
+        "crescita_popolazione": null, 
+        "reportage_url": null, 
+        "iso_code": "", 
+        "tipo_territorio": "zona", 
+        "territorio_superiore": "10100"
+    }
+},
+{
+    "pk": 10010, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": null, 
+        "popolazione": null, 
+        "iso_alpha2": "", 
+        "label": "Europa", 
+        "geojson_label": "", 
+        "label_en": "Europe, Total", 
+        "pil_procapite": null, 
+        "crescita_popolazione": null, 
+        "reportage_url": null, 
+        "iso_code": "", 
+        "tipo_territorio": "zona", 
+        "territorio_superiore": "10100"
+    }
+},
+{
+    "pk": 10011, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": null, 
+        "popolazione": null, 
+        "iso_alpha2": "", 
+        "label": "Medio Oriente", 
+        "geojson_label": "", 
+        "label_en": "Middle East, Total", 
+        "pil_procapite": null, 
+        "crescita_popolazione": null, 
+        "reportage_url": null, 
+        "iso_code": "", 
+        "tipo_territorio": "zona", 
+        "territorio_superiore": "10100"
+    }
+},
+{
+    "pk": 10012, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": null, 
+        "popolazione": null, 
+        "iso_alpha2": "", 
+        "label": "Oceania", 
+        "geojson_label": "", 
+        "label_en": "Oceania, Total", 
+        "pil_procapite": null, 
+        "crescita_popolazione": null, 
+        "reportage_url": null, 
+        "iso_code": "", 
+        "tipo_territorio": "zona", 
+        "territorio_superiore": "10100"
+    }
+},
+{
+    "pk": 10100, 
+    "model": "ftm.territorio", 
+    "fields": {
+        "pil": null, 
+        "popolazione": null, 
+        "iso_alpha2": "", 
+        "label": "Paesi in via di sviluppo", 
+        "geojson_label": "", 
+        "label_en": "Developing Countries, Total", 
+        "pil_procapite": null, 
+        "crescita_popolazione": null, 
+        "reportage_url": null, 
+        "iso_code": "", 
+        "tipo_territorio": "totale", 
+        "territorio_superiore": null
+    }
+}
+]

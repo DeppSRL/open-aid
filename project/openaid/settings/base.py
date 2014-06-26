@@ -263,7 +263,7 @@ LOGGING = {
     'disable_existing_loggers': False,
     'formatters': {
         'verbose': {
-            'format' : "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
+            'format': "[%(asctime)s.%(msecs).03d] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
             'datefmt' : "%d/%b/%Y %H:%M:%S"
         },
         'simple': {
@@ -281,14 +281,31 @@ LOGGING = {
             'filters': ['require_debug_false'],
             'class': 'django.utils.log.AdminEmailHandler'
         },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose'
+        },
         'file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
             'filename': normpath(join(RESOURCES_PATH, 'logs', 'openaid.log')),
             'formatter': 'verbose'
         },
+        'management_logfile': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': normpath(join(RESOURCES_PATH, 'logs', 'management.log')),
+            'mode': 'w',
+            'formatter': 'verbose',
+        },
     },
     'loggers': {
+        'management': {
+            'handlers': ['console', 'management_logfile'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
         'django.request': {
             'handlers': ['mail_admins'],
             'level': 'ERROR',
