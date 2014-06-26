@@ -328,3 +328,19 @@ LANGUAGES = (
 ########## ICONFONTS CONFIGURATION
 ICONFONT = 'font-awesome'
 ########## END ICONFONTS CONFIGURATION
+
+
+########## DJANGO-HAYSTACK CONFIGURATION
+INSTALLED_APPS += (
+    'haystack',
+)
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
+        'URL': 'http://127.0.0.1:9200/',
+        'INDEX_NAME': 'open=aid',
+    },
+}
+########## END DJANGO-HAYSTACK CONFIGURATION
+
+
