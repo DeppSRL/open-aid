@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.db.models import Min, Max
 from .crs import models
+from .crs.forms import FacetedActivitySearchForm
 
 YEAR_FIELD = 'selected_year'
 YEAR_GET_FIELD = 'year'
@@ -21,4 +22,5 @@ def project_context(request):
         'aids': models.AidType.objects.get(parent__isnull=True).children.all(),
         YEAR_FIELD: request.GET.get(YEAR_GET_FIELD, END_YEAR),
         YEARS_RANGE_FIELD: YEARS,
+        'search_form': FacetedActivitySearchForm(request.GET)
     }
