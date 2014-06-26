@@ -18,6 +18,9 @@ django-model-utils
 django-mptt
 django-modeltranslation
 
+# For the persistance stores
+psycopg2
+
 # Searching
 django-haystack
 requests
