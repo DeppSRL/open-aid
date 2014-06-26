@@ -21,7 +21,7 @@ django-modeltranslation
 # Searching
 django-haystack
 requests
-pyelasticsearch
+pysolr
 
 # OpenAID specific
 csvkit
