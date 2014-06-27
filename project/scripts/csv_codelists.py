@@ -7,17 +7,17 @@ e il valore anno dopo anno di quella code list.
 CRSID | RECIPIENT | 2004 | ... | 2012
 
 """
-import csv
+import csvkit
 
 from openaid.crs.models import Project
 
 YEARS = [str(x) for x in range(2004, 2013)]
 DEFAULT_YEARS_VALUES = dict([(y, u'') for y in YEARS])
-FIELDS = ['crsid', 'recipient', ] + [str(x) for x in range(2004, 2013)]
+FIELDS = ['crsid', 'recipient', 'agency'] + [str(x) for x in range(2004, 2013)]
 
 def create_writer(name):
     f = open('%s.csv' % name, 'w')
-    return f, csv.DictWriter(f, FIELDS)
+    return f, csvkit.DictWriter(f, FIELDS)
 
 
 def run():
@@ -34,6 +34,7 @@ def run():
         aids = {}
         sectors = {}
         channels = {}
+        agency = ''
 
         for activity in project.activity_set.all():
 
@@ -43,9 +44,12 @@ def run():
             sectors[year] = activity.purpose.code if activity.purpose else ''
             channels[year] = activity.channel.code if activity.channel else ''
 
+            agency = activity.agency.name if activity.agency else ''
+
         line = {
             'crsid': project.crs,
             'recipient': project.recipient.code,
+            'agency': agency,
         }
         line.update(DEFAULT_YEARS_VALUES)
 
