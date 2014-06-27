@@ -20,6 +20,9 @@ urlpatterns = [
 
 openaid_urls = (
     url(r'^$', views.Home.as_view(), name='home'),
+    # blog
+    url(r'^news', include('blog.urls')),
+
     url(r'^', include('openaid.crs.urls', namespace='crs')),
 )
 urlpatterns += i18n_patterns('', *openaid_urls)

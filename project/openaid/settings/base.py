@@ -235,11 +235,17 @@ DJANGO_APPS = (
     'iconfonts.django', # icon renderer
     'idioticon', # term glossary
     'mptt', # tree structure for models
+
+    # third party apps
+    'tinymce',
+
 )
 
 # Apps specific for this project go here.
 LOCAL_APPS = (
     'openaid.crs',
+    'tagging',
+    'blog',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
