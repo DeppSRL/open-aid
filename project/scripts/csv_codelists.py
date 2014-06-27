@@ -8,6 +8,7 @@ CRSID | RECIPIENT | 2004 | ... | 2012
 
 """
 import csvkit
+from django.db.models import Count
 
 from openaid.crs.models import Project
 
@@ -29,7 +30,7 @@ def run():
     channel_file, channel_writer = create_writer('channel')
     channel_writer.writeheader()
 
-    for i, project in enumerate(Project.objects.all()):
+    for i, project in enumerate(Project.objects.annotate(activity_count=Count('activity')).filter(activity_count__gt=1)):
 
         aids = {}
         sectors = {}
@@ -40,9 +41,24 @@ def run():
 
             year = str(activity.year)
 
-            aids[year] = activity.aid_type.code if activity.aid_type else ''
-            sectors[year] = activity.purpose.code if activity.purpose else ''
-            channels[year] = activity.channel.code if activity.channel else ''
+            aid = activity.aid_type.code if activity.aid_type else ''
+            if year in aids:
+                if aid not in aids[year]:
+                    aids[year] += '/%s' % aid
+            else:
+                aids[year] = aid
+            sector = activity.purpose.code if activity.purpose else ''
+            if year in sectors:
+                if sector not in sectors[year]:
+                    sectors[year] += '/%s' % sector
+            else:
+                sectors[year] = sector
+            channel = activity.channel.code if activity.channel else ''
+            if year in channels:
+                if channel not in channels[year]:
+                    channels[year] += '/%s' % channel
+            else:
+                channels[year] = channel
 
             agency = activity.agency.name if activity.agency else ''
 
