@@ -143,6 +143,56 @@ class Project(models.Model):
     crs = models.CharField(max_length=100)
     recipient = models.ForeignKey(Recipient)
 
+    def activities(self, year=None):
+        if not getattr(self, '_activities', False):
+            self._activities = list(self.activity_set.all())
+        return filter(lambda a: a.year == year, self._activities) if year else self._activities
+
+    def _activities_map(self, field, activities=None, year=None):
+        activities = activities or self.activities(year=year)
+        return list(map(lambda a: getattr(a, field), activities)) if activities else []
+
+    def years_range(self):
+        return sorted(self._activities_map('year'))
+
+    def start_year(self):
+        return min(self.years_range())
+
+    def end_year(self):
+        return max(self.years_range())
+
+    def title(self, year=None):
+        titles = [a.title for a in self.activities(year)]
+        if not any(titles):
+            return ''
+        title = titles[0]
+        # prendo il titolo con piu caratteri
+        for t in titles[1:]:
+            if len(t) > len(title):
+                title = t
+        return title
+
+    def usd_commitments(self, year=None):
+        return self._activities_map('usd_commitment', year=year)
+
+    def usd_commitment(self, year=None):
+        return sum(self.usd_commitments(year=year or self.end_year()), 0.0)
+
+    def usd_disbursements(self, year=None):
+        return self._activities_map('usd_disbursement')
+
+    def usd_disbursement(self, year):
+        return sum(self.usd_disbursements(year=year or self.end_year()), 0.0)
+
+    def aid_types(self):
+        return self._activities_map('aid_type')
+
+    def channels(self):
+        return self._activities_map('channel')
+
+    def sectors(self):
+        return self._activities_map('purpose')
+
     def __unicode__(self):
         return "%s:%s" % (self.crs, self.recipient_id)
 

@@ -1,3 +1,4 @@
+{% load i18n %}
 <div class="row">
     <div class="col-sm-12 bg-red">
         <div class="container">
@@ -55,19 +56,21 @@
                         </ul>
                     </li>
                 </ul>
-                <form class="navbar-form navbar-right" role="search">
+                <form class="navbar-form navbar-right" action="{% url 'crs:activity-search' %}" method="get" role="search">
 
                     <div class="search-form">
                         <div class="form-white">
-                            <input type="text" class="form-control" placeholder="Search">
-                            <ul class="nav navbar-nav pull-right">
-                                <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">REALIZZATORI<b class="caret"></b></a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="#">Action</a></li>
-                                        <li><a href="#">Action</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
+                            <input class="form-control" id="search-input" name="{{ search_form.q.html_name }}"
+                               value="{{ search_form.q.value|default_if_none:'' }}"
+                               type="text" placeholder="{% trans "Search" %}">
+{#                            <ul class="nav navbar-nav pull-right">#}
+{#                                <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">REALIZZATORI<b class="caret"></b></a>#}
+{#                                    <ul class="dropdown-menu">#}
+{#                                        <li><a href="#">Action</a></li>#}
+{#                                        <li><a href="#">Action</a></li>#}
+{#                                    </ul>#}
+{#                                </li>#}
+{#                            </ul>#}
                         </div>
                         <button type="submit" class="fa fa-search" style="float:right"> </button>
                     </div>

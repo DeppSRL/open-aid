@@ -1,6 +1,9 @@
 from django.views.generic import DetailView, ListView, TemplateView
 from django.db.models import Count, Max, Min, Sum
+from haystack.query import SearchQuerySet
+from haystack.views import FacetedSearchView
 from . import models
+from .forms import FacetedActivitySearchForm
 
 
 class CodeListView(object):
@@ -67,3 +70,42 @@ class ProjectActivityList(ActivityList):
     def get_queryset(self):
         project_pk = self.kwargs.get('pk')
         return super(ProjectActivityList, self).get_queryset().filter(project=int(project_pk))
+
+
+class SearchFacetedActivityView(FacetedSearchView):
+
+    template = 'crs/activity_search_results.html'
+
+    def __init__(self, *args, **kwargs):
+
+        sqs = SearchQuerySet()
+
+        for facet in kwargs.pop('facets', []):
+            sqs = sqs.facet(facet)
+
+        super(SearchFacetedActivityView, self).__init__(
+            form_class=FacetedActivitySearchForm, searchqueryset=sqs, *args, **kwargs)
+
+    def extra_context(self):
+        """
+        Builds extra context, to build facets filters and breadcrumbs
+        """
+        extra = super(SearchFacetedActivityView, self).extra_context()
+        extra['n_results'] = len(self.results)
+
+        # make get array as mutable QueryDict
+        params = self.request.GET.copy()
+        if 'q' not in params:
+            params.update({'q': ''})
+        if 'page' in params:
+            params.pop('page')
+        extra['params'] = params
+
+        if not self.results:
+            extra['facets'] = self.form.search().facet_counts()
+        else:
+            extra['facets'] = self.results.facet_counts()
+
+        extra['order_by'] = self.request.GET.get('order_by', self.form.default_order)
+
+        return extra

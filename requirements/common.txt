@@ -21,6 +21,8 @@ django-modeltranslation
 # Searching
 django-haystack
 requests
+lxml
+cssselect
 pysolr
 
 # OpenAID specific

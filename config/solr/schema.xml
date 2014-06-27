@@ -147,9 +147,67 @@
     <dynamicField name="*_coordinate"  type="tdouble" indexed="true"  stored="false"/>
 
 
-    <field name="project" type="text_en" indexed="true" stored="true" multiValued="false" />
+    <field name="is_pba" type="boolean" indexed="true" stored="true" multiValued="false" />
+
+    <field name="geography_it" type="text_en" indexed="true" stored="true" multiValued="false" />
+
+    <field name="description" type="text_en" indexed="true" stored="true" multiValued="false" />
 
     <field name="text" type="text_en" indexed="true" stored="true" multiValued="false" />
+
+    <field name="commitment_national" type="float" indexed="true" stored="true" multiValued="false" />
+
+    <field name="title_en" type="text_en" indexed="true" stored="true" multiValued="false" />
+
+    <field name="number" type="text_en" indexed="true" stored="true" multiValued="false" />
+
+    <field name="description_en" type="text_en" indexed="true" stored="true" multiValued="false" />
+
+    <field name="currency" type="long" indexed="true" stored="true" multiValued="false" />
+
+    <field name="completion_date" type="date" indexed="true" stored="true" multiValued="false" />
+
+    <field name="report_type" type="long" indexed="true" stored="true" multiValued="false" />
+
+    <field name="year" type="long" indexed="true" stored="true" multiValued="false" />
+
+    <field name="description_it" type="text_en" indexed="true" stored="true" multiValued="false" />
+
+    <field name="long_description_en" type="text_en" indexed="true" stored="true" multiValued="false" />
+
+    <field name="usd_IRTC" type="float" indexed="true" stored="true" multiValued="false" />
+
+    <field name="year_exact" type="long" indexed="true" stored="true" multiValued="false" />
+
+    <field name="geography" type="text_en" indexed="true" stored="true" multiValued="false" />
+
+    <field name="commitment_date" type="date" indexed="true" stored="true" multiValued="false" />
+
+    <field name="is_ftc" type="boolean" indexed="true" stored="true" multiValued="false" />
+
+    <field name="long_description_it" type="text_en" indexed="true" stored="true" multiValued="false" />
+
+    <field name="disbursement_national" type="float" indexed="true" stored="true" multiValued="false" />
+
+    <field name="title" type="text_en" indexed="true" stored="true" multiValued="false" />
+
+    <field name="expected_start_date" type="date" indexed="true" stored="true" multiValued="false" />
+
+    <field name="long_description" type="text_en" indexed="true" stored="true" multiValued="false" />
+
+    <field name="project" type="text_en" indexed="true" stored="true" multiValued="false" />
+
+    <field name="number_repayment" type="long" indexed="true" stored="true" multiValued="false" />
+
+    <field name="grant_element" type="float" indexed="true" stored="true" multiValued="false" />
+
+    <field name="outflow" type="long" indexed="true" stored="true" multiValued="false" />
+
+    <field name="geography_en" type="text_en" indexed="true" stored="true" multiValued="false" />
+
+    <field name="is_investment" type="boolean" indexed="true" stored="true" multiValued="false" />
+
+    <field name="title_it" type="text_en" indexed="true" stored="true" multiValued="false" />
 
   </fields>
 
