@@ -5,6 +5,7 @@ from django.conf import settings
 from django.forms.models import modelform_factory
 import csvkit
 import sdmx
+from openaid.crs import utils
 from openaid.crs import code_lists
 from openaid.crs import forms
 from openaid.crs import mapping
@@ -200,6 +201,7 @@ class ActivityRowLoader(object):
         activity_form = mapping.create_mapped_form(forms.ActivityForm, self.row, mapping.ACTIVITY_FIELDS_MAP)
         if not activity_form.is_valid():
             raise CRSException(activity_form)
+        utils.currency_converter(activity_form.instance)
         activity = activity_form.save()
 
         # 2. vedo se può essere associata ad un Project
