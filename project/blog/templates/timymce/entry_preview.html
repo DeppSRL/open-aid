@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load tinymce_tags %}
+
+{% block page_title %}{{ object.title }}{% endblock %}
+
+{% block content %}
+  <div id="blog">
+
+    {% tinymce_preview "preview-content" %}
+
+  </div>
+{% endblock %}
