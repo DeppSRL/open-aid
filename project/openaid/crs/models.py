@@ -68,7 +68,7 @@ class HierarchicalCodeListModel(MPTTModel, CodeListModel):
         abstract = True
 
 
-class Recipient(HierarchicalCodeListModel):
+class Recipient(CodeListModel):
 
     code_list = 'recipient'
     # code_list_sdmx = 'CL_CRS1_DAC_RECIPIENT'
