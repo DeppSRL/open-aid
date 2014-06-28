@@ -50,9 +50,9 @@ def crs_stats(context, **kwargs):
         selected = aid
         selected_facet = 'aid_types'
 
-    sectors = sector.children.all() if sector else codelists_models.Sector.objects.get(parent__isnull=True).children.all()
-    channels = channel.children.all() if channel else codelists_models.Channel.objects.filter(parent__isnull=True)
-    aids = aid.children.all() if aid else codelists_models.AidType.objects.get(parent__isnull=True).children.all()
+    sectors = sector.children.all() if sector else codelists_models.Sector.objects.root_nodes()
+    channels = channel.children.all() if channel else codelists_models.Channel.objects.root_nodes()
+    aids = aid.children.all() if aid else codelists_models.AidType.objects.root_nodes()
 
     statistify = lambda item: (item, item.get_total_commitment(**filters))
     tot_order = lambda item: item[1]

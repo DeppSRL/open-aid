@@ -17,7 +17,7 @@ def project_context(request):
     return {
         'project_name': settings.PROJECT_NAME,
         'available_languages': map(lambda x: x[0], settings.LANGUAGES),
-        'recipients': models.Recipient.objects.root_nodes(),
+        'recipients': models.Recipient.objects.root_nodes().prefetch_related('children'),
         'sectors': models.Sector.objects.root_nodes(),
         'channels': models.Channel.objects.root_nodes(),
         'aids': models.AidType.objects.root_nodes(),
