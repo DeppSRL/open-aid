@@ -13,6 +13,9 @@
     <div>
       {{ object.body|safe }}
     </div>
-    {% include 'attribute_tags.html' with tags=object.tags base_url='blog_home' only %}
+  {% else %}
+    <div>
+      {{ object.abstract|safe }}
+    </div>
   {% endif %}
 </article>

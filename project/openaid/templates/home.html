@@ -23,56 +23,23 @@ Lorem Ipsum è considerato il testo segnaposto standard sin dal sedicesimo secol
         </div>
 
         <div class="col-md-6">
-            <h2><a href="#">DIARIO DEI PROGETTI</a></h2>
+            <h2><a href="{% url 'blog_home' %}">DIARIO DEI PROGETTI</a></h2>
             <ul class="media-list">
+            {% for entry in entries_list %}
                 <li class="media">
-                    <figure class="pull-left">
-                        <img src="http://cambelt.co/42x42/ML?color=5e6a77" alt="avatar" class="img-responsive">
-                    </figure>
                     <article class="media-body">
                         <header>
-                            <a href="#">Titolo del post lorem ipsum dolor sit amet</a>
+                            <a href="{% url 'blog_item' entry.slug %}">{{ entry.title }}</a>
                         </header>
                         <div class="text">
-                            <p>Lorem Ipsum è un testo segnaposto utilizzato nel settore della tipografia ...</p>
+                            {{ entry.abstract|safe }}
                         </div>
                         <footer>
-                            <time datetime="2014-05-06 19:00">6 maggio 2014</time>
+                            <time datetime="2014-05-06 19:00">{{ entry.published_at|date:'d/m/Y' }}</time>
                         </footer>
                     </article>
                 </li>
-                <li class="media">
-                    <figure class="pull-left">
-                        <img src="http://cambelt.co/42x42/ML?color=5e6a77" alt="avatar" class="img-responsive">
-                    </figure>
-                    <article class="media-body">
-                        <header>
-                            <a href="#">Titolo del post lorem ipsum dolor sit amet</a>
-                        </header>
-                        <div class="text">
-                            <p>Lorem Ipsum è un testo segnaposto utilizzato nel settore della tipografia ...</p>
-                        </div>
-                        <footer>
-                            <time datetime="2014-05-06 19:00">6 maggio 2014</time>
-                        </footer>
-                    </article>
-                </li>
-                <li class="media">
-                    <figure class="pull-left">
-                        <img src="http://cambelt.co/42x42/ML?color=5e6a77" alt="avatar" class="img-responsive">
-                    </figure>
-                    <article class="media-body">
-                        <header>
-                            <a href="#">Titolo del post lorem ipsum dolor sit amet</a>
-                        </header>
-                        <div class="text">
-                            <p>Lorem Ipsum è un testo segnaposto utilizzato nel settore della tipografia ...</p>
-                        </div>
-                        <footer>
-                            <time datetime="2014-05-06 19:00">6 maggio 2014</time>
-                        </footer>
-                    </article>
-                </li>
+            {% endfor %}
             </ul>
             <a href="#" class="read-more pull-right twelve">LEGGI TUTTO <span class="fa fa-caret-right"> </span></a>
         </div>

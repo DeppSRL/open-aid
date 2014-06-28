@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.db.models import Min, Max
+from openaid.pages import urls as pages_urls
 from .crs import models
 
 YEAR_FIELD = 'selected_year'
@@ -19,6 +20,7 @@ def project_context(request):
         'sectors': models.Sector.objects.get(parent__isnull=True).children.all(),
         'channels': models.Channel.objects.filter(parent__isnull=True),
         'aids': models.AidType.objects.get(parent__isnull=True).children.all(),
+        'footer_sections': pages_urls.footer_sections,
         YEAR_FIELD: request.GET.get(YEAR_GET_FIELD, END_YEAR),
         YEARS_RANGE_FIELD: YEARS,
     }

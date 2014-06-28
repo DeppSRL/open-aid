@@ -8,6 +8,7 @@ class Entry(tagging_models.TagMixin, models.Model):
 
     title = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255, null=True, blank=True, unique=True)
+    abstract = models.TextField()
     body = models.TextField()
     body_plain = models.TextField()
     published_at = models.DateTimeField(default=datetime.now(), verbose_name=_('Publishing date'))
@@ -30,8 +31,8 @@ class Entry(tagging_models.TagMixin, models.Model):
 
     class Meta:
         ordering= ['-published_at']
-        verbose_name= _('notizia')
-        verbose_name_plural= _('notizie')
+        verbose_name= _('Entry')
+        verbose_name_plural= _('Entries')
 
 class Blog(object):
 
