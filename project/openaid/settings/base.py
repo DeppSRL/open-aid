@@ -336,12 +336,18 @@ ICONFONT = 'font-awesome'
 INSTALLED_APPS += (
     'haystack',
 )
+def solr_url(lang):
+    return {
+        # 'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
+        'ENGINE': 'openaid.backends.MultilingualSolrEngine',
+        'URL': 'http://127.0.0.1:8080/solr/open-aid-%s' % lang,
+    }
 HAYSTACK_CONNECTIONS = {
-    'default': {
-        'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
-        'URL': 'http://127.0.0.1:8080/solr/open-aid',
-    },
+    'default': solr_url(LANGUAGE_CODE[:2]),
 }
+HAYSTACK_CONNECTIONS.update(dict([
+    ('default_%s' % lang, solr_url(lang)) for lang, __ in LANGUAGES
+]))
 ########## END DJANGO-HAYSTACK CONFIGURATION
 
 

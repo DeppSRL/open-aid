@@ -54,7 +54,7 @@ class Command(LabelCommand):
                 if matches == 0:
                     self.stdout.write("\rRow %d non corrisponde a nessuna Activity" % (i))
                 else:
-                    self.stdout.write("\r%s: Translated activities %d" % (i, updates), ending='')
+                    self.stdout.write("\r%s: Translated activities %d    " % (i, updates), ending='')
                     self.stdout.flush()
                 translations += updates
 

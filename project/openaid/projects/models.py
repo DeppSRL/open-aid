@@ -35,8 +35,76 @@ class Markers(models.Model):
 class Project(models.Model):
 
     crsid = models.CharField(max_length=100, blank=True)
+    recipient = models.ForeignKey('codelists.Recipient', blank=True, null=True)
     start_year = models.PositiveSmallIntegerField()
     end_year = models.PositiveSmallIntegerField()
+
+    def activities(self, year=None):
+        if not getattr(self, '_activities', False):
+            self._activities = list(self.activity_set.all().prefetch_related('recipient', 'agency', 'aid_type', 'channel', 'finance_type', 'sector'))
+        return filter(lambda a: a.year == year, self._activities) if year else self._activities
+
+    def _activities_map(self, field, activities=None, year=None):
+        activities = activities or self.activities(year=year)
+        return list(map(lambda a: getattr(a, field), activities)) if activities else []
+
+    def years_range(self):
+        return sorted(self._activities_map('year'))
+
+    def title(self, year=None):
+        titles = [a.title for a in self.activities(year)]
+        if not any(titles):
+            return ''
+        title = titles[0]
+        # prendo il titolo con piu caratteri
+        for t in titles[1:]:
+            if len(t) > len(title):
+                title = t
+        return title
+
+    def description(self, year=None):
+        descriptions = [a.description for a in self.activities(year)]
+        if not any(descriptions):
+            return ''
+        description = descriptions[0]
+        # prendo il titolo con piu caratteri
+        for d in descriptions[1:]:
+            if len(d) > len(description):
+                description = d
+        return description
+
+    def recipients(self):
+        return self._activities_map('aid_type')
+
+    def agencies(self):
+        return self._activities_map('agency')
+
+    def aid_types(self):
+        return self._activities_map('aid_type')
+
+    def channels(self):
+        return self._activities_map('channel')
+
+    def finance_types(self):
+        return self._activities_map('finance_type')
+
+    def sectors(self):
+        return self._activities_map('sector')
+
+    def commitments(self, year=None):
+        return self._activities_map('commitment', year=year)
+
+    def commitment(self, year=None):
+        return sum(self.usd_commitments(year=year or self.end_year), 0.0)
+
+    def disbursements(self, year=None):
+        return self._activities_map('disbursement')
+
+    def disbursement(self, year):
+        return sum(self.usd_disbursements(year=year or self.end_year), 0.0)
+
+    class Meta:
+        unique_together = (('crsid', 'recipient'),)
 
 
 class Activity(models.Model):

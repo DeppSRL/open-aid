@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Sum
 from django.utils.translation import ugettext as _
 from model_utils import Choices
 from mptt.fields import TreeForeignKey
@@ -11,6 +12,25 @@ class CodeListModel(models.Model):
     code = models.CharField(max_length=16, unique=True)
     name = models.CharField(max_length=512, blank=True)
     description = models.TextField(blank=True)
+
+    def get_descendants_pks(self, include_self=False):
+        return [self, ] if include_self else []
+
+    def get_total(self, field, **filters):
+
+        assert field in ('commitment', 'disbursement')
+
+        filters.update({
+            '%s__in' % getattr(self, 'code_list_activity_field', self.code_list): self.get_descendants_pks(True),
+        })
+        total = self.activity_set.model.objects.filter(**filters).aggregate(tot=Sum(field))['tot'] or 0.0
+        return total
+
+    def get_total_commitment(self, **filters):
+        return self.get_total('commitment', **filters)
+
+    def get_total_disbursement(self, **filters):
+        return self.get_total('disbursement', **filters)
 
     def __unicode__(self):
         return self.name
@@ -26,6 +46,9 @@ class CodeListModel(models.Model):
 class CodeListTreeModel(MPTTModel, CodeListModel):
 
     parent = TreeForeignKey('self', null=True, blank=True, related_name='children')
+
+    def get_descendants_pks(self, include_self=False):
+        return [d.pk for d in self.get_descendants(include_self)]
 
     class Meta(CodeListModel.Meta):
         abstract = True
@@ -49,6 +72,12 @@ class Recipient(CodeListTreeModel):
     )
 
     income_group = models.CharField(choices=INCOME_GROUPS, max_length=16, blank=True)
+
+    class Meta:
+        ordering = ('name', 'code', )
+
+    class MPTTMeta:
+        order_insertion_by=['name', ]
 
 
 class Donor(CodeListModel):

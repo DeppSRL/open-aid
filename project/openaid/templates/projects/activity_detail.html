@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <h1>Activity <small>#{{ object.pk }}</small></h1>
+
+    <dl class="dl-horizontal">
+        <dt>Project</dt>
+        <dd><a href="{% url 'projects:project-detail' pk=object.project.pk %}">#{{ object.project.pk }}</a></dd>
+        <dt>Project Recipient</dt>
+        <dd><a href="{% url 'projects:project-list' %}?recipient={{ object.project.recipient.pk }}">{{ object.project.recipient }}</a></dd>
+        <dt>Project CRS</dt>
+        <dd><a href="{% url 'projects:project-list' %}?crs={{ object.project.crsid }}">{{ object.project.crsid }}</a></dd>
+    </dl>
+
+    {% include 'projects/activity_panel.html' with activity=object %}
+
+{% endblock content %}

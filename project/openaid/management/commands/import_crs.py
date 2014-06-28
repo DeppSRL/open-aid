@@ -23,10 +23,10 @@ class Command(LabelCommand):
     def delete_code_lists(self):
         answer = raw_input('Are you sure? (Yes/No)')
         if answer.lower() in ('yes', 'y'):
-            self.stdout.write('Deleting %s projects' % models.Project.objects.count())
-            models.Project.objects.all().delete()
             self.stdout.write('Deleting %s activities' % models.Activity.objects.count())
             models.Activity.objects.all().delete()
+            self.stdout.write('Deleting %s projects' % models.Project.objects.count())
+            models.Project.objects.all().delete()
             return True
         return False
 
@@ -45,18 +45,24 @@ class Command(LabelCommand):
             for cl in codelist_models.CODE_LISTS
         ])
 
-        rows = 0
-        with open(crs_filename, 'r') as crs_file:
-            i = 0
-            for rows, activity in enumerate(csvkit.DictReader(crs_file), start=1):
-                if self.load_activity(activity, i):
-                    i += 1
-                    self.stdout.write("\rImported project: %d" % (i), ending='')
-                    self.stdout.flush()
-
-
-        self.stdout.write("\nTotal rows: %d" % rows)
-        self.stdout.write("Execution time: %d seconds" % (time.time() - start_time))
+        rows = projects = activities = 0
+        try:
+            with open(crs_filename, 'r') as crs_file:
+                for rows, activity in enumerate(csvkit.DictReader(crs_file), start=1):
+                    activity, new_project = self.load_activity(activity, i)
+                    if activity:
+                        activities += 1
+                        self.stdout.write("\rImported row: %d" % (activities), ending='')
+                        self.stdout.flush()
+                        if new_project:
+                            projects += 1
+        except KeyboardInterrupt:
+            self.stdout.write("\nCommand execution aborted.")
+        finally:
+            self.stdout.write("\nTotal projects: %d" % projects)
+            self.stdout.write("Total activities: %d" % activities)
+            self.stdout.write("Total rows: %d" % rows)
+            self.stdout.write("Execution time: %d seconds" % (time.time() - start_time))
 
     def load_activity(self, row, i):
         # fix report_type
@@ -94,7 +100,25 @@ class Command(LabelCommand):
                     setattr(activity, '%s_id' % codelist.code_list, pk)
                 except KeyError:
                     self.stderr.write('\nError: cannot find %s with code "%s" (row: %s)' % (codelist.code_list, code_value, i))
-        # save project with changes
+
+        # 5. la associo ad un project
+        activity.project, project_created = models.Project.objects.get_or_create(**{
+            'crsid': activity.crsid,
+            'recipient_id': activity.recipient_id,
+            'defaults': {
+                'start_year': activity.year,
+                'end_year': activity.year,
+            }
+        })
+        if not project_created:
+            if activity.year < activity.project.start_year:
+                activity.project.start_year = activity.year
+                activity.project.save()
+            elif activity.year > activity.project.end_year:
+                activity.project.start_year = activity.year
+                activity.project.save()
+
+# save project with changes
         activity.save()
 
-        return activity
+        return activity, project_created

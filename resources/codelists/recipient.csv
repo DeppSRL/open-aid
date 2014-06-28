@@ -207,5 +207,5 @@ code,parent,name,name_en,name_it,description,description_en,description_it,incom
 876,10012,Wallis & Futuna,Wallis & Futuna,,,,,10019
 880,10012,Samoa,Samoa,,,,,10016
 889,10012,"Oceania, regional","Oceania, regional",,,,,
-15006,,Developing Countries unspecified,Developing Countries unspecified,,,,,
 998,,"Developing countries, unspecified","Developing countries, unspecified",,,,,
+15006,998,Developing Countries unspecified,Developing Countries unspecified,,,,,

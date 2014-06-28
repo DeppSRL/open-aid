@@ -1,5 +1,8 @@
 from django import template
 from django.core.urlresolvers import reverse
+from django.http import QueryDict
+from django.utils.http import urlquote, urlencode
+
 register = template.Library()
 
 
@@ -36,7 +39,7 @@ def search_url(context, facet='', term='', remove=False, absolute=True):
     Else replace or append provided facet:term.
     If remove is True this tag remove only provided facet:term.
     """
-    url = reverse('crs:activity-search')
+    url = reverse('projects:search')
 
     if not facet:
         return url
@@ -52,7 +55,11 @@ def search_url(context, facet='', term='', remove=False, absolute=True):
     value = u"{0}:{1}".format(facet, term)
 
     if absolute:
-        return u"{0}?selected_facets={1}".format(url, value)
+        query = QueryDict('', mutable=True)
+        query.update({
+            'selected_facets': value
+        })
+        return u"{0}?{1}".format(url, query.urlencode(safe=':/'))
 
     query = context['request'].GET.copy()
     if remove:
@@ -67,7 +74,7 @@ def search_url(context, facet='', term='', remove=False, absolute=True):
     return u"{0}?{1}".format(url, query.urlencode(safe=':/'))
 
 
-@register.inclusion_tag('crs/facet_filters.html', takes_context=True)
+@register.inclusion_tag('search/facet_filters.html', takes_context=True)
 def show_facets(context, facet, skip_empty=True, multi_select=False):
     """
 This inclusion tag prints a list of facet terms.

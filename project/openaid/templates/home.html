@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% load idioticon %}
 {% load icons %}
 {% load humanize %}
@@ -7,23 +8,20 @@
 {% block content %}
 <div class="row">
     <div class="container">
-        <div class="col-md-6">
-            <h2><a href="#">LA COOPERAZIONE ITALIANA</a></h2>
-            <div class="row">
-                <div class="col-md-2"><img src="http://www.polyvore.com/cgi/img-thing?.out=jpg&size=l&tid=33633876" alt="avatar" class="img-responsive img-circle"></div>
-                <div class="col-md-10"><p>Lorem Ipsum è un testo segnaposto utilizzato nel settore della tipografia e della stampa. Lorem Ipsum è considerato il testo segnaposto standard sin dal sedicesimo secolo.</p></div>
-            </div>
-            <div class="row">
-                <div class="col-md-2"><img src="http://www.polyvore.com/cgi/img-thing?.out=jpg&size=l&tid=33633876" alt="avatar" class="img-responsive img-circle"></div>
-                <div class="col-md-10"><p>Lorem Ipsum è un testo segnaposto utilizzato nel settore della Lorem Ipsum è un testo segnaposto utilizzato nel settore della
-tipografia e della stampa.<br><br>
-Lorem Ipsum è considerato il testo segnaposto standard sin dal sedicesimo secolo.</p></div>
-            </div>
-            <a href="#" class="read-more pull-right twelve">LEGGI TUTTO <span class="fa fa-caret-right"> </span></a>
+        <div class="col-md-7">
+            <h2><a href="#">{% trans 'Italian Development Cooperation' %}</a></h2>
+            <p>{% blocktrans %}
+                Since the 1950s, Italian Development Cooperation has grown through aid programs in countries linked to Italy by former colonial ties.
+                Italy has developed a more systematic cooperative approach aimed at alleviating poverty worldwide and helping developing countries to strengthen their institutions and governance.
+                In recent years, due to new global plights, Italian Cooperation has played a crucial role in defining Italian foreign policy,
+                aimed at maintaining peace and managing migration flows.
+                {% endblocktrans %}
+            </p>
+            <a href="#" class="read-more pull-right twelve">{% trans 'read more' %} <span class="fa fa-caret-right"> </span></a>
         </div>
 
-        <div class="col-md-6">
-            <h2><a href="#">DIARIO DEI PROGETTI</a></h2>
+        <div class="col-md-5">
+            <h2><a href="#">{% trans "News" %}</a></h2>
             <ul class="media-list">
                 <li class="media">
                     <figure class="pull-left">
@@ -74,7 +72,7 @@ Lorem Ipsum è considerato il testo segnaposto standard sin dal sedicesimo secol
                     </article>
                 </li>
             </ul>
-            <a href="#" class="read-more pull-right twelve">LEGGI TUTTO <span class="fa fa-caret-right"> </span></a>
+            <a href="#" class="read-more pull-right twelve">{% trans 'read more' %} <span class="fa fa-caret-right"> </span></a>
         </div>
     </div><!-- .container -->
 </div><!-- .row -->
@@ -87,7 +85,7 @@ Lorem Ipsum è considerato il testo segnaposto standard sin dal sedicesimo secol
     <div class="container">
         <div class="col-md-8">
             <div class="progetti">
-                <h2><a href="#">I PROGETTI CON I MAGGIORI FINANZIAMENTI</a></h2>
+                <h2><a href="#">Le iniziative più rilevanti</a></h2>
                 <div class="bordered-radius" style="overflow:hidden;">
                     <ul class="list-unstyled">
                         <li>
@@ -202,14 +200,14 @@ spazi e promozione dei diritti delle Comunità Indigene Mapuche in Araucania</a>
                             </article>
                         </li>
                     </ul>
-                    <a href="#" class="read-more pull-right pad">VEDI TUTTI I PROGETTI <span class="fa fa-align-justify"> </span></a>
+                    <a href="#" class="read-more pull-right pad">{% trans "Show all initiatives" %} <span class="fa fa-align-justify"> </span></a>
                 </div>
             </div>
         </div>
 
 
         <div class="col-md-4">
-            <h2><a href="#">FOCUS SU UN PROGETTO</a></h2>
+            <h2><a href="#">FOCUS SU UN INIZIATIVA</a></h2>
             <div class="row">
                 <div class="col-md-12">
                     <div class="focus">

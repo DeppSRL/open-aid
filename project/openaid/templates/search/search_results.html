@@ -23,7 +23,7 @@
 
             <div class="col-md-6 ordering pull-left">
                 <div class="form-group">
-                    <div class="col-md-4 twelve no-pad"><strong>Ordina i progetti per</strong></div>
+                    <div class="col-md-4 twelve no-pad"><strong>Ordina le iniziative per</strong></div>
                     <div class="col-md-8  no-pad">
                         <ul class="nav navbar-nav ">
                             <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">RILEVANZA <b class="caret"></b></a>
@@ -58,16 +58,16 @@
                     <ul class="list-unstyled">
                         {% for result in page.object_list %}
                         <li>
-                            {% include 'crs/snippets/project_element.html' with project=result.object %}
+                            {% include 'snippets/project_element.html' with project=result.object %}
                         </li>
                         {% endfor %}
                     </ul>
-                    <a href="#" class="read-more pull-right pad">VEDI TUTTI I PROGETTI <span class="fa fa-align-justify"> </span></a>
+                    <a href="#" class="read-more pull-right pad">VEDI TUTTE LE INIZIATIVE <span class="fa fa-align-justify"> </span></a>
                 </div>
             </div>
             <div class="ordering">
                 <div class="form-group">
-                    <div class="col-md-4 twelve no-pad"><strong>Ordina i progetti per</strong></div>
+                    <div class="col-md-4 twelve no-pad"><strong>Ordina le iniziative per</strong></div>
                     <div class="col-md-8  no-pad">
                         <ul class="nav navbar-nav ">
                             <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">RILEVANZA <b class="caret"></b></a>
@@ -126,7 +126,7 @@
                         <p class="eleven no-marg-all filter-typology">TIPOLOGIA</p>
                         <span class="eleven">Tipologia Lorem ipsum <a class="fa fa-times"> </a></span>
                     </div>
-                    <h4>FINANZIAMENTI IMPEGNATI</h4>
+                    <h4>Fondi impegnati</h4>
                     <img src="{% static 'img/layout/finanziamenti.jpg' %}">
                     <div class="small-spacer"> </div>
 
@@ -169,7 +169,7 @@
         <ul class="list-unstyled main-list">
             {% for result in page.object_list %}
             <li class="media">
-                {% include 'crs/snippets/project_element.html' with project=result.object %}
+                {% include 'snippets/project_element.html' with project=result.object %}
 {#                {{ result.object }}#}
             </li>
             {% endfor %}

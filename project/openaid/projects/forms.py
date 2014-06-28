@@ -1,5 +1,7 @@
 from django import forms
 from django.utils.text import slugify
+from django.utils.translation import ugettext_lazy as _
+from haystack.forms import FacetedSearchForm
 from openaid.projects.models import Project, Markers, Activity, ChannelReported
 
 def text_cleaner(text):
@@ -58,3 +60,38 @@ class ChannelReportedForm(forms.ModelForm):
 
     class Meta:
         model = ChannelReported
+
+
+class FacetedProjectSearchForm(FacetedSearchForm):
+
+    default_order = 'start_year'
+    default_desc = True
+    order_by = forms.ChoiceField(initial=default_order, required=False, choices=(
+        ('start_year', _("Start year")),
+        ('end_year', _("End year")),
+    ))
+    desc = forms.BooleanField(initial=default_desc, required=False)
+
+    def __init__(self, *args, **kwargs):
+        super(FacetedProjectSearchForm, self).__init__(*args, **kwargs)
+
+    def search(self):
+        sqs = super(FacetedProjectSearchForm, self).search()
+
+        data = {}
+
+        if self.is_valid():
+            data = self.cleaned_data
+
+        order_field = data.get('order_by', None) or self.default_order
+        is_desc = data.get('desc', self.default_desc)
+        if is_desc:
+            order_field = '-{0}'.format(order_field)
+
+        return sqs.order_by(order_field)
+
+    def no_query_found(self):
+        """
+        Retrieve all search results for empty query string
+        """
+        return self.searchqueryset.all()
