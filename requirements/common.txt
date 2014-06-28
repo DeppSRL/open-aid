@@ -16,6 +16,7 @@ django-braces
 South
 django-model-utils
 django-mptt
+django-mptt-admin
 django-modeltranslation
 
 # For the persistance stores
@@ -24,6 +25,8 @@ psycopg2
 # Searching
 django-haystack
 requests
+lxml
+cssselect
 pysolr
 
 django-tinymce

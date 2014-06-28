@@ -1,59 +1,52 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
 {% load i18n %}
-{% load idioticon %}
-{% load icons %}
 {% load humanize %}
 {% load crs %}
 
 {% block content %}
+
 <div class="row">
     <div class="container">
-        <div class="col-md-7">
-            <h2><a href="#">{% trans 'Italian Development Cooperation' %}</a></h2>
-            <p>{% blocktrans %}
-                Since the 1950s, Italian Development Cooperation has grown through aid programs in countries linked to Italy by former colonial ties.
-                Italy has developed a more systematic cooperative approach aimed at alleviating poverty worldwide and helping developing countries to strengthen their institutions and governance.
-                In recent years, due to new global plights, Italian Cooperation has played a crucial role in defining Italian foreign policy,
-                aimed at maintaining peace and managing migration flows.
-                {% endblocktrans %}
-            </p>
-            <a href="#" class="read-more pull-right twelve">{% trans 'read more' %} <span class="fa fa-caret-right"> </span></a>
-        </div>
 
-        <div class="col-md-5">
-            <h2><a href="{% url 'blog_home' %}">{% trans "News" %}</a></h2>
+        <header class="col-md-9">
+            <div class="btn-group">
+                <a href="#" class="btn btn-aid">Scarica i dati in JSON <span class="fa fa-download"> </span></a>
+                <a href="#" class="btn btn-aid">Scarica i dati in XML <span class="fa fa-download"> </span></a>
+            </div>
+            <br>
+            <h2 class="pull-left">{{ object.name }}</h2>
+            <a href="#" class="read-more pull-left pad">VEDI TUTTE LE INIZIATIVE <span class="fa fa-align-justify"> </span></a>
+            {% if object.parent %}
+            <h3 class="sub-title">{% if object.parent.parent %}&gt; {{ object.parent.parent.name }} {% endif %}&gt; {{ objct.parent.name }}</h3>
+            {% endif %}
+        </header>
+        <header class="col-md-3 text-right">
+            <img src="{% static 'img/contents/social.jpg' %}">
+        </header>
+    </div>
+</div>
 
-            <ul class="media-list">
-            {% for entry in entries_list %}
-                <li class="media">
-                    <article class="media-body">
-                        <header>
-                            <a href="{% url 'blog_item' entry.slug %}">{{ entry.title }}</a>
-                        </header>
-                        <div class="text">
-                            {{ entry.abstract|safe }}
-                        </div>
-                        <footer>
-                            <time datetime="2014-05-06 19:00">{{ entry.published_at|date:'d/m/Y' }}</time>
-                        </footer>
-                    </article>
-                </li>
-            {% endfor %}
-            </ul>
-            <a href="#" class="read-more pull-right twelve">{% trans 'read more' %} <span class="fa fa-caret-right"> </span></a>
+<div class="spacer"> </div>
+
+<div class="row">
+    <div class="container">
+        <div class="col-md-12">
+            <p>Lorem Ipsum è un testo segnaposto utilizzato nel  Lorem Ipsum è un testo segnaposto utilizzato nel  Lorem Ipsum è un testo segnaposto utilizzato nel </p>
+            <a href="#" class="read-more pull-right twelve">LEGGI TUTTO <span class="fa fa-caret-down"> </span></a>
         </div>
     </div><!-- .container -->
 </div><!-- .row -->
 
 <div class="spacer"> </div>
 
-{% crs_stats %}
+{% crs_stats sector=object %}
 
-<div class="row">
-    <div class="container">
-        <div class="col-md-8">
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
             <div class="progetti">
-                <h2><a href="#">Le iniziative più rilevanti</a></h2>
+                <h2><a href="#">INIZIATIVE PER "{{ object.name }}"</a></h2>
                 <div class="bordered-radius" style="overflow:hidden;">
                     <ul class="list-unstyled">
                         <li>
@@ -72,7 +65,7 @@
                                 <header>
                                     <div id="pie1"></div>
                                     <a href="#">Incentivazione dei processi di Rigenerazione Culturale, organizzazione degli
-spazi e promozione dei diritti delle Comunità Indigene Mapuche in Araucania</a>
+                                        spazi e promozione dei diritti delle Comunità Indigene Mapuche in Araucania</a>
                                 </header>
                                 <div class="row">
                                     <div class="col-md-3">
@@ -90,7 +83,7 @@ spazi e promozione dei diritti delle Comunità Indigene Mapuche in Araucania</a>
                                         <a class="eleven">Lorem ipsum</a>, <a class="eleven">Lorem ipsum</a>
                                     </div>
                                     <div class="col-md-12"><a href="#" class="twelve">PAESE</a> <a href="#" class="twelve">PAESE</a> <span class="twelve light-gray">anno</span> <span class="twelve light-gray">anno</span></div>
-                                 </div><!-- .row -->
+                                </div><!-- .row -->
                             </article>
                         </li>
                         <li>
@@ -109,7 +102,7 @@ spazi e promozione dei diritti delle Comunità Indigene Mapuche in Araucania</a>
                                 <header>
                                     <div id="pie2"></div>
                                     <a href="#">Incentivazione dei processi di Rigenerazione Culturale, organizzazione degli
-spazi e promozione dei diritti delle Comunità Indigene Mapuche in Araucania</a>
+                                        spazi e promozione dei diritti delle Comunità Indigene Mapuche in Araucania</a>
                                 </header>
                                 <div class="row">
                                     <div class="col-md-3">
@@ -127,7 +120,7 @@ spazi e promozione dei diritti delle Comunità Indigene Mapuche in Araucania</a>
                                         <a class="eleven">Lorem ipsum</a>, <a class="eleven">Lorem ipsum</a>
                                     </div>
                                     <div class="col-md-12"><a href="#" class="twelve">PAESE</a> <a href="#" class="twelve">PAESE</a> <span class="twelve light-gray">anno</span> <span class="twelve light-gray">anno</span></div>
-                                 </div><!-- .row -->
+                                </div><!-- .row -->
                             </article>
                         </li>
                         <li>
@@ -146,7 +139,7 @@ spazi e promozione dei diritti delle Comunità Indigene Mapuche in Araucania</a>
                                 <header>
                                     <div id="pie3"></div>
                                     <a href="#">Incentivazione dei processi di Rigenerazione Culturale, organizzazione degli
-spazi e promozione dei diritti delle Comunità Indigene Mapuche in Araucania</a>
+                                        spazi e promozione dei diritti delle Comunità Indigene Mapuche in Araucania</a>
                                 </header>
                                 <div class="row">
                                     <div class="col-md-3">
@@ -164,85 +157,14 @@ spazi e promozione dei diritti delle Comunità Indigene Mapuche in Araucania</a>
                                         <a class="eleven">Lorem ipsum</a>, <a class="eleven">Lorem ipsum</a>
                                     </div>
                                     <div class="col-md-12"><a href="#" class="twelve">PAESE</a> <a href="#" class="twelve">PAESE</a> <span class="twelve light-gray">anno</span> <span class="twelve light-gray">anno</span></div>
-                                 </div><!-- .row -->
+                                </div><!-- .row -->
                             </article>
                         </li>
                     </ul>
-                    <a href="#" class="read-more pull-right pad">{% trans "Show all initiatives" %} <span class="fa fa-align-justify"> </span></a>
+                    <a href="#" class="read-more pull-right pad">VEDI TUTTE LE INIZIATIVE <span class="fa fa-align-justify"> </span></a>
                 </div>
             </div>
         </div>
-
-
-        <div class="col-md-4">
-            <h2><a href="#">FOCUS SU UN INIZIATIVA</a></h2>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="focus">
-                        <div class="spacer"> </div>
-                        <div class="row no-marg">
-                            <div id="pie4"></div>
-                            <div class="col-md-4 numbers bg-red bordered-radius small-pad">€ 300.000.000<br><span class="eleven">IMPEGNATI, 2012</span></div>
-                            <div class="col-md-4 col-md-offset-1 numbers bg-blue bordered-radius small-pad">€ 300.000.000<br><span class="eleven">IMPEGNATI, 2012</span></div>
-                        </div>
-                        <div class="row no-marg">
-                            <h3><a href="#">Nome progetto Lorem Ipsum dolor sit amet </a></h3>
-                            <a href="#">PAESE</a> <span class="light-gray eleven">2012-2014</span>
-                        </div>
-                        <div class="small-spacer"> </div>
-                        <div class="row no-marg">
-                            <div class="col-md-3"><img src="img/contents/thumbnail.jpg" class="img-responsive img-thumbnail"></div>
-                            <div class="col-md-3"><img src="img/contents/thumbnail.jpg" class="img-responsive img-thumbnail"></div>
-                            <div class="col-md-3"><img src="img/contents/thumbnail.jpg" class="img-responsive img-thumbnail"></div>
-                            <div class="col-md-3"><img src="img/contents/thumbnail.jpg" class="img-responsive img-thumbnail"></div>
-                        </div>
-                        <div class="spacer"> </div>
-                        <div class="row no-marg">
-                            <div class="col-md-6">
-                                <h4>REALIZZATORE</h4>
-                                <p class="small-paragraph">Lorem Ipsum dolor sit amet</p>
-                            </div>
-                            <div class="col-md-6">
-                                <h4>FINANZIATORE</h4>
-                                <p class="small-paragraph"><a href="#">Lorem Ipsum dolor sit amet</a></p>
-                            </div>
-                            <div class="col-md-6">
-                                <h4>DESCRIZIONE</h4>
-                                <p class="small-paragraph">Lorem Ipsum dolor sit amet</p>
-                            </div>
-                        </div>
-
-                        <ul class="nav nav-pills top-dotted">
-                            <li>
-                                <a href="#"><span class="fa fa-chevron-right"> </span>Infrastrutture e servizi sociali</a>
-                            </li>
-                            <li>
-                                <a href="#"><span class="fa fa-chevron-right"> </span> Lorem ipsum dolor sit armet</a>
-                            </li>
-                            <li>
-                                <a href="#"><span class="fa fa-chevron-right"> </span> Lorem ipsum dolor sit amet nome troppo luced adisciping</a>
-                            </li>
-                        </ul>
-
-                        <div class="row no-marg">
-                            <div class="col-md-6">
-                                <span class="eleven light-gray block">TIPOLOGIA</span>
-                                <a class="eleven">Lorem ipsum</a>, <a class="eleven">Lorem ipsum</a>
-                            </div>
-                            <div class="col-md-6">
-                                <span class="eleven light-gray block">TIPOLOGIA</span>
-                                <a class="eleven">Lorem ipsum</a>, <a class="eleven">Lorem ipsum</a>
-                            </div>
-                        </div>
-                    </div><!-- .focus -->
-                    <div class="like"><img src="img/layout/like.jpg" class="pull-left"></div>
-                    <a href="#" class="pull-right">1 <span class="fa fa-comment-o"> </span></a>
-                </div>
-
-            </div>
-
-        </div>
-    </div><!-- .container -->
-</div><!-- .row -->
-
+    </div>
+</div><!-- .container -->
 {% endblock %}

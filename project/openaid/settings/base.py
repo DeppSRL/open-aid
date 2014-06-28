@@ -39,20 +39,18 @@ EARLYBIRD_ENABLE = env.bool('EARLYBIRD_ENABLE', True)
 OPENAID_CRS_DONOR = 6 # Italy
 OPENAID_DSD_FILE = join(RESOURCES_PATH, 'crs', 'dsd.xml')
 OPENAID_MULTIPLIER = 1000000.0
-OPENAID_CURRENCY = 918
+OPENAID_CURRENCY = 918 # EUR
+# USD-EUR
 OPENAID_CURRENCY_CONVERSIONS = {
-    # USD
-    302: {
-        2004: 0.8049,
-        2005: 0.8046,
-        2006: 0.7967,
-        2007: 0.7305,
-        2008: 0.6933,
-        2009: 0.7181,
-        2010: 0.755,
-        2011: 0.7192,
-        2012: 0.778,
-    }
+    2004: 0.8049,
+    2005: 0.8046,
+    2006: 0.7967,
+    2007: 0.7305,
+    2008: 0.6933,
+    2009: 0.7181,
+    2010: 0.755,
+    2011: 0.7192,
+    2012: 0.778,
 }
 ########## END OPENAID CONFIGURATION
 
@@ -239,11 +237,14 @@ DJANGO_APPS = (
     # third party apps
     'tinymce',
 
+    'django_mptt_admin', # admin
 )
 
 # Apps specific for this project go here.
 LOCAL_APPS = (
-    'openaid.crs',
+    'openaid',
+    'openaid.codelists',
+    'openaid.projects',
     'openaid.pages',
     'tagging',
     'blog',
@@ -358,12 +359,18 @@ ICONFONT = 'font-awesome'
 INSTALLED_APPS += (
     'haystack',
 )
+def solr_url(lang):
+    return {
+        # 'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
+        'ENGINE': 'openaid.backends.MultilingualSolrEngine',
+        'URL': 'http://127.0.0.1:8080/solr/open-aid-%s' % lang,
+    }
 HAYSTACK_CONNECTIONS = {
-    'default': {
-        'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
-        'URL': 'http://127.0.0.1:8080/solr/open-aid',
-    },
+    'default': solr_url(LANGUAGE_CODE[:2]),
 }
+HAYSTACK_CONNECTIONS.update(dict([
+    ('default_%s' % lang, solr_url(lang)) for lang, __ in LANGUAGES
+]))
 ########## END DJANGO-HAYSTACK CONFIGURATION
 
 

@@ -1,3 +1,4 @@
+{% load search_utils %}
 {% load staticfiles %}
 {% load humanize %}
 {% load crs %}
@@ -11,15 +12,15 @@
         <div class="panel-heading clearfix">
             <div class="col-md-4 bg-red no-margin">
                 <h4>{{ projects_count|intcomma }}</h4>
-                <p>I PROGETTI DELLA COOPERAZIONE ITALIANA NEL MONDO</p>
+                <p>Le iniziative della cooperazione italiana nel mondo</p>
             </div>
             <div class="col-md-4 bg-red no-margin">
                 <h4>€ {{ commitments_sum|currency }}</h4>
-                <p>I FINANZIAMENTI COMPLESSIVI STANZIATI</p>
+                <p>I fondi complessivi impegnati</p>
             </div>
             <div class="col-md-4 bg-red no-margin">
                 <h4>€ {{ disbursements_sum|currency }}</h4>
-                <p>I FINANZIAMENTI COMPLESSIVI EROGATI</p>
+                <p>I fondi complessivi erogati</p>
             </div>
         </div><!-- .panel-heading -->
 
@@ -52,7 +53,7 @@
 
         <div class="row panel-pad">
 
-            <div class="col-md-12"><h2>GLI AIUTI IN NUMERI</h2></div>
+            <div class="col-md-12"><h2>L'AIUTO IN NUMERI</h2></div>
 
             <div class="col-md-4">
                 <h3>PER COSA VENGONO UTILIZZATI?</h3>
@@ -67,7 +68,15 @@
                         <tbody>
                         {% for sector, tot in sector_stats %}{% if tot > 0.0 %}
                         <tr class="dotted">
-                            <td class="col-sm-8"><a href="{{ sector.get_absolute_url }}">{{ sector.name }}</a></td>
+                            <td class="col-sm-8">
+                                {% if not selected_code_list %}
+                                    <a href="{% url 'codelists:sector-detail' code=sector.code %}">{{ sector.name }}</a>
+                                {% elif selected_code_list.code_list == 'sector' %}
+                                    <span>{{ sector.name }}</span>
+                                {% else %}
+                                    <a href="{% search_url 'sectors' sector.name %}&selected_facets={{ selected_facet }}:{{ selected_code_list.name|urlencode }}">{{ sector.name }}</a>
+                                {% endif %}
+                            </td>
                             <td class="col-sm-4">{{ tot|currency }}</td>
                         </tr>
                         {% endif %}{% empty %}<tr><td>-- empty --</td></tr>{% endfor %}
@@ -88,7 +97,18 @@
                         <tbody>
                         {% for channel, tot in channel_stats %}{% if tot > 0.0 %}
                         <tr class="dotted">
-                            <td class="col-sm-8"><a href="{{ channel.get_absolute_url }}">{{ channel.name }}</a></td>
+                            <td class="col-sm-8">
+                                {% if not selected_code_list %}
+                                    <a href="{% url 'codelists:channel-detail' code=channel.code %}">{{ channel.name }}</a>
+                                {% elif selected_code_list.code_list == 'channel' %}
+                                    <span>{{ channel.name }}</span>
+                                {% else %}
+                                    <a href="{% search_url 'channels' channel.name %}&selected_facets={{ selected_facet }}:{{ selected_code_list.name|urlencode }}">{{ channel.name }}</a>
+                                {% endif %}
+
+{#                                {% if selected_code_list == 'channels' %}<span>{{ channel.name }}</span>#}
+{#                                {% else %}<a href="{% search_url 'channels' channel.name %}&selected_facets={{ selected_code_list }}:{{ object.name|urlencode }}">{{ channel.name }}</a>{% endif %}#}
+                            </td>
                             <td class="col-sm-4">{{ tot|currency }}</td>
                         </tr>
                         {% endif %}{% empty %}<tr><td>-- empty --</td></tr>{% endfor %}
@@ -108,9 +128,20 @@
                 <div class="table-responsive">
                     <table class="table table-condensed table-hover">
                         <tbody>
-                        {% for aid, tot in aid_stats %}{% if tot > 0.0 %}
+                        {% for aid_type, tot in aid_stats %}{% if tot > 0.0 %}
                         <tr class="dotted">
-                            <td class="col-sm-8"><a href="{{ aid.get_absolute_url }}">{{ aid.name }}</a></td>
+                            <td class="col-sm-8">
+                                {% if not selected_code_list %}
+                                    <a href="{% url 'codelists:aid_type-detail' code=aid_type.code %}">{{ aid_type.name }}</a>
+                                {% elif selected_code_list.code_list == 'aid_type' %}
+                                    <span>{{ aid_type.name }}</span>
+                                {% else %}
+                                    <a href="{% search_url 'aid_types' aid_type.name %}&selected_facets={{ selected_facet }}:{{ selected_code_list.name|urlencode }}">{{ aid_type.name }}</a>
+                                {% endif %}
+
+{#                                {% if selected_code_list == 'aid_types' %}<span>{{ aid_type.name }}</span>#}
+{#                                {% else %}<a href="{% search_url 'aid_types' aid_type.name %}">{{ aid_type.name }}</a>{% endif %}#}
+                            </td>
                             <td class="col-sm-4">{{ tot|currency }}</td>
                         </tr>
                         {% endif %}{% empty %}<tr><td>-- empty --</td></tr>{% endfor %}
