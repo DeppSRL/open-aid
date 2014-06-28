@@ -1,8 +1,6 @@
-from django.db.models import Min, Max, Sum
 from django.views.generic import TemplateView
-from django.conf import settings
 from blog.models import Entry
-from .crs import models
+
 
 class Home(TemplateView):
     template_name = 'home.html'
