@@ -233,11 +233,21 @@ DJANGO_APPS = (
     'iconfonts.django', # icon renderer
     'idioticon', # term glossary
     'mptt', # tree structure for models
+
+    # third party apps
+    'tinymce',
+
+    'django_mptt_admin', # admin
 )
 
 # Apps specific for this project go here.
 LOCAL_APPS = (
-    'openaid.crs',
+    'openaid',
+    'openaid.codelists',
+    'openaid.projects',
+    'openaid.pages',
+    'tagging',
+    'blog',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -261,7 +271,7 @@ LOGGING = {
     'disable_existing_loggers': False,
     'formatters': {
         'verbose': {
-            'format' : "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
+            'format': "[%(asctime)s.%(msecs).03d] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
             'datefmt' : "%d/%b/%Y %H:%M:%S"
         },
         'simple': {
@@ -279,14 +289,31 @@ LOGGING = {
             'filters': ['require_debug_false'],
             'class': 'django.utils.log.AdminEmailHandler'
         },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose'
+        },
         'file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
             'filename': normpath(join(RESOURCES_PATH, 'logs', 'openaid.log')),
             'formatter': 'verbose'
         },
+        'management_logfile': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': normpath(join(RESOURCES_PATH, 'logs', 'management.log')),
+            'mode': 'w',
+            'formatter': 'verbose',
+        },
     },
     'loggers': {
+        'management': {
+            'handlers': ['console', 'management_logfile'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
         'django.request': {
             'handlers': ['mail_admins'],
             'level': 'ERROR',
@@ -332,12 +359,18 @@ ICONFONT = 'font-awesome'
 INSTALLED_APPS += (
     'haystack',
 )
+def solr_url(lang):
+    return {
+        # 'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
+        'ENGINE': 'openaid.backends.MultilingualSolrEngine',
+        'URL': 'http://127.0.0.1:8080/solr/open-aid-%s' % lang,
+    }
 HAYSTACK_CONNECTIONS = {
-    'default': {
-        'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
-        'URL': 'http://127.0.0.1:8080/solr/open-aid',
-    },
+    'default': solr_url(LANGUAGE_CODE[:2]),
 }
+HAYSTACK_CONNECTIONS.update(dict([
+    ('default_%s' % lang, solr_url(lang)) for lang, __ in LANGUAGES
+]))
 ########## END DJANGO-HAYSTACK CONFIGURATION
 
 

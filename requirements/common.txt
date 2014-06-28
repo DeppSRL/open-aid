@@ -16,7 +16,11 @@ django-braces
 South
 django-model-utils
 django-mptt
+django-mptt-admin
 django-modeltranslation
+
+# For the persistance stores
+psycopg2
 
 # Searching
 django-haystack
@@ -25,8 +29,10 @@ lxml
 cssselect
 pysolr
 
+django-tinymce
+
 # OpenAID specific
 csvkit
 sdmx
-IconFonts
+-e git://github.com/joke2k/iconfonts.git#egg=iconfonts
 -e git://github.com/openpolis/django-idioticon.git#egg=django-idioticon
