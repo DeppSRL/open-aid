@@ -26,6 +26,8 @@ django-haystack
 requests
 pysolr
 
+django-tinymce
+
 # OpenAID specific
 csvkit
 sdmx

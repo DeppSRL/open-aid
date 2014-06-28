@@ -1,0 +1,8 @@
+{% load i18n %}
+<ul class="list-unstyled collapse-menu">
+    {% for url_name, label in cooperazione_pages.items %}
+    <li {% if active == url_name %}class="active"{% endif %}><a href="{% url url_name %}">
+        {% trans label %}
+    </a></li>
+    {% endfor %}
+</ul>
