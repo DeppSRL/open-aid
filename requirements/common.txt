@@ -24,7 +24,9 @@ psycopg2
 # Searching
 django-haystack
 requests
-pyelasticsearch
+pysolr
+
+django-tinymce
 
 # OpenAID specific
 csvkit

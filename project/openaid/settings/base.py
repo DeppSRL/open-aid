@@ -235,11 +235,18 @@ DJANGO_APPS = (
     'iconfonts.django', # icon renderer
     'idioticon', # term glossary
     'mptt', # tree structure for models
+
+    # third party apps
+    'tinymce',
+
 )
 
 # Apps specific for this project go here.
 LOCAL_APPS = (
     'openaid.crs',
+    'openaid.pages',
+    'tagging',
+    'blog',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -353,9 +360,8 @@ INSTALLED_APPS += (
 )
 HAYSTACK_CONNECTIONS = {
     'default': {
-        'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
-        'URL': 'http://127.0.0.1:9200/',
-        'INDEX_NAME': 'open=aid',
+        'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
+        'URL': 'http://127.0.0.1:8080/solr/open-aid',
     },
 }
 ########## END DJANGO-HAYSTACK CONFIGURATION

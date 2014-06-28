@@ -15,12 +15,15 @@ admin.autodiscover()
 urlpatterns = [
     url(r'^$', views.Home.as_view()),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^news/', include('blog.urls')),
+    url(r'^tinymce/', include('tinymce.urls')),
     url(r'^i18n/', include('django.conf.urls.i18n')),
 ]
 
 openaid_urls = (
     url(r'^$', views.Home.as_view(), name='home'),
-    url(r'^', include('openaid.crs.urls', namespace='crs')),
+    url(r'^crs/', include('openaid.crs.urls', namespace='crs')),
+    url(r'^', include('openaid.pages.urls')),
 )
 urlpatterns += i18n_patterns('', *openaid_urls)
 
