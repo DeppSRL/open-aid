@@ -24,3 +24,6 @@ dl#acronyms dt {
 #main-content .media-list .media .media-body {
   font-size: 13px;
 }
+
+.text-red { color: #f7505a; }
+.text-blue { color: #2b6a7c; }

@@ -74,10 +74,13 @@ class Project(models.Model):
         return description
 
     def recipients(self):
-        return self._activities_map('aid_type')
+        return self._activities_map('recipient')
 
-    def agencies(self):
-        return self._activities_map('agency')
+    def agencies(self, year=None):
+        return self._activities_map('agency', year=year)
+
+    def agency(self, year=None):
+        return self.agencies(year=year)[0]
 
     def aid_types(self):
         return self._activities_map('aid_type')
@@ -91,17 +94,20 @@ class Project(models.Model):
     def sectors(self):
         return self._activities_map('sector')
 
+    def channel_reported(self, year=None):
+        return self._activities_map('channel_reported', year=year)[0]
+
     def commitments(self, year=None):
         return self._activities_map('commitment', year=year)
 
     def commitment(self, year=None):
-        return sum(self.usd_commitments(year=year or self.end_year), 0.0)
+        return sum(self.commitments(year=year or self.end_year), 0.0)
 
     def disbursements(self, year=None):
         return self._activities_map('disbursement')
 
-    def disbursement(self, year):
-        return sum(self.usd_disbursements(year=year or self.end_year), 0.0)
+    def disbursement(self, year=None):
+        return sum(self.disbursements(year=year or self.end_year), 0.0)
 
     class Meta:
         unique_together = (('crsid', 'recipient'),)

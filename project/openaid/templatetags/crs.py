@@ -14,6 +14,9 @@ register = template.Library()
 def currency(amount):
     return intcomma(floatformat((amount or 0.0) * settings.OPENAID_MULTIPLIER, 0))
 
+@register.filter
+def unique(args):
+    return set([a for a in args if a])
 
 @register.inclusion_tag('commons/stats.html', takes_context=True)
 def crs_stats(context, **kwargs):
