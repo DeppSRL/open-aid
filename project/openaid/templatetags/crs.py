@@ -28,10 +28,10 @@ def crs_stats(context, instance=None, year=None):
 
     start_year = contexts.START_YEAR
     end_year = contexts.END_YEAR
-    selected_year = int(year or context.get(contexts.YEAR_FIELD, None) or end_year)
+    year = int(year or context.get(contexts.YEAR_FIELD, None) or end_year)
 
     filters = {
-        'year': selected_year,
+        'year': year,
     }
 
     if instance:

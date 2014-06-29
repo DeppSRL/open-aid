@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block css %}
+
+    {{ block.super }}
+
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" />
+     <!--[if lte IE 8]>
+         <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.ie.css" />
+     <![endif]-->
+
+    <script src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
+
+{% endblock %}
+
+{% block content %}
+<div id="map"></div>
+{% endblock %}
+
+{% block javascript %}
+
+    {{ block.super }}
+
+    <!-- countries geojson with labels, put into >states< js variable -->
+    <script type="text/javascript" src="{% static 'js/countries.js' %}"></script>
+
+    <!-- merge totals extracted from DB into >states< geoJson -->
+    <script type="text/javascript">
+    var statesData ={// alpha 3 iso code
+    {% for t in map_values %}
+        "{{ t.iso_code }}": {
+            "label": "{{ t.label }}",
+            "url": "{% url 'codelists:recipient-detail' code=t.code %}",
+            "value": "{{ t.value|default:"0" }}".replace(/,/g, '.')
+        }{% if not forloop.last %},{% endif %}
+    {% endfor %}
+    };
+
+    $.each(states.features, function(index, feature){
+        id = feature.id;
+        if (id in statesData){
+            feature.properties.url = statesData[id].url;
+            feature.properties.label = statesData[id].label;
+            feature.properties.value = statesData[id].value;
+        }
+    });
+
+    </script>
+
+    <script type="text/javascript" src="{% static 'js/humanize.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/map.js' %}"></script>
+
+{% endblock %}

@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 from django.db.models import Sum, get_model
 from django.utils.translation import ugettext as _
@@ -94,6 +95,31 @@ class Recipient(CodeListTreeModel):
     crescita_popolazione = models.FloatField(null=True, blank=True)
     pil = models.BigIntegerField(null=True, blank=True)
     pil_procapite = models.IntegerField(null=True, blank=True)
+
+    @classmethod
+    def get_map_totals(cls, field='commitment', **filters):
+
+        filters = dict([
+            ('activity__%s' % key, value)
+            for key, value in filters.items()
+        ])
+
+        totali_territori_rs = get_model('codelists', 'Recipient').objects.filter(
+            iso_code__isnull=False,
+            **filters).annotate(tot=Sum('activity__%s' % field))
+
+        totali_territori = []
+
+        for t in totali_territori_rs:
+            ret = {
+                'label': t.name,
+                'iso_code': t.iso_code.upper(),
+                'value': (t.tot or 0.0) * settings.OPENAID_MULTIPLIER,
+                'code': t.code
+            }
+            totali_territori.append(ret)
+
+        return totali_territori
 
     class Meta:
         ordering = ('name', 'code', )

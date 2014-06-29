@@ -25,7 +25,8 @@
         </div><!-- .panel-heading -->
 
         <div class="map">
-            <img src="{% static 'img/contents/mappa-home.png' %}" class="img-responsive">
+            <div id="map"></div>
+{#            <img src="{% static 'img/contents/mappa-home.png' %}" class="img-responsive">#}
         </div>
 
 
@@ -44,7 +45,10 @@
                 <div class="collapse navbar-collapse" id="years">
                     <ul class="nav navbar-nav">
                         {% for year in years %}
-                        <li class="{% if year == selected_year %}active {% endif %}{% if forloop.first %}first{% elif forloop.last %}last{% endif %}"><a href="?year={{ year }}"><span class="point hidden-xs hidden-sm"> </span> {{ year }}</a></li>
+                        <li class="{% spaceless %}
+                        {% if year == selected_year %}selected {% endif %}
+                        {% if forloop.first %}first{% elif forloop.last %}last{% endif %}">
+                            <a href="?year={{ year }}"><span class="point hidden-xs hidden-sm"> </span> {{ year }}</a></li>{% endspaceless %}
                         {% endfor %}
                     </ul>
                 </div><!-- /.navbar-collapse -->
