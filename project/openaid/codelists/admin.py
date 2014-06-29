@@ -11,13 +11,6 @@ class CodeListAdmin(admin.ModelAdmin):
 
     def  get_list_display(self, request):
         return super(CodeListAdmin, self).get_list_display(request) + self.extra_list_display
-        # list_display = super(CodeListAdmin, self).get_list_display(request)
-        # all_fields = self.model._meta.get_all_field_names()
-        # if 'activity' in all_fields:
-        #     list_display += ('activities', )
-        # if 'parent' in all_fields:
-        #     list_display += ('level', )
-        # return list_display
 
 
 class ActivityCodeListAdmin(CodeListAdmin):
@@ -37,6 +30,7 @@ class ActivityCodeListAdmin(CodeListAdmin):
     def queryset(self, request):
         return super(CodeListAdmin, self).queryset(request).annotate(activity_count=Count('activity'))
 
+
 class HierarchicalCodeListAdmin(DjangoMpttAdmin, ActivityCodeListAdmin):
     extra_list_display = ActivityCodeListAdmin.extra_list_display + ('level', )
     raw_id_fields = ('parent',)
@@ -51,19 +45,23 @@ class RecipientCodeListAdmin(HierarchicalCodeListAdmin):
     )
     list_filter = HierarchicalCodeListAdmin.list_filter + ('income_group', )
 
+
 class DonorCodeListAdmin(CodeListAdmin):
     extra_list_display = ('group', )
     list_filter = ('group', )
 
+
 class ChannelCodeListAdmin(HierarchicalCodeListAdmin):
     extra_list_display = HierarchicalCodeListAdmin.extra_list_display + ('acronym', )
+
 
 class AgencyCodeListAdmin(CodeListAdmin):
     extra_list_display = CodeListAdmin.extra_list_display + ('acronym', 'donor')
 
+
+# register all codelists
 admin.site.register(models.Donor, DonorCodeListAdmin)
 admin.site.register(models.Agency, ActivityCodeListAdmin)
-
 admin.site.register(models.Recipient, RecipientCodeListAdmin)
 admin.site.register(models.Channel, ChannelCodeListAdmin)
 admin.site.register(models.FinanceType, HierarchicalCodeListAdmin)
