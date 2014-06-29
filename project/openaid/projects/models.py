@@ -7,7 +7,7 @@ from openaid.projects import fields
 
 class ChannelReported(models.Model):
 
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=128)
 
     def __unicode__(self):
         return self.name
@@ -34,7 +34,7 @@ class Markers(models.Model):
 
 class Project(models.Model):
 
-    crsid = models.CharField(max_length=100, blank=True)
+    crsid = models.CharField(max_length=128, blank=True)
     recipient = models.ForeignKey('codelists.Recipient', blank=True, null=True)
     start_year = models.PositiveSmallIntegerField()
     end_year = models.PositiveSmallIntegerField()
@@ -111,13 +111,13 @@ class Activity(models.Model):
 
     project = models.ForeignKey(Project, null=True, blank=True)
 
-    crsid = models.CharField(max_length=100, blank=True)
+    crsid = models.CharField(max_length=128, blank=True)
     year = models.IntegerField()
-    number = models.CharField(max_length=100, blank=True)
+    number = models.CharField(max_length=128, blank=True)
     title = models.CharField(max_length=500, blank=True)
     description = models.TextField(blank=True)
     long_description = models.TextField(blank=True)
-    geography = models.CharField(max_length=100, blank=True)
+    geography = models.CharField(max_length=128, blank=True)
 
     REPORT_TYPES = Choices(
         # prese da resources/crs/Codelist04042014.osd:Nature of submission
