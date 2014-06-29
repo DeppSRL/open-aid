@@ -17,8 +17,8 @@ $(document).ready(function(){
 		pie.rotate(225);
 	}
 
-    $('*[data-chart=pie]').each(function(){
-        setPieChart($(this), 25, 25, 20, [270, 90]);
+    $('*[data-chart=pie]').each(function(i, el){
+        setPieChart($(el).prop('id'), 25, 25, 20, [270, 90]);
     });
 
 	$('.collapse-menu a').click(function() {
