@@ -27,3 +27,11 @@ dl#acronyms dt {
 
 .text-red { color: #f7505a; }
 .text-blue { color: #2b6a7c; }
+
+#main-content .progetti article header {
+    min-height: 70px;
+}
+.media .media-body h2 { margin-top: 0; margin-bottom: 0; padding-bottom: 5px; }
+.media .media-body h2 + a{ margin-top: 0; padding-bottom: 5px; }
+
+#main-content .years-navigation .navbar-nav > li a.active { color: #f7505a; }

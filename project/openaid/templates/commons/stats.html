@@ -44,7 +44,7 @@
                 <div class="collapse navbar-collapse" id="years">
                     <ul class="nav navbar-nav">
                         {% for year in years %}
-                        <li class="{% if forloop.first %}first{% elif forloop.last %}last{% endif %}"><a href="?year={{ year }}"><span class="point hidden-xs hidden-sm"> </span> {{ year }}</a></li>
+                        <li class="{% if year == selected_year %}active {% endif %}{% if forloop.first %}first{% elif forloop.last %}last{% endif %}"><a href="?year={{ year }}"><span class="point hidden-xs hidden-sm"> </span> {{ year }}</a></li>
                         {% endfor %}
                     </ul>
                 </div><!-- /.navbar-collapse -->
@@ -86,6 +86,39 @@
             </div><!-- .row -->
 
             <div class="col-md-4">
+                <h3>CON QUALI STRUMENTI?</h3>
+                <p class="twelve">I progetti per settore ... Lorem ipsum dolor sit amet è un testo segnaposto utilizzato nel settore della stampa e della tipografia...
+                    <a href="#" class="read-more pull-right">LEGGI TUTTO <span class="fa fa-caret-down"> </span></a></p>
+
+                <div id="highcharts-donut" data-chart="donut"></div>
+
+                <div class="table-responsive">
+                    <table class="table table-condensed table-hover">
+                        <tbody>
+                        {% for aid_type, tot in aid_stats %}{% if tot > 0.0 %}
+                        <tr class="dotted">
+                            <td class="col-sm-8">
+                                {% if not selected_code_list %}
+                                    <a href="{% url 'codelists:aid_type-detail' code=aid_type.code %}">{{ aid_type.name }}</a>
+                                {% elif selected_code_list.code_list == 'aid_type' %}
+                                    <span>{{ aid_type.name }}</span>
+                                {% else %}
+                                    <a href="{% search_url 'aid_types' aid_type.name %}&selected_facets={{ selected_facet }}:{{ selected_code_list.name|urlencode }}">{{ aid_type.name }}</a>
+                                {% endif %}
+
+                                {#{% if selected_code_list == 'aid_types' %}<span>{{ aid_type.name }}</span>#}
+                                {#{% else %}<a href="{% search_url 'aid_types' aid_type.name %}">{{ aid_type.name }}</a>{% endif %}#}
+                            </td>
+                            <td class="col-sm-4">{{ tot|currency }}</td>
+                        </tr>
+                        {% endif %}{% empty %}<tr><td>-- empty --</td></tr>{% endfor %}
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+
+            <div class="col-md-4">
                 <h3>CHI FINANZIA?</h3>
                 <p class="twelve">I progetti per settore ... Lorem ipsum dolor sit amet è un testo segnaposto utilizzato nel settore della stampa e della tipografia...
                     <a href="#" class="read-more pull-right">LEGGI TUTTO <span class="fa fa-caret-down"> </span></a></p>
@@ -108,39 +141,6 @@
 
 {#                                {% if selected_code_list == 'channels' %}<span>{{ channel.name }}</span>#}
 {#                                {% else %}<a href="{% search_url 'channels' channel.name %}&selected_facets={{ selected_code_list }}:{{ object.name|urlencode }}">{{ channel.name }}</a>{% endif %}#}
-                            </td>
-                            <td class="col-sm-4">{{ tot|currency }}</td>
-                        </tr>
-                        {% endif %}{% empty %}<tr><td>-- empty --</td></tr>{% endfor %}
-                        </tbody>
-
-                    </table>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <h3>CON QUALI STRUMENTI?</h3>
-                <p class="twelve">I progetti per settore ... Lorem ipsum dolor sit amet è un testo segnaposto utilizzato nel settore della stampa e della tipografia...
-                    <a href="#" class="read-more pull-right">LEGGI TUTTO <span class="fa fa-caret-down"> </span></a></p>
-
-                <div id="highcharts-donut" ></div>
-
-                <div class="table-responsive">
-                    <table class="table table-condensed table-hover">
-                        <tbody>
-                        {% for aid_type, tot in aid_stats %}{% if tot > 0.0 %}
-                        <tr class="dotted">
-                            <td class="col-sm-8">
-                                {% if not selected_code_list %}
-                                    <a href="{% url 'codelists:aid_type-detail' code=aid_type.code %}">{{ aid_type.name }}</a>
-                                {% elif selected_code_list.code_list == 'aid_type' %}
-                                    <span>{{ aid_type.name }}</span>
-                                {% else %}
-                                    <a href="{% search_url 'aid_types' aid_type.name %}&selected_facets={{ selected_facet }}:{{ selected_code_list.name|urlencode }}">{{ aid_type.name }}</a>
-                                {% endif %}
-
-{#                                {% if selected_code_list == 'aid_types' %}<span>{{ aid_type.name }}</span>#}
-{#                                {% else %}<a href="{% search_url 'aid_types' aid_type.name %}">{{ aid_type.name }}</a>{% endif %}#}
                             </td>
                             <td class="col-sm-4">{{ tot|currency }}</td>
                         </tr>

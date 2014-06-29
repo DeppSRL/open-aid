@@ -151,6 +151,23 @@
         </div>
      </div><!-- .row -->
 
+    <div class="row">
+        <div class="col-md-12">
+            <div class="progetti">
+                <h2><a href="#">INIZIATIVE CORRELATE</a></h2>
+                <div class="bordered-radius" style="overflow:hidden;">
+                    <ul class="list-unstyled">
+                        {% for result in project.related_projects %}
+                        <li>
+                            {% include 'snippets/project_element.html' with project=result %}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 {#    <h1>Project #{{ object.pk }}</h1>#}
 {##}

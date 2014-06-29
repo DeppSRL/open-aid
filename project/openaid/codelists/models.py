@@ -1,5 +1,5 @@
 from django.db import models
-from django.db.models import Sum
+from django.db.models import Sum, get_model
 from django.utils.translation import ugettext as _
 from model_utils import Choices
 from mptt.fields import TreeForeignKey
@@ -12,6 +12,20 @@ class CodeListModel(models.Model):
     code = models.CharField(max_length=16, unique=True)
     name = models.CharField(max_length=512, blank=True)
     description = models.TextField(blank=True)
+
+    code_list = ''
+    @property
+    def code_list_facet(self):
+        return self.code_list + 's'
+
+    def top_projects(self, qnt=3, order_by=None):
+        projects = get_model('projects', 'Activity').objects.filter(**{
+            '%s_id__in' % self.code_list: self.get_descendants_pks(True)
+        }).order_by('project').distinct('project').values('project', 'commitment')
+        def order_by_commitment(project):
+            return -1 * ( project.get('commitment') or 0)
+        projects = sorted(projects, key=order_by or order_by_commitment)[:qnt]
+        return get_model('projects', 'Project').objects.filter(pk__in=map(lambda p: p.get('project'), projects))
 
     def get_descendants_pks(self, include_self=False):
         return [self, ] if include_self else []

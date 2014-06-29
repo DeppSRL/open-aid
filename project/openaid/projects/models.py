@@ -39,14 +39,20 @@ class Project(models.Model):
     start_year = models.PositiveSmallIntegerField()
     end_year = models.PositiveSmallIntegerField()
 
+    def related_projects(self, qnt=3):
+        return Project.objects.all().order_by('?')[:qnt]
+
     def activities(self, year=None):
         if not getattr(self, '_activities', False):
             self._activities = list(self.activity_set.all().prefetch_related('recipient', 'agency', 'aid_type', 'channel', 'finance_type', 'sector'))
         return filter(lambda a: a.year == year, self._activities) if year else self._activities
 
-    def _activities_map(self, field, activities=None, year=None):
+    def _activities_map(self, field, activities=None, year=None, skip_none=False):
         activities = activities or self.activities(year=year)
-        return list(map(lambda a: getattr(a, field), activities)) if activities else []
+        activities = list(map(lambda a: getattr(a, field), activities)) if activities else []
+        if skip_none:
+            activities = filter(lambda a: a is not None, activities)
+        return activities
 
     def years_range(self):
         return sorted(self._activities_map('year'))
@@ -101,13 +107,13 @@ class Project(models.Model):
         return self._activities_map('commitment', year=year)
 
     def commitment(self, year=None):
-        return sum(self.commitments(year=year or self.end_year), 0.0)
+        return sum(self._activities_map('commitment', year=year or self.end_year, skip_none=True), 0.0)
 
     def disbursements(self, year=None):
         return self._activities_map('disbursement')
 
     def disbursement(self, year=None):
-        return sum(self.disbursements(year=year or self.end_year), 0.0)
+        return sum(self._activities_map('disbursement', year=year or self.end_year, skip_none=True), 0.0)
 
     class Meta:
         unique_together = (('crsid', 'recipient'),)

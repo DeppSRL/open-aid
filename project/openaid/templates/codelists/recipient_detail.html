@@ -1,191 +1,55 @@
-{% extends 'base.html' %}
+{% extends 'codelists/base_codelist.html' %}
+
 {% load staticfiles %}
 {% load i18n %}
-{% load humanize %}
-{% load crs %}
+{% load icons %}
 
-{% block content %}
+{% block codelist_header %}
 
-    <div class="row">
-        <div class="container">
+<div class="media">
+    <span class="pull-left">
+        <img style="height: 56px;" class="media-object img-thumbnail" src="{% static 'img/flags' %}/{{ object.iso_alpha2|lower }}.png" alt="{{ object.name }}"/>
+    </span>
+    <div class="media-body">
+        {{ block.super }}
+    </div>
+</div>
 
-            <header class="col-md-9">
-                <div class="btn-group">
-                    <a href="#" class="btn btn-aid">Scarica i dati in JSON <span class="fa fa-download"> </span></a>
-                    <a href="#" class="btn btn-aid">Scarica i dati in XML <span class="fa fa-download"> </span></a>
-                </div>
-                <br>
-                <h2 class="pull-left">{{ object.name }}</h2>
-                <a href="#" class="read-more pull-left pad">VEDI TUTTE LE INIZIATIVE <span class="fa fa-align-justify"> </span></a>
-                <h3 class="sub-title">{{ object.region.name }}</h3>
-            </header>
-            <header class="col-md-3 text-right">
-                <img src="{% static 'img/contents/social.jpg' %}">
-            </header>
-        </div>
+{% endblock %}
+
+{% block codelist_description %}
+<div class="row">
+    <div class="col-md-4">
+        <div class="small-map"><img src="{% static 'img/contents/small-map.jpg' %}" class="img-responsive"></div>
     </div>
 
-    <div class="spacer"> </div>
+    <div class="col-md-4">
+        <h3>POLITICHE DI COOPERAZIONE</h3>
+        <p>{{ object.description }}</p>
+{#        <a href="#" class="read-more pull-right twelve">{% trans 'read more' %} {% icon 'caret-down' %}</a>#}
 
-    <div class="row">
-        <div class="container">
-            <div class="col-md-4">
-                <div class="small-map"><img src="{% static 'img/contents/small-map.jpg' %}" class="img-responsive"></div>
-            </div>
+        <div class="small-spacer"> </div>
 
-            <div class="col-md-4">
-                <h3>POLITICHE DI COOPERAZIONE</h3>
-                <p>Lorem Ipsum è un testo segnaposto utilizzato nel  Lorem Ipsum è un testo segnaposto utilizzato nel  Lorem Ipsum è un testo segnaposto utilizzato nel </p>
-                <a href="#" class="read-more pull-right twelve">LEGGI TUTTO <span class="fa fa-caret-down"> </span></a>
+        <h3>DATI DI CONTESTO</h3>
+        <dl class="dl-horizontal">
+            <dt>{% trans 'Population' %}</dt><dd>{{ object.popolazione|default_if_none:'-' }}</dd>
+            <dt>{% trans 'Population growth' %}</dt><dd>{{ object.crescita_popolazione|default_if_none:'-' }}</dd>
+            <dt>{% trans 'PIL' %}</dt><dd>{{ object.pil|default_if_none:'-' }}</dd>
+            <dt>{% trans 'PIL pro-capita' %}</dt><dd>{{ object.pil_procapite|default_if_none:'-' }}</dd>
+        </dl>
+        <br/>
+    </div>
 
-                <div class="small-spacer"> </div>
+    <div class="col-md-4">
+        <h3>CHI REALIZZA LE INIZIATIVE?</h3>
+        <ul class="list-unstyled simple-menu" style="height: auto;">
+            {% for i in '12345' %}
+            <li>Soggetto {{ i }}</li>
+            {% endfor %}
+        </ul>
+        <span class="eleven light-gray block">ANNI  DI ATTIVITÀ 2004-2014</span>
+    </div>
+</div><!-- .row -->
 
-                <h3>DATI DI CONTESTO</h3>
-                aaa
-            </div>
-
-            <div class="col-md-4">
-                <h3>CHI REALIZZA LE INIZIATIVE?</h3>
-                <ul class="list-unstyled simple-menu" style="height: auto;">
-                    <li>Soggetto 1</li>
-                    <li>Soggetto 1</li>
-                    <li>Soggetto 1</li>
-                    <li>Soggetto 1</li>
-                    <li>Soggetto 1</li>
-                    <li>Soggetto 1</li>
-                </ul>
-                <span class="eleven light-gray block">ANNI  DI ATTIVITÀ 2004-2014</span>
-            </div>
-        </div><!-- .container -->
-    </div><!-- .row -->
-
-    <div class="spacer"> </div>
-
-    {% crs_stats recipient=object %}
-
-    <div class="row">
-        <div class="container">
-            <div class="col-md-12">
-                <div class="progetti">
-                    <h2><a href="#">INIZIATIVE IN NOME PAESE</a></h2>
-                    <div class="bordered-radius" style="overflow:hidden;">
-                        <ul class="list-unstyled">
-                            <li>
-                                <ul class="nav nav-pills ">
-                                    <li>
-                                        <a href="#"><span class="fa fa-chevron-right"> </span>Infrastrutture e servizi sociali</a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><span class="fa fa-chevron-right"> </span> Lorem ipsum dolor sit armet</a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><span class="fa fa-chevron-right"> </span> Lorem ipsum dolor sit amet nome troppo luced adisciping</a>
-                                    </li>
-                                </ul>
-                                <article class="progetti-body">
-                                    <header>
-                                        <div id="pie1"></div>
-                                        <a href="#">Incentivazione dei processi di Rigenerazione Culturale, organizzazione degli
-                                            spazi e promozione dei diritti delle Comunità Indigene Mapuche in Araucania</a>
-                                    </header>
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <div class=" numbers bg-red bordered-radius small-pad">€ 300.000.000<br><span class="eleven">IMPEGNATI, 2012</span></div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class=" numbers bg-blue bordered-radius small-pad">€ 300.000.000<br><span class="eleven">IMPEGNATI, 2012</span></div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <span class="eleven light-gray block">TIPOLOGIA</span>
-                                            <a class="eleven">Lorem ipsum</a>, <a class="eleven">Lorem ipsum</a>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <span class="eleven light-gray block">TIPOLOGIA</span>
-                                            <a class="eleven">Lorem ipsum</a>, <a class="eleven">Lorem ipsum</a>
-                                        </div>
-                                        <div class="col-md-12"><a href="#" class="twelve">PAESE</a> <a href="#" class="twelve">PAESE</a> <span class="twelve light-gray">anno</span> <span class="twelve light-gray">anno</span></div>
-                                    </div><!-- .row -->
-                                </article>
-                            </li>
-                            <li>
-                                <ul class="nav nav-pills ">
-                                    <li>
-                                        <a href="#"><span class="fa fa-chevron-right"> </span>Infrastrutture e servizi sociali</a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><span class="fa fa-chevron-right"> </span> Lorem ipsum dolor sit armet</a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><span class="fa fa-chevron-right"> </span> Lorem ipsum dolor sit amet nome troppo luced adisciping</a>
-                                    </li>
-                                </ul>
-                                <article class="progetti-body">
-                                    <header>
-                                        <div id="pie2"></div>
-                                        <a href="#">Incentivazione dei processi di Rigenerazione Culturale, organizzazione degli
-                                            spazi e promozione dei diritti delle Comunità Indigene Mapuche in Araucania</a>
-                                    </header>
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <div class=" numbers bg-red bordered-radius small-pad">€ 300.000.000<br><span class="eleven">IMPEGNATI, 2012</span></div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class=" numbers bg-blue bordered-radius small-pad">€ 300.000.000<br><span class="eleven">IMPEGNATI, 2012</span></div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <span class="eleven light-gray block">TIPOLOGIA</span>
-                                            <a class="eleven">Lorem ipsum</a>, <a class="eleven">Lorem ipsum</a>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <span class="eleven light-gray block">TIPOLOGIA</span>
-                                            <a class="eleven">Lorem ipsum</a>, <a class="eleven">Lorem ipsum</a>
-                                        </div>
-                                        <div class="col-md-12"><a href="#" class="twelve">PAESE</a> <a href="#" class="twelve">PAESE</a> <span class="twelve light-gray">anno</span> <span class="twelve light-gray">anno</span></div>
-                                    </div><!-- .row -->
-                                </article>
-                            </li>
-                            <li>
-                                <ul class="nav nav-pills ">
-                                    <li>
-                                        <a href="#"><span class="fa fa-chevron-right"> </span>Infrastrutture e servizi sociali</a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><span class="fa fa-chevron-right"> </span> Lorem ipsum dolor sit armet</a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><span class="fa fa-chevron-right"> </span> Lorem ipsum dolor sit amet nome troppo luced adisciping</a>
-                                    </li>
-                                </ul>
-                                <article class="progetti-body">
-                                    <header>
-                                        <div id="pie3"></div>
-                                        <a href="#">Incentivazione dei processi di Rigenerazione Culturale, organizzazione degli
-                                            spazi e promozione dei diritti delle Comunità Indigene Mapuche in Araucania</a>
-                                    </header>
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <div class=" numbers bg-red bordered-radius small-pad">€ 300.000.000<br><span class="eleven">IMPEGNATI, 2012</span></div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class=" numbers bg-blue bordered-radius small-pad">€ 300.000.000<br><span class="eleven">IMPEGNATI, 2012</span></div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <span class="eleven light-gray block">TIPOLOGIA</span>
-                                            <a class="eleven">Lorem ipsum</a>, <a class="eleven">Lorem ipsum</a>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <span class="eleven light-gray block">TIPOLOGIA</span>
-                                            <a class="eleven">Lorem ipsum</a>, <a class="eleven">Lorem ipsum</a>
-                                        </div>
-                                        <div class="col-md-12"><a href="#" class="twelve">PAESE</a> <a href="#" class="twelve">PAESE</a> <span class="twelve light-gray">anno</span> <span class="twelve light-gray">anno</span></div>
-                                    </div><!-- .row -->
-                                </article>
-                            </li>
-                        </ul>
-                        <a href="#" class="read-more pull-right pad">VEDI TUTTE LE INIZIATIVE <span class="fa fa-align-justify"> </span></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div><!-- .container -->
-{% endblock content %}
+<div class="spacer"> </div>
+{% endblock %}
