@@ -73,6 +73,14 @@ class Recipient(CodeListTreeModel):
 
     income_group = models.CharField(choices=INCOME_GROUPS, max_length=16, blank=True)
 
+    # isocodes and statistical data from wb
+    iso_code = models.CharField(max_length=3, blank=True, null=True)
+    iso_alpha2 = models.CharField(max_length=2, blank=True, null=True)
+    popolazione = models.BigIntegerField(null=True, blank=True)
+    crescita_popolazione = models.FloatField(null=True, blank=True)
+    pil = models.BigIntegerField(null=True, blank=True)
+    pil_procapite = models.IntegerField(null=True, blank=True)
+
     class Meta:
         ordering = ('name', 'code', )
 
