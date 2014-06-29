@@ -67,7 +67,7 @@ TEMPLATE_DEBUG = DEBUG
 ########## MANAGER CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#admins
 ADMINS = (
-    ('depp srl', 'daniele.faraglia@gmail.com'),
+    ('admin', 'admin@depp.it'),
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#managers
@@ -359,11 +359,12 @@ ICONFONT = 'font-awesome'
 INSTALLED_APPS += (
     'haystack',
 )
+SOLR_BASE_URL = env.str('SOLR_BASE_URL', default='http://127.0.0.1:8080/solr/open-aid-{lang}')
 def solr_url(lang):
     return {
         # 'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
         'ENGINE': 'openaid.backends.MultilingualSolrEngine',
-        'URL': 'http://127.0.0.1:8080/solr/open-aid-%s' % lang,
+        'URL': SOLR_BASE_URL.format(lang=lang),
     }
 HAYSTACK_CONNECTIONS = {
     'default': solr_url(LANGUAGE_CODE[:2]),

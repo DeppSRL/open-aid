@@ -13,6 +13,7 @@ Contents:
 
    analysis
    install
+   i18n
    deploy
    tests
 
