@@ -22,20 +22,30 @@ class ActivityCodeListAdmin(CodeListAdmin):
     activities.short_description = 'Activities'
     activities.admin_order_field = 'activity_count'
 
-    def activities(self, obj):
-        return "%s" % obj.activity_count
-    activities.short_description = 'Activities'
-    activities.admin_order_field = 'activity_count'
-
     def queryset(self, request):
+
         return super(CodeListAdmin, self).queryset(request).annotate(activity_count=Count('activity'))
 
 
 class HierarchicalCodeListAdmin(DjangoMpttAdmin, ActivityCodeListAdmin):
-    extra_list_display = ActivityCodeListAdmin.extra_list_display + ('level', )
+    extra_list_display = ActivityCodeListAdmin.extra_list_display + ('cumulative_activities', 'level', )
     raw_id_fields = ('parent',)
     search_fields = ('name', 'code', 'description')
     list_filter = ('level', )
+
+    def cumulative_activities(self, obj):
+        if obj.is_leaf_node():
+            return obj.activity_count
+        return "%s" % sum(
+            self.model.objects.add_related_count(
+                obj.get_children(),
+                obj.activity_set.model,
+                self.model.code_list,
+                'cumulative_activity_count',
+                cumulative=True)
+            .values_list('cumulative_activity_count', flat=True)
+        )
+    cumulative_activities.short_description = 'All Activities'
 
 
 class RecipientCodeListAdmin(HierarchicalCodeListAdmin):
