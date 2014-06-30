@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-06-28 18:39+0200\n"
+"POT-Creation-Date: 2014-06-30 18:51+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,11 +18,277 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: settings/base.py:329
+#: codelists/models.py:77
+msgid "LDC"
+msgstr ""
+
+#: codelists/models.py:78
+msgid "Other LIC"
+msgstr ""
+
+#: codelists/models.py:79
+msgid "LMIC"
+msgstr ""
+
+#: codelists/models.py:80
+msgid "UMIC"
+msgstr ""
+
+#: codelists/models.py:81
+msgid "Part I Unallocated by income"
+msgstr ""
+
+#: codelists/models.py:82
+msgid "MADCT"
+msgstr ""
+
+#: codelists/models.py:132
+msgid "DAC members"
+msgstr ""
+
+#: codelists/models.py:133
+msgid "Multilateral donors"
+msgstr ""
+
+#: codelists/models.py:134
+msgid "Non-DAC donors"
+msgstr ""
+
+#: codelists/models.py:135
+msgid "Private donors"
+msgstr ""
+
+#: pages/pages.py:13
+msgid "The project"
+msgstr "Il progetto"
+
+#: pages/pages.py:14
+msgid "Who we are"
+msgstr "Chi siamo"
+
+#: pages/pages.py:15
+msgid "Contacts"
+msgstr "Contatti"
+
+#: pages/pages.py:16
+msgid "Privacy and user's rights"
+msgstr "La privacy e i diritti degli utenti"
+
+#: pages/pages.py:17
+msgid "License of use"
+msgstr "Licenza d'utilizzo"
+
+#: pages/pages.py:18
+msgid "Links"
+msgstr ""
+
+#: pages/pages.py:23
+msgid "Search a project"
+msgstr "Cerca un progetto"
+
+#: pages/pages.py:24
+msgid "Register as an APS recipient"
+msgstr "Accreditarsi come soggetto APS"
+
+#: pages/pages.py:25
+msgid "Voting and commenting a project"
+msgstr "Votare e commentare un progetto"
+
+#: pages/pages.py:26
+msgid "Write a post on a project's blog"
+msgstr "Scrivere sul diario di un progetto"
+
+#: pages/pages.py:31
+msgid "Download the data"
+msgstr "Scarica i dati"
+
+#: pages/pages.py:32
+msgid "API"
+msgstr ""
+
+#: pages/pages.py:33
+msgid "CC Licenses"
+msgstr "Licenze CC"
+
+#: pages/pages.py:34
+msgid "Data fair use"
+msgstr "Utilizzo per informazione e ricerca"
+
+#: pages/pages.py:35
+msgid "PA's open data"
+msgstr "I dati aperti della PA"
+
+#: pages/pages.py:48
+msgid "The Italian Development Cooperation"
+msgstr "La Cooperazione allo Sviluppo italiana"
+
+#: pages/pages.py:49
+msgid "Busan partnership"
+msgstr ""
+
+#: pages/pages.py:50
+msgid "The international context"
+msgstr "Il contesto internazionale"
+
+#: pages/pages.py:51
+msgid "Objectives and Priorities"
+msgstr "Obiettivi e priorità"
+
+#: pages/pages.py:52
+msgid "The Italia System"
+msgstr "Il SIstema Italia"
+
+#: pages/pages.py:53
+msgid "Best practices"
+msgstr "Buone pratiche"
+
+#: pages/pages.py:54
+msgid "The Millennium Development Goals (MDGs)"
+msgstr ""
+
+#: pages/pages.py:55
+msgid "The Post 2015 Development Agenda"
+msgstr "Nuova Agenda di svilupop post 2015"
+
+#: projects/fields.py:16
+msgid "Not screened"
+msgstr ""
+
+#: projects/fields.py:17
+msgid "Not targeted"
+msgstr ""
+
+#: projects/fields.py:18
+msgid "Significant objective"
+msgstr ""
+
+#: projects/fields.py:19
+msgid "Principal objective"
+msgstr ""
+
+#: projects/fields.py:36
+msgid "Principal objectives and in support of an action programme"
+msgstr ""
+
+#: projects/forms.py:70
+msgid "Start year"
+msgstr ""
+
+#: projects/forms.py:71
+msgid "End year"
+msgstr ""
+
+#: projects/models.py:146 projects/models.py:157
+msgid "Unkwnon"
+msgstr ""
+
+#: projects/models.py:147
+msgid "New activity reported"
+msgstr ""
+
+#: projects/models.py:148
+msgid "Revision"
+msgstr ""
+
+#: projects/models.py:149
+msgid "Previously reported activity"
+msgstr ""
+
+#: projects/models.py:150
+msgid "Provisional data"
+msgstr ""
+
+#: projects/models.py:151
+msgid "Commitment = Disbursement"
+msgstr ""
+
+#: projects/models.py:153
+msgid "Nature of submission"
+msgstr ""
+
+#: projects/models.py:158
+msgid "ODA Grants"
+msgstr ""
+
+#: projects/models.py:159
+msgid "ODA Grant-Like"
+msgstr ""
+
+#: projects/models.py:160
+msgid "ODA Loans"
+msgstr ""
+
+#: projects/models.py:161
+msgid "Other Official Flows"
+msgstr ""
+
+#: projects/models.py:162
+msgid "Equity Investment"
+msgstr ""
+
+#: projects/models.py:163
+msgid "Private Grants"
+msgstr ""
+
+#: projects/models.py:164
+msgid "Official Development Assistance"
+msgstr ""
+
+#: projects/models.py:166
+msgid "Flow type"
+msgstr ""
+
+#: projects/models.py:170
+msgid "Unknown"
+msgstr ""
+
+#: projects/models.py:171
+msgid "Bilateral"
+msgstr ""
+
+#: projects/models.py:172
+msgid "Multilateral"
+msgstr ""
+
+#: projects/models.py:173
+msgid "Bilateral, core contributions to NGOs and other private bodies / PPPs"
+msgstr ""
+
+#: projects/models.py:174
+msgid ""
+"Bilateral, ex-post reporting on NGOs' activities funded through core "
+"contributions"
+msgstr ""
+
+#: projects/models.py:175
+msgid "Multilateral outflows"
+msgstr ""
+
+#: projects/models.py:176
+msgid "Private sector outflows"
+msgstr ""
+
+#: projects/models.py:178
+msgid "Bi/Multilateral"
+msgstr ""
+
+#: projects/models.py:180
+msgid "Free Standing Technical Cooperation"
+msgstr ""
+
+#: projects/models.py:181
+msgid "Programme Based Approaches"
+msgstr ""
+
+#: projects/models.py:182
+msgid "Investment Project"
+msgstr ""
+
+#: settings/base.py:348
 msgid "English"
 msgstr ""
 
-#: settings/base.py:330
+#: settings/base.py:349
 msgid "Italian"
 msgstr ""
 
@@ -34,10 +300,91 @@ msgstr "Open Aid Italia"
 msgid "How to ..."
 msgstr "Come fare per ..."
 
-#: templates/footer.html:28
+#: templates/footer.html:25
+msgid "Frequesntly Asked Questions"
+msgstr "Domande frequenti"
+
+#: templates/footer.html:31
 msgid "Open data"
 msgstr ""
 
-#: templates/footer.html:39
+#: templates/footer.html:42
 msgid "Open Aid is a project by"
 msgstr "Open Aid è un progetto di"
+
+#: templates/home.html:13
+msgid "Italian Development Cooperation"
+msgstr ""
+
+#: templates/home.html:14
+msgid ""
+"\n"
+"                Since the 1950s, Italian Development Cooperation has grown "
+"through aid programs in countries linked to Italy by former colonial ties.\n"
+"                Italy has developed a more systematic cooperative approach "
+"aimed at alleviating poverty worldwide and helping developing countries to "
+"strengthen their institutions and governance.\n"
+"                In recent years, due to new global plights, Italian "
+"Cooperation has played a crucial role in defining Italian foreign policy,\n"
+"                aimed at maintaining peace and managing migration flows.\n"
+"                "
+msgstr ""
+
+#: templates/home.html:21 templates/home.html.py:44
+#: templates/projects/project_detail.html:139
+#: templates/projects/project_detail.html:150
+msgid "read more"
+msgstr ""
+
+#: templates/home.html:25
+msgid "News"
+msgstr ""
+
+#: templates/navbar.html:73
+msgid "Search"
+msgstr ""
+
+#: templates/codelists/recipient_detail.html:40
+msgid "Population"
+msgstr ""
+
+#: templates/codelists/recipient_detail.html:41
+msgid "Population growth"
+msgstr ""
+
+#: templates/codelists/recipient_detail.html:42
+msgid "PIL"
+msgstr ""
+
+#: templates/codelists/recipient_detail.html:43
+msgid "PIL pro-capita"
+msgstr ""
+
+#: templates/projects/project_detail.html:69
+msgid "Aid type"
+msgstr ""
+
+#: templates/projects/project_detail.html:75
+#: templates/snippets/project_element.html:33
+msgid "Channels"
+msgstr ""
+
+#: templates/search/search_results.html:13
+msgid "Projects"
+msgstr ""
+
+#: templates/search/search_results.html:122
+msgid "Search result"
+msgstr ""
+
+#: templates/search/search_results.html:124
+msgid "Remove filters"
+msgstr ""
+
+#: templates/snippets/project_element.html:16
+msgid "No title"
+msgstr ""
+
+#: templates/snippets/project_element.html:27
+msgid "Aid types"
+msgstr ""
