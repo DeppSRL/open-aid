@@ -22,6 +22,7 @@ urlpatterns = [
 openaid_urls = (
     url(r'^$', views.Home.as_view(), name='home'),
     url(r'^news/', include('blog.urls')),
+    url(r'^faq/', include('faq.urls')),
     url(r'^projects/', include('openaid.projects.urls', namespace='projects')),
     url(r'^code-lists/', include('openaid.codelists.urls', namespace='codelists')),
     url(r'^', include('openaid.pages.urls')),
