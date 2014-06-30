@@ -284,11 +284,11 @@ msgstr ""
 msgid "Investment Project"
 msgstr ""
 
-#: settings/base.py:348
+#: settings/base.py:356
 msgid "English"
 msgstr ""
 
-#: settings/base.py:349
+#: settings/base.py:357
 msgid "Italian"
 msgstr ""
 
@@ -301,7 +301,7 @@ msgid "How to ..."
 msgstr "Come fare per ..."
 
 #: templates/footer.html:25
-msgid "Frequesntly Asked Questions"
+msgid "Frequently Asked Questions"
 msgstr "Domande frequenti"
 
 #: templates/footer.html:31
@@ -318,25 +318,31 @@ msgstr ""
 
 #: templates/home.html:14
 msgid ""
-"\n"
-"                Since the 1950s, Italian Development Cooperation has grown "
-"through aid programs in countries linked to Italy by former colonial ties.\n"
-"                Italy has developed a more systematic cooperative approach "
-"aimed at alleviating poverty worldwide and helping developing countries to "
-"strengthen their institutions and governance.\n"
-"                In recent years, due to new global plights, Italian "
-"Cooperation has played a crucial role in defining Italian foreign policy,\n"
-"                aimed at maintaining peace and managing migration flows.\n"
-"                "
+"Since the 1950s, Italian Development Cooperation has grown through aid "
+"programs in countries linked to Italy by former colonial ties.\n"
+"Italy has developed a more systematic cooperative approach aimed at "
+"alleviating poverty worldwide and helping developing countries to strengthen "
+"their institutions and governance.\n"
+"In recent years, due to new global plights, Italian Cooperation has played a "
+"crucial role in defining Italian foreign policy,\n"
+"aimed at maintaining peace and managing migration flows."
 msgstr ""
+"Nella sua esperienza storica la Cooperazione italiana si è sviluppata a "
+"partire dagli anni Cinquanta con una serie di interventi di assistenza messi in atto "
+"in paesi legati all'Italia da precedenti vincoli coloniali. Successivamente l'Italia ha avviato un'attività "
+"di cooperazione più sistematica intesa a contribuire agli sforzi internazionali volti ad alleviare la povertà "
+"nel mondo e aiutare i Paesi in via di sviluppo a rafforzare le rispettive istituzioni. "
+"Più di recente le nuove emergenze hanno conferito alla cooperazione un ruolo sempre più fondamentale "
+"nelle scelte di politica estera italiana, in armonia con gli interventi per il "
+"mantenimento della pace e la gestione dei flussi migratori."
 
-#: templates/home.html:21 templates/home.html.py:44
+#: templates/home.html:19 templates/home.html.py:42
 #: templates/projects/project_detail.html:139
 #: templates/projects/project_detail.html:150
 msgid "read more"
 msgstr ""
 
-#: templates/home.html:25
+#: templates/home.html:23
 msgid "News"
 msgstr ""
 
