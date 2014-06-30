@@ -1,0 +1,875 @@
+  1. Year
+	<type 'int'>
+	Nulls: False
+	Min: 1973
+	Max: 2012
+	Sum: 109818422
+	Mean: 2003.65673521
+	Median: 2005
+	Standard Deviation: 6.55548893303
+	Unique values: 38
+	5 most frequent values:
+		2008:	4656
+		2007:	4090
+		2009:	3916
+		2010:	3807
+		2011:	3790
+  2. donorcode
+	<type 'int'>
+	Nulls: False
+	Values: 6
+  3. donorname
+	<type 'unicode'>
+	Nulls: False
+	Values: Italy
+  4. agencycode
+	<type 'int'>
+	Nulls: False
+	Min: 1
+	Max: 99
+	Sum: 385655
+	Mean: 7.03634439599
+	Median: 5
+	Standard Deviation: 11.7954861159
+	Unique values: 10
+	5 most frequent values:
+		4:	25173
+		8:	9315
+		7:	7141
+		5:	6694
+		9:	4030
+  5. agencyname
+	<type 'unicode'>
+	Nulls: False
+	Unique values: 10
+	5 most frequent values:
+		DGCS:	25173
+		LA:	9315
+		CA:	7141
+		MC:	6694
+		Art.:	4030
+	Max length: 4
+  6. crsid
+	<type 'unicode'>
+	Nulls: True
+	Unique values: 41085
+	5 most frequent values:
+		1984000031z:	56
+		1988000025z:	39
+		1988000019z:	32
+		1986000008z:	23
+		1982000019z:	20
+	Max length: 12
+  7. projectnumber
+	<type 'unicode'>
+	Nulls: True
+	Unique values: 16719
+	5 most frequent values:
+		1:	408
+		2:	259
+		3:	221
+		REGIONE-:	215
+		4:	202
+	Max length: 40
+  8. initialreport
+	<type 'int'>
+	Nulls: True
+	Values: 8, 1, 3
+  9. recipientcode
+	<type 'int'>
+	Nulls: False
+	Min: 30
+	Max: 998
+	Sum: 20517065
+	Mean: 374.337517561
+	Median: 285
+	Standard Deviation: 235.712982935
+	Unique values: 169
+	5 most frequent values:
+		998:	2713
+		431:	2083
+		71:	1898
+		259:	1754
+		730:	1723
+ 10. recipientname
+	<type 'unicode'>
+	Nulls: False
+	Unique values: 169
+	5 most frequent values:
+		Bilateral, unspecified:	2713
+		Brazil:	2083
+		Albania:	1898
+		Mozambique:	1754
+		China:	1723
+	Max length: 45
+ 11. regioncode
+	<type 'int'>
+	Nulls: True
+	Min: 10001
+	Max: 15006
+	Sum: 365135
+	Mean: 12171.1666667
+	Median: 10007.0
+	Standard Deviation: 2478.99077695
+	Unique values: 6
+	5 most frequent values:
+		15006:	13
+		10001:	7
+		10006:	4
+		10002:	4
+		10008:	1
+ 12. regionname
+	<type 'unicode'>
+	Nulls: True
+	Unique values: 6
+	5 most frequent values:
+		Regional and Unspecified:	13
+		Africa, regional:	7
+		North of Sahara:	4
+		Asia, regional:	4
+		Europe:	1
+	Max length: 24
+ 13. incomegroupcode
+	<type 'int'>
+	Nulls: False
+	Min: 10016
+	Max: 10025
+	Sum: 549092565
+	Mean: 10018.2919776
+	Median: 10018
+	Standard Deviation: 2.25085906248
+	Unique values: 6
+	5 most frequent values:
+		10019:	18604
+		10016:	16405
+		10018:	12787
+		10024:	4602
+		10017:	1785
+ 14. incomegroupname
+	<type 'unicode'>
+	Nulls: False
+	Unique values: 6
+	5 most frequent values:
+		UMICs:	18604
+		LDCs:	16405
+		LMICs:	12787
+		Part I unallocated by income:	4602
+		Other LICs:	1785
+	Max length: 28
+ 15. flowcode
+	<type 'int'>
+	Nulls: False
+	Values: 99, 11, 12, 13, 14
+ 16. flowname
+	<type 'unicode'>
+	Nulls: True
+	Values: ODA Grants, ODA Grant-Like, ODA Loans, Other Official Flows (non Export Credit)
+ 17. bi_multi
+	<type 'int'>
+	Nulls: False
+	Values: 1, 3
+ 18. category
+	<type 'int'>
+	Nulls: False
+	Values: 10, 20
+ 19. finance_t
+	<type 'int'>
+	Nulls: False
+	Min: 110
+	Max: 621
+	Sum: 9310584
+	Mean: 169.873268989
+	Median: 110
+	Standard Deviation: 121.591246402
+	Unique values: 10
+	5 most frequent values:
+		110:	44019
+		410:	10547
+		611:	105
+		610:	100
+		411:	13
+ 20. aid_t
+	<type 'unicode'>
+	Nulls: True
+	Unique values: 12
+	5 most frequent values:
+		C01:	11741
+		B01:	1894
+		D02:	1267
+		E01:	965
+		H01:	717
+	Max length: 4
+ 21. usd_commitment
+	<type 'float'>
+	Nulls: True
+	Min: 0.0
+	Max: 2054.95
+	Sum: 45810.0112317
+	Mean: 1.09483321141
+	Median: 0.0391818114147
+	Standard Deviation: 16.678858657
+	Unique values: 25877
+	5 most frequent values:
+		0.0:	4333
+		0.0216356555604:	71
+		0.0696281854895:	70
+		0.0397350993377:	63
+		0.0264900662252:	62
+ 22. usd_disbursement
+	<type 'float'>
+	Nulls: True
+	Min: -0.0869997514293
+	Max: 930.62
+	Sum: 20506.9732462
+	Mean: 0.553270558376
+	Median: 0.0184465599308
+	Standard Deviation: 9.85484222896
+	Unique values: 19718
+	5 most frequent values:
+		0.0:	9334
+		0.0721188518679:	66
+		0.0139256370979:	56
+		0.0216356555604:	55
+		0.0144237703736:	54
+ 23. usd_received
+	<type 'float'>
+	Nulls: True
+	Min: 0.0
+	Max: 18.8508997429
+	Sum: 3381.12093646
+	Mean: 0.262999450565
+	Median: 0.0
+	Standard Deviation: 0.956506303895
+	Unique values: 1905
+	5 most frequent values:
+		0.0:	8359
+		-0.0:	1596
+		2.0:	33
+		2.333:	17
+		1.333:	13
+ 24. usd_commitment_defl
+	<type 'float'>
+	Nulls: True
+	Min: 0.0
+	Max: 2594.26294395
+	Sum: 74131.6685117
+	Mean: 1.77170471086
+	Median: 0.0476317844188
+	Standard Deviation: 23.7802627466
+	Unique values: 26227
+	5 most frequent values:
+		0.0:	4333
+		0.0216442873021:	71
+		0.0706708827751:	70
+		0.0422424161102:	63
+		0.0281616107401:	62
+ 25. usd_disbursement_defl
+	<type 'float'>
+	Nulls: True
+	Min: -0.107833435326
+	Max: 1153.47400348
+	Sum: 25997.6071155
+	Mean: 0.701405830718
+	Median: 0.0205694671405
+	Standard Deviation: 11.9380896918
+	Unique values: 19776
+	5 most frequent values:
+		0.0:	9334
+		0.0721476243405:	66
+		0.014134176555:	56
+		0.0216442873021:	55
+		0.0144295248681:	54
+ 26. usd_received_defl
+	<type 'float'>
+	Nulls: True
+	Min: 0.0
+	Max: 27.263756081
+	Sum: 4777.86741085
+	Mean: 0.371644944839
+	Median: 0.0
+	Standard Deviation: 1.32987024309
+	Unique values: 2815
+	5 most frequent values:
+		0.0:	8359
+		-0.0:	1596
+		2.84290817225:	3
+		3.81705059707:	3
+		2.47769716207:	3
+ 27. usd_adjustment
+	<type 'float'>
+	Nulls: True
+	Values: -9.96143958869
+ 28. usd_adjustment_defl
+	<type 'float'>
+	Nulls: True
+	Values: -10.6547133375
+ 29. usd_amountuntied
+	<type 'float'>
+	Nulls: True
+	Min: 0.0
+	Max: 2054.95
+	Sum: 21877.9846581
+	Mean: 1.20050398695
+	Median: 0.00636060380171
+	Standard Deviation: 24.2010505108
+	Unique values: 6776
+	5 most frequent values:
+		0.0:	7727
+		0.0642673521851:	57
+		0.0216356555604:	52
+		0.0621195179525:	50
+		0.0514138817481:	49
+ 30. usd_amountpartialtied
+	<type 'float'>
+	Nulls: True
+	Min: 0.0
+	Max: 75.54
+	Sum: 2527.00647894
+	Mean: 0.239028232968
+	Median: 0.0
+	Standard Deviation: 2.04047504359
+	Unique values: 1172
+	5 most frequent values:
+		0.0:	9022
+		0.01:	18
+		0.324122:	11
+		0.23:	9
+		0.029:	9
+ 31. usd_amounttied
+	<type 'float'>
+	Nulls: True
+	Min: 0.0
+	Max: 506.894790044
+	Sum: 18802.8885131
+	Mean: 0.774897527842
+	Median: 0.0165080063831
+	Standard Deviation: 5.85934825895
+	Unique values: 13454
+	5 most frequent values:
+		0.0:	6537
+		0.00575904169546:	39
+		0.0115180833909:	39
+		0.132450331126:	36
+		0.0117439812096:	33
+ 32. usd_amountuntied_defl
+	<type 'float'>
+	Nulls: True
+	Min: 0.0
+	Max: 2594.26294395
+	Sum: 31430.4497957
+	Mean: 1.72467349625
+	Median: 0.00704040268503
+	Standard Deviation: 34.0084338414
+	Unique values: 6799
+	5 most frequent values:
+		0.0:	7727
+		0.0687400860482:	57
+		0.0216442873021:	52
+		0.0784225229423:	50
+		0.0549920688386:	49
+ 33. usd_amountpartialtied_defl
+	<type 'float'>
+	Nulls: True
+	Min: 0.0
+	Max: 215.888414064
+	Sum: 5646.04123634
+	Mean: 0.534056113918
+	Median: 0.0
+	Standard Deviation: 5.25098827238
+	Unique values: 1194
+	5 most frequent values:
+		0.0:	9022
+		0.0650966652931:	18
+		0.391122722601:	11
+		0.18878032935:	9
+		0.789487712161:	8
+ 34. usd_amounttied_defl
+	<type 'float'>
+	Nulls: True
+	Min: 0.0
+	Max: 506.894790044
+	Sum: 33438.6670972
+	Mean: 1.3780616978
+	Median: 0.0222184005589
+	Standard Deviation: 9.27907873215
+	Unique values: 13547
+	5 most frequent values:
+		0.0:	6537
+		0.00942377539868:	39
+		0.0188475507974:	39
+		0.140808053701:	36
+		0.0193492053247:	33
+ 35. usd_IRTC
+	<type 'float'>
+	Nulls: True
+	Min: 0.0
+	Max: 28.2725473565
+	Sum: 179.253311352
+	Mean: 0.234624753079
+	Median: 0.00863856254319
+	Standard Deviation: 1.58933886097
+	Unique values: 360
+	5 most frequent values:
+		0.0:	215
+		0.00575904169546:	22
+		0.0115180833909:	17
+		0.00863856254319:	16
+		0.00460723335637:	13
+ 36. usd_expert_commitment
+	<type 'float'>
+	Nulls: True
+	Values: 0.0
+ 37. usd_expert_extended
+	<type 'float'>
+	Nulls: True
+	Values: 0.0
+ 38. usd_export_credit
+	<type 'float'>
+	Nulls: True
+	Min: 0.0
+	Max: 157.22
+	Sum: 1614.91327668
+	Mean: 13.9216661783
+	Median: 0.0
+	Standard Deviation: 28.5409105649
+	Unique values: 42
+	5 most frequent values:
+		0.0:	70
+		3.55:	2
+		90.0:	2
+		49.1:	2
+		4.35:	2
+ 39. currencycode
+	<type 'int'>
+	Nulls: False
+	Min: 4
+	Max: 918
+	Sum: 31981964
+	Mean: 583.516648726
+	Median: 918
+	Standard Deviation: 391.972550216
+	Unique values: 6
+	5 most frequent values:
+		918:	30851
+		302:	11882
+		6:	11769
+		5:	267
+		11:	39
+ 40. commitment_national
+	<type 'float'>
+	Nulls: True
+	Min: 0.0
+	Max: 2054.95
+	Sum: 48865.9146886
+	Mean: 1.16786756581
+	Median: 0.0374
+	Standard Deviation: 16.7121482509
+	Unique values: 21346
+	5 most frequent values:
+		0.0:	4333
+		0.01:	521
+		0.02:	498
+		0.03:	419
+		0.05:	416
+ 41. disbursement_national
+	<type 'float'>
+	Nulls: True
+	Min: -0.07
+	Max: 930.62
+	Sum: 19256.9044825
+	Mean: 0.519544165183
+	Median: 0.01457
+	Standard Deviation: 9.66437253554
+	Unique values: 16800
+	5 most frequent values:
+		0.0:	9334
+		0.05:	284
+		0.01:	263
+		0.03:	251
+		0.02:	239
+ 42. shortdescription
+	<type 'unicode'>
+	Nulls: False
+	Unique values: 18601
+	5 most frequent values:
+		Sectors not specified:	2648
+		SECTORS NOT SPECIFIED:	2067
+		ITALIAN BISHOPS' CONFERENCE - 8 X 1000:	961
+		EDUCATION POLICY & ADMIN. MANAGEMENT:	889
+		SCHOLARSHIPS:	805
+	Max length: 150
+ 43. projecttitle
+	<type 'unicode'>
+	Nulls: True
+	Unique values: 22543
+	5 most frequent values:
+		ITALIAN BISHOPS' CONFERENCE - 8 x 1000:	961
+		EXPERTS AND SCOLARSHIPS:	400
+		SCHOLARSHIPS:	162
+		FOOD AID:	161
+		scholarships:	154
+	Max length: 255
+ 44. purposecode
+	<type 'int'>
+	Nulls: False
+	Min: 600
+	Max: 99820
+	Sum: 2006262182
+	Mean: 36604.6120528
+	Median: 23010
+	Standard Deviation: 31105.0405678
+	Unique values: 192
+	5 most frequent values:
+		99810:	6832
+		11420:	2823
+		16010:	2333
+		11110:	1880
+		12220:	1767
+ 45. purposename
+	<type 'unicode'>
+	Nulls: False
+	Unique values: 191
+	5 most frequent values:
+		Sectors not specified:	6856
+		Higher education:	2823
+		Social/welfare services:	2333
+		Education policy & admin. management:	1880
+		Basic health care:	1767
+	Max length: 59
+ 46. sectorcode
+	<type 'int'>
+	Nulls: False
+	Min: 111
+	Max: 998
+	Sum: 20074918
+	Mean: 366.270466529
+	Median: 230
+	Standard Deviation: 311.297543584
+	Unique values: 36
+	5 most frequent values:
+		998:	7857
+		311:	4137
+		160:	3826
+		114:	3630
+		111:	3603
+ 47. sectorname
+	<type 'unicode'>
+	Nulls: False
+	Unique values: 37
+	5 most frequent values:
+		IX. Unallocated / Unspecified:	7833
+		III.1.a. Agriculture:	4137
+		I.6. Other Social Infrastructure & Services:	3826
+		I.1.d. Post-Secondary Education:	3630
+		I.1.a. Education, Level Unspecified:	3603
+	Max length: 49
+ 48. channelcode
+	<type 'int'>
+	Nulls: True
+	Min: 10000
+	Max: 52000
+	Sum: 414676186
+	Mean: 16407.8734618
+	Median: 11000
+	Standard Deviation: 9408.03707267
+	Unique values: 56
+	5 most frequent values:
+		10000:	11658
+		20000:	5802
+		22000:	3136
+		11000:	1528
+		12000:	1322
+ 49. channelname
+	<type 'unicode'>
+	Nulls: True
+	Unique values: 55
+	5 most frequent values:
+		PUBLIC SECTOR (donor, recipient, other):	11658
+		NON-GOVERNMENTAL ORGANISATIONS (NGOs) AND CIVIL SOCIETY:	5802
+		NATIONAL NGOs:	3136
+		Donor government:	1528
+		Recipient government:	1322
+	Max length: 85
+ 50. channelreportedname
+	<type 'unicode'>
+	Nulls: True
+	Unique values: 1973
+	5 most frequent values:
+		Public sector:	2694
+		NGOs and civil society:	2104
+		C.E.I. - 8XMILLE:	1827
+		MAE:	825
+		DGCS:	224
+	Max length: 100
+ 51. geography
+	<type 'unicode'>
+	Nulls: True
+	Unique values: 4926
+	5 most frequent values:
+		SOUTH OF SAHARA:	915
+		AMERICA SOUTH:	431
+		EUROPE:	375
+		BRAZIL:	320
+		MOZAMBIQUE:	251
+	Max length: 100
+ 52. expectedstartdate
+	<type 'datetime.date'>
+	Nulls: True
+	Min: 1900-01-01
+	Max: 2012-12-31
+	Unique values: 2237
+	5 most frequent values:
+		1900-01-01:	1897
+		1989-01-01:	1135
+		1987-01-01:	682
+		1988-01-01:	627
+		1985-01-01:	551
+ 53. completiondate
+	<type 'datetime.date'>
+	Nulls: True
+	Min: 1900-01-01
+	Max: 2020-12-31
+	Unique values: 644
+	5 most frequent values:
+		1900-01-01:	1897
+		2012-12-31:	1152
+		2008-12-31:	936
+		2010-12-31:	752
+		2011-12-31:	348
+ 54. longdescription
+	<type 'unicode'>
+	Nulls: True
+	Unique values: 17136
+	5 most frequent values:
+		FORM AID CONTRIBUTION : TECHNICAL COOPERATION:	1336
+		FORM AID CONTRIBUTION : PROJECT AID:	976
+		ITALIAN BISHOPS' CONFERENCE - 8 x 1000:	961
+		FORM AID CONTRIBUTION : SUPPLIES:	230
+		scholarships:	84
+	Max length: 2489
+ 55. gender
+	<type 'int'>
+	Nulls: True
+	Values: 0, 1, 2
+ 56. environment
+	<type 'int'>
+	Nulls: True
+	Values: 0, 1, 2
+ 57. trade
+	<type 'int'>
+	Nulls: True
+	Values: 0, 1, 2
+ 58. pdgg
+	<type 'int'>
+	Nulls: True
+	Values: 0, 1, 2
+ 59. FTC
+	<type 'int'>
+	Nulls: True
+	Values: 1
+ 60. PBA
+	<type 'int'>
+	Nulls: True
+	Values: 1
+ 61. investmentproject
+	<type 'int'>
+	Nulls: True
+	Values: 1
+ 62. assocfinance
+	<type 'int'>
+	Nulls: True
+	Values: 1
+ 63. biodiversity
+	<type 'int'>
+	Nulls: True
+	Values: 0, 1, 2
+ 64. climateMitigation
+	<type 'int'>
+	Nulls: True
+	Values: 0, 1, 2
+ 65. climateAdaptation
+	<type 'int'>
+	Nulls: True
+	Values: 0, 1, 2
+ 66. desertification
+	<type 'int'>
+	Nulls: True
+	Values: 0, 1, 2
+ 67. commitmentdate
+	<type 'datetime.date'>
+	Nulls: True
+	Min: 1900-01-01
+	Max: 2012-12-31
+	Unique values: 1782
+	5 most frequent values:
+		2007-12-31:	2678
+		2004-01-01:	2649
+		2006-12-31:	2635
+		1900-01-01:	1897
+		2002-12-31:	1867
+ 68. typerepayment
+	<type 'int'>
+	Nulls: True
+	Values: 0, 1, 3, 5
+ 69. numberrepayment
+	<type 'int'>
+	Nulls: True
+	Values: 0, 1, 2, 3
+ 70. interest1
+	<type 'float'>
+	Nulls: True
+	Min: 0.0
+	Max: 19000.0
+	Sum: 9750999.3
+	Mean: 1714.00936896
+	Median: 1500.0
+	Standard Deviation: 1153.1427883
+	Unique values: 75
+	5 most frequent values:
+		1500.0:	2398
+		1750.0:	1008
+		2250.0:	809
+		2500.0:	422
+		1000.0:	320
+ 71. interest2
+	<type 'int'>
+	Nulls: True
+	Values: 0, 4000, 500, 5821
+ 72. repaydate1
+	<type 'datetime.date'>
+	Nulls: True
+	Min: 1975-12-01
+	Max: 2045-05-25
+	Unique values: 563
+	5 most frequent values:
+		1984-12-01:	150
+		1987-07-01:	142
+		2000-01-01:	100
+		1987-09-01:	93
+		1997-09-01:	89
+ 73. repaydate2
+	<type 'datetime.date'>
+	Nulls: True
+	Min: 1984-12-01
+	Max: 2055-11-25
+	Unique values: 603
+	5 most frequent values:
+		2009-07-01:	153
+		1995-06-01:	135
+		2008-12-01:	107
+		2010-03-01:	98
+		2010-01-01:	92
+ 74. grantelement
+	<type 'float'>
+	Nulls: True
+	Min: -43.0941073311
+	Max: 100.0
+	Sum: 3716369.14258
+	Mean: 99.1745828352
+	Median: 100.0
+	Standard Deviation: 6.33829667773
+	Unique values: 416
+	5 most frequent values:
+		100.0:	36720
+		65.0544168806:	38
+		65.0522620228:	32
+		38.5:	23
+		65.0501068216:	20
+ 75. usd_interest
+	<type 'float'>
+	Nulls: True
+	Min: 0.0
+	Max: 5.30051005397
+	Sum: 947.459612573
+	Mean: 0.0784126138023
+	Median: 0.0
+	Standard Deviation: 0.222665258499
+	Unique values: 2992
+	5 most frequent values:
+		0.0:	6652
+		0.022:	34
+		0.007:	33
+		0.02:	32
+		0.003:	31
+ 76. usd_outstanding
+	<type 'float'>
+	Nulls: True
+	Min: 0.0
+	Max: 313.035148372
+	Sum: 103047.270057
+	Mean: 7.98320964187
+	Median: 1.90965695067
+	Standard Deviation: 16.0867794493
+	Unique values: 6905
+	5 most frequent values:
+		0.0:	3909
+		20.0:	28
+		63.0:	22
+		22.5:	21
+		12.99:	20
+ 77. usd_arrears_principal
+	<type 'float'>
+	Nulls: True
+	Min: 0.0
+	Max: 64.6708008972
+	Sum: 9486.13956665
+	Mean: 0.773873353455
+	Median: 0.0
+	Standard Deviation: 3.77107404395
+	Unique values: 1979
+	5 most frequent values:
+		0.0:	9552
+		2.533:	16
+		20.0:	15
+		0.023:	13
+		0.251:	11
+ 78. usd_arrears_interest
+	<type 'float'>
+	Nulls: True
+	Min: 0.0
+	Max: 21.814
+	Sum: 2250.60915949
+	Mean: 0.182961479513
+	Median: 0.0
+	Standard Deviation: 0.885791117867
+	Unique values: 2607
+	5 most frequent values:
+		0.0:	8108
+		0.004:	41
+		0.001:	39
+		0.008:	38
+		0.115:	34
+ 79. usd_future_DS_principal
+	<type 'float'>
+	Nulls: True
+	Min: 0.0
+	Max: 63.0
+	Sum: 6409.46117608
+	Mean: 0.915375774933
+	Median: 0.0
+	Standard Deviation: 3.68760492977
+	Unique values: 1681
+	5 most frequent values:
+		0.0:	4899
+		2.0:	15
+		0.555:	7
+		20.0:	7
+		0.074:	6
+ 80. usd_future_DS_interest
+	<type 'float'>
+	Nulls: True
+	Min: 0.0
+	Max: 17.01
+	Sum: 811.844850268
+	Mean: 0.115828912865
+	Median: 0.0
+	Standard Deviation: 0.61058459712
+	Unique values: 1833
+	5 most frequent values:
+		0.0:	4334
+		0.004:	16
+		0.001:	15
+		0.014:	15
+		0.007:	14
+
+Row count: 54809
