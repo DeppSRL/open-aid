@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 from django.db.models import Sum, get_model
 from django.utils.translation import ugettext as _
@@ -18,14 +19,10 @@ class CodeListModel(models.Model):
     def code_list_facet(self):
         return self.code_list + 's'
 
-    def top_projects(self, qnt=3, order_by=None):
-        projects = get_model('projects', 'Activity').objects.filter(**{
+    def top_projects(self, qnt=3, order_by=None, year=None):
+        return get_model('projects', 'Project').get_top_projects(qnt=qnt, order_by=order_by, year=year, **{
             '%s_id__in' % self.code_list: self.get_descendants_pks(True)
-        }).order_by('project').distinct('project').values('project', 'commitment')
-        def order_by_commitment(project):
-            return -1 * ( project.get('commitment') or 0)
-        projects = sorted(projects, key=order_by or order_by_commitment)[:qnt]
-        return get_model('projects', 'Project').objects.filter(pk__in=map(lambda p: p.get('project'), projects))
+        })
 
     def get_descendants_pks(self, include_self=False):
         return [self, ] if include_self else []
@@ -94,6 +91,31 @@ class Recipient(CodeListTreeModel):
     crescita_popolazione = models.FloatField(null=True, blank=True)
     pil = models.BigIntegerField(null=True, blank=True)
     pil_procapite = models.IntegerField(null=True, blank=True)
+
+    @classmethod
+    def get_map_totals(cls, field='commitment', **filters):
+
+        filters = dict([
+            ('activity__%s' % key, value)
+            for key, value in filters.items()
+        ])
+
+        totali_territori_rs = get_model('codelists', 'Recipient').objects.filter(
+            iso_code__isnull=False,
+            **filters).annotate(tot=Sum('activity__%s' % field))
+
+        totali_territori = []
+
+        for t in totali_territori_rs:
+            ret = {
+                'label': t.name,
+                'iso_code': t.iso_code.upper(),
+                'value': (t.tot or 0.0) * settings.OPENAID_MULTIPLIER,
+                'code': t.code
+            }
+            totali_territori.append(ret)
+
+        return totali_territori
 
     class Meta:
         ordering = ('name', 'code', )

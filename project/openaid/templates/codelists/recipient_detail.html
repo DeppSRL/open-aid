@@ -1,6 +1,7 @@
 {% extends 'codelists/base_codelist.html' %}
 
 {% load staticfiles %}
+{% load crs %}
 {% load i18n %}
 {% load icons %}
 
@@ -17,10 +18,14 @@
 
 {% endblock %}
 
+{% block codelist_statistics %}
+{% crs_stats object show_map=False %}
+{% endblock %}
+
 {% block codelist_description %}
 <div class="row">
     <div class="col-md-4">
-        <div class="small-map"><img src="{% static 'img/contents/small-map.jpg' %}" class="img-responsive"></div>
+        <div class="small-map"><div id="map" data-chart="map" style="height: 260px;" data-iso-code="{{ object.iso_code }}"></div></div>
     </div>
 
     <div class="col-md-4">

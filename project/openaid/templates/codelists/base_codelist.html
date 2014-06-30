@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'base_map.html' %}
 
 {% load staticfiles %}
 {% load i18n %}
@@ -45,8 +45,9 @@
 </div><!-- .row -->
 
 <div class="spacer"> </div>
-
+{% block codelist_statistics %}
 {% crs_stats object %}
+{% endblock %}
 
 <div class="row">
     <div class="col-md-12">
@@ -54,7 +55,7 @@
             <h2><a href="#">INIZIATIVE PER "{{ object.name }}"</a></h2>
             <div class="bordered-radius" style="overflow:hidden;">
                 <ul class="list-unstyled">
-                    {% for result in object.top_projects %}
+                    {% for result in top_projects %}
                     <li>
                         {% include 'snippets/project_element.html' with project=result %}
                     </li>

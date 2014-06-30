@@ -39,6 +39,16 @@ class Project(models.Model):
     start_year = models.PositiveSmallIntegerField()
     end_year = models.PositiveSmallIntegerField()
 
+    @classmethod
+    def get_top_projects(cls, qnt=3, order_by=None, year=None, **filters):
+        if year:
+            filters['year'] = year
+        projects = Activity.objects.filter(**filters).order_by('project').distinct('project').values('project', 'commitment')
+        def order_by_commitment(project):
+            return -1 * ( project.get('commitment') or 0)
+        projects = sorted(projects, key=order_by or order_by_commitment)[:qnt]
+        return cls.objects.filter(pk__in=map(lambda p: p.get('project'), projects))
+
     def related_projects(self, qnt=3):
         return Project.objects.all().order_by('?')[:qnt]
 

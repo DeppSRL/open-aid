@@ -24,14 +24,14 @@ def _get_code_list_items(instance, model):
     return model.objects.root_nodes()
 
 @register.inclusion_tag('commons/stats.html', takes_context=True)
-def crs_stats(context, instance=None, year=None):
+def crs_stats(context, instance=None, year=None, show_map=True):
 
     start_year = contexts.START_YEAR
     end_year = contexts.END_YEAR
-    selected_year = int(year or context.get(contexts.YEAR_FIELD, None) or end_year)
+    year = int(year or context.get(contexts.YEAR_FIELD, None) or end_year)
 
     filters = {
-        'year': selected_year,
+        'year': year,
     }
 
     if instance:
@@ -61,6 +61,7 @@ def crs_stats(context, instance=None, year=None):
         'commitments_sum': activities.aggregate(Sum('commitment'))['commitment__sum'],
         'disbursements_sum': activities.aggregate(Sum('disbursement'))['disbursement__sum'],
         'years': range(start_year, end_year + 1),
+        'show_map': show_map,
     }
 
     return ctx
