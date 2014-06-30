@@ -49,7 +49,7 @@ $(document).ready(function(){
                 margin: [0, 0, 0, 0]
             },
             title: {
-                text: 'Browser market share, April, 2011'
+                text: false
             },
             legend: { enabled: false },
             credits: { enabled: false },

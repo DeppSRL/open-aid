@@ -10,7 +10,7 @@ var chart = new Highcharts.Chart({
 		},
 	
 		title: {
-					text: 'Bubble chart'
+					text: false
 		},
     legend: {
         enabled: false
