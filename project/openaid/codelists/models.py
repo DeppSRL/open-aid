@@ -19,14 +19,10 @@ class CodeListModel(models.Model):
     def code_list_facet(self):
         return self.code_list + 's'
 
-    def top_projects(self, qnt=3, order_by=None):
-        projects = get_model('projects', 'Activity').objects.filter(**{
+    def top_projects(self, qnt=3, order_by=None, year=None):
+        return get_model('projects', 'Project').get_top_projects(qnt=qnt, order_by=order_by, year=year, **{
             '%s_id__in' % self.code_list: self.get_descendants_pks(True)
-        }).order_by('project').distinct('project').values('project', 'commitment')
-        def order_by_commitment(project):
-            return -1 * ( project.get('commitment') or 0)
-        projects = sorted(projects, key=order_by or order_by_commitment)[:qnt]
-        return get_model('projects', 'Project').objects.filter(pk__in=map(lambda p: p.get('project'), projects))
+        })
 
     def get_descendants_pks(self, include_self=False):
         return [self, ] if include_self else []

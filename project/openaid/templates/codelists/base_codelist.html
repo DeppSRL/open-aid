@@ -55,7 +55,7 @@
             <h2><a href="#">INIZIATIVE PER "{{ object.name }}"</a></h2>
             <div class="bordered-radius" style="overflow:hidden;">
                 <ul class="list-unstyled">
-                    {% for result in object.top_projects %}
+                    {% for result in top_projects %}
                     <li>
                         {% include 'snippets/project_element.html' with project=result %}
                     </li>

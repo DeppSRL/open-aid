@@ -35,7 +35,7 @@ dl#acronyms dt {
 .media .media-body h2 + a{ margin-top: 0; padding-bottom: 5px; }
 
 #main-content .years-navigation .navbar-nav > li.selected a { color: #f7505a; }
-#main-content .years-navigation .navbar-nav > li.selected a .point { color: #f7505a; }
+#main-content .years-navigation .navbar-nav > li.selected a .point { background-color: #f7505a; }
 
 
 /* map styles */

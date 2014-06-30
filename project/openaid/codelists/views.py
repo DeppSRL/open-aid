@@ -1,26 +1,30 @@
-from django.views.generic import DetailView, View
+from django.views.generic import DetailView
 from . import models
+from .. import views
+from .. import contexts
 
 
-class CodeListView(DetailView):
+class CodeListView(views.MapFiltersContextMixin, DetailView):
     slug_field = 'code'
     slug_url_kwarg = 'code'
 
     def get_context_data(self, **kwargs):
-        return super(CodeListView, self).get_context_data(
-            map_values=models.Recipient.get_map_totals(**self.get_map_filters()),
-            **kwargs)
+        context = super(CodeListView, self).get_context_data(**kwargs)
+        context = DetailView.get_context_data(self, **context)
+        key = '%s__in' % self.model.code_list
+        context.update({
+            key: self.object.get_descendants_pks(include_self=True),
+            'top_projects': self.object.top_projects(year=self.request.GET.get('year', contexts.END_YEAR))
+        })
+        return context
 
-    def get_map_filters(self):
-        return {
-            '%s__in' % self.model.code_list: self.get_object().get_descendants_pks(include_self=True)
-        }
 
-class SectorView(CodeListView, DetailView):
+
+class SectorView(CodeListView):
     model = models.Sector
 
 
-class RecipientView(CodeListView, DetailView):
+class RecipientView(CodeListView):
     model = models.Recipient
 
     def get_context_data(self, **kwargs):
@@ -28,10 +32,10 @@ class RecipientView(CodeListView, DetailView):
         return DetailView.get_context_data(self, **kwargs)
 
 
-class ChannelView(CodeListView, DetailView):
+class ChannelView(CodeListView):
     model = models.Channel
 
 
-class AidTypeView(CodeListView, DetailView):
+class AidTypeView(CodeListView):
     model = models.AidType
 
