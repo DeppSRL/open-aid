@@ -18,7 +18,7 @@
                 aimed at maintaining peace and managing migration flows.
                 {% endblocktrans %}
             </p>
-            <a href="#" class="read-more pull-right twelve">{% trans 'read more' %} <span class="fa fa-caret-right"> </span></a>
+            <a href="{% url 'cooperazione_italiana' %}" class="read-more pull-right twelve">{% trans 'read more' %} {% icon 'caret-right' %}</a>
         </div>
 
         <div class="col-md-5">
@@ -41,7 +41,7 @@
                 </li>
             {% endfor %}
             </ul>
-            <a href="#" class="read-more pull-right twelve">{% trans 'read more' %} <span class="fa fa-caret-right"> </span></a>
+            <a href="{% url 'blog_home' %}" class="read-more pull-right twelve">{% trans 'read more' %} {% icon 'caret-right' %}</a>
         </div>
     </div><!-- .container -->
 </div><!-- .row -->
