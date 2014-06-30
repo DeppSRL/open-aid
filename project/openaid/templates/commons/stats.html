@@ -23,13 +23,12 @@
                 <p>I fondi complessivi erogati</p>
             </div>
         </div><!-- .panel-heading -->
-
+        {% if show_map %}
         <div class="map">
             <div id="map"></div>
 {#            <img src="{% static 'img/contents/mappa-home.png' %}" class="img-responsive">#}
         </div>
-
-
+        {% endif %}
         <div class="years-navigation">
             <nav class="navbar navbar-default" role="navigation">
                 <div class="navbar-header">

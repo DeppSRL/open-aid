@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'base_map.html' %}
 {% load crs %}
 {% load i18n %}
 {% load icons %}
@@ -29,7 +29,7 @@
 
     <div class="row">
         <div class="col-md-4">
-            <div class="small-map"><img src="{% static 'img/contents/small-map.jpg' %}" class="img-responsive"></div>
+            <div class="small-map"><div id="map" data-chart="map" style="height: 260px;" data-iso-code="{{ object.recipient.iso_code }}"></div></div>
         </div>
 
         <div class="col-md-4">

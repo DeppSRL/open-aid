@@ -1,5 +1,5 @@
-#main-content .bg-red {
-  margin-bottom: 15px !important;
+#main-content #main-menu .bg-red {
+  margin-bottom: 15px;
 }
 
 .dropdown-submenu{position:relative;}
