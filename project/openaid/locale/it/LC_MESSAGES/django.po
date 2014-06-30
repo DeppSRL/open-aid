@@ -124,7 +124,7 @@ msgstr ""
 
 #: pages/pages.py:49
 msgid "The Italian Development Cooperation"
-msgstr ""
+msgstr "La Cooperazione Italiana allo Sviluppo"
 
 #: pages/pages.py:50
 msgid "Busan partnership"
