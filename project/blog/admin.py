@@ -1,5 +1,5 @@
 from django.contrib.gis import admin
-from django.core.urlresolvers import reverse
+from modeltranslation.admin import TranslationAdmin
 from models import Entry
 from django.forms import ModelForm, CharField
 
@@ -8,7 +8,7 @@ from tinymce.widgets import TinyMCE
 from tagging.admin import TagInline
 
 class BlogEntryAdminForm(ModelForm):
-    abstract = CharField(widget=TinyMCE(
+    abstract_en = abstract_it = CharField(widget=TinyMCE(
         attrs={'cols': 120, 'rows': 7},
         mce_attrs={
             'theme': "advanced",
@@ -24,7 +24,7 @@ class BlogEntryAdminForm(ModelForm):
             'theme_advanced_toolbar_location': "top"
         }
     ))
-    body = CharField(widget=TinyMCE(
+    body_en = body_it = CharField(widget=TinyMCE(
         attrs={'cols': 120, 'rows': 40},
         mce_attrs={
             'theme': "advanced",
@@ -44,10 +44,9 @@ class BlogEntryAdminForm(ModelForm):
     class Meta:
         model = Entry
 
-class BlogEntryAdmin(admin.ModelAdmin):
+class BlogEntryAdmin(TranslationAdmin):
     date_hierarchy= 'published_at'
     list_display = ('title', 'published_at')
-    exclude = ['body_plain']
     prepopulated_fields = {'slug': ('title',)}
     inlines = [TagInline]
     form = BlogEntryAdminForm

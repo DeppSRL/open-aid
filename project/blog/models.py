@@ -1,6 +1,5 @@
 from datetime import datetime
 from django.db import models
-from django.utils.html import strip_tags
 from tagging import models as tagging_models
 from django.utils.translation import ugettext_lazy as _
 
@@ -10,7 +9,6 @@ class Entry(tagging_models.TagMixin, models.Model):
     slug = models.SlugField(max_length=255, null=True, blank=True, unique=True)
     abstract = models.TextField()
     body = models.TextField()
-    body_plain = models.TextField()
     published_at = models.DateTimeField(default=datetime.now(), verbose_name=_('Publishing date'))
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -23,8 +21,6 @@ class Entry(tagging_models.TagMixin, models.Model):
              using=None,
              update_fields=None
     ):
-        if self.body and not self.body_plain:
-            self.body_plain = strip_tags(self.body)
         if not self.published_at:
             self.published_at = datetime.now()
         return super(Entry, self).save(force_insert, force_update, using)
