@@ -4,6 +4,8 @@ from django.utils.translation import ugettext_lazy as _
 from django.db import models
 from faq.managers import QuestionManager
 
+__author__ = 'guglielmo'
+
 
 class Question(models.Model):
     HEADER = 2

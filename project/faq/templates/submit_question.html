@@ -1,4 +1,4 @@
-{% extends "faq/base.html" %}
+{% extends "base.html" %}
 
 {% block title %}{{ block.super }}: Add Question{% endblock %}
 
@@ -8,7 +8,7 @@
   Use this form to submit a question (and optionally a corresponding answer)
   that you would like to see added to the FAQs on this site.
 </p>
-<form action="." method="POST">
+<form action="faq" method="POST">
   {% csrf_token %}
   <table>
     {{ form.as_table }}

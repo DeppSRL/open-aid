@@ -7,7 +7,7 @@ from django.utils.translation import ugettext_lazy as _
 
 class QuestionList(ListView):
     model = Question
-    template = "faq/question_list.html"
+    template_name = "question_list.html"
     allow_empty = True
     context_object_name = "questions"
 
@@ -17,7 +17,7 @@ class QuestionList(ListView):
 
 class QuestionDetail(DetailView):
     queryset = Question.objects.active()
-    template = "faq/question_detail.html"
+    template_name = "question_detail.html"
 
     def get_queryset(self):
         # Careful here not to hardcode a base queryset. This lets
@@ -33,7 +33,7 @@ class QuestionDetail(DetailView):
 class SubmitFAQ(CreateView):
     model = Question
     form_class = SubmitFAQForm
-    template_name = "faq/submit_question.html"
+    template_name = "submit_question.html"
     success_view_name = "faq_submit_thanks"
 
     def get_form_kwargs(self):
@@ -60,4 +60,4 @@ class SubmitFAQ(CreateView):
             return reverse(self.success_view_name)
 
 class SubmitFAQThanks(TemplateView):
-    template_name = "faq/submit_thanks.html"
+    template_name = "submit_thanks.html"
