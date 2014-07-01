@@ -74,12 +74,12 @@ class Recipient(CodeListTreeModel):
     code_list = 'recipient'
 
     INCOME_GROUPS = Choices(
-        (10016, 'ldc', _('LDC')),
-        (10017, 'lic', _('Other LIC')),
-        (10018, 'lmic', _('LMIC')),
-        (10019, 'umic', _('UMIC')),
-        (10024, 'unallocated', _('Part I Unallocated by income')),
-        (10025, 'madct', _('MADCT')),
+        ('10016', 'ldc', _('LDC')),
+        ('10017', 'lic', _('Other LIC')),
+        ('10018', 'lmic', _('LMIC')),
+        ('10019', 'umic', _('UMIC')),
+        ('10024', 'unallocated', _('Part I Unallocated by income')),
+        ('10025', 'madct', _('MADCT')),
     )
 
     income_group = models.CharField(choices=INCOME_GROUPS, max_length=16, blank=True)
