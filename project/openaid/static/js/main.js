@@ -39,49 +39,13 @@ $(document).ready(function(){
     });
 
     $('*[data-chart=donut]').each(function(i, el){
-       // Create the chart
-        chart = new Highcharts.Chart({
-            chart: {
-                renderTo: $(el).prop('id'),
-                type: 'pie',
-                width: 300,
-                height: 300,
-                margin: [0, 0, 0, 0]
-            },
-            title: {
-                text: false
-            },
-            legend: { enabled: false },
-            credits: { enabled: false },
-            exporting: { enabled: false },
-            yAxis: {
-                title: {
-                    text: 'Total percent market share'
-                }
-            },
-            plotOptions: {
-                pie: { shadow: false }
-            },
-            tooltip: {
-                useHTML: true,
-                formatter: function() {
-                    return '<div id="highcharts-tooltip"><b>'+ this.point.name +'</b>: '+ this.y +' % <br/> </div>';
-                },
-                style: {
-                    padding: 0
-                }
-            },
-            series: [{
-                name: 'Browsers',
-                data: [["Firefox",6],["MSIE",4],["Chrome",7]],
-                size: '60%',
-                innerSize: '30%',
-                showInLegend:false,
-                dataLabels: {
-                    enabled: false
-                }
-            }]
-        });
+        console.log($(el).data('container'));
+        SetChartDonut($(el).data('container'));
+    });
+
+    $('*[data-chart=bubble]').each(function(i, el){
+        console.log($(el).data('container'));
+        SetChartBubble($(el).data('container'));
     });
 
 	$('.collapse-menu a').click(function() {

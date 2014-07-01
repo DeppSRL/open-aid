@@ -477,6 +477,15 @@ a.btn-aid:hover {
 			color:@baseColor;
 			cursor:pointer;
 		}
+		&.table-inverse tr:hover a  {
+			color:@baseColor;
+		}
+		&.table-inverse tr.hov {
+		background:@redBgColor;
+		}
+		&.table-inverse tr.hov a  {
+			color:@baseColor;
+		}
 	}
 	
 	.sub-title {
@@ -1011,4 +1020,20 @@ a.btn-aid:hover {
 .graph-tooltip {
 	background:#000;
 }
-
+.highcharts-tooltip {
+	
+	color: #333333;
+	font-size: 12px;
+	padding: 8px;
+	
+	p {
+		background:@redBgColor;
+		padding:10px;
+		margin:0px;
+		color:@baseColor;
+		font-size:14px;
+	}
+	svg {
+		font-family:'PT Sans', serif;
+	}
+}

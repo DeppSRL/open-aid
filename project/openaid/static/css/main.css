@@ -453,6 +453,15 @@ a.btn-aid:hover {
   color: #ffffff;
   cursor: pointer;
 }
+#main-content .table.table-inverse tr:hover a {
+  color: #ffffff;
+}
+#main-content .table.table-inverse tr.hov {
+  background: #f7505a;
+}
+#main-content .table.table-inverse tr.hov a {
+  color: #ffffff;
+}
 #main-content .sub-title {
   margin: 0px;
   font-size: 21px;
@@ -890,4 +899,19 @@ a.btn-aid:hover {
 }
 .graph-tooltip {
   background: #000;
+}
+.highcharts-tooltip {
+  color: #333333;
+  font-size: 12px;
+  padding: 8px;
+}
+.highcharts-tooltip p {
+  background: #f7505a;
+  padding: 10px;
+  margin: 0px;
+  color: #ffffff;
+  font-size: 14px;
+}
+.highcharts-tooltip svg {
+  font-family: 'PT Sans', serif;
 }
