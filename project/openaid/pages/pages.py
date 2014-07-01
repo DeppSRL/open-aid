@@ -11,7 +11,7 @@ from django.utils.translation import ugettext as _
 # footer: Open AID Italia
 footer_oai_pages = OrderedDict([
             ('progetto', _(u'The project')),
-            ('chi_siamo', _(u'Who we are')),
+            #('chi_siamo', _(u'Who we are')),
             ('contatti', _(u'Contacts')),
             ('privacy', _(u'Privacy and user\'s rights')),
             ('licenza', _(u'License of use')),
