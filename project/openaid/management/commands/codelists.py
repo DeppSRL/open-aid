@@ -68,7 +68,7 @@ class Command(LabelCommand):
         if options['codelist']:
             codelists = [models.CODE_LISTS_DICT[c] for c in options['codelist'].split(',') if c in models.CODE_LIST_NAMES]
         else:
-            codelists = models.CODE_LISTS_DICT
+            codelists = models.CODE_LISTS
 
         if options['field']:
             fields = [f.strip() for f in options['field'].split(',')]
