@@ -81,7 +81,9 @@ class Project(models.Model):
     def description(self, year=None):
         descriptions = [a.description for a in self.activities(year)]
         if not any(descriptions):
-            return ''
+            descriptions = [a.long_description for a in self.activities(year)]
+            if not any(descriptions):
+                return ''
         description = descriptions[0]
         # prendo il titolo con piu caratteri
         for d in descriptions[1:]:

@@ -12,6 +12,7 @@ function SetChartBubble(id_bubble) {
 		var points = [{x:40, y:40}, {x:40, y:100}, {x:40, y:160},
 									{x:100, y:40}, {x:100, y:100}, {x:100, y:160},
 									{x:160, y:40}, {x:160, y:100}, {x:160, y:160},
+                                    {x:180, y:100},
 		];
 
 		function randomIntFromInterval(min,max) {
@@ -63,7 +64,7 @@ function SetChartBubble(id_bubble) {
 						data: [
 								{x:x, y:y, z:z + percent, numb:valore, type:titolo}
 						],
-						color: '#A1B1C1',
+//						color: '#A1B1C1',
 						marker: {
 							states: {
 								select: {

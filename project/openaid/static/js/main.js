@@ -39,13 +39,18 @@ $(document).ready(function(){
     });
 
     $('*[data-chart=donut]').each(function(i, el){
-        console.log($(el).data('container'));
         SetChartDonut($(el).data('container'));
     });
 
     $('*[data-chart=bubble]').each(function(i, el){
-        console.log($(el).data('container'));
         SetChartBubble($(el).data('container'));
+    });
+
+    $('.readmore').each(function(){
+        var opener = $(this).find('.readmore-open');
+        var closer = $(this).find('.readmore-close');
+        var maxHeight = parseInt($(this).data('max-height'), 10) || 55;
+       $(this).readmore({'maxHeight': maxHeight, 'moreLink': opener, 'lessLink': closer});
     });
 
 	$('.collapse-menu a').click(function() {
