@@ -15,7 +15,7 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li><a href="#" class="dropdown-toggle first" data-toggle="dropdown">A chi vanno gli aiuti? <b class="caret"></b></a>
+                    <li><a href="#" class="dropdown-toggle first" data-toggle="dropdown">{% trans 'Where does the aid go?' %} <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             {% for recipient, children in recipients %}
                             {% if children|length > 0 %}
@@ -35,7 +35,7 @@
                             {% endfor %}
                         </ul>
                     </li>
-                    <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">PER COSA VENGONO UTILIZZATI? <b class="caret"></b></a>
+                    <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">{% trans 'What is it spent for?' %} <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             {% for sector in sectors|dictsort:'name' %}{% if sector.activity_count > 0 %}
                             <li>
@@ -44,7 +44,7 @@
                             {% endif %}{% endfor %}
                         </ul>
                     </li>
-                    <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">CHI FINANZIA? <b class="caret"></b></a>
+                    <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">{% trans 'Who funds?' %} <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             {% for channel in channels|dictsort:'name' %}{% if channel.activity_count > 0 %}
                             <li>
@@ -53,7 +53,7 @@
                             {% endif %}{% endfor %}
                         </ul>
                     </li>
-                    <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">CON QUALI STRUMENTI? <b class="caret"></b></a>
+                    <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">{% trans 'By means of?' %} <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             {% for aid_type in aid_types|dictsort:'name' %}{% if aid_type.activity_count > 0 %}
                             <li>

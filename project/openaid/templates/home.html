@@ -50,23 +50,11 @@ aimed at maintaining peace and managing migration flows.{% endblocktrans %}
 
 <div class="row">
     <div class="col-md-8">
-        <div class="progetti">
-            <h2><a href="#">Le iniziative piu rilevanti</a></h2>
-            <div class="bordered-radius" style="overflow:hidden;">
-                <ul class="list-unstyled">
-                    {% for result in top_projects %}
-                    <li>
-                        {% include 'snippets/project_element.html' with project=result %}
-                    </li>
-                    {% endfor %}
-                </ul>
-                <a href="{% url 'projects:search' %}" class="read-more pull-right pad">VEDI TUTTE LE INIZIATIVE {% icon 'align-justify' %}</a>
-            </div>
-        </div>
+        {% include 'commons/top_projects.html' with top_projects=top_projects %}
     </div>
 
     <div class="col-md-4">
-        <h2><a href="#">FOCUS SU UN INIZIATIVA</a></h2>
+        <h2><a href="#">{% trans 'Focus on' %}</a></h2>
         <div class="row">
             <div class="col-md-12">
                 <div class="focus">

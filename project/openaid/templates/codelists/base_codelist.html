@@ -51,19 +51,7 @@
 
 <div class="row">
     <div class="col-md-12">
-        <div class="progetti">
-            <h2><a href="#">INIZIATIVE PER "{{ object.name }}"</a></h2>
-            <div class="bordered-radius" style="overflow:hidden;">
-                <ul class="list-unstyled">
-                    {% for result in top_projects|dictsort:'commitment' %}
-                    <li>
-                        {% include 'snippets/project_element.html' with project=result %}
-                    </li>
-                    {% endfor %}
-                </ul>
-                <a href="{% search_url object.code_list_facet object.name %}" class="read-more pull-right pad">VEDI TUTTE LE INIZIATIVE {% icon 'align-justify' %}</a>
-            </div>
-        </div>
+        {% include 'commons/top_projects.html' with object=object top_projects=top_projects %}
     </div>
 </div>
 

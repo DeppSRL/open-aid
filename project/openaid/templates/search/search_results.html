@@ -58,7 +58,7 @@
                     <ul class="list-unstyled">
                         {% for result in page.object_list %}
                         <li>
-                            {% include 'snippets/project_element.html' with project=result.object %}
+                            {% include 'snippets/../commons/project_element.html' with project=result.object %}
                         </li>
                         {% endfor %}
                     </ul>

@@ -18,10 +18,10 @@
         </header>
         <div class="row">
             <div class="col-md-3">
-                <div class=" numbers bg-red bordered-radius small-pad">€ {{ project.commitment|currency }}<br><span class="eleven">IMPEGNATI, {{ project.end_year }}</span></div>
+                <div class=" numbers bg-red bordered-radius small-pad">€ {{ project.total_commitment|currency }}<br><span class="eleven">{% trans 'Committed' %}</span></div>
             </div>
             <div class="col-md-3">
-                <div class=" numbers bg-blue bordered-radius small-pad">€ {{ project.disbursement|currency }}<br><span class="eleven">EROGATI, {{ project.end_year }}</span></div>
+                <div class=" numbers bg-blue bordered-radius small-pad">€ {{ project.total_disbursement|currency }}<br><span class="eleven">{% trans 'Used' %}</span></div>
             </div>
             <div class="col-md-3">
                 <span class="eleven light-gray block">{% trans 'Aid types' %}</span>

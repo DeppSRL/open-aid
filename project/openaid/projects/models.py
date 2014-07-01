@@ -119,11 +119,17 @@ class Project(models.Model):
     def commitment(self, year=None):
         return sum(self._activities_map('commitment', year=year or self.end_year, skip_none=True), 0.0)
 
+    def total_commitment(self):
+        return sum(self._activities_map('commitment', skip_none=True), 0.0)
+
     def disbursements(self, year=None):
         return self._activities_map('disbursement')
 
     def disbursement(self, year=None):
         return sum(self._activities_map('disbursement', year=year or self.end_year, skip_none=True), 0.0)
+
+    def total_disbursement(self):
+        return sum(self._activities_map('disbursement', skip_none=True), 0.0)
 
     class Meta:
         unique_together = (('crsid', 'recipient'),)
