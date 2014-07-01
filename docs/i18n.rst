@@ -1,5 +1,5 @@
-Translations
-------------
+Traduzioni
+----------
 
 La traduzione nelle lingue previste in `settings.LANGUAGES` avviene in 3 modi.
 

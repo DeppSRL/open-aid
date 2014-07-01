@@ -24,7 +24,6 @@ footer_comefare_pages = OrderedDict([
             ('accreditarsi', _(u'Register as an APS recipient')),
             ('votare_commentare', _(u'Voting and commenting a project')),
             ('diario', _(u'Write a post on a project\'s blog')),
-            ('faq', _(u'Frequently asked questions')),
         ])
 
 # footer: OpenData Italia

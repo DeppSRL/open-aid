@@ -248,6 +248,7 @@ LOCAL_APPS = (
     'openaid.pages',
     'tagging',
     'blog',
+    'faq',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps

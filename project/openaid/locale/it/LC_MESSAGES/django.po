@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-01 18:45+0200\n"
+"POT-Creation-Date: 2014-07-01 19:13+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -64,19 +64,19 @@ msgstr "Il progetto"
 
 #: pages/pages.py:14
 msgid "Who we are"
-msgstr ""
+msgstr "Chi siamo"
 
 #: pages/pages.py:15
 msgid "Contacts"
-msgstr ""
+msgstr "Contatti"
 
 #: pages/pages.py:16
 msgid "Privacy and user's rights"
-msgstr ""
+msgstr "La privacy e i diritti degli utenti"
 
 #: pages/pages.py:17
 msgid "License of use"
-msgstr ""
+msgstr "Licenza d'utilizzo"
 
 #: pages/pages.py:18
 msgid "Links"
@@ -88,71 +88,67 @@ msgstr "Cerca un progetto"
 
 #: pages/pages.py:24
 msgid "Register as an APS recipient"
-msgstr ""
+msgstr "Accreditarsi come soggetto APS"
 
 #: pages/pages.py:25
 msgid "Voting and commenting a project"
-msgstr ""
+msgstr "Votare e commentare un progetto"
 
 #: pages/pages.py:26
 msgid "Write a post on a project's blog"
-msgstr ""
+msgstr "Scrivere sul diario di un progetto"
 
-#: pages/pages.py:27
-msgid "Frequently asked questions"
-msgstr "Domande frequenti"
-
-#: pages/pages.py:32
+#: pages/pages.py:31
 msgid "Download the data"
 msgstr "Scarica i dati"
 
-#: pages/pages.py:33
+#: pages/pages.py:32
 msgid "API"
 msgstr "API"
 
-#: pages/pages.py:34
+#: pages/pages.py:33
 msgid "CC Licenses"
-msgstr "Licenza CC"
+msgstr "Licenze CC"
+
+#: pages/pages.py:34
+msgid "Data fair use"
+msgstr "Utilizzo per informazione e ricerca"
 
 #: pages/pages.py:35
-msgid "Data fair use"
-msgstr ""
-
-#: pages/pages.py:36
 msgid "PA's open data"
-msgstr ""
+msgstr "I dati aperti della PA"
+
+#: pages/pages.py:48
+msgid "The Italian Development Cooperation"
+msgstr "La Cooperazione allo Sviluppo italiana"
 
 #: pages/pages.py:49
-msgid "The Italian Development Cooperation"
-msgstr "La Cooperazione Italiana allo Sviluppo"
-
-#: pages/pages.py:50
 msgid "Busan partnership"
 msgstr ""
 
-#: pages/pages.py:51
+#: pages/pages.py:50
 msgid "The international context"
-msgstr ""
+msgstr "Il contesto internazionale"
+
+#: pages/pages.py:51
+msgid "Objectives and Priorities"
+msgstr "Obiettivi e priorità"
 
 #: pages/pages.py:52
-msgid "Objectives and Priorities"
-msgstr ""
+msgid "The Italia System"
+msgstr "Il SIstema Italia"
 
 #: pages/pages.py:53
-msgid "The Italia System"
-msgstr ""
+msgid "Best practices"
+msgstr "Buone pratiche"
 
 #: pages/pages.py:54
-msgid "Best practices"
-msgstr ""
-
-#: pages/pages.py:55
 msgid "The Millennium Development Goals (MDGs)"
 msgstr ""
 
-#: pages/pages.py:56
+#: pages/pages.py:55
 msgid "The Post 2015 Development Agenda"
-msgstr ""
+msgstr "Nuova Agenda di svilupop post 2015"
 
 #: projects/fields.py:16
 msgid "Not screened"
@@ -288,11 +284,11 @@ msgstr ""
 msgid "Investment Project"
 msgstr ""
 
-#: settings/base.py:347
+#: settings/base.py:348
 msgid "English"
 msgstr "Inglese"
 
-#: settings/base.py:348
+#: settings/base.py:349
 msgid "Italian"
 msgstr "Italiano"
 
@@ -304,11 +300,15 @@ msgstr "Open Aid Italia"
 msgid "How to ..."
 msgstr "Come fare per ..."
 
-#: templates/footer.html:28
+#: templates/footer.html:25
+msgid "Frequently Asked Questions"
+msgstr "Domande frequenti"
+
+#: templates/footer.html:31
 msgid "Open data"
 msgstr "Open data"
 
-#: templates/footer.html:39
+#: templates/footer.html:42
 msgid "Open Aid is a project by"
 msgstr "Open Aid è un progetto di"
 
@@ -407,6 +407,29 @@ msgstr "Fonte: OCSE"
 msgid "Italian development aid in brief"
 msgstr "Le politiche di cooperazione nel Paese"
 
+#: templates/commons/project_element.html:16
+msgid "No title"
+msgstr "Nessun titolo"
+
+#: templates/commons/project_element.html:21
+#: templates/projects/project_detail.html:40
+msgid "Committed"
+msgstr "Impegnati"
+
+#: templates/commons/project_element.html:24
+#: templates/projects/project_detail.html:41
+msgid "Used"
+msgstr "Erogati"
+
+#: templates/commons/project_element.html:27
+msgid "Aid types"
+msgstr "Tipologie di aiuti"
+
+#: templates/commons/project_element.html:33
+#: templates/projects/project_detail.html:79
+msgid "Channels"
+msgstr "Canali"
+
 #: templates/commons/stats.html:16
 msgid "Aid in numbers"
 msgstr "L'Aiuto in numeri"
@@ -495,16 +518,6 @@ msgstr "Le iniziative più rilevanti"
 msgid "see all"
 msgstr "vedi tutte"
 
-#: templates/projects/project_detail.html:40
-#: templates/snippets/project_element.html:21
-msgid "Committed"
-msgstr "Impegnati"
-
-#: templates/projects/project_detail.html:41
-#: templates/snippets/project_element.html:24
-msgid "Used"
-msgstr "Erogati"
-
 #: templates/projects/project_detail.html:56
 msgid "Description"
 msgstr "Descrizione"
@@ -512,11 +525,6 @@ msgstr "Descrizione"
 #: templates/projects/project_detail.html:73
 msgid "Aid type"
 msgstr "Tipologia di aiuto"
-
-#: templates/projects/project_detail.html:79
-#: templates/snippets/project_element.html:33
-msgid "Channels"
-msgstr "Canali"
 
 #: templates/projects/project_detail.html:91
 msgid "Project data"
@@ -541,11 +549,3 @@ msgstr "Risultati della ricerca"
 #: templates/search/search_results.html:124
 msgid "Remove filters"
 msgstr "Rimuovi filtri"
-
-#: templates/snippets/project_element.html:16
-msgid "No title"
-msgstr "Nessun titolo"
-
-#: templates/snippets/project_element.html:27
-msgid "Aid types"
-msgstr "Tipologie di aiuti"
