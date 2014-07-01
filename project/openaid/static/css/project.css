@@ -21,6 +21,11 @@ dl#acronyms dt {
     margin-top: 1em;
 }
 
+#main-content .years-navigation {
+    margin-bottom: 0 !important;
+    margin-top: 30px !important;;
+}
+
 #main-content .media-list .media .media-body {
   font-size: 13px;
 }
