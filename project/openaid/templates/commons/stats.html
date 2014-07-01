@@ -96,7 +96,7 @@ should be reported under the sector to which they are directed, not under educat
                             </td>
                             <td class="col-sm-4"><span data-value="{{ tot }}">{{ tot|currency }}</span></td>
                         </tr>
-                        {% endif %}{% empty %}<tr><td>-- empty --</td></tr>{% endfor %}
+                        {% endif %}{% endfor %}
                         </tbody>
                     </table>
                 </div>
@@ -126,12 +126,10 @@ a multilateral organisation, or a basket fund).  It does not track the end uses
                                     <a href="{% search_url 'aid_types' aid_type.name %}&selected_facets={{ selected_facet }}:{{ selected_code_list.name|urlencode }}" data-title="{{ aid_type.name }}">{{ aid_type.name }}</a>
                                 {% endif %}
 
-                                {#{% if selected_code_list == 'aid_types' %}<span>{{ aid_type.name }}</span>#}
-                                {#{% else %}<a href="{% search_url 'aid_types' aid_type.name %}">{{ aid_type.name }}</a>{% endif %}#}
                             </td>
                             <td class="col-sm-4"><span data-value="{{ tot }}">{{ tot|currency }}</span></td>
                         </tr>
-                        {% endif %}{% empty %}<tr><td>-- empty --</td></tr>{% endfor %}
+                        {% endif %}{% endfor %}
                         </tbody>
 
                     </table>
@@ -167,12 +165,10 @@ report the borrower (i.e. the first entity outside the donor country that receiv
                                     <a href="{% search_url 'channels' channel.name %}&selected_facets={{ selected_facet }}:{{ selected_code_list.name|urlencode }}" data-title="{{ channel.name }}">{{ channel.name }}</a>
                                 {% endif %}
 
-{#                                {% if selected_code_list == 'channels' %}<span>{{ channel.name }}</span>#}
-{#                                {% else %}<a href="{% search_url 'channels' channel.name %}&selected_facets={{ selected_code_list }}:{{ object.name|urlencode }}">{{ channel.name }}</a>{% endif %}#}
                             </td>
                             <td class="col-sm-4"><span data-value="{{ tot }}">{{ tot|currency }}</span></td>
                         </tr>
-                        {% endif %}{% empty %}<tr><td>-- empty --</td></tr>{% endfor %}
+                        {% endif %}{% endfor %}
                         </tbody>
 
                     </table>

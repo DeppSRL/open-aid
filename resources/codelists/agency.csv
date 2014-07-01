@@ -59,15 +59,15 @@ code,acronym,name,name_en,name_it,donor
 52,GIZ,Deutsche Gesellschaft für Internationale Zusammenarbeit,Deutsche Gesellschaft für Internationale Zusammenarbeit,,5
 99,MISC,Miscellaneous,Miscellaneous,,5
 1,MGI,MGI,MGI,,6
-2,AGEA,Agenzia Erogazioni Per l’Agricoltura,Agenzia Erogazioni Per l’Agricoltura,,6
+2,AGEA,Agenzia Erogazioni Per l'Agricoltura,Agenzia per le Erogazioni in Agricoltura,Agenzia per le Erogazioni in Agricoltura,6
 3,OGPI,OGPI,OGPI,,6
-4,DGCS,Direzione Generale per la Cooperazione allo Sviluppo,Direzione Generale per la Cooperazione allo Sviluppo,,6
-5,MC,MC,MC,,6
-7,CA,Central administration,Central administration,,6
-8,LA,Local administration,Local administration,,6
-9,Art.,Artigiancassa,Artigiancassa,,6
-74,SACE,Sezione Speciale per l’Assicurazione del Credito all’Esportazione,Sezione Speciale per l’Assicurazione del Credito all’Esportazione,,6
-99,MISC,Miscellaneous,Miscellaneous,,6
+4,DGCS,Direzione Generale per la Cooperazione allo Sviluppo,Direzione Generale per la Cooperazione allo Sviluppo,Ministero degli Affari Esteri - Direzione Generale per la Cooperazione allo Sviluppo,6
+5,MC,MC,MC,Mediocredito Centrale,6
+7,CA,Central administration,Central administration,Amministrazioni Centrali,6
+8,LA,Local administration,Local administration,Amministrazioni Locali,6
+9,Art.,Artigiancassa,Artigiancassa,Artigiancassa,6
+74,SACE,Sezione Speciale per l'Assicurazione del Credito all'Esportazione,"SACE S.p.A. - Servizi Assicurativi del Commercio Estero, società per azioni","SACE S.p.A. - Servizi Assicurativi del Commercio Estero, società per azioni",6
+99,MISC,Miscellaneous,Miscellaneous,Altri,6
 1,MFA,Ministry of Foreign Affairs (DGIS),Ministry of Foreign Affairs (DGIS),,7
 3,NG,NG,NG,,7
 4,NIO/FMO,NLD Gov. through NLD Inv Bank for Developing Countries,NLD Gov. through NLD Inv Bank for Developing Countries,,7

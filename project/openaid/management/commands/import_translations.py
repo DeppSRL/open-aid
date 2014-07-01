@@ -87,7 +87,7 @@ class Command(LabelCommand):
 
                     translated_field_value = text_cleaner(row[translated_field])
 
-                    if translated_field_value and options['override'] or not getattr(activity, translated_field):
+                    if (translated_field_value and options['override']) or not getattr(activity, translated_field):
                         if getattr(activity, translated_field) != translated_field_value:
                             setattr(activity, translated_field, translated_field_value)
                             i +=1
