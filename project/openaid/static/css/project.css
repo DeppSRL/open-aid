@@ -102,3 +102,18 @@ dl#acronyms dt {
     margin-right: 8px;
 }
 /* end map styles */
+
+/* readmore styles */
+.readmore-js-toggle, .readmore-js-section {
+  display: block;
+  width: 100%;
+}
+.readmore-js-section {
+  overflow: hidden;
+}
+p.readmore { margin-bottom: 0; }
+.readmore-open, .readmore-close {
+    font-size: 12px;
+    text-align: right;
+}
+/* end readmore styles */

@@ -63,7 +63,7 @@ function SetChartBubble(id_bubble) {
 						data: [
 								{x:x, y:y, z:z + percent, numb:valore, type:titolo}
 						],
-						color: '#A1B1C1',
+//						color: '#A1B1C1',
 						marker: {
 							states: {
 								select: {

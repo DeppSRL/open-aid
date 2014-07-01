@@ -42,8 +42,11 @@
     <div class="col-md-8">
         {% if object.description %}
         <h3>{% trans "Italian development aid in brief" %}</h3>
-        <div>{{ object.description }}</div>
-        <a href="#" class="read-more pull-right twelve">{% trans 'read more' %} {% icon 'caret-down' %}</a>
+        <div class="readmore" data-max-height="440">
+            {{ object.description }}
+            <a href="#" class="readmore-open">{% trans 'read more' %} {% icon 'caret-down' %}</a>
+            <a href="#" class="readmore-close">{% trans 'close' %} {% icon 'caret-up' %}</a>
+        </div>
         {% else %}
         <h3>{% trans 'Info' %}</h3>
         <dl class="dl-horizontal">
