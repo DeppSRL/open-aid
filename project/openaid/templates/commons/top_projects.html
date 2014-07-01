@@ -8,7 +8,7 @@
         <ul class="list-unstyled">
             {% for result in top_projects|dictsort:'total_commitment' %}
             <li>
-                {% include 'snippets/project_element.html' with project=result %}
+                {% include 'commons/project_element.html' with project=result %}
             </li>
             {% endfor %}
         </ul>
