@@ -64,13 +64,18 @@ Una volta riavviato tomcat6/7 sarà possibile indicizzare i contenuti ::
     $ python project/manage.py rebuild_index -k2
         -k : processi paralleli
 
+Traduzioni testi statici
+~~~~~~~~~~~~~~~~~~~~~~~~
+::
+    cd project/openaid
+    django-admin.py compilemessages
+
 Runserver
 ---------
 
 A questo punto è possibile lanciare il runserver, per vedere l'applicazione::
 
     $ python project/manage.py runserver
-
 
 Testing
 -------
