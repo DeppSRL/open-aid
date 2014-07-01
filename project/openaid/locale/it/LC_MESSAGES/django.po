@@ -135,7 +135,7 @@ msgid "Objectives and Priorities"
 msgstr "Obiettivi e priorità"
 
 #: pages/pages.py:52
-msgid "The Italia System"
+msgid "Sistema Italia"
 msgstr "Il SIstema Italia"
 
 #: pages/pages.py:53
