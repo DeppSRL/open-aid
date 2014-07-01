@@ -21,6 +21,25 @@ dl#acronyms dt {
     margin-top: 1em;
 }
 
+#stats-panel .stats-panel-columns table {
+    font-size: 14px;
+}
+#stats-panel .stats-panel-columns table td span {
+    color: #000000;
+}
+#stats-panel .stats-panel-columns table td a:hover, #stats-panel .stats-panel-columns table tr:hover, #stats-panel .stats-panel-columns table tr:hover a {
+    color: white;
+}
+
+#main-content {
+    padding: 5px 0 30px !important;
+}
+
+#footer {
+    padding: 30px 0 10px 0 !important;
+}
+
+
 #main-content .years-navigation {
     margin-bottom: 0 !important;
     margin-top: 30px !important;;
@@ -39,7 +58,8 @@ dl#acronyms dt {
 .media .media-body h2 { margin-top: 0; margin-bottom: 0; padding-bottom: 5px; }
 .media .media-body h2 + a{ margin-top: 0; padding-bottom: 5px; }
 
-#main-content .years-navigation .navbar-nav > li.selected a { color: #f7505a; }
+#main-content .years-navigation .navbar-nav > li.selected { background-color: #f7505a; }
+#main-content .years-navigation .navbar-nav > li.selected a { color: white; }
 #main-content .years-navigation .navbar-nav > li.selected a .point { background-color: #f7505a; }
 
 

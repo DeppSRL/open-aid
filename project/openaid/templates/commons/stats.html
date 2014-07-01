@@ -1,67 +1,80 @@
 {% load search_utils %}
 {% load staticfiles %}
+{% load i18n %}
 {% load humanize %}
+{% load icons %}
 {% load crs %}
 
-<div class="row">
+<div class="row" id="stats-panel">
 <div class="container">
 
 <div class="col-md-12">
 
     <div class="panel panel-default">
+
+        <div class="panel-body">
+            <div class="col-md-3"><h2>{% trans 'Aid in numbers' %}</h2></div>
+
+            <div class="col-md-9">
+                <div class="years-navigation">
+                    <nav class="navbar navbar-default" role="navigation">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#years">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                        </div>
+
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse" id="years">
+                            <ul class="nav navbar-nav">
+                                {% for year in years %}
+                                <li class="{% spaceless %}
+                                {% if year == selected_year %}selected {% endif %}
+                                {% if forloop.first %}first{% elif forloop.last %}last{% endif %}">
+                                    <a href="?year={{ year }}"><span class="point hidden-xs hidden-sm"> </span> {{ year }}</a></li>{% endspaceless %}
+                                {% endfor %}
+                            </ul>
+                        </div><!-- /.navbar-collapse -->
+                    </nav>
+                </div><!-- .years-navigation -->
+            </div>
+
+        </div>
+
         <div class="panel-heading clearfix">
             <div class="col-md-4 bg-red no-margin">
                 <h4>{{ projects_count|intcomma }}</h4>
-                <p>Le iniziative della cooperazione italiana nel mondo</p>
+                <p>{% trans "Italian development activities" %}</p>
             </div>
             <div class="col-md-4 bg-red no-margin">
                 <h4>€ {{ commitments_sum|currency }}</h4>
-                <p>I fondi complessivi impegnati</p>
+                <p>{% trans "Total funding committed" %}</p>
             </div>
             <div class="col-md-4 bg-red no-margin">
                 <h4>€ {{ disbursements_sum|currency }}</h4>
-                <p>I fondi complessivi erogati</p>
+                <p>{% trans 'Total funding used' %}</p>
             </div>
         </div><!-- .panel-heading -->
         {% if show_map %}
         <div class="map">
             <div id="map"></div>
-{#            <img src="{% static 'img/contents/mappa-home.png' %}" class="img-responsive">#}
         </div>
         {% endif %}
-        <div class="years-navigation">
-            <nav class="navbar navbar-default" role="navigation">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#years">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                </div>
 
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse" id="years">
-                    <ul class="nav navbar-nav">
-                        {% for year in years %}
-                        <li class="{% spaceless %}
-                        {% if year == selected_year %}selected {% endif %}
-                        {% if forloop.first %}first{% elif forloop.last %}last{% endif %}">
-                            <a href="?year={{ year }}"><span class="point hidden-xs hidden-sm"> </span> {{ year }}</a></li>{% endspaceless %}
-                        {% endfor %}
-                    </ul>
-                </div><!-- /.navbar-collapse -->
-            </nav>
-        </div><!-- .years-navigation -->
-
-        <div class="row panel-pad">
-
-            <div class="col-md-12"><h2>L'AIUTO IN NUMERI</h2></div>
+        <div class="row panel-pad stats-panel-columns">
 
             <div class="col-md-4">
-                <h3>PER COSA VENGONO UTILIZZATI?</h3>
-                <p class="twelve">I progetti per settore ... Lorem ipsum dolor sit amet è un testo segnaposto utilizzato nel settore della stampa e della tipografia...
-                    <a href="#" class="read-more pull-right">LEGGI TUTTO <span class="fa fa-caret-down"> </span></a>
+                <h3>{% trans 'What is it spent for?' %}</h3>
+                <p class="twelve">
+{% blocktrans %}The purpose/sector of destination of a bilateral contribution should be selected
+by answering the question “which specific area of the recipient’s economic or social structure is the transfer intended to foster”.
+The sector classification does not refer to the type of goods or services provided by the donor.
+Sector specific education or research activities (e.g. agricultural education) or construction of infrastructure (e.g. agricultural storage)
+should be reported under the sector to which they are directed, not under education, construction, etc.{% endblocktrans %}
+                    <a href="#" class="read-more pull-right">{% trans 'read more' %} {% icon 'caret-down' %}</a>
                 </p>
 
                 <div id="highcharts-bubble"></div>
@@ -89,9 +102,11 @@
             </div><!-- .row -->
 
             <div class="col-md-4">
-                <h3>CON QUALI STRUMENTI?</h3>
-                <p class="twelve">I progetti per settore ... Lorem ipsum dolor sit amet è un testo segnaposto utilizzato nel settore della stampa e della tipografia...
-                    <a href="#" class="read-more pull-right">LEGGI TUTTO <span class="fa fa-caret-down"> </span></a></p>
+                <h3>{% trans 'By means of?' %}</h3>
+                <p class="twelve">
+{% blocktrans %}The typology identifies the modalities that are used in aid delivery. It classifies transfers from the donor to the first recipient of funds (e.g. the recipient country,
+a multilateral organisation, or a basket fund).  It does not track the end uses of the funds, which is addressed in the sector classification and to some extent through the policy objective markers.{% endblocktrans %}
+                    <a href="#" class="read-more pull-right">{% trans 'read more' %} {% icon 'caret-down' %}</a></p>
 
                 <div id="highcharts-donut" data-chart="donut"></div>
 
@@ -122,9 +137,16 @@
             </div>
 
             <div class="col-md-4">
-                <h3>CHI FINANZIA?</h3>
-                <p class="twelve">I progetti per settore ... Lorem ipsum dolor sit amet è un testo segnaposto utilizzato nel settore della stampa e della tipografia...
-                    <a href="#" class="read-more pull-right">LEGGI TUTTO <span class="fa fa-caret-down"> </span></a></p>
+                <h3>{% trans 'Who funds?' %}</h3>
+                <p class="twelve">
+{% blocktrans %}The channel of delivery is the first implementing partner. It is the entity that has implementing responsibility
+over the funds and is normally linked to the extending agency by a contract or other binding agreement,
+and is directly accountable to it. Where several levels of implementation are involved (e.g. when the extending
+agency hires a national implementer which in turn may hire a local implementer), report the first level of
+implementation as the channel of delivery.  Where activities have several implementers, the principal implementer
+should be reported (e.g. the entity receiving the most funding). In the case of loans,
+report the borrower (i.e. the first entity outside the donor country that receives the funds).{% endblocktrans %}
+                    <a href="#" class="read-more pull-right">{% trans 'read more' %} {% icon 'caret-down' %}</a></p>
 
                 <div id="highcharts-bubble2"></div>
 
