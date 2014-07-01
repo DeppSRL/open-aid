@@ -23,7 +23,7 @@ class Home(MapFiltersContextMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         return super(Home, self).get_context_data(
-            entries_list=Entry.objects.all().order_by('-published_at')[:3],
+            entries_list=Entry.objects.all().order_by('-published_at')[:1],
             top_projects=Project.get_top_projects(year=self.request.GET.get('year', contexts.END_YEAR)),
             **kwargs
         )

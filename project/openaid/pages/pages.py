@@ -11,7 +11,7 @@ from django.utils.translation import ugettext as _
 # footer: Open AID Italia
 footer_oai_pages = OrderedDict([
             ('progetto', _(u'The project')),
-            ('chi_siamo', _(u'Who we are')),
+            #('chi_siamo', _(u'Who we are')),
             ('contatti', _(u'Contacts')),
             ('privacy', _(u'Privacy and user\'s rights')),
             ('licenza', _(u'License of use')),
@@ -45,15 +45,16 @@ footer_sections = OrderedDict([
 
 # pages under cooperazione (with cooperazione, as well)
 cooperazione_pages = OrderedDict([
-            ('cooperazione_italiana', _(u'The Italian Development Cooperation')),
-            ('busan_partnership', _(u'Busan partnership')),
-            ('contesto_internazionale', _(u'The international context')),
-            ('obiettivi_e_priorita', _(u'Objectives and Priorities')),
-            ('sistema_italia', _(u'The Italia System')),
-            ('buone_pratiche', _(u'Best practices')),
-            ('millennium_goals', _(u'The Millennium Development Goals (MDGs)')),
-            ('post_2015', _(u'The Post 2015 Development Agenda')),
-        ])
+    ('cooperazione_italiana', _(u'The Italian Development Cooperation')),
+    ('obiettivi_e_priorita', _(u'Objectives and Priorities')),
+    ('interventi di emergenza', _(u'Emergency and humanitarian aid')),
+    ('sistema_italia', _(u'Sistema Italia')),
+    ('buone_pratiche', _(u'Best practices')),
+    ('contesto_internazionale', _(u'The international context')),
+    ('millennium_goals', _(u'The Millennium Development Goals (MDGs)')),
+    ('post_2015', _(u'The Post 2015 Development Agenda')),
+#   ('busan_partnership', _(u'Busan partnership')),
+])
 
 
 

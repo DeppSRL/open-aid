@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-01 19:13+0200\n"
+"POT-Creation-Date: 2014-07-01 19:28+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -123,28 +123,28 @@ msgid "The Italian Development Cooperation"
 msgstr "La Cooperazione allo Sviluppo italiana"
 
 #: pages/pages.py:49
-msgid "Busan partnership"
-msgstr ""
+msgid "Emergency and humanitarian aid"
+msgstr "Interventi d’emergenza"
 
 #: pages/pages.py:50
-msgid "The international context"
-msgstr "Il contesto internazionale"
+msgid "Sistema Italia"
+msgstr "SIstema Italia"
 
 #: pages/pages.py:51
-msgid "Objectives and Priorities"
-msgstr "Obiettivi e priorità"
-
-#: pages/pages.py:52
-msgid "The Italia System"
-msgstr "Il SIstema Italia"
-
-#: pages/pages.py:53
 msgid "Best practices"
 msgstr "Buone pratiche"
 
+#: pages/pages.py:52
+msgid "The international context"
+msgstr "Il contesto internazionale"
+
+#: pages/pages.py:53
+msgid "Objectives and Priorities"
+msgstr "Obiettivi e priorità"
+
 #: pages/pages.py:54
 msgid "The Millennium Development Goals (MDGs)"
-msgstr ""
+msgstr "Millennium goals"
 
 #: pages/pages.py:55
 msgid "The Post 2015 Development Agenda"
