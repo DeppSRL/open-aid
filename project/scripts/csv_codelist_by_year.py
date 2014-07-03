@@ -9,8 +9,9 @@ CRSID | RECIPIENT | 2004 | ... | 2012
 """
 import csvkit
 from django.db.models import Count
+import sys
 
-from openaid.crs.models import Project
+from openaid.projects.models import Project
 
 YEARS = [str(x) for x in range(2004, 2013)]
 DEFAULT_YEARS_VALUES = dict([(y, u'') for y in YEARS])
@@ -41,19 +42,19 @@ def run():
 
             year = str(activity.year)
 
-            aid = activity.aid_type.code if activity.aid_type else ''
+            aid = activity.aid_type.code if activity.aid_type else 'XXX'
             if year in aids:
                 if aid not in aids[year]:
                     aids[year] += '/%s' % aid
             else:
                 aids[year] = aid
-            sector = activity.purpose.code if activity.purpose else ''
+            sector = activity.sector.code if activity.sector else 'XXX'
             if year in sectors:
                 if sector not in sectors[year]:
                     sectors[year] += '/%s' % sector
             else:
                 sectors[year] = sector
-            channel = activity.channel.code if activity.channel else ''
+            channel = activity.channel.code if activity.channel else 'XXX'
             if year in channels:
                 if channel not in channels[year]:
                     channels[year] += '/%s' % channel
@@ -63,7 +64,7 @@ def run():
             agency = activity.agency.name if activity.agency else ''
 
         line = {
-            'crsid': project.crs,
+            'crsid': project.crsid  ,
             'recipient': project.recipient.code,
             'agency': agency,
         }
@@ -74,6 +75,9 @@ def run():
             codelist_line = line.copy()
             codelist_line.update(codelist)
             writer.writerow(codelist_line)
+
+        sys.stdout.write("\rMulti activity project: %d" % (i), ending='')
+        sys.stdout.flush()
 
     aid_file.close()
     sector_file.close()
