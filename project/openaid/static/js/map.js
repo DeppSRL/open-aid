@@ -28,12 +28,21 @@ info.onAdd = function (map) {
 };
 
 info.update = function (props) {
-    this._div.innerHTML = '<h4>Aiuti italiani verso paesi stranieri</h4>' +  (
-        props ?
-          '<span class="highlight"><b>' + (props.label ? props.label : props.name) + '</b><br />' + (
-              props.value ? (Humanize.intcomma(props.value).replace(/,/g, '.') + ' euro</span>') : 'Nessun dato OCSE'
-          ) :
-          'Passa con il mouse sopra a un paese');
+    var html = '<h4 class="popover-title">Fondi impegn  ati</h4><div class="popover-content">';
+    if (props) {
+        html += '<span class="highlight"><b>' + (props.label ? props.label : props.name) + '</b><br />';
+        if (props.value) {
+            html += (Humanize.intcomma(props.value).replace(/,/g, '.') + ' euro</span>');
+        }
+        else {
+            html += 'Nessun dato OCSE';
+        }
+    }
+    else {
+        html += 'Passa con il mouse sopra a un paese';
+    }
+    html += '</div>';
+    this._div.innerHTML = html;
 };
 
 info.addTo(map);

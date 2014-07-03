@@ -74,18 +74,21 @@ dl#acronyms dt {
 	}
 
 #main-content #map .info {
-    padding: 6px 8px;
+    /*padding: 6px 8px;*/
     /*font: 14px/16px Arial, Helvetica, sans-serif;*/
-    background: white;
-    background: rgba(255,255,255,0.8);
+    padding: 1px;
+    text-align: left;
+    background-color: white;
+    background-clip: padding-box;
     box-shadow: 0 0 15px rgba(0,0,0,0.2);
     border-radius: 5px;
     width: 200px;
     text-transform: uppercase;
 }
 #main-content #map .info h4 {
-    margin: 0 0 5px;
-    /*color: #333;*/
+    /*margin: 0 0 5px;*/
+    background-color: #f7505a;
+    color: white;
     font-size: 18px;
 }
 
