@@ -47,7 +47,7 @@ footer_sections = OrderedDict([
 cooperazione_pages = OrderedDict([
     ('cooperazione_italiana', _(u'The Italian Development Cooperation')),
     ('obiettivi_e_priorita', _(u'Objectives and Priorities')),
-    ('interventi di emergenza', _(u'Emergency and humanitarian aid')),
+    ('interventi_di_emergenza', _(u'Emergency and humanitarian aid')),
     ('sistema_italia', _(u'Sistema Italia')),
     ('buone_pratiche', _(u'Best practices')),
     ('contesto_internazionale', _(u'The international context')),
