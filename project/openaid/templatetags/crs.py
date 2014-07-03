@@ -38,7 +38,8 @@ def crs_stats(context, instance=None, year=None, show_map=True):
         filters['%s__in' % instance.code_list] = instance.get_descendants_pks(include_self=True)
 
     sectors = _get_code_list_items(instance, codelists_models.Sector)
-    channels = _get_code_list_items(instance, codelists_models.Channel)
+    # channels = _get_code_list_items(instance, codelists_models.Channel)
+    agencies = codelists_models.Agency.objects.all() if not instance else []
     aid_types = _get_code_list_items(instance, codelists_models.AidType)
 
     statistify = lambda item: (item, item.get_total_commitment(**filters))
@@ -55,7 +56,8 @@ def crs_stats(context, instance=None, year=None, show_map=True):
         'start_year': start_year,
         'end_year': end_year,
         'sector_stats': sorted(map(statistify, sectors), key=tot_order, reverse=True),
-        'channel_stats': sorted(map(statistify, channels), key=tot_order, reverse=True),
+        # 'channel_stats': sorted(map(statistify, channels), key=tot_order, reverse=True),
+        'agency_stats': sorted(map(statistify, agencies), key=tot_order, reverse=True),
         'aid_stats': sorted(map(statistify, aid_types), key=tot_order, reverse=True),
         'projects_count': activities.distinct('project').count(),
         'commitments_sum': activities.aggregate(Sum('commitment'))['commitment__sum'],

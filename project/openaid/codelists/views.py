@@ -39,3 +39,5 @@ class ChannelView(CodeListView):
 class AidTypeView(CodeListView):
     model = models.AidType
 
+class AgencyView(CodeListView):
+    model = models.Agency

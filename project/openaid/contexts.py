@@ -1,5 +1,5 @@
 from django.conf import settings
-from django.db.models import Min, Max
+from django.db.models import Min, Max, Count
 from openaid.pages import urls as pages_urls
 from .codelists import models
 from .projects import models as projects_models
@@ -37,11 +37,7 @@ def project_context(request):
         'sector', 'activity_count', cumulative=True
     )
 
-    channels = models.Channel.objects.add_related_count(
-        models.Channel.objects.root_nodes(),
-        projects_models.Activity,
-        'channel', 'activity_count', cumulative=True
-    )
+    agencies = models.Agency.objects.annotate(activity_count=Count('activity')).all()
 
     aid_types = models.AidType.objects.add_related_count(
         models.AidType.objects.root_nodes(),
@@ -55,7 +51,7 @@ def project_context(request):
         'footer_sections': pages_urls.footer_sections,
         'recipients': sorted(recipients, key=lambda r: r[0].name),
         'sectors': sectors,
-        'channels': channels,
+        'agencies': agencies,
         'aid_types': aid_types,
         YEAR_FIELD: request.GET.get(YEAR_GET_FIELD, END_YEAR),
         YEARS_RANGE_FIELD: YEARS,

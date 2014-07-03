@@ -141,6 +141,7 @@ class Donor(CodeListModel):
 class Agency(CodeListModel):
 
     code_list = 'agency'
+    code_list_facet = 'agencies'
 
     acronym = models.CharField(max_length=50, blank=True)
     donor = models.ForeignKey(Donor)
