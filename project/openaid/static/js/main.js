@@ -47,10 +47,24 @@ $(document).ready(function(){
     });
 
     $('.readmore').each(function(){
-        var opener = $(this).find('.readmore-open');
-        var closer = $(this).find('.readmore-close');
+        var opener = $(this).find('.readmore-open').remove();
+        var closer = $(this).find('.readmore-close').remove();
         var maxHeight = parseInt($(this).data('max-height'), 10) || 55;
-       $(this).readmore({'maxHeight': maxHeight, 'moreLink': opener, 'lessLink': closer});
+        var $this = $(this);
+        console.log(opener, closer);
+        setTimeout(function() {
+            $this.readmore({
+                maxHeight: maxHeight,
+                moreLink: opener,
+                lessLink: closer,
+                afterToggle: function (trigger, element, expanded) {
+                    if (!expanded && ($(window).scrollTop() > element.offset().top)) { // The "Close" link was clicked
+                        console.log(element.offset().top, $(window).scrollTop());
+                        $('html, body').animate({ scrollTop: element.offset().top }, {duration: 100 });
+                    }
+                }
+            });
+        }, 100);
     });
 
 	$('.collapse-menu a').click(function() {

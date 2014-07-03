@@ -43,6 +43,7 @@ def crs_stats(context, instance=None, year=None, show_map=True):
     aid_types = _get_code_list_items(instance, codelists_models.AidType)
 
     statistify = lambda item: (item, item.get_total_commitment(**filters))
+    cleaner = lambda items: filter(lambda x: x[1], sorted(map(statistify, items), key=tot_order, reverse=True))
     tot_order = lambda item: item[1]
 
     activities = projects_models.Activity.objects.all()
@@ -55,15 +56,16 @@ def crs_stats(context, instance=None, year=None, show_map=True):
         'selected_facet': instance.code_list_facet if instance else None,
         'start_year': start_year,
         'end_year': end_year,
-        'sector_stats': sorted(map(statistify, sectors), key=tot_order, reverse=True),
-        # 'channel_stats': sorted(map(statistify, channels), key=tot_order, reverse=True),
-        'agency_stats': sorted(map(statistify, agencies), key=tot_order, reverse=True),
-        'aid_stats': sorted(map(statistify, aid_types), key=tot_order, reverse=True),
+        'sector_stats': cleaner(sectors),
+        'agency_stats': cleaner(agencies),
+        'aid_stats': cleaner(aid_types),
         'projects_count': activities.distinct('project').count(),
         'commitments_sum': activities.aggregate(Sum('commitment'))['commitment__sum'],
         'disbursements_sum': activities.aggregate(Sum('disbursement'))['disbursement__sum'],
         'years': range(start_year, end_year + 1),
         'show_map': show_map,
     }
+
+    ctx['columns'] = 3 if len(ctx['sector_stats']) and len(ctx['agency_stats']) and len(ctx['aid_stats']) else 2
 
     return ctx
