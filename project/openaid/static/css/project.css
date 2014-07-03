@@ -76,10 +76,11 @@ dl#acronyms dt {
 #main-content #map .info {
     /*padding: 6px 8px;*/
     /*font: 14px/16px Arial, Helvetica, sans-serif;*/
-    padding: 1px;
+    /*padding: 1px;*/
     text-align: left;
     background-color: white;
     background-clip: padding-box;
+    border: 1px solid #8A8274;
     box-shadow: 0 0 15px rgba(0,0,0,0.2);
     border-radius: 5px;
     width: 200px;
@@ -97,6 +98,7 @@ dl#acronyms dt {
     line-height: 18px;
     color: #555;
     text-transform: none;
+    padding: 8px;
 }
 #main-content #map .legend i {
     width: 18px;

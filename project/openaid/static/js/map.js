@@ -151,7 +151,7 @@ legend.onAdd = function (map) {
         );
     }
 
-    div.innerHTML = labels.join('<br>');
+    div.innerHTML = '<div class"popover-content">' + labels.join('<br>') + '</div>';
     return div;
 };
 
