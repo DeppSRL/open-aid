@@ -28,7 +28,7 @@ info.onAdd = function (map) {
 };
 
 info.update = function (props) {
-    var html = '<h4 class="popover-title">Fondi impegn  ati</h4><div class="popover-content">';
+    var html = '<h4 class="popover-title">Fondi impegnati</h4><div class="popover-content">';
     if (props) {
         html += '<span class="highlight"><b>' + (props.label ? props.label : props.name) + '</b><br />';
         if (props.value) {
