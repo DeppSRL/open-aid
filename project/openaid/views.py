@@ -22,9 +22,19 @@ class Home(MapFiltersContextMixin, TemplateView):
     template_name = 'home.html'
 
     def get_context_data(self, **kwargs):
+
+        focus = Project.get_top_projects(year=self.request.GET.get('year', contexts.END_YEAR), qnt=1, project__has_focus=True)
+        top_projects = Project.get_top_projects(qnt=3 if len(focus) else 4, year=self.request.GET.get('year', contexts.END_YEAR))
+
+        # se non ci sono focus, prendo uno dei progetti piu importanti.
+        if not len(focus) and top_projects:
+            focus = top_projects[0]
+            top_projects = top_projects[1:]
+
         return super(Home, self).get_context_data(
+            project_focus=focus,
             entries_list=Entry.objects.all().order_by('-published_at')[:1],
-            top_projects=Project.get_top_projects(year=self.request.GET.get('year', contexts.END_YEAR)),
+            top_projects=top_projects,
             **kwargs
         )
 
