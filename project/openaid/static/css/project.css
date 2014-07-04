@@ -70,13 +70,10 @@ dl#acronyms dt {
 }
 
 #main-content .leaflet-container {
-	font: 14px/1.5 "AUdimat", "Helvetica Neue", Arial, Helvetica, sans-serif;
-	}
+	font: 14px/1.5 'PT Sans', sans-serif;
+}
 
 #main-content #map .info {
-    /*padding: 6px 8px;*/
-    /*font: 14px/16px Arial, Helvetica, sans-serif;*/
-    /*padding: 1px;*/
     text-align: left;
     background-color: white;
     background-clip: padding-box;
@@ -99,6 +96,8 @@ dl#acronyms dt {
     color: #555;
     text-transform: none;
     padding: 8px;
+    font-size: 11px;
+    width: 170px;
 }
 #main-content #map .legend i {
     width: 18px;
