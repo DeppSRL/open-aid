@@ -11,7 +11,7 @@
     </ul>
     <article class="progetti-body">
         <header>
-            <div id="project-pie-{{ project.pk }}" data-chart="pie"></div>
+            <div id="project-pie-{{ project.pk }}" data-chart="pie" data-values="{{ project.total_commitment|default:'0' }}|{{ project.total_disbursement|default:'0' }}"></div>
             {% with project_title=project.title %}
             <a href="{% url 'projects:project-detail' pk=project.pk %}">{% if project_title %}{{ project.title }}{% else %}<i>{% trans 'No title' %}</i>{% endif %}</a>
             {% endwith %}

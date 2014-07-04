@@ -35,7 +35,19 @@ $(document).ready(function(){
     });
 
     $('*[data-chart=pie]').each(function(i, el){
-        setPieChart($(el).prop('id'), 25, 25, 20, [270, 90]);
+        var tot = 0.0, values = [];
+        $.each($(el).data('values').split('|'), function( index, value ) {
+            value = parseFloat(value.replace(',', '.'));
+            tot += value;
+            values.push(parseFloat(value));
+        });
+        values = $.map(values, function(v){
+            if (v == 0.0) {
+                return 1.0;
+            }
+            return tot > 0.0 ? (v / tot) * 360.0 : 0.0
+        });
+        setPieChart($(el).prop('id'), 25, 25, 20, values);
     });
 
     $('*[data-chart=donut]').each(function(i, el){
@@ -51,7 +63,6 @@ $(document).ready(function(){
         var closer = $(this).find('.readmore-close').remove();
         var maxHeight = parseInt($(this).data('max-height'), 10) || 55;
         var $this = $(this);
-        console.log(opener, closer);
         setTimeout(function() {
             $this.readmore({
                 maxHeight: maxHeight,
@@ -59,7 +70,6 @@ $(document).ready(function(){
                 lessLink: closer,
                 afterToggle: function (trigger, element, expanded) {
                     if (!expanded && ($(window).scrollTop() > element.offset().top)) { // The "Close" link was clicked
-                        console.log(element.offset().top, $(window).scrollTop());
                         $('html, body').animate({ scrollTop: element.offset().top }, {duration: 100 });
                     }
                 }

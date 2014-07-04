@@ -36,7 +36,7 @@
             <div class="row">
                 <div class="focus">
                     <div class="row no-marg">
-                        <div id="pie4" data-chart="pie"></div>
+                        <div id="project-pie-{{ project.pk }}" data-chart="pie" data-values="{{ project.total_commitment|default:'0' }}|{{ project.total_disbursement|default:'0' }}"></div>
                         <div class="col-md-4 numbers bg-red bordered-radius small-pad">€ {{ project.total_commitment|currency }}<br><span class="eleven">{% trans 'Committed' %}</span></div>
                         <div class="col-md-4 col-md-offset-1 numbers bg-blue bordered-radius small-pad">€ {{ project.total_disboursement|currency }}<br><span class="eleven">{% trans 'Used' %}</span></div>
                     </div>
