@@ -23,7 +23,7 @@ def _get_code_list_items(instance, model):
         return instance.get_children()
     return model.objects.root_nodes()
 
-@register.inclusion_tag('commons/stats.html', takes_context=True)
+@register.inclusion_tag('commons/main_panel.html', takes_context=True)
 def crs_stats(context, instance=None, year=None, show_map=True):
 
     start_year = contexts.START_YEAR

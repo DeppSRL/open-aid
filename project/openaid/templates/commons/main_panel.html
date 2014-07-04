@@ -1,0 +1,63 @@
+{% load i18n icons %}
+<div class="row">
+    <div class="col-md-12">
+        <ul class="nav nav-tabs col-md-12" role="tablist">
+            <li class="active" style="width: 40%"><a href="#bi-multi-tab" role="tab" data-toggle="tab">
+                Aiuto Bilaterale e Multi-Bilaterale {% icon 'question-circle' %}
+                <div class="row">
+                    <div class="col-md-5">
+                        <span>€ 15,167</span> mln <br/>
+                        {% trans 'Committed funds' %}
+                    </div>
+                    <div class="col-md-4">
+                        <span>€ 15,167</span> mln <br/>
+                        {% trans 'Used funds' %}
+                    </div>
+                    <div class="col-md-3">
+                        <span>110.167</span> <br/>
+                        {% trans 'Activities' %}
+                    </div>
+                </div>
+            </a></li>
+            <li style="width: 28%"><a href="#multi-tab" role="tab" data-toggle="tab">
+                Aiuto Multilaterale {% icon 'question-circle' %}
+                <div class="row">
+                    <div class="col-md-6">
+                        <span>€ 15,167</span> mln <br/>
+                        {% trans 'Committed funds' %}
+                    </div>
+                    <div class="col-md-6">
+                        <span>€ 15,167</span> mln <br/>
+                        {% trans 'Used funds' %}
+                    </div>
+                </div>
+            </a></li>
+            <li style="width: 32%"><a href="#total-aid-tab" role="tab" data-toggle="tab">
+                Aiuto pubblico allo sviluppo - Complessivo {% icon 'question-circle' %}
+                <div class="row">
+                    <div class="col-md-6">
+                        <span>€ 15,167</span> mln <br/>
+                        {% trans 'Committed funds' %}
+                    </div>
+                    <div class="col-md-6">
+                        <span>€ 15,167</span> mln <br/>
+                        {% trans 'Used funds' %}
+                    </div>
+                </div>
+            </a></li>
+        </ul>
+    </div>
+</div>
+
+<!-- Tab panes -->
+<div class="tab-content">
+  <div class="tab-pane active" id="bi-multi-tab">
+      {% include 'commons/stats.html' %}
+  </div>
+  <div class="tab-pane" id="multi-tab">
+      some stuff
+  </div>
+  <div class="tab-pane" id="total-aid-tab">
+      other stuff
+  </div>
+</div>
