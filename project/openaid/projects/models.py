@@ -38,6 +38,7 @@ class Project(models.Model):
     recipient = models.ForeignKey('codelists.Recipient', blank=True, null=True)
     start_year = models.PositiveSmallIntegerField()
     end_year = models.PositiveSmallIntegerField()
+    has_focus = models.BooleanField(_('Focus'), default=False)
 
     @classmethod
     def get_top_projects(cls, qnt=3, order_by=None, year=None, **filters):
