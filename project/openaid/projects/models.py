@@ -226,3 +226,32 @@ class Activity(models.Model):
 
     class Meta:
         ordering = ('-year', 'number', 'title')
+
+
+class Organization(models.Model):
+    """
+    Organizzazioni a cui vanno i fondi multilaterali.
+    I Projects sono relativi ai fondi bilaterali.
+    """
+    code = models.CharField(max_length=24, unique=True)
+    name = models.CharField(max_length=255)
+
+    def __unicode__(self):
+        return self.name
+
+
+class AnnualFunds(models.Model):
+    """
+    Rappresenta i fondi multilaterali anno per anno delle Organization.
+    """
+    year = models.PositiveSmallIntegerField()
+    organization = models.ForeignKey(Organization)
+
+    commitment = models.FloatField(blank=True, default=0.0)
+    disbursement = models.FloatField(blank=True, default=0.0)
+
+    def __unicode__(self):
+        return '%s %s: %f/%f' % (self.organization, self.year, self.commitment, self.disbursement)
+
+    class Meta:
+        unique_together = ("year", "organization")
