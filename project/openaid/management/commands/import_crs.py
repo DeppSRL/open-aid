@@ -20,7 +20,7 @@ class Command(LabelCommand):
             help="Clean old activities and projects before import crs file."),
     )
 
-    def delete_code_lists(self):
+    def delete_projects(self):
         answer = raw_input('Are you sure? (Yes/No)')
         if answer.lower() in ('yes', 'y'):
             self.stdout.write('Deleting %s activities' % models.Activity.objects.count())
@@ -37,7 +37,7 @@ class Command(LabelCommand):
         start_time = time.time()
         i = 0
 
-        if options.get('clean') and not self.delete_code_lists():
+        if options.get('clean') and not self.delete_projects():
             raise CommandError("Import aborted")
 
         self.all_codelists = dict([
