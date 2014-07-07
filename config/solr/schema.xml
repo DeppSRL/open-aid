@@ -155,6 +155,8 @@
 
     <field name="title" type="text_en" indexed="true" stored="true" multiValued="false" />
 
+    <field name="has_focus" type="boolean" indexed="true" stored="true" multiValued="false" />
+
     <field name="crsid" type="text_en" indexed="true" stored="true" multiValued="false" />
 
     <field name="text" type="text_en" indexed="true" stored="true" multiValued="false" />
