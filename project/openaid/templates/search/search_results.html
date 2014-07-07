@@ -20,32 +20,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8">
-
-            <div class="col-md-6 ordering pull-left">
-                <div class="form-group">
-                    <div class="col-md-4 twelve no-pad"><strong>Ordina le iniziative per</strong></div>
-                    <div class="col-md-8  no-pad">
-                        <ul class="nav navbar-nav ">
-                            <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">RILEVANZA <b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">Action</a></li>
-                                    <li><a href="#">Action</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <ul class="pagination pull-right">
-                <li><a href="#">&laquo;</a></li>
-                <li><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">&raquo;</a></li>
-            </ul>
+            {% include 'search/pagination.html' %}
         </div>
     </div>
 </div>
@@ -66,92 +41,84 @@
                 </div>
             </div>
             <div class="ordering">
-                <div class="form-group">
-                    <div class="col-md-4 twelve no-pad"><strong>Ordina le iniziative per</strong></div>
-                    <div class="col-md-8  no-pad">
-                        <ul class="nav navbar-nav ">
-                            <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">RILEVANZA <b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">Action</a></li>
-                                    <li><a href="#">Action</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <ul class="pagination pull-right">
-                    <li><a href="#">&laquo;</a></li>
-                    <li><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li><a href="#">&raquo;</a></li>
-                </ul>
+                {% include 'search/pagination.html' %}
             </div>
         </div>
         <div class="col-md-4">
-            <section class="filters">
-                <div class="filter-labels">CERCA</div>
-                <div class="filter-content">
-                    <form class="form-inline" role="form">
-                        <div class="form-group has-feedback eleven">
-                            <label class="sr-only" for="exampleInputEmail2">Email address</label>
-                            <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Una parola chiave nel nome">
-                            <span class="fa fa-times form-control-feedback"></span>
-                        </div>
-                        <div class="form-group has-feedback eleven">
-                            <label class="sr-only" for="exampleInputPassword2">Password</label>
-                            <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Un'area geografica">
-                            <span class="fa fa-times form-control-feedback"></span>
-                        </div>
-                        <button type="submit" class="btn btn-aid btn-inline">cerca <span class="fa fa-search"></span></button>
-                        <div class="checkbox">
-                            <label class="eleven">
-                                <input type="checkbox"> CERCA TRA I RISULTATI
-                            </label>
-                        </div>
-                    </form>
-                </div>
-            </section>
+{#            <section class="filters">#}
+{#                <div class="filter-labels">{% trans 'Search' %}</div>#}
+{#                <div class="filter-content">#}
+{#                    <form class="form-inline" role="form">#}
+{#                        <div class="form-group has-feedback eleven">#}
+{#                            <label class="sr-only" for="exampleInputEmail2">Email address</label>#}
+{#                            <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Una parola chiave nel nome">#}
+{#                            <span class="fa fa-times form-control-feedback"></span>#}
+{#                        </div>#}
+{#                        <div class="form-group has-feedback eleven">#}
+{#                            <label class="sr-only" for="exampleInputPassword2">Password</label>#}
+{#                            <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Un'area geografica">#}
+{#                            <span class="fa fa-times form-control-feedback"></span>#}
+{#                        </div>#}
+{#                        <button type="submit" class="btn btn-aid btn-inline">cerca <span class="fa fa-search"></span></button>#}
+{#                        <div class="checkbox">#}
+{#                            <label class="eleven">#}
+{#                                <input type="checkbox"> CERCA TRA I RISULTATI#}
+{#                            </label>#}
+{#                        </div>#}
+{#                    </form>#}
+{#                </div>#}
+{#            </section>#}
 
             <section class="filters">
                 <div class="filter-labels">FILTRA</div>
                 <div class="filter-content">
 
                     <p class="lead"><strong>{{ n_results }}</strong> {% trans "Search result" %}</p>
-
-                    <h4>MODIFICA I FILTRI <small class="pull-right eleven">{% trans "Remove filters" %} <a href="{% url 'projects:search' %}">{% icon 'times' %}</a></small></h4>
                     <div class="edit-filters">
-                        <p class="eleven no-marg-all filter-typology">TIPOLOGIA</p>
-                        <span class="eleven">Tipologia Lorem ipsum <a class="fa fa-times"> </a></span>
+
+                        <h4>MODIFICA I FILTRI <small class="pull-right eleven">{% trans "Remove filters" %} <a href="{% url 'projects:search' %}">{% icon 'times' %}</a></small></h4>
                     </div>
-                    <h4>Fondi impegnati</h4>
-                    <img src="{% static 'img/layout/finanziamenti.jpg' %}">
-                    <div class="small-spacer"> </div>
+{#                    <div class="edit-filters">#}
+{#                        <p class="eleven no-marg-all filter-typology">TIPOLOGIA</p>#}
+{#                        <span class="eleven">Tipologia Lorem ipsum <a class="fa fa-times"> </a></span>#}
+{#                    </div>#}
+{#                    <h4>Fondi impegnati</h4>#}
+{#                    <img src="{% static 'img/layout/finanziamenti.jpg' %}">#}
+{#                    <div class="small-spacer"> </div>#}
 
-                    <h4>SETTORE DI INTERVENTO</h4>
-                    {% show_facets 'sectors' %}
+                    <div class="edit-filters">
+                        <h4>{% trans 'Sector' %}</h4>
+                        {% show_facets 'sectors' %}
+                    </div>
+                    <div class="edit-filters">
+                        <h4>{% trans 'Agency' %}</h4>
+                        {% show_facets 'agencies' %}
+                    </div>
+                    <div class="edit-filters">
+                        <h4>{% trans 'Year' %}</h4>
+                        {% show_facets 'years' %}
+                    </div>
+                    <div class="edit-filters">
+                        <h4>{% trans 'Aid type' %}</h4>
+                        {% show_facets 'aid_types' %}
+                    </div>
+                    <div class="edit-filters">
+                        <h4>{% trans 'Finance type' %}</h4>
+                        {% show_facets 'finance_types' %}
+                    </div>
+                    <div class="edit-filters">
+                        <h4>{% trans 'Channel' %}</h4>
+                        {% show_facets 'channels' %}
+                    </div>
+                    <div class="edit-filters">
+                        <h4>{% trans 'Recipient' %}</h4>
+                        <div class="readmore" data-max-height="200">
+                            {% show_facets 'recipients' %}
+                            <a href="#" class="readmore-open">{% trans 'read more' %} {% icon 'caret-down' %}</a>
+                            <a href="#" class="readmore-close">{% trans 'close' %} {% icon 'caret-up' %}</a>
+                        </div>
+                    </div>
 
-                    <div class="small-spacer"> </div>
-                    <h4>CANALE DI FINANZIAMENTO</h4>
-                    {% show_facets 'channels' %}
-
-                    <div class="small-spacer"> </div>
-                    <h4>TIPOLOGIA</h4>
-                    {% show_facets 'aid_types' %}
-
-                    <div class="small-spacer"> </div>
-                    <h4>ANNO</h4>
-                    {% show_facets 'years' %}
-
-                    <div class="small-spacer"> </div>
-                    <h4>TIPO DI FINANZIAMENTO</h4>
-                    {% show_facets 'finance_types' %}
-
-                    <div class="small-spacer"> </div>
-                    <h4>Agenzie</h4>
-                    {% show_facets 'agencies' %}
                 </div>
             </section>
         </div>

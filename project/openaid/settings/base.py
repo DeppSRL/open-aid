@@ -236,7 +236,7 @@ DJANGO_APPS = (
 
     # third party apps
     'tinymce',
-
+    'bootstrap_pagination',
     'django_mptt_admin', # admin
 )
 

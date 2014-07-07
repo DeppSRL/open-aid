@@ -165,3 +165,6 @@ p.readmore { margin-bottom: 0; }
     text-align: right;
 }
 /* end readmore styles */
+
+.edit-filters { font-size: 13px; }
+#main-content .pagination > .active > a { border-color: #f7505a; background-color: #f7505a; color: white; }
