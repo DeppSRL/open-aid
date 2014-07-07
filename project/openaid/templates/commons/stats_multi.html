@@ -1,0 +1,69 @@
+{% load i18n %}
+{% load crs %}
+{% load search_utils %}
+<div class="row panel-pad stats-panel-columns">
+
+    <div class="col-md-4">
+        <h3>{% trans 'Committed funds' %}</h3>
+
+        <div id="donut2"></div>
+
+        <div class="table-responsive">
+            <table class="table table-condensed table-hover" data-chart="donut" data-container="donut2">
+                <tbody>
+                {% for fund in multi_stats|dictsortreversed:'commitment' %}
+                <tr class="dotted">
+                    <td class="col-sm-8" data-title="{{ fund.organization }}">{{ fund.organization }}</td>
+                    <td class="col-sm-4"><span data-value="{{ fund.commitment }}">{{ fund.commitment|currency }}</span></td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <div class="col-md-4">
+        <h3>{% trans 'Used funds' %}</h3>
+
+        <div id="donut3"></div>
+
+        <div class="table-responsive">
+            <table class="table table-condensed table-hover" data-chart="donut" data-container="donut3">
+                <tbody>
+                {% for fund in multi_stats|dictsortreversed:'disbursement' %}
+                <tr class="dotted">
+                    <td class="col-sm-8" data-title="{{ fund.organization }}">{{ fund.organization }}</td>
+                    <td class="col-sm-4"><span data-value="{{ fund.disbursement }}">{{ fund.disbursement|currency }}</span></td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <h3>Aiuto Multilaterale</h3>
+
+        <div>
+            Lorem Ipsum is simply dummy text of the printing and
+            typesetting industry. Lorem Ipsum has been the industry's
+            standard dummy text ever since the 1500s, when an
+            unknown printer took a galley of type and scrambled it to
+            make a type specimen book.
+            It has survived not only five centuries, but also the leap into
+            electronic typesetting, remaining essentially unchanged. It
+            was popularised in the 1960s with the release of Letraset
+            sheets containing Lorem Ipsum passages, and more recently
+            with desktop publishing software like Aldus PageMaker
+            including versions of Lorem Ipsum.
+            Lorem Ipsum is simply dummy text of the printing and
+            typesetting industry. Lorem Ipsum has been the industry's
+            standard dummy text ever since the 1500s, when an
+            unknown printer took a galley of type and scrambled it to
+            make a type specimen book.
+            It has survived not only five centuries, but also the leap into
+            electronic typesetting, remaining essentially unchanged.
+        </div>
+    </div>
+</div><!-- .row -->

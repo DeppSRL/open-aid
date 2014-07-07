@@ -69,7 +69,7 @@ aimed at maintaining peace and managing migration flows.{% endblocktrans %}
                     <div class="focus">
                         <div class="spacer"></div>
                         <div class="row no-marg">
-                            <div id="pie4"></div>
+                            <div id="pie4" data-chart="pie" data-values="{{ project_focus.total_commitment|default:0 }}|{{ project_focus.total_disboursement|default:0 }}"></div>
                             <div class="col-md-4 numbers bg-red bordered-radius small-pad">€
                                 {{ project_focus.total_commitment|currency }}<br><span class="eleven">{% trans 'Committed' %}</span></div>
                             <div class="col-md-4 col-md-offset-1 numbers bg-blue bordered-radius small-pad">€
