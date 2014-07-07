@@ -50,22 +50,46 @@ def crs_stats(context, instance=None, year=None, show_map=True):
     if len(filters.keys()):
         activities = activities.filter(**filters)
 
+    selected_fact = instance.code_list_facet if instance else None
+
+    commitment_sum = activities.aggregate(Sum('commitment'))['commitment__sum']
+    disbursements_sum = activities.aggregate(Sum('disbursement'))['disbursement__sum']
+
     ctx = {
         'selected_year': year,
         'selected_code_list': instance,
-        'selected_facet': instance.code_list_facet if instance else None,
+        'selected_facet': selected_fact,
         'start_year': start_year,
         'end_year': end_year,
         'sector_stats': cleaner(sectors),
         'agency_stats': cleaner(agencies),
         'aid_stats': cleaner(aid_types),
         'projects_count': activities.distinct('project').count(),
-        'commitments_sum': activities.aggregate(Sum('commitment'))['commitment__sum'],
-        'disbursements_sum': activities.aggregate(Sum('disbursement'))['disbursement__sum'],
+        'commitments_sum': commitment_sum,
+        'disbursements_sum': disbursements_sum,
         'years': range(start_year, end_year + 1),
         'show_map': show_map,
     }
 
     ctx['columns'] = 3 if len(ctx['sector_stats']) and len(ctx['agency_stats']) and len(ctx['aid_stats']) else 2
+
+    if not selected_fact:
+
+        multi_projects = projects_models.AnnualFunds.objects.filter(year=year).aggregate(
+            multi_commitments_sum=Sum('commitment'),
+            multi_disbursements_sum=Sum('disbursement'),
+        )
+
+        ctx.update(multi_projects)
+
+        ctx.update({
+            'total_commitments_sum': multi_projects['multi_commitments_sum'] + commitment_sum,
+            'total_disbursements_sum': multi_projects['multi_disbursements_sum'] + disbursements_sum,
+        })
+
+        # for c in ['commitments_sum', 'disbursements_sum',]:
+        #     ctx[c] = ctx[c] / 1000000.0
+        #     ctx['total_%s' % c] = ctx['total_%s' % c] / 1000000.0
+        #     ctx['multi_%s' % c] = ctx['multi_%s' % c] / 1000000.0
 
     return ctx

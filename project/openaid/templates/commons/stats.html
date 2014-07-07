@@ -5,144 +5,94 @@
 {% load icons %}
 {% load crs %}
 
-<div class="row" id="stats-panel">
+<div id="stats-panel">
 
-<div class="col-md-12">
+    {% if show_map %}
+    <div class="map">
+        <div id="map"></div>
+    </div>
+    {% endif %}
 
-    <div class="panel panel-default">
+    <div class="row panel-pad stats-panel-columns">
 
-        <div class="panel-body">
-            <div class="col-md-3"><h2>{% trans 'Aid in numbers' %}</h2></div>
-
-            <div class="col-md-9">
-                <div class="years-navigation">
-                    <nav class="navbar navbar-default" role="navigation">
-                        <div class="navbar-header">
-                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#years">
-                                <span class="sr-only">Toggle navigation</span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                            </button>
-                        </div>
-
-                        <!-- Collect the nav links, forms, and other content for toggling -->
-                        <div class="collapse navbar-collapse" id="years">
-                            <ul class="nav navbar-nav">
-                                {% for year in years %}
-                                <li class="{% spaceless %}
-                                {% if year == selected_year %}selected {% endif %}
-                                {% if forloop.first %}first{% elif forloop.last %}last{% endif %}">
-                                    <a href="?year={{ year }}"><span class="point hidden-xs hidden-sm"> </span> {{ year }}</a></li>{% endspaceless %}
-                                {% endfor %}
-                            </ul>
-                        </div><!-- /.navbar-collapse -->
-                    </nav>
-                </div><!-- .years-navigation -->
-            </div>
-
-        </div>
-
-        <div class="panel-heading clearfix">
-            <div class="col-md-4 bg-red no-margin">
-                <h4>{{ projects_count|intcomma }}</h4>
-                <p>{% trans "Italian development activities" %}</p>
-            </div>
-            <div class="col-md-4 bg-red no-margin">
-                <h4>€ {{ commitments_sum|currency }}</h4>
-                <p>{% trans "Total funding committed" %}</p>
-            </div>
-            <div class="col-md-4 bg-red no-margin">
-                <h4>€ {{ disbursements_sum|currency }}</h4>
-                <p>{% trans 'Total funding used' %}</p>
-            </div>
-        </div><!-- .panel-heading -->
-        {% if show_map %}
-        <div class="map">
-            <div id="map"></div>
-        </div>
-        {% endif %}
-
-        <div class="row panel-pad stats-panel-columns">
-
-            {% if sector_stats %}
-            <div class="{% if columns == 3 %}col-md-4{% else %}col-md-6{% endif %}">
-                <h3>{% trans 'What is it spent for?' %}</h3>
-                <p class="twelve readmore">
+        {% if sector_stats %}
+        <div class="{% if columns == 3 %}col-md-4{% else %}col-md-6{% endif %}">
+            <h3>{% trans 'What is it spent for?' %}</h3>
+            <p class="twelve readmore">
 {% blocktrans %}The purpose/sector of destination of a bilateral contribution should be selected
 by answering the question “which specific area of the recipient’s economic or social structure is the transfer intended to foster”.
 The sector classification does not refer to the type of goods or services provided by the donor.
 Sector specific education or research activities (e.g. agricultural education) or construction of infrastructure (e.g. agricultural storage)
 should be reported under the sector to which they are directed, not under education, construction, etc.{% endblocktrans %}
-                    <a href="#" class="readmore-open">{% trans 'read more' %} {% icon 'caret-down' %}</a>
-                    <a href="#" class="readmore-close">{% trans 'close' %} {% icon 'caret-up' %}</a>
-                </p>
+                <a href="#" class="readmore-open">{% trans 'read more' %} {% icon 'caret-down' %}</a>
+                <a href="#" class="readmore-close">{% trans 'close' %} {% icon 'caret-up' %}</a>
+            </p>
 
-                <div id="bubble1"></div>
+            <div id="bubble1"></div>
 
-                <div class="table-responsive">
-                    <table class="table table-condensed table-hover" data-chart="bubble" data-container="bubble1">
-                        <tbody>
-                        {% for sector, tot in sector_stats %}{% if tot > 0.0 %}
-                        <tr class="dotted">
-                            <td class="col-sm-8">
-                                {% if not selected_code_list %}
-                                    <a href="{% url 'codelists:sector-detail' code=sector.code %}" data-title="{{ sector.name }}">{{ sector.name }}</a>
-                                {% elif selected_code_list.code_list == 'sector' %}
-                                    <span data-title="{{ sector.name }}">{{ sector.name }}</span>
-                                {% else %}
-                                    <a href="{% search_url sector.code_list_facet sector.name %}&selected_facets={{ selected_facet }}:{{ selected_code_list.name|urlencode }}" data-title="{{ sector.name }}">{{ sector.name }}</a>
-                                {% endif %}
-                            </td>
-                            <td class="col-sm-4"><span data-value="{{ tot }}">{{ tot|currency }}</span></td>
-                        </tr>
-                        {% endif %}{% endfor %}
-                        </tbody>
-                    </table>
-                </div>
+            <div class="table-responsive">
+                <table class="table table-condensed table-hover" data-chart="bubble" data-container="bubble1">
+                    <tbody>
+                    {% for sector, tot in sector_stats %}{% if tot > 0.0 %}
+                    <tr class="dotted">
+                        <td class="col-sm-8">
+                            {% if not selected_code_list %}
+                                <a href="{% url 'codelists:sector-detail' code=sector.code %}" data-title="{{ sector.name }}">{{ sector.name }}</a>
+                            {% elif selected_code_list.code_list == 'sector' %}
+                                <span data-title="{{ sector.name }}">{{ sector.name }}</span>
+                            {% else %}
+                                <a href="{% search_url sector.code_list_facet sector.name %}&selected_facets={{ selected_facet }}:{{ selected_code_list.name|urlencode }}" data-title="{{ sector.name }}">{{ sector.name }}</a>
+                            {% endif %}
+                        </td>
+                        <td class="col-sm-4"><span data-value="{{ tot }}">{{ tot|currency }}</span></td>
+                    </tr>
+                    {% endif %}{% endfor %}
+                    </tbody>
+                </table>
             </div>
-            {% endif %}
+        </div>
+        {% endif %}
 
-            {% if aid_stats %}
-            <div class="{% if columns == 3 %}col-md-4{% else %}col-md-6{% endif %}">
-                <h3>{% trans 'By means of?' %}</h3>
-                <p class="twelve readmore">
+        {% if aid_stats %}
+        <div class="{% if columns == 3 %}col-md-4{% else %}col-md-6{% endif %}">
+            <h3>{% trans 'By means of?' %}</h3>
+            <p class="twelve readmore">
 {% blocktrans %}The typology identifies the modalities that are used in aid delivery. It classifies transfers from the donor to the first recipient of funds (e.g. the recipient country,
 a multilateral organisation, or a basket fund).  It does not track the end uses of the funds, which is addressed in the sector classification and to some extent through the policy objective markers.{% endblocktrans %}
-                    <a href="#" class="readmore-open">{% trans 'read more' %} {% icon 'caret-down' %}</a>
-                    <a href="#" class="readmore-close">{% trans 'close' %} {% icon 'caret-up' %}</a>
-                </p>
-                <div id="donut1"></div>
+                <a href="#" class="readmore-open">{% trans 'read more' %} {% icon 'caret-down' %}</a>
+                <a href="#" class="readmore-close">{% trans 'close' %} {% icon 'caret-up' %}</a>
+            </p>
+            <div id="donut1"></div>
 
-                <div class="table-responsive">
-                    <table class="table table-condensed table-hover" data-chart="donut" data-container="donut1">
-                        <tbody>
-                        {% for aid_type, tot in aid_stats %}{% if tot > 0.0 %}
-                        <tr class="dotted">
-                            <td class="col-sm-8">
-                                {% if not selected_code_list %}
-                                    <a href="{% url 'codelists:aid_type-detail' code=aid_type.code %}" data-title="{{ aid_type.name }}">{{ aid_type.name }}</a>
-                                {% elif selected_code_list.code_list == 'aid_type' %}
-                                    <span data-title="{{ aid_type.name }}">{{ aid_type.name }}</span>
-                                {% else %}
-                                    <a href="{% search_url aid_type.code_list_facet aid_type.name %}&selected_facets={{ selected_facet }}:{{ selected_code_list.name|urlencode }}" data-title="{{ aid_type.name }}">{{ aid_type.name }}</a>
-                                {% endif %}
+            <div class="table-responsive">
+                <table class="table table-condensed table-hover" data-chart="donut" data-container="donut1">
+                    <tbody>
+                    {% for aid_type, tot in aid_stats %}{% if tot > 0.0 %}
+                    <tr class="dotted">
+                        <td class="col-sm-8">
+                            {% if not selected_code_list %}
+                                <a href="{% url 'codelists:aid_type-detail' code=aid_type.code %}" data-title="{{ aid_type.name }}">{{ aid_type.name }}</a>
+                            {% elif selected_code_list.code_list == 'aid_type' %}
+                                <span data-title="{{ aid_type.name }}">{{ aid_type.name }}</span>
+                            {% else %}
+                                <a href="{% search_url aid_type.code_list_facet aid_type.name %}&selected_facets={{ selected_facet }}:{{ selected_code_list.name|urlencode }}" data-title="{{ aid_type.name }}">{{ aid_type.name }}</a>
+                            {% endif %}
 
-                            </td>
-                            <td class="col-sm-4"><span data-value="{{ tot }}">{{ tot|currency }}</span></td>
-                        </tr>
-                        {% endif %}{% endfor %}
-                        </tbody>
+                        </td>
+                        <td class="col-sm-4"><span data-value="{{ tot }}">{{ tot|currency }}</span></td>
+                    </tr>
+                    {% endif %}{% endfor %}
+                    </tbody>
 
-                    </table>
-                </div>
+                </table>
             </div>
-            {% endif %}
+        </div>
+        {% endif %}
 
-            {% if agency_stats %}
-            <div class="{% if columns == 3 %}col-md-4{% else %}col-md-6{% endif %}">
-                <h3>{% trans 'Who funds?' %}</h3>
-                <p class="twelve readmore">
+        {% if agency_stats %}
+        <div class="{% if columns == 3 %}col-md-4{% else %}col-md-6{% endif %}">
+            <h3>{% trans 'Who funds?' %}</h3>
+            <p class="twelve readmore">
 {% blocktrans %}The channel of delivery is the first implementing partner. It is the entity that has implementing responsibility
 over the funds and is normally linked to the extending agency by a contract or other binding agreement,
 and is directly accountable to it. Where several levels of implementation are involved (e.g. when the extending
@@ -150,38 +100,35 @@ agency hires a national implementer which in turn may hire a local implementer),
 implementation as the channel of delivery.  Where activities have several implementers, the principal implementer
 should be reported (e.g. the entity receiving the most funding). In the case of loans,
 report the borrower (i.e. the first entity outside the donor country that receives the funds).{% endblocktrans %}
-                    <a href="#" class="readmore-open">{% trans 'read more' %} {% icon 'caret-down' %}</a>
-                    <a href="#" class="readmore-close">{% trans 'close' %} {% icon 'caret-up' %}</a>
-                </p>
-                <div id="bubble2"></div>
+                <a href="#" class="readmore-open">{% trans 'read more' %} {% icon 'caret-down' %}</a>
+                <a href="#" class="readmore-close">{% trans 'close' %} {% icon 'caret-up' %}</a>
+            </p>
+            <div id="bubble2"></div>
 
-                <div class="table-responsive">
-                    <table class="table table-condensed table-hover" data-chart="bubble" data-container="bubble2">
-                        <tbody>
-                        {% for agency, tot in agency_stats %}{% if tot > 0.0 %}
-                        <tr class="dotted">
-                            <td class="col-sm-8">
-                                {% if not selected_code_list %}
-                                    <a href="{% url 'codelists:agency-detail' code=agency.code %}" data-title="{{ agency.name }}">{{ agency.name }}</a>
-                                {% elif selected_code_list.code_list == 'agency' %}
-                                    <span data-title="{{ agency.name }}">{{ agency.name }}</span>
-                                {% else %}
-                                    <a href="{% search_url agency.code_list_facet agency.name %}&selected_facets={{ selected_facet }}:{{ selected_code_list.name|urlencode }}" data-title="{{ agency.name }}">{{ agency.name }}</a>
-                                {% endif %}
+            <div class="table-responsive">
+                <table class="table table-condensed table-hover" data-chart="bubble" data-container="bubble2">
+                    <tbody>
+                    {% for agency, tot in agency_stats %}{% if tot > 0.0 %}
+                    <tr class="dotted">
+                        <td class="col-sm-8">
+                            {% if not selected_code_list %}
+                                <a href="{% url 'codelists:agency-detail' code=agency.code %}" data-title="{{ agency.name }}">{{ agency.name }}</a>
+                            {% elif selected_code_list.code_list == 'agency' %}
+                                <span data-title="{{ agency.name }}">{{ agency.name }}</span>
+                            {% else %}
+                                <a href="{% search_url agency.code_list_facet agency.name %}&selected_facets={{ selected_facet }}:{{ selected_code_list.name|urlencode }}" data-title="{{ agency.name }}">{{ agency.name }}</a>
+                            {% endif %}
 
-                            </td>
-                            <td class="col-sm-4"><span data-value="{{ tot }}">{{ tot|currency }}</span></td>
-                        </tr>
-                        {% endif %}{% endfor %}
-                        </tbody>
+                        </td>
+                        <td class="col-sm-4"><span data-value="{{ tot }}">{{ tot|currency }}</span></td>
+                    </tr>
+                    {% endif %}{% endfor %}
+                    </tbody>
 
-                    </table>
-                </div>
+                </table>
             </div>
-            {% endif %}
-        </div><!-- .row -->
-    </div><!-- .panel -->
-
-</div>
+        </div>
+        {% endif %}
+    </div><!-- .row -->
 
 </div><!-- .row -->

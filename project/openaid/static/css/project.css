@@ -61,6 +61,39 @@ dl#acronyms dt {
 #main-content .years-navigation .navbar-nav > li.selected { background-color: #f7505a; }
 #main-content .years-navigation .navbar-nav > li.selected a { color: white; }
 #main-content .years-navigation .navbar-nav > li.selected a .point { background-color: #f7505a; }
+#main-content #stats-panel .tab-content { padding: 0; }
+#main-content #stats-panel .nav-tabs li:last-child a { margin-right:0;  }
+#main-content #stats-panel .nav-tabs a { text-transform: uppercase; border: 1px solid #f7505a; border-bottom: 0; background-color: white; color: #f7505a; }
+#main-content #stats-panel .nav-tabs a:hover,
+#main-content #stats-panel .nav-tabs .active a { background-color: #f7505a; color: white; }
+#main-content #stats-panel .nav-tabs a > span { font-size: 14px; }
+#main-content #stats-panel .nav-tabs a small { font-size: 12px; }
+#main-content #stats-panel .panel-default.stats-home {
+  -webkit-border-radius: 0 0 4px 4px !important;
+     -moz-border-radius: 0 0 4px 4px !important;
+          border-radius: 0 0 4px 4px !important;
+}
+#main-content #stats-panel .panel-heading {
+    padding-bottom: 0;
+    background: #f7505a;
+    color: #ffffff;
+}
+#main-content #stats-panel .panel-default h4 {
+  font-weight: 700;
+  color: white;
+  font-size: 50px;
+  margin-bottom: 0px;
+}
+#main-content #stats-panel .panel-default .panel-heading h4 {
+  font-size: 44px;
+}
+#main-content #stats-panel .panel-default .panel-heading p {
+  font-size: 13px;
+}
+#main-content #stats-panel .panel-default .panel-heading .col-md-4 { background-color: #f7505a; }
+#main-content #stats-panel .panel-default .panel-heading {
+  background: transparent;
+}
 
 
 /* map styles */

@@ -1,0 +1,68 @@
+{% load i18n %}
+{% load icons %}
+{% load crs %}
+{% load humanize %}
+{% if selected_facet %}
+
+<div class="col-md-4">
+    <h4>{{ projects_count|intcomma }}</h4>
+    <p>{% trans "Italian development activities" %}</p>
+</div>
+<div class="col-md-4">
+    <h4>€ {{ commitments_sum|currency }}</h4>
+    <p>{% trans "Total funding committed" %}</p>
+</div>
+<div class="col-md-4">
+    <h4>€ {{ disbursements_sum|currency }}</h4>
+    <p>{% trans 'Total funding used' %}</p>
+</div>
+
+{% else %}
+
+<ul class="nav nav-tabs" role="tablist">
+    <li class="active" style="width: 40%"><a href="#bi-multi-tab" role="tab" data-toggle="tab">
+        <span>Aiuto Bilaterale e Multi-Bilaterale {% icon 'question-circle' %}</span>
+        <div class="row">
+            <div class="col-md-5">
+                <span>€ {{ commitments_sum|floatformat:3 }}</span> mln <br/>
+                <small>{% trans 'Committed funds' %}</small>
+            </div>
+            <div class="col-md-4">
+                <span>€ {{ disbursements_sum|floatformat:3 }}</span> mln <br/>
+                <small>{% trans 'Used funds' %}</small>
+            </div>
+            <div class="col-md-3">
+                <span>{{ projects_count|intcomma }}</span> <br/>
+                <small>{% trans 'Activities' %}</small>
+            </div>
+        </div>
+    </a></li>
+    <li style="width: 28%"><a href="#multi-tab" role="tab" data-toggle="tab">
+        <span>Aiuto Multilaterale {% icon 'question-circle' %}</span>
+        <div class="row">
+            <div class="col-md-6">
+                <span>€ {{ multi_commitments_sum|floatformat:3 }}</span> mln <br/>
+                <small>{% trans 'Committed funds' %}</small>
+            </div>
+            <div class="col-md-6">
+                <span>€ {{ multi_disbursements_sum|floatformat:3 }}</span> mln <br/>
+                <small>{% trans 'Used funds' %}</small>
+            </div>
+        </div>
+    </a></li>
+    <li style="width: 32%"><a href="#total-aid-tab" role="tab" data-toggle="tab">
+        <span>Aiuto pubblico allo sviluppo - Complessivo {% icon 'question-circle' %}</span>
+        <div class="row">
+            <div class="col-md-6">
+                <span>€ {{ total_commitments_sum|floatformat:3 }}</span> mln <br/>
+                <small>{% trans 'Committed funds' %}</small>
+            </div>
+            <div class="col-md-6">
+                <span>€ {{ total_disbursements_sum|floatformat:3 }}</span> mln <br/>
+                <small>{% trans 'Used funds' %}</small>
+            </div>
+        </div>
+    </a></li>
+</ul>
+
+{% endif %}
