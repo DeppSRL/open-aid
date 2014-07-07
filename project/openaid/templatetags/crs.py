@@ -87,6 +87,10 @@ def crs_stats(context, instance=None, year=None, show_map=True):
             'total_disbursements_sum': multi_projects['multi_disbursements_sum'] + disbursements_sum,
         })
 
+        ctx.update({
+            'multi_stats': projects_models.AnnualFunds.objects.filter(year=year).select_related('organization'),
+        })
+
         # for c in ['commitments_sum', 'disbursements_sum',]:
         #     ctx[c] = ctx[c] / 1000000.0
         #     ctx['total_%s' % c] = ctx['total_%s' % c] / 1000000.0

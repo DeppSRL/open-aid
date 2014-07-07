@@ -21,44 +21,50 @@
 
 <ul class="nav nav-tabs" role="tablist">
     <li class="active" style="width: 40%"><a href="#bi-multi-tab" role="tab" data-toggle="tab">
-        <span>Aiuto Bilaterale e Multi-Bilaterale {% icon 'question-circle' %}</span>
+        <h4>Aiuto Bilaterale e Multi-Bilaterale {% icon 'question-circle' %}</h4>
+
         <div class="row">
-            <div class="col-md-5">
-                <span>€ {{ commitments_sum|floatformat:3 }}</span> mln <br/>
-                <small>{% trans 'Committed funds' %}</small>
-            </div>
-            <div class="col-md-4">
-                <span>€ {{ disbursements_sum|floatformat:3 }}</span> mln <br/>
-                <small>{% trans 'Used funds' %}</small>
+            <div class="col-md-9">
+                <div class="row">
+                    <div class="col-md-6">
+                        <span class="currency">€ {{ commitments_sum|floatformat:3 }} <span>mln</span></span><br/>
+                        <small>{% trans 'Committed funds' %}</small>
+                    </div>
+                    <div class="col-md-6">
+                        <span class="currency">€ {{ disbursements_sum|floatformat:3 }} <span>mln</span></span><br/>
+                        <small>{% trans 'Used funds' %}</small>
+                    </div>
+                </div>
             </div>
             <div class="col-md-3">
-                <span>{{ projects_count|intcomma }}</span> <br/>
+                <span class="currency">{{ projects_count|intcomma }}</span> <br/>
                 <small>{% trans 'Activities' %}</small>
             </div>
         </div>
+
     </a></li>
-    <li style="width: 28%"><a href="#multi-tab" role="tab" data-toggle="tab">
-        <span>Aiuto Multilaterale {% icon 'question-circle' %}</span>
+    <li style="width: 30%"><a href="#multi-tab" role="tab" data-toggle="tab">
+        <h4>Aiuto pubblico Multilaterale {% icon 'question-circle' %}</h4>
         <div class="row">
             <div class="col-md-6">
-                <span>€ {{ multi_commitments_sum|floatformat:3 }}</span> mln <br/>
+                <span class="currency">€ {{ multi_commitments_sum|floatformat:3 }} <span>mln</span></span><br/>
                 <small>{% trans 'Committed funds' %}</small>
             </div>
             <div class="col-md-6">
-                <span>€ {{ multi_disbursements_sum|floatformat:3 }}</span> mln <br/>
+                <span class="currency">€ {{ multi_disbursements_sum|floatformat:3 }} <span>mln</span></span><br/>
                 <small>{% trans 'Used funds' %}</small>
             </div>
         </div>
     </a></li>
-    <li style="width: 32%"><a href="#total-aid-tab" role="tab" data-toggle="tab">
-        <span>Aiuto pubblico allo sviluppo - Complessivo {% icon 'question-circle' %}</span>
+    <li style="width: 30%"><a href="#total-aid-tab" role="tab" data-toggle="tab">
+        <h4>Aiuto pubblico allo sviluppo - Complessivo {% icon 'question-circle' %}</h4>
         <div class="row">
             <div class="col-md-6">
-                <span>€ {{ total_commitments_sum|floatformat:3 }}</span> mln <br/>
+                <span class="currency">€ {{ total_commitments_sum|floatformat:3 }} <span>mln</span></span><br/>
                 <small>{% trans 'Committed funds' %}</small>
             </div>
             <div class="col-md-6">
-                <span>€ {{ total_disbursements_sum|floatformat:3 }}</span> mln <br/>
+                <span class="currency">€ {{ total_disbursements_sum|floatformat:3 }} <span>mln</span></span><br/>
                 <small>{% trans 'Used funds' %}</small>
             </div>
         </div>
