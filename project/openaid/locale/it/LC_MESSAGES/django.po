@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-04 13:04+0200\n"
+"POT-Creation-Date: 2014-07-07 16:42+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -343,8 +343,8 @@ msgstr ""
 
 #: templates/home.html:24 templates/home.html.py:109
 #: templates/codelists/recipient_detail.html:50
-#: templates/commons/stats.html:78 templates/commons/stats.html.py:113
-#: templates/commons/stats.html:154 templates/projects/project_detail.html:60
+#: templates/commons/stats.html:27 templates/commons/stats.html.py:62
+#: templates/commons/stats.html:103 templates/projects/project_detail.html:60
 msgid "read more"
 msgstr "leggi tutto"
 
@@ -371,8 +371,8 @@ msgid "Description"
 msgstr "Descrizione"
 
 #: templates/home.html:110 templates/codelists/recipient_detail.html:51
-#: templates/commons/stats.html:79 templates/commons/stats.html.py:114
-#: templates/commons/stats.html:155 templates/projects/project_detail.html:61
+#: templates/commons/stats.html:28 templates/commons/stats.html.py:63
+#: templates/commons/stats.html:104 templates/projects/project_detail.html:61
 msgid "close"
 msgstr "chiudi"
 
@@ -389,15 +389,15 @@ msgstr "Canali"
 msgid "Where does the aid go?"
 msgstr "A chi vanno gli aiuti?"
 
-#: templates/navbar.html:38 templates/commons/stats.html:71
+#: templates/navbar.html:38 templates/commons/stats.html:20
 msgid "What is it spent for?"
 msgstr "Per cosa vengono utilizzati?"
 
-#: templates/navbar.html:47 templates/commons/stats.html:145
+#: templates/navbar.html:47 templates/commons/stats.html:94
 msgid "Who funds?"
 msgstr "Chi finanzia?"
 
-#: templates/navbar.html:56 templates/commons/stats.html:109
+#: templates/navbar.html:56 templates/commons/stats.html:58
 msgid "By means of?"
 msgstr "Con quali strumenti?"
 
@@ -439,6 +439,94 @@ msgstr "Fonte: OCSE"
 msgid "Italian development aid in brief"
 msgstr "Le politiche di cooperazione nel Paese"
 
+#: templates/commons/aid_tabs.html:9
+msgid "Italian development activities"
+msgstr "Le iniziative della cooperazione italiana nel mondo"
+
+#: templates/commons/aid_tabs.html:13
+msgid "Total funding committed"
+msgstr "I fondi complessivi impegnati"
+
+#: templates/commons/aid_tabs.html:17
+msgid "Total funding used"
+msgstr "I fondi complessivi erogati"
+
+#: templates/commons/aid_tabs.html:24 templates/commons/aid_tabs.html.py:27
+msgid "Bilateral and Multi-bilateral Official Development Assistance"
+msgstr "Aiuto pubblico Bilaterale e Multi-Bilaterale"
+
+#: templates/commons/aid_tabs.html:28
+msgid ""
+"Bilateral transactions are those undertaken by a donor country directly\n"
+"with a developing country.  They also encompass transactions with non-"
+"governmental organizations active in development\n"
+"and other, internal development-related transactions such as interest "
+"subsidies, spending on promotion of development\n"
+"awareness, debt reorganization and administrative costs."
+msgstr ""
+"Flusso finanziario da un paese donatore destinato, direttamente o indirettamente"
+"(ONG/Organismi internazionali), ad un paese in via di sviluppo. Sono compresi in "
+"questa categoria i fondi utilizzati per coprire costi interni nel paese donatore "
+"relativi ad attività di sviluppo, quali quelle per la formazione e l’educazione "
+"allo sviluppo, alla ristrutturazione/cancellazione del debito, alle spese amministrative "
+"del donatore correlate agli aiuti e alle spese per rifugiati."
+
+#: templates/commons/aid_tabs.html:40 templates/commons/aid_tabs.html.py:69
+#: templates/commons/aid_tabs.html:93 templates/commons/stats_multi.html:7
+#: templates/commons/stats_totals.html:7
+msgid "Committed funds"
+msgstr "Fondi Impegnati"
+
+#: templates/commons/aid_tabs.html:44 templates/commons/aid_tabs.html.py:73
+#: templates/commons/aid_tabs.html:97 templates/commons/stats_multi.html:27
+#: templates/commons/stats_totals.html:29
+msgid "Used funds"
+msgstr "Fondi erogati"
+
+#: templates/commons/aid_tabs.html:50
+msgid "Activities"
+msgstr "Iniziative"
+
+#: templates/commons/aid_tabs.html:56 templates/commons/aid_tabs.html.py:59
+msgid "Multilateral Official Development Assistance"
+msgstr "Aiuto pubblico Multilaterale"
+
+#: templates/commons/aid_tabs.html:60
+msgid ""
+"These funds are classified as multilateral ODA (all other categories fall\n"
+"under bilateral ODA). The recipient multilateral institution pools "
+"contributions so that they lose their\n"
+"identity and become an integral part of its financial assets. "
+msgstr ""
+"Fondi trasferiti dai paesi donatori alle organizzazioni internazionali di cui fanno parte per "
+"permettere lo svolgimento delle attività proprie di queste organizzazioni a favore dei paesi "
+"in via di sviluppo. Sul sito OCSE-Core Funds è disponibile un elenco completo degli organismi "
+"internazionali che ricevono tali contributi obbligatori (core funds) e la percentuale di tali "
+"contributi che può essere considerata APS."
+
+#: templates/commons/aid_tabs.html:78 templates/commons/aid_tabs.html.py:81
+msgid "Official Development Assistance (ODA)"
+msgstr "Aiuto pubblico allo sviluppo (APS)"
+
+#: templates/commons/aid_tabs.html:82
+msgid ""
+"Official Development Assistance (ODA) is defined as those flows to\n"
+"developing countries and multilateral institutions provided by official "
+"agencies, including state and local\n"
+"governments, or by their executive agencies, each transaction of which meets "
+"the following tests: i) it\n"
+"is administered with the promotion of the economic development and welfare "
+"of developing countries as its\n"
+"main objective; and ii) it is concessional in character and conveys a grant "
+"element of at least 25 per cent."
+msgstr ""
+"Fondi di organismi pubblici, devoluti anche attraverso organismi internazionali, finalizzati al "
+"raggiungimento degli obiettivi di crescita economica e di benessere sociale decisi dai paesi in "
+"via di sviluppo e coerenti con gli obiettivi concordati in sede Nazioni Unite (es. Obiettivi del Millennio). "
+"Secondo un accordo tra i membri dell’OCSE, questi Fondi sono considerati aiuto pubblico allo sviluppo "
+"se sono a fondo perduto (grant) o se sono concessi sotto forma di crediti a condizioni "
+"finanziarie molto agevolate (soft loan). "
+
 #: templates/commons/project_element.html:16
 msgid "No title"
 msgstr "Nessun titolo"
@@ -447,23 +535,7 @@ msgstr "Nessun titolo"
 msgid "Aid types"
 msgstr "Tipologie di aiuti"
 
-#: templates/commons/stats.html:16
-msgid "Aid in numbers"
-msgstr "L'Aiuto in numeri"
-
-#: templates/commons/stats.html:50
-msgid "Italian development activities"
-msgstr "Le iniziative della cooperazione italiana nel mondo"
-
-#: templates/commons/stats.html:54
-msgid "Total funding committed"
-msgstr "I fondi complessivi impegnati"
-
-#: templates/commons/stats.html:58
-msgid "Total funding used"
-msgstr "I fondi complessivi erogati"
-
-#: templates/commons/stats.html:73
+#: templates/commons/stats.html:22
 msgid ""
 "The purpose/sector of destination of a bilateral contribution should be "
 "selected\n"
@@ -486,7 +558,7 @@ msgstr ""
 "stoccaggio agricolo non viene riportata nel settore Costruzione ma "
 "Agricoltura, ecc"
 
-#: templates/commons/stats.html:111
+#: templates/commons/stats.html:60
 msgid ""
 "The typology identifies the modalities that are used in aid delivery. It "
 "classifies transfers from the donor to the first recipient of funds (e.g. "
@@ -500,7 +572,7 @@ msgstr ""
 "organismo multilaterale, o un fondo comune) che riceve i fondi direttamente "
 "dal donatore."
 
-#: templates/commons/stats.html:147
+#: templates/commons/stats.html:96
 msgid ""
 "The channel of delivery is the first implementing partner. It is the entity "
 "that has implementing responsibility\n"
@@ -534,6 +606,10 @@ msgstr "Le iniziative più rilevanti"
 #: templates/commons/top_projects.html:16
 msgid "see all"
 msgstr "vedi tutte"
+
+#: templates/commons/years_bar.html:2
+msgid "Aid in numbers"
+msgstr "L'Aiuto in numeri"
 
 #: templates/projects/project_detail.html:95
 msgid "Project data"

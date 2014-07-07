@@ -83,5 +83,16 @@ $(document).ready(function(){
 	});
 
     // activate popover
-    $('a[rel=info-popover]').popover();
+    // enable popovers
+    $('*[data-toggle="popover"]').popover({container: 'body'});
+    // close all popovers on document click
+    $('body').on('click', function (e) {
+        $('[data-toggle="popover"]').each(function () {
+            //the 'is' for buttons that trigger popups
+            //the 'has' for icons within a button that triggers a popup
+            if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
+                $(this).popover('hide');
+            }
+        });
+    });
 });
