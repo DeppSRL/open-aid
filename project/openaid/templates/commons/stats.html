@@ -28,10 +28,10 @@ should be reported under the sector to which they are directed, not under educat
                 <a href="#" class="readmore-close">{% trans 'close' %} {% icon 'caret-up' %}</a>
             </p>
 
-            <div id="bubble1"></div>
+            <div id="donut-left"></div>
 
             <div class="table-responsive">
-                <table class="table table-condensed table-hover" data-chart="bubble" data-container="bubble1">
+                <table class="table table-condensed table-hover" data-chart="donut" data-container="donut-left">
                     <tbody>
                     {% for sector, tot in sector_stats %}{% if tot > 0.0 %}
                     <tr class="dotted">
@@ -103,10 +103,10 @@ report the borrower (i.e. the first entity outside the donor country that receiv
                 <a href="#" class="readmore-open">{% trans 'read more' %} {% icon 'caret-down' %}</a>
                 <a href="#" class="readmore-close">{% trans 'close' %} {% icon 'caret-up' %}</a>
             </p>
-            <div id="bubble2"></div>
+            <div id="donut-right"></div>
 
             <div class="table-responsive">
-                <table class="table table-condensed table-hover" data-chart="bubble" data-container="bubble2">
+                <table class="table table-condensed table-hover" data-chart="donut" data-container="donut-right">
                     <tbody>
                     {% for agency, tot in agency_stats %}{% if tot > 0.0 %}
                     <tr class="dotted">

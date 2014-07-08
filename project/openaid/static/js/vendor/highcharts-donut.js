@@ -5,6 +5,7 @@ function SetChartDonut(id_donut) {
     var total = 0;
     var number_tr = 0;
     var number_tr2 = 0;
+    var chart;
 
 
     function getTooltip(element, x) {
