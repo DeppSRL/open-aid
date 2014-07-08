@@ -56,7 +56,7 @@
                         <div class="col-md-12">
                             <h4>{% trans 'Description' %}</h4>
                             <p class="readmore small-paragraph" data-max-height="70">
-                                {{ project.description }}
+                                {{ project.description|safe }}
                                 <a href="#" class="readmore-open">{% trans 'read more' %} {% icon 'caret-down' %}</a>
                                 <a href="#" class="readmore-close">{% trans 'close' %} {% icon 'caret-up' %}</a>
                             </p>

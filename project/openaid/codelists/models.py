@@ -5,6 +5,7 @@ from django.utils.translation import ugettext as _
 from model_utils import Choices
 from mptt.fields import TreeForeignKey
 from mptt.models import MPTTModel
+from tinymce import models as tinymce_models
 
 #### ABSTRACT CLASSES
 
@@ -12,7 +13,7 @@ class CodeListModel(models.Model):
 
     code = models.CharField(max_length=16, unique=True)
     name = models.CharField(max_length=512, blank=True)
-    description = models.TextField(blank=True)
+    description = tinymce_models.HTMLField(blank=True)
 
     code_list = ''
     @property
