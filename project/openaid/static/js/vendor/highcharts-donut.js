@@ -6,6 +6,10 @@ function SetChartDonut(id_donut) {
     var number_tr = 0;
     var number_tr2 = 0;
     var chart;
+    var array_valori_no_ripetuti = [];
+    //dal più scuro al più chiaro
+    var array_colori = ["#82040c", "#b40b15", "#ac0808", "#bb0a0a", "#d00909", "#ff0000", "#f43030", "#f24949", "#f05757", "#f74f59"];
+    var cont_colori=0;
 
 
     function getTooltip(element, x) {
@@ -48,7 +52,15 @@ function SetChartDonut(id_donut) {
         percent = percent.toFixed(2).replace('.', ',');
 
         if (valore != "") {
-            var single_obj = [titolo, parseFloat(percent)];
+
+            //ricavo i valori della tabella senza ripetizioni (per la gestione dei colori)
+            if(jQuery.inArray(valore, array_valori_no_ripetuti) == -1) {
+                array_valori_no_ripetuti.push(valore);
+                colore = array_colori[cont_colori];
+                cont_colori++;
+            }
+
+            var single_obj = {y: parseFloat(percent), name:titolo, color: colore};
 
             objs.push(single_obj);
             number_tr2++;
