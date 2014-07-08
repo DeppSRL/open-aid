@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-08 19:16+0200\n"
+"POT-Creation-Date: 2014-07-08 19:23+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -422,6 +422,16 @@ msgstr "Con quali strumenti?"
 #: templates/navbar.html:73
 msgid "Search"
 msgstr "Cerca"
+
+#: templates/codelists/base_codelist.html:19
+#: templates/projects/project_detail.html:12
+msgid "Download JSON"
+msgstr "Scarica i dati in JSON"
+
+#: templates/codelists/base_codelist.html:20
+#: templates/projects/project_detail.html:13
+msgid "Download XML"
+msgstr "Scarica i dati in XML"
 
 #: templates/codelists/recipient_detail.html:33
 #: templates/codelists/recipient_detail.html:53
