@@ -42,9 +42,19 @@ dl#acronyms dt {
 }
 
 #highcharts-tooltip {
-    max-width: 250px;
+    /*max-width: 250px;*/
     font-size: 14px;
 }
+.highcharts-container {
+  overflow: visible !important;
+}
+.highcharts-tooltip span {
+    z-index: 9999 !important;
+    overflow:auto;
+    white-space:normal !important;
+    min-width: 200px;
+}
+.highcharts-tooltip span p { max-width: 250px; }
 
 #main-content #years-header h3 {
     margin-top: 0;
