@@ -28,7 +28,7 @@ class Markers(models.Model):
 
     @property
     def names(self):
-        return self._meta.get_all_field_names()
+        return ['biodiversity', 'climate_adaptation', 'climate_mitigation', 'desertification', 'environment', 'gender', 'pd_gg', 'trade']
 
     def __unicode__(self):
         return ("{}"*8).format(*[getattr(self, name) or '-' for name in self.names])
