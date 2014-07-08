@@ -30,6 +30,8 @@ class Home(MapFiltersContextMixin, TemplateView):
         if not len(focus) and top_projects:
             focus = top_projects[0]
             top_projects = top_projects[1:]
+        else:
+            focus = focus[0]
 
         return super(Home, self).get_context_data(
             project_focus=focus,
