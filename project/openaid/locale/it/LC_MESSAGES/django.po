@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-07 16:42+0200\n"
+"POT-Creation-Date: 2014-07-08 13:39+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -174,121 +174,121 @@ msgstr "Anno d'inizio"
 msgid "End year"
 msgstr "Anno di fine"
 
-#: projects/models.py:41
+#: projects/models.py:43
 msgid "Focus"
 msgstr "Focus on"
 
-#: projects/models.py:155 projects/models.py:166
+#: projects/models.py:161 projects/models.py:172
 msgid "Unkwnon"
 msgstr "Sconosciuto"
 
-#: projects/models.py:156
+#: projects/models.py:162
 msgid "New activity reported"
 msgstr ""
 
-#: projects/models.py:157
+#: projects/models.py:163
 msgid "Revision"
 msgstr ""
 
-#: projects/models.py:158
+#: projects/models.py:164
 msgid "Previously reported activity"
 msgstr ""
 
-#: projects/models.py:159
+#: projects/models.py:165
 msgid "Provisional data"
 msgstr ""
 
-#: projects/models.py:160
+#: projects/models.py:166
 msgid "Commitment = Disbursement"
 msgstr ""
 
-#: projects/models.py:162
+#: projects/models.py:168
 msgid "Nature of submission"
 msgstr ""
 
-#: projects/models.py:167
+#: projects/models.py:173
 msgid "ODA Grants"
 msgstr ""
 
-#: projects/models.py:168
+#: projects/models.py:174
 msgid "ODA Grant-Like"
 msgstr ""
 
-#: projects/models.py:169
+#: projects/models.py:175
 msgid "ODA Loans"
 msgstr ""
 
-#: projects/models.py:170
+#: projects/models.py:176
 msgid "Other Official Flows"
 msgstr ""
 
-#: projects/models.py:171
+#: projects/models.py:177
 msgid "Equity Investment"
 msgstr ""
 
-#: projects/models.py:172
+#: projects/models.py:178
 msgid "Private Grants"
 msgstr ""
 
-#: projects/models.py:173
+#: projects/models.py:179
 msgid "Official Development Assistance"
 msgstr ""
 
-#: projects/models.py:175
+#: projects/models.py:181
 msgid "Flow type"
 msgstr ""
 
-#: projects/models.py:179
+#: projects/models.py:185
 msgid "Unknown"
 msgstr ""
 
-#: projects/models.py:180
+#: projects/models.py:186
 msgid "Bilateral"
 msgstr ""
 
-#: projects/models.py:181
+#: projects/models.py:187
 msgid "Multilateral"
 msgstr ""
 
-#: projects/models.py:182
+#: projects/models.py:188
 msgid "Bilateral, core contributions to NGOs and other private bodies / PPPs"
 msgstr ""
 
-#: projects/models.py:183
+#: projects/models.py:189
 msgid ""
 "Bilateral, ex-post reporting on NGOs' activities funded through core "
 "contributions"
 msgstr ""
 
-#: projects/models.py:184
+#: projects/models.py:190
 msgid "Multilateral outflows"
 msgstr ""
 
-#: projects/models.py:185
+#: projects/models.py:191
 msgid "Private sector outflows"
 msgstr ""
 
-#: projects/models.py:187
+#: projects/models.py:193
 msgid "Bi/Multilateral"
 msgstr ""
 
-#: projects/models.py:189
+#: projects/models.py:195
 msgid "Free Standing Technical Cooperation"
 msgstr ""
 
-#: projects/models.py:190
+#: projects/models.py:196
 msgid "Programme Based Approaches"
 msgstr ""
 
-#: projects/models.py:191
+#: projects/models.py:197
 msgid "Investment Project"
 msgstr ""
 
-#: settings/base.py:348
+#: settings/base.py:349
 msgid "English"
 msgstr "Inglese"
 
-#: settings/base.py:349
+#: settings/base.py:350
 msgid "Italian"
 msgstr "Italiano"
 
@@ -341,10 +341,11 @@ msgstr ""
 "scelte di politica estera italiana, in armonia con gli interventi per il "
 "mantenimento della pace e la gestione dei flussi migratori."
 
-#: templates/home.html:24 templates/home.html.py:109
+#: templates/home.html:24 templates/home.html.py:110
 #: templates/codelists/recipient_detail.html:50
 #: templates/commons/stats.html:27 templates/commons/stats.html.py:62
 #: templates/commons/stats.html:103 templates/projects/project_detail.html:60
+#: templates/search/search_results.html:117
 msgid "read more"
 msgstr "leggi tutto"
 
@@ -366,21 +367,23 @@ msgstr "Impegnati"
 msgid "Used"
 msgstr "Erogati"
 
-#: templates/home.html:106 templates/projects/project_detail.html:57
+#: templates/home.html:107 templates/projects/project_detail.html:57
 msgid "Description"
 msgstr "Descrizione"
 
-#: templates/home.html:110 templates/codelists/recipient_detail.html:51
+#: templates/home.html:111 templates/codelists/recipient_detail.html:51
 #: templates/commons/stats.html:28 templates/commons/stats.html.py:63
 #: templates/commons/stats.html:104 templates/projects/project_detail.html:61
+#: templates/search/search_results.html:118
 msgid "close"
 msgstr "chiudi"
 
-#: templates/home.html:126 templates/projects/project_detail.html:77
+#: templates/home.html:127 templates/projects/project_detail.html:77
+#: templates/search/search_results.html:102
 msgid "Aid type"
 msgstr "Tipologia di aiuto"
 
-#: templates/home.html:132 templates/commons/project_element.html:33
+#: templates/home.html:133 templates/commons/project_element.html:33
 #: templates/projects/project_detail.html:83
 msgid "Channels"
 msgstr "Canali"
@@ -464,21 +467,22 @@ msgid ""
 "subsidies, spending on promotion of development\n"
 "awareness, debt reorganization and administrative costs."
 msgstr ""
-"Flusso finanziario da un paese donatore destinato, direttamente o indirettamente"
-"(ONG/Organismi internazionali), ad un paese in via di sviluppo. Sono compresi in "
-"questa categoria i fondi utilizzati per coprire costi interni nel paese donatore "
-"relativi ad attività di sviluppo, quali quelle per la formazione e l’educazione "
-"allo sviluppo, alla ristrutturazione/cancellazione del debito, alle spese amministrative "
-"del donatore correlate agli aiuti e alle spese per rifugiati."
+"Flusso finanziario da un paese donatore destinato, direttamente o "
+"indirettamente (ONG/Organismi internazionali), ad un paese in via di "
+"sviluppo. Sono compresi in questa categoria i fondi utilizzati per coprire "
+"costi interni nel paese donatore relativi ad attività di sviluppo, quali "
+"quelle per la formazione e l’educazione allo sviluppo, alla ristrutturazione/"
+"cancellazione del debito, alle spese amministrative del donatore correlate "
+"agli aiuti e alle spese per rifugiati."
 
-#: templates/commons/aid_tabs.html:40 templates/commons/aid_tabs.html.py:69
-#: templates/commons/aid_tabs.html:93 templates/commons/stats_multi.html:7
+#: templates/commons/aid_tabs.html:40 templates/commons/aid_tabs.html.py:60
+#: templates/commons/aid_tabs.html:73 templates/commons/stats_multi.html:7
 #: templates/commons/stats_totals.html:7
 msgid "Committed funds"
 msgstr "Fondi Impegnati"
 
-#: templates/commons/aid_tabs.html:44 templates/commons/aid_tabs.html.py:73
-#: templates/commons/aid_tabs.html:97 templates/commons/stats_multi.html:27
+#: templates/commons/aid_tabs.html:44 templates/commons/aid_tabs.html.py:64
+#: templates/commons/aid_tabs.html:77 templates/commons/stats_multi.html:27
 #: templates/commons/stats_totals.html:29
 msgid "Used funds"
 msgstr "Fondi erogati"
@@ -487,45 +491,13 @@ msgstr "Fondi erogati"
 msgid "Activities"
 msgstr "Iniziative"
 
-#: templates/commons/aid_tabs.html:56 templates/commons/aid_tabs.html.py:59
+#: templates/commons/aid_tabs.html:56 templates/commons/stats_multi.html:46
 msgid "Multilateral Official Development Assistance"
 msgstr "Aiuto pubblico Multilaterale"
 
-#: templates/commons/aid_tabs.html:60
-msgid ""
-"These funds are classified as multilateral ODA (all other categories fall\n"
-"under bilateral ODA). The recipient multilateral institution pools "
-"contributions so that they lose their\n"
-"identity and become an integral part of its financial assets. "
-msgstr ""
-"Fondi trasferiti dai paesi donatori alle organizzazioni internazionali di cui fanno parte per "
-"permettere lo svolgimento delle attività proprie di queste organizzazioni a favore dei paesi "
-"in via di sviluppo. Sul sito OCSE-Core Funds è disponibile un elenco completo degli organismi "
-"internazionali che ricevono tali contributi obbligatori (core funds) e la percentuale di tali "
-"contributi che può essere considerata APS."
-
-#: templates/commons/aid_tabs.html:78 templates/commons/aid_tabs.html.py:81
+#: templates/commons/aid_tabs.html:69 templates/commons/stats_totals.html:50
 msgid "Official Development Assistance (ODA)"
 msgstr "Aiuto pubblico allo sviluppo (APS)"
-
-#: templates/commons/aid_tabs.html:82
-msgid ""
-"Official Development Assistance (ODA) is defined as those flows to\n"
-"developing countries and multilateral institutions provided by official "
-"agencies, including state and local\n"
-"governments, or by their executive agencies, each transaction of which meets "
-"the following tests: i) it\n"
-"is administered with the promotion of the economic development and welfare "
-"of developing countries as its\n"
-"main objective; and ii) it is concessional in character and conveys a grant "
-"element of at least 25 per cent."
-msgstr ""
-"Fondi di organismi pubblici, devoluti anche attraverso organismi internazionali, finalizzati al "
-"raggiungimento degli obiettivi di crescita economica e di benessere sociale decisi dai paesi in "
-"via di sviluppo e coerenti con gli obiettivi concordati in sede Nazioni Unite (es. Obiettivi del Millennio). "
-"Secondo un accordo tra i membri dell’OCSE, questi Fondi sono considerati aiuto pubblico allo sviluppo "
-"se sono a fondo perduto (grant) o se sono concessi sotto forma di crediti a condizioni "
-"finanziarie molto agevolate (soft loan). "
 
 #: templates/commons/project_element.html:16
 msgid "No title"
@@ -595,6 +567,41 @@ msgstr ""
 "ci si riferisce al mutuatario (cioè la prima entità al di fuori del paese "
 "donatore che riceve i fondi)."
 
+#: templates/commons/stats_multi.html:49
+msgid ""
+"These funds are classified as multilateral ODA (all other categories fall\n"
+"under bilateral ODA). The recipient multilateral institution pools "
+"contributions so that they lose their\n"
+"identity and become an integral part of its financial assets. "
+msgstr ""
+"Fondi trasferiti dai paesi donatori alle organizzazioni internazionali di "
+"cui fanno parte per permettere lo svolgimento delle attività proprie di "
+"queste organizzazioni a favore dei paesi in via di sviluppo. Sul sito OCSE-"
+"Core Funds è disponibile un elenco completo degli organismi internazionali "
+"che ricevono tali contributi obbligatori (core funds) e la percentuale di "
+"tali contributi che può essere considerata APS."
+
+#: templates/commons/stats_totals.html:53
+msgid ""
+"Official Development Assistance (ODA) is defined as those flows to\n"
+"developing countries and multilateral institutions provided by official "
+"agencies, including state and local\n"
+"governments, or by their executive agencies, each transaction of which meets "
+"the following tests: i) it\n"
+"is administered with the promotion of the economic development and welfare "
+"of developing countries as its\n"
+"main objective; and ii) it is concessional in character and conveys a grant "
+"element of at least 25 per cent."
+msgstr ""
+"Fondi di organismi pubblici, devoluti anche attraverso organismi "
+"internazionali, finalizzati al raggiungimento degli obiettivi di crescita "
+"economica e di benessere sociale decisi dai paesi in via di sviluppo e "
+"coerenti con gli obiettivi concordati in sede Nazioni Unite (es. Obiettivi "
+"del Millennio). Secondo un accordo tra i membri dell’OCSE, questi Fondi sono "
+"considerati aiuto pubblico allo sviluppo se sono a fondo perduto (grant) o "
+"se sono concessi sotto forma di crediti a condizioni finanziarie molto "
+"agevolate (soft loan). "
+
 #: templates/commons/top_projects.html:6
 msgid "Similar initiatives"
 msgstr "Iniziative correlate"
@@ -627,10 +634,35 @@ msgstr "Photo gallery"
 msgid "Projects"
 msgstr "Progetti"
 
-#: templates/search/search_results.html:122
+#: templates/search/search_results.html:76
 msgid "Search result"
 msgstr "Risultati della ricerca"
 
-#: templates/search/search_results.html:124
+#: templates/search/search_results.html:79
 msgid "Remove filters"
 msgstr "Rimuovi filtri"
+
+#: templates/search/search_results.html:90
+msgid "Sector"
+msgstr "Settore"
+
+#: templates/search/search_results.html:94
+msgid "Agency"
+msgstr "Ente"
+
+#: templates/search/search_results.html:98
+msgid "Year"
+msgstr "Anno"
+
+#: templates/search/search_results.html:106
+#, fuzzy
+msgid "Finance type"
+msgstr "Tipologia di aiuto"
+
+#: templates/search/search_results.html:110
+msgid "Channel"
+msgstr "Canale"
+
+#: templates/search/search_results.html:114
+msgid "Recipient"
+msgstr "Destinatario"
