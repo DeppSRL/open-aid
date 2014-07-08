@@ -53,16 +53,7 @@ awareness, debt reorganization and administrative costs.{% endblocktrans %}">
 
     </a></li>
     <li style="width: 30%"><a href="#multi-tab" role="tab" data-toggle="tab">
-        <h4>{% trans 'Multilateral Official Development Assistance' %}
-            <span
-               data-toggle="popover"
-               title="{% trans 'Multilateral Official Development Assistance' %}"
-               data-content="{% blocktrans %}These funds are classified as multilateral ODA (all other categories fall
-under bilateral ODA). The recipient multilateral institution pools contributions so that they lose their
-identity and become an integral part of its financial assets. {% endblocktrans %}">
-                {% icon 'question-circle' %}
-            </span>
-        </h4>
+        <h4>{% trans 'Multilateral Official Development Assistance' %}</h4>
         <div class="row">
             <div class="col-md-6">
                 <span class="currency">€ {{ multi_commitments_sum|floatformat:3 }} <span>mln</span></span><br/>
@@ -75,18 +66,7 @@ identity and become an integral part of its financial assets. {% endblocktrans %
         </div>
     </a></li>
     <li style="width: 30%"><a href="#total-aid-tab" role="tab" data-toggle="tab">
-        <h4>{% trans 'Official Development Assistance (ODA)' %}
-            <span
-               data-toggle="popover"
-               title="{% trans 'Official Development Assistance (ODA)' %}"
-               data-content="{% blocktrans %}Official Development Assistance (ODA) is defined as those flows to
-developing countries and multilateral institutions provided by official agencies, including state and local
-governments, or by their executive agencies, each transaction of which meets the following tests: i) it
-is administered with the promotion of the economic development and welfare of developing countries as its
-main objective; and ii) it is concessional in character and conveys a grant element of at least 25 per cent.{% endblocktrans %}">
-                {% icon 'question-circle' %}
-            </span>
-        </h4>
+        <h4>{% trans 'Official Development Assistance (ODA)' %}</h4>
         <div class="row">
             <div class="col-md-6">
                 <span class="currency">€ {{ total_commitments_sum|floatformat:3 }} <span>mln</span></span><br/>
