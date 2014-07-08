@@ -33,11 +33,10 @@
                     <ul class="list-unstyled">
                         {% for result in page.object_list %}
                         <li>
-                            {% include 'snippets/../commons/project_element.html' with project=result.object %}
+                            {% include 'commons/project_element.html' with project=result.object %}
                         </li>
                         {% endfor %}
                     </ul>
-                    <a href="#" class="read-more pull-right pad">VEDI TUTTE LE INIZIATIVE <span class="fa fa-align-justify"> </span></a>
                 </div>
             </div>
             <div class="ordering">

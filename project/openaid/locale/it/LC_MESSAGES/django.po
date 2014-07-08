@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-08 16:17+0200\n"
+"POT-Creation-Date: 2014-07-08 17:49+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -350,7 +350,7 @@ msgstr ""
 "mantenimento della pace e la gestione dei flussi migratori."
 
 #: templates/home.html:24 templates/home.html.py:110
-#: templates/codelists/recipient_detail.html:50
+#: templates/codelists/recipient_detail.html:49
 #: templates/commons/stats.html:27 templates/commons/stats.html.py:62
 #: templates/commons/stats.html:103 templates/projects/project_detail.html:60
 #: templates/search/search_results.html:117
@@ -363,11 +363,13 @@ msgstr "Focus on"
 
 #: templates/home.html:74 templates/commons/project_element.html:21
 #: templates/projects/project_detail.html:40
+#: templates/projects/project_detail.html:100
 msgid "Committed"
 msgstr "Impegnati"
 
 #: templates/home.html:76 templates/commons/project_element.html:24
 #: templates/projects/project_detail.html:41
+#: templates/projects/project_detail.html:101
 msgid "Used"
 msgstr "Erogati"
 
@@ -375,7 +377,7 @@ msgstr "Erogati"
 msgid "Description"
 msgstr "Descrizione"
 
-#: templates/home.html:111 templates/codelists/recipient_detail.html:51
+#: templates/home.html:111 templates/codelists/recipient_detail.html:50
 #: templates/commons/stats.html:28 templates/commons/stats.html.py:63
 #: templates/commons/stats.html:104 templates/projects/project_detail.html:61
 #: templates/search/search_results.html:118
@@ -412,37 +414,37 @@ msgstr "Con quali strumenti?"
 msgid "Search"
 msgstr "Cerca"
 
-#: templates/codelists/recipient_detail.html:34
-#: templates/codelists/recipient_detail.html:54
+#: templates/codelists/recipient_detail.html:33
+#: templates/codelists/recipient_detail.html:53
 msgid "Info"
 msgstr "Info"
 
-#: templates/codelists/recipient_detail.html:36
-#: templates/codelists/recipient_detail.html:56
+#: templates/codelists/recipient_detail.html:35
+#: templates/codelists/recipient_detail.html:55
 msgid "Population"
 msgstr "Popolazione"
 
-#: templates/codelists/recipient_detail.html:37
-#: templates/codelists/recipient_detail.html:57
+#: templates/codelists/recipient_detail.html:36
+#: templates/codelists/recipient_detail.html:56
 msgid "Population growth"
 msgstr "Crescita demografica"
 
-#: templates/codelists/recipient_detail.html:38
-#: templates/codelists/recipient_detail.html:58
+#: templates/codelists/recipient_detail.html:37
+#: templates/codelists/recipient_detail.html:57
 msgid "GDP"
 msgstr "PIL"
 
-#: templates/codelists/recipient_detail.html:39
-#: templates/codelists/recipient_detail.html:59
+#: templates/codelists/recipient_detail.html:38
+#: templates/codelists/recipient_detail.html:58
 msgid "GDP per capita"
 msgstr "PIL pro capite"
 
-#: templates/codelists/recipient_detail.html:41
-#: templates/codelists/recipient_detail.html:61
+#: templates/codelists/recipient_detail.html:40
+#: templates/codelists/recipient_detail.html:60
 msgid "OECD data"
 msgstr "Fonte: OCSE"
 
-#: templates/codelists/recipient_detail.html:47
+#: templates/codelists/recipient_detail.html:46
 msgid "Italian development aid in brief"
 msgstr "Le politiche di cooperazione nel Paese"
 
@@ -500,8 +502,12 @@ msgid "Multilateral Official Development Assistance"
 msgstr "Aiuto pubblico Multilaterale"
 
 #: templates/commons/aid_tabs.html:69 templates/commons/stats_totals.html:50
-msgid "Official Development Assistance (ODA)"
-msgstr "Aiuto pubblico allo sviluppo (APS)"
+msgid "Official Development Assistance (ODA) - total"
+msgstr "Totale dell'aiuto pubblico allo sviluppo (APS)"
+
+#: templates/commons/main_panel.html:38
+msgid "Committed funds, amounts in euros."
+msgstr "Fondi impegnati, valori in euro"
 
 #: templates/commons/project_element.html:16
 msgid "No title"
@@ -618,9 +624,13 @@ msgstr "Le iniziative più rilevanti"
 msgid "see all"
 msgstr "vedi tutte"
 
-#: templates/commons/years_bar.html:2
+#: templates/commons/years_bar.html:3
 msgid "Aid in numbers"
 msgstr "L'Aiuto in numeri"
+
+#: templates/commons/years_bar.html:4
+msgid "Bilateral and Multi-bilateral"
+msgstr "Bilaterale e Multi-Bilaterale"
 
 #: templates/projects/project_detail.html:45
 #: templates/search/search_results.html:94
@@ -631,11 +641,16 @@ msgstr "Finanziatore"
 msgid "Channel reported"
 msgstr "Esecutore"
 
-#: templates/projects/project_detail.html:95
+#: templates/projects/project_detail.html:99
+#: templates/search/search_results.html:98
+msgid "Year"
+msgstr "Anno"
+
+#: templates/projects/project_detail.html:115
 msgid "Project data"
 msgstr "Dati del progetto"
 
-#: templates/projects/project_detail.html:130
+#: templates/projects/project_detail.html:150
 msgid "Photo gallery"
 msgstr "Photo gallery"
 
@@ -655,10 +670,6 @@ msgstr "Rimuovi filtri"
 msgid "Sector"
 msgstr "Settore"
 
-#: templates/search/search_results.html:98
-msgid "Year"
-msgstr "Anno"
-
 #: templates/search/search_results.html:106
 msgid "Finance type"
 msgstr "Tipo di finanziamento"
@@ -670,6 +681,3 @@ msgstr "Canale"
 #: templates/search/search_results.html:114
 msgid "Recipient"
 msgstr "Destinatario"
-
-#~ msgid "Documents"
-#~ msgstr "Documenti"

@@ -42,6 +42,10 @@ dl#acronyms dt {
 }
 
 
+#main-content #years-header h3 {
+    margin-top: 0;
+    font-size: 14px;
+}
 #main-content .years-navigation {
     margin-bottom: 0 !important;
     margin-top: 30px !important;;
