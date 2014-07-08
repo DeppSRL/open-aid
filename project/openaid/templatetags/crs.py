@@ -39,7 +39,8 @@ def crs_stats(context, instance=None, year=None, show_map=True):
 
     sectors = _get_code_list_items(instance, codelists_models.Sector)
     # channels = _get_code_list_items(instance, codelists_models.Channel)
-    agencies = codelists_models.Agency.objects.all() if not instance else []
+    # agencies = codelists_models.Agency.objects.all() if not instance else []
+    agencies = codelists_models.Agency.objects.all() if not isinstance(instance, codelists_models.Agency) else []
     aid_types = _get_code_list_items(instance, codelists_models.AidType)
 
     statistify = lambda item: (item, item.get_total_commitment(**filters))
