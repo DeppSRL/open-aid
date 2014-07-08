@@ -19,7 +19,6 @@
         {{ block.super }}
     </div>
 </div>
-
 {% endblock %}
 
 {% block codelist_statistics %}
@@ -45,8 +44,8 @@
     <div class="col-md-8">
         {% if object.description %}
         <h3>{% trans "Italian development aid in brief" %}</h3>
-        <div class="readmore" data-max-height="440">
-            {{ object.description }}
+        <div class="readmore" data-max-height="380">
+            {{ object.description|safe }}
             <a href="#" class="readmore-open">{% trans 'read more' %} {% icon 'caret-down' %}</a>
             <a href="#" class="readmore-close">{% trans 'close' %} {% icon 'caret-up' %}</a>
         </div>
@@ -66,6 +65,4 @@
     </div>
 
 </div><!-- .row -->
-
-<div class="spacer"> </div>
 {% endblock %}

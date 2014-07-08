@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-08 13:39+0200\n"
+"POT-Creation-Date: 2014-07-08 16:17+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,43 +18,43 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: codelists/models.py:77
+#: codelists/models.py:82
 msgid "LDC"
 msgstr ""
 
-#: codelists/models.py:78
+#: codelists/models.py:83
 msgid "Other LIC"
 msgstr ""
 
-#: codelists/models.py:79
+#: codelists/models.py:84
 msgid "LMIC"
 msgstr ""
 
-#: codelists/models.py:80
+#: codelists/models.py:85
 msgid "UMIC"
 msgstr ""
 
-#: codelists/models.py:81
+#: codelists/models.py:86
 msgid "Part I Unallocated by income"
 msgstr ""
 
-#: codelists/models.py:82
+#: codelists/models.py:87
 msgid "MADCT"
 msgstr ""
 
-#: codelists/models.py:132
+#: codelists/models.py:137
 msgid "DAC members"
 msgstr ""
 
-#: codelists/models.py:133
+#: codelists/models.py:138
 msgid "Multilateral donors"
 msgstr ""
 
-#: codelists/models.py:134
+#: codelists/models.py:139
 msgid "Non-DAC donors"
 msgstr ""
 
-#: codelists/models.py:135
+#: codelists/models.py:140
 msgid "Private donors"
 msgstr ""
 
@@ -312,9 +312,17 @@ msgstr "Open data"
 msgid "Open Aid is a project by"
 msgstr "Open Aid è un progetto di"
 
-#: templates/home.html:13
+#: templates/header.html:10
+msgid "show/hide navigation"
+msgstr "mostra/nascondi navigazione"
+
+#: templates/header.html:20 templates/home.html:13
 msgid "Italian Development Cooperation"
 msgstr "La Cooperazione Italiana allo Sviluppo"
+
+#: templates/header.html:21 templates/home.html:30
+msgid "News"
+msgstr "Notizie"
 
 #: templates/home.html:16
 msgid ""
@@ -348,10 +356,6 @@ msgstr ""
 #: templates/search/search_results.html:117
 msgid "read more"
 msgstr "leggi tutto"
-
-#: templates/home.html:30
-msgid "News"
-msgstr "Notizie"
 
 #: templates/home.html:65
 msgid "Focus on"
@@ -618,15 +622,20 @@ msgstr "vedi tutte"
 msgid "Aid in numbers"
 msgstr "L'Aiuto in numeri"
 
+#: templates/projects/project_detail.html:45
+#: templates/search/search_results.html:94
+msgid "Agency"
+msgstr "Finanziatore"
+
+#: templates/projects/project_detail.html:49
+msgid "Channel reported"
+msgstr "Esecutore"
+
 #: templates/projects/project_detail.html:95
 msgid "Project data"
 msgstr "Dati del progetto"
 
-#: templates/projects/project_detail.html:119
-msgid "Documents"
-msgstr "Documenti"
-
-#: templates/projects/project_detail.html:129
+#: templates/projects/project_detail.html:130
 msgid "Photo gallery"
 msgstr "Photo gallery"
 
@@ -646,18 +655,13 @@ msgstr "Rimuovi filtri"
 msgid "Sector"
 msgstr "Settore"
 
-#: templates/search/search_results.html:94
-msgid "Agency"
-msgstr "Ente"
-
 #: templates/search/search_results.html:98
 msgid "Year"
 msgstr "Anno"
 
 #: templates/search/search_results.html:106
-#, fuzzy
 msgid "Finance type"
-msgstr "Tipologia di aiuto"
+msgstr "Tipo di finanziamento"
 
 #: templates/search/search_results.html:110
 msgid "Channel"
@@ -666,3 +670,6 @@ msgstr "Canale"
 #: templates/search/search_results.html:114
 msgid "Recipient"
 msgstr "Destinatario"
+
+#~ msgid "Documents"
+#~ msgstr "Documenti"
