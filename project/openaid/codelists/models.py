@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.core.urlresolvers import reverse
 from django.db import models
 from django.db.models import Sum, get_model
 from django.utils.translation import ugettext as _
@@ -43,6 +44,9 @@ class CodeListModel(models.Model):
 
     def get_total_disbursement(self, **filters):
         return self.get_total('disbursement', **filters)
+
+    def get_absolute_url(self):
+        return reverse('codelists:%s-detail' % self.code_list, kwargs={'code': self.code})
 
     def __unicode__(self):
         return self.name

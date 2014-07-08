@@ -41,3 +41,9 @@ class AidTypeView(CodeListView):
 
 class AgencyView(CodeListView):
     model = models.Agency
+
+class FinanceTypeView(CodeListView):
+    model = models.FinanceType
+
+class DonorView(CodeListView):
+    model = models.Donor
