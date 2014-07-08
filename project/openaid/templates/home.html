@@ -117,7 +117,7 @@ aimed at maintaining peace and managing migration flows.{% endblocktrans %}
                         <ul class="nav nav-pills top-dotted">
                             {% for sector in project_focus.sectors|unique %}
                             <li>
-                                <a href="{% url 'codelists:sector-detail' code=sector.code %}">{% icon 'chevron-right' %}{{ sector.name }}</a>
+                                <a href="{% url 'codelists:sector-detail' code=sector.get_root.code %}">{% icon 'chevron-right' %}{{ sector.get_root.name }}</a>
                             </li>
                             {% endfor %}
                         </ul>

@@ -5,7 +5,7 @@
     <ul class="nav nav-pills ">
         {% for sector in project.sectors|unique %}
         <li>
-            <a href="{% url 'codelists:sector-detail' code=sector.code %}"><span class="fa fa-chevron-right"> </span>{{ sector.name }}</a>
+            <a href="{% url 'codelists:sector-detail' code=sector.parent.code|default:sector.code %}"><span class="fa fa-chevron-right"> </span>{{ sector.parent.name|default:sector.name }}</a>
         </li>
         {% endfor %}
     </ul>

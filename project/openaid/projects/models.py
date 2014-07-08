@@ -105,16 +105,19 @@ class Project(models.Model):
         return self.agencies(year=year)[0]
 
     def aid_types(self):
-        return self._activities_map('aid_type')
+        return self._activities_map('aid_type', skip_none=True)
 
     def channels(self):
-        return self._activities_map('channel')
+        return self._activities_map('channel', skip_none=True)
 
     def finance_types(self):
-        return self._activities_map('finance_type')
+        return self._activities_map('finance_type', skip_none=True)
 
     def sectors(self):
-        return self._activities_map('sector')
+        return self._activities_map('sector', skip_none=True)
+
+    def purpose(self, year=None):
+        return self._activities_map('sector', year=None, skip_none=True)[0]
 
     def channel_reported(self, year=None):
         return self._activities_map('channel_reported', year=year)[0]
@@ -136,6 +139,36 @@ class Project(models.Model):
 
     def total_disbursement(self):
         return sum(self._activities_map('disbursement', skip_none=True), 0.0)
+
+    def flow_type(self, year=None):
+        for a in self.activities(year=year):
+            return a.get_flow_type_display()
+        return None
+
+    def bi_multi(self, year=None):
+        for a in self.activities(year=year):
+            return a.get_bi_multi_display()
+        return None
+
+    def finance_type(self, year=None):
+        return self._activities_map('finance_type', year=year, skip_none=True)[0]
+
+    def completion_date(self, year=None):
+        dates = self._activities_map('completion_date', year=year, skip_none=True)
+        return dates[0] if dates else None
+
+    def expected_start_date(self, year=None):
+        dates = self._activities_map('expected_start_date', year=year, skip_none=True)
+        return dates[0] if dates else None
+
+    def is_ftc(self, year=None):
+        return any(self._activities_map('is_ftc', year=year))
+
+    def is_pba(self, year=None):
+        return any(self._activities_map('is_pba', year=year))
+
+    def is_investment(self, year=None):
+        return any(self._activities_map('is_investment', year=year))
 
     def get_absolute_url(self):
         return reverse('projects:project-detail', kwargs={'pk': self.pk})

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-08 17:49+0200\n"
+"POT-Creation-Date: 2014-07-08 19:16+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -178,109 +178,109 @@ msgstr "Anno di fine"
 msgid "Focus"
 msgstr "Focus on"
 
-#: projects/models.py:161 projects/models.py:172
+#: projects/models.py:194 projects/models.py:205
 msgid "Unkwnon"
 msgstr "Sconosciuto"
 
-#: projects/models.py:162
+#: projects/models.py:195
 msgid "New activity reported"
 msgstr ""
 
-#: projects/models.py:163
+#: projects/models.py:196
 msgid "Revision"
 msgstr ""
 
-#: projects/models.py:164
+#: projects/models.py:197
 msgid "Previously reported activity"
 msgstr ""
 
-#: projects/models.py:165
+#: projects/models.py:198
 msgid "Provisional data"
 msgstr ""
 
-#: projects/models.py:166
+#: projects/models.py:199
 msgid "Commitment = Disbursement"
 msgstr ""
 
-#: projects/models.py:168
+#: projects/models.py:201
 msgid "Nature of submission"
 msgstr ""
 
-#: projects/models.py:173
+#: projects/models.py:206
 msgid "ODA Grants"
 msgstr ""
 
-#: projects/models.py:174
+#: projects/models.py:207
 msgid "ODA Grant-Like"
 msgstr ""
 
-#: projects/models.py:175
+#: projects/models.py:208
 msgid "ODA Loans"
 msgstr ""
 
-#: projects/models.py:176
+#: projects/models.py:209
 msgid "Other Official Flows"
 msgstr ""
 
-#: projects/models.py:177
+#: projects/models.py:210
 msgid "Equity Investment"
 msgstr ""
 
-#: projects/models.py:178
+#: projects/models.py:211
 msgid "Private Grants"
 msgstr ""
 
-#: projects/models.py:179
+#: projects/models.py:212
 msgid "Official Development Assistance"
 msgstr ""
 
-#: projects/models.py:181
+#: projects/models.py:214 templates/projects/project_detail.html:131
 msgid "Flow type"
 msgstr ""
 
-#: projects/models.py:185
+#: projects/models.py:218
 msgid "Unknown"
 msgstr ""
 
-#: projects/models.py:186
+#: projects/models.py:219
 msgid "Bilateral"
 msgstr ""
 
-#: projects/models.py:187
+#: projects/models.py:220
 msgid "Multilateral"
 msgstr ""
 
-#: projects/models.py:188
+#: projects/models.py:221
 msgid "Bilateral, core contributions to NGOs and other private bodies / PPPs"
 msgstr ""
 
-#: projects/models.py:189
+#: projects/models.py:222
 msgid ""
 "Bilateral, ex-post reporting on NGOs' activities funded through core "
 "contributions"
 msgstr ""
 
-#: projects/models.py:190
+#: projects/models.py:223
 msgid "Multilateral outflows"
 msgstr ""
 
-#: projects/models.py:191
+#: projects/models.py:224
 msgid "Private sector outflows"
 msgstr ""
 
-#: projects/models.py:193
+#: projects/models.py:226 templates/projects/project_detail.html:134
 msgid "Bi/Multilateral"
 msgstr ""
 
-#: projects/models.py:195
+#: projects/models.py:228 templates/projects/project_detail.html:136
 msgid "Free Standing Technical Cooperation"
 msgstr ""
 
-#: projects/models.py:196
+#: projects/models.py:229 templates/projects/project_detail.html:137
 msgid "Programme Based Approaches"
 msgstr ""
 
-#: projects/models.py:197
+#: projects/models.py:230 templates/projects/project_detail.html:138
 msgid "Investment Project"
 msgstr ""
 
@@ -353,7 +353,7 @@ msgstr ""
 #: templates/codelists/recipient_detail.html:49
 #: templates/commons/stats.html:27 templates/commons/stats.html.py:62
 #: templates/commons/stats.html:103 templates/projects/project_detail.html:60
-#: templates/search/search_results.html:117
+#: templates/search/search_results.html:116
 msgid "read more"
 msgstr "leggi tutto"
 
@@ -373,6 +373,15 @@ msgstr "Impegnati"
 msgid "Used"
 msgstr "Erogati"
 
+#: templates/home.html:96 templates/projects/project_detail.html:45
+#: templates/search/search_results.html:93
+msgid "Agency"
+msgstr "Finanziatore"
+
+#: templates/home.html:100 templates/projects/project_detail.html:49
+msgid "Channel reported"
+msgstr "Esecutore"
+
 #: templates/home.html:107 templates/projects/project_detail.html:57
 msgid "Description"
 msgstr "Descrizione"
@@ -380,12 +389,12 @@ msgstr "Descrizione"
 #: templates/home.html:111 templates/codelists/recipient_detail.html:50
 #: templates/commons/stats.html:28 templates/commons/stats.html.py:63
 #: templates/commons/stats.html:104 templates/projects/project_detail.html:61
-#: templates/search/search_results.html:118
+#: templates/search/search_results.html:117
 msgid "close"
 msgstr "chiudi"
 
 #: templates/home.html:127 templates/projects/project_detail.html:77
-#: templates/search/search_results.html:102
+#: templates/search/search_results.html:101
 msgid "Aid type"
 msgstr "Tipologia di aiuto"
 
@@ -632,17 +641,8 @@ msgstr "L'Aiuto in numeri"
 msgid "Bilateral and Multi-bilateral"
 msgstr "Bilaterale e Multi-Bilaterale"
 
-#: templates/projects/project_detail.html:45
-#: templates/search/search_results.html:94
-msgid "Agency"
-msgstr "Finanziatore"
-
-#: templates/projects/project_detail.html:49
-msgid "Channel reported"
-msgstr "Esecutore"
-
 #: templates/projects/project_detail.html:99
-#: templates/search/search_results.html:98
+#: templates/search/search_results.html:97
 msgid "Year"
 msgstr "Anno"
 
@@ -650,7 +650,28 @@ msgstr "Anno"
 msgid "Project data"
 msgstr "Dati del progetto"
 
-#: templates/projects/project_detail.html:150
+#: templates/projects/project_detail.html:118
+msgid "Expected start date"
+msgstr "Data inizio prevista"
+
+#: templates/projects/project_detail.html:121
+msgid "Completion date"
+msgstr "Data di completamento"
+
+#: templates/projects/project_detail.html:123
+msgid "CRSID"
+msgstr "CRSID"
+
+#: templates/projects/project_detail.html:124
+msgid "Purpose"
+msgstr "Scopo"
+
+#: templates/projects/project_detail.html:128
+#: templates/search/search_results.html:105
+msgid "Finance type"
+msgstr "Tipo di finanziamento"
+
+#: templates/projects/project_detail.html:167
 msgid "Photo gallery"
 msgstr "Photo gallery"
 
@@ -658,26 +679,22 @@ msgstr "Photo gallery"
 msgid "Projects"
 msgstr "Progetti"
 
-#: templates/search/search_results.html:76
+#: templates/search/search_results.html:75
 msgid "Search result"
 msgstr "Risultati della ricerca"
 
-#: templates/search/search_results.html:79
+#: templates/search/search_results.html:78
 msgid "Remove filters"
 msgstr "Rimuovi filtri"
 
-#: templates/search/search_results.html:90
+#: templates/search/search_results.html:89
 msgid "Sector"
 msgstr "Settore"
 
-#: templates/search/search_results.html:106
-msgid "Finance type"
-msgstr "Tipo di finanziamento"
-
-#: templates/search/search_results.html:110
+#: templates/search/search_results.html:109
 msgid "Channel"
 msgstr "Canale"
 
-#: templates/search/search_results.html:114
+#: templates/search/search_results.html:113
 msgid "Recipient"
 msgstr "Destinatario"
