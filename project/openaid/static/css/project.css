@@ -194,3 +194,15 @@ ul.gallery-small li {
     height: 90px;
     width: 90px;
 }
+/* modal */
+#myModal .controls {
+    width:50px;
+    display:block;
+    font-size:11px;
+    padding-top:8px;
+    font-weight:bold;
+}
+#myModal .next {
+    float:right;
+    text-align:right;
+}
