@@ -168,3 +168,29 @@ p.readmore { margin-bottom: 0; }
 
 .edit-filters { font-size: 13px; }
 #main-content .pagination > .active > a { border-color: #f7505a; background-color: #f7505a; color: white; }
+.gallery img { min-height:80px; height:80px; }
+ul.gallery {
+    padding:0 0 0 0;
+    margin:0 0 0 0;
+    list-style:none;
+}
+ul.gallery li {
+
+    list-style:none;
+    float: left;
+    height: 140px;
+    width: 140px;
+    margin: 5px;
+    overflow: hidden;
+}
+ul.gallery li img {
+    cursor: pointer;
+    display: inline-block;
+    min-width: 100%;
+    min-height: 100%;
+    -ms-interpolation-mode: bicubic; /* Better image scaling in IE */
+}
+ul.gallery-small li {
+    height: 90px;
+    width: 90px;
+}

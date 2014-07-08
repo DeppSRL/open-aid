@@ -83,13 +83,14 @@ aimed at maintaining peace and managing migration flows.{% endblocktrans %}
                              <span class="light-gray eleven">{{ project_focus.start_year }}-{{ project_focus.end_eyar }}</span>
                         </div>
                         <div class="small-spacer"></div>
-                        <div class="row no-marg">
-                            {% for i in '1234' %}
-                                <div class="col-md-3"><img src="{% static 'img/contents/thumbnail.jpg' %}"
-                                                           class="img-responsive img-thumbnail"></div>
+                        {% with photo_set=project.photo_set.all %}{% if photo_set|length > 0 %}
+                        <ul class="gallery gallery-small">
+                            {% for photo in photo_set %}
+                            <li><img src="{{ photo.file.url }}"></li>
                             {% endfor %}
-                        </div>
+                        </ul>
                         <div class="spacer"></div>
+                        {% endif %}{% endwith %}
                         <div class="row no-marg">
                             <div class="col-md-6">
                                 <h4>FINANZIATORE</h4>

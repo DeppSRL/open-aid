@@ -11,6 +11,8 @@ django-environ>=0.3
 
 # Forms
 django-braces
+django-tinymce
+Pillow==2.5.0
 
 # Models
 South
@@ -29,8 +31,6 @@ lxml
 cssselect
 pysolr
 django-bootstrap-pagination==1.5.0
-
-django-tinymce
 
 # OpenAID specific
 csvkit

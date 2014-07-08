@@ -246,6 +246,7 @@ LOCAL_APPS = (
     'openaid.codelists',
     'openaid.projects',
     'openaid.pages',
+    'openaid.attachments',
     'tagging',
     'blog',
     'faq',

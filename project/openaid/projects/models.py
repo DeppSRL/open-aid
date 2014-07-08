@@ -1,3 +1,5 @@
+from django.contrib.contenttypes.generic import GenericRelation
+from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils.translation import ugettext as _
 from model_utils import Choices
@@ -39,6 +41,7 @@ class Project(models.Model):
     start_year = models.PositiveSmallIntegerField()
     end_year = models.PositiveSmallIntegerField()
     has_focus = models.BooleanField(_('Focus'), default=False)
+    photo_set = GenericRelation('attachments.Photo')
 
     @classmethod
     def get_top_projects(cls, qnt=3, order_by=None, year=None, **filters):
@@ -133,6 +136,9 @@ class Project(models.Model):
 
     def total_disbursement(self):
         return sum(self._activities_map('disbursement', skip_none=True), 0.0)
+
+    def get_absolute_url(self):
+        return reverse('projects:project-detail', kwargs={'pk': self.pk})
 
     class Meta:
         unique_together = (('crsid', 'recipient'),)

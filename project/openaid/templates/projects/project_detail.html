@@ -127,12 +127,11 @@
 
         <div class="col-md-8">
             <h2>{% trans 'Photo gallery' %}</h2>
-            <div class="row no-marg">
-                {# MOCKUP #}
-                {% for i in '1234' %}
-                <div class="col-md-3"><a href="#"><img src="{% static 'img/contents/thumbnail.jpg' %}" class="img-responsive img-thumbnail"></a></div>
+            <ul class="gallery">
+                {% for photo in project.photo_set.all %}
+                <li><img src="{{ photo.file.url }}"></li>
                 {% endfor %}
-            </div>
+            </ul>
         </div>
      </div><!-- .row -->
 
@@ -141,5 +140,14 @@
             {% include 'commons/top_projects.html' with project=project top_projects=project.related_projects %}
         </div>
     </div>
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 
 {% endblock content %}
