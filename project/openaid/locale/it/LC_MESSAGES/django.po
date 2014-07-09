@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-08 19:23+0200\n"
+"POT-Creation-Date: 2014-07-09 18:34+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,43 +18,43 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: codelists/models.py:82
+#: codelists/models.py:83
 msgid "LDC"
 msgstr ""
 
-#: codelists/models.py:83
+#: codelists/models.py:84
 msgid "Other LIC"
 msgstr ""
 
-#: codelists/models.py:84
+#: codelists/models.py:85
 msgid "LMIC"
 msgstr ""
 
-#: codelists/models.py:85
+#: codelists/models.py:86
 msgid "UMIC"
 msgstr ""
 
-#: codelists/models.py:86
+#: codelists/models.py:87
 msgid "Part I Unallocated by income"
 msgstr ""
 
-#: codelists/models.py:87
+#: codelists/models.py:88
 msgid "MADCT"
 msgstr ""
 
-#: codelists/models.py:137
+#: codelists/models.py:138
 msgid "DAC members"
 msgstr ""
 
-#: codelists/models.py:138
+#: codelists/models.py:139
 msgid "Multilateral donors"
 msgstr ""
 
-#: codelists/models.py:139
+#: codelists/models.py:140
 msgid "Non-DAC donors"
 msgstr ""
 
-#: codelists/models.py:140
+#: codelists/models.py:141
 msgid "Private donors"
 msgstr ""
 
@@ -244,11 +244,11 @@ msgstr ""
 
 #: projects/models.py:219
 msgid "Bilateral"
-msgstr ""
+msgstr "Bilaterale"
 
 #: projects/models.py:220
 msgid "Multilateral"
-msgstr ""
+msgstr "Multilaterale"
 
 #: projects/models.py:221
 msgid "Bilateral, core contributions to NGOs and other private bodies / PPPs"
@@ -270,7 +270,7 @@ msgstr ""
 
 #: projects/models.py:226 templates/projects/project_detail.html:134
 msgid "Bi/Multilateral"
-msgstr ""
+msgstr "Bi/Multilaterale"
 
 #: projects/models.py:228 templates/projects/project_detail.html:136
 msgid "Free Standing Technical Cooperation"
@@ -282,13 +282,13 @@ msgstr ""
 
 #: projects/models.py:230 templates/projects/project_detail.html:138
 msgid "Investment Project"
-msgstr ""
+msgstr "Progetto di investimento"
 
-#: settings/base.py:349
+#: settings/base.py:350
 msgid "English"
 msgstr "Inglese"
 
-#: settings/base.py:350
+#: settings/base.py:351
 msgid "Italian"
 msgstr "Italiano"
 
@@ -433,6 +433,11 @@ msgstr "Scarica i dati in JSON"
 msgid "Download XML"
 msgstr "Scarica i dati in XML"
 
+#: templates/codelists/base_codelist.html:25
+#: templates/commons/aid_tabs.html:11
+msgid "Show all activities"
+msgstr "Mostra tutte le iniziative"
+
 #: templates/codelists/recipient_detail.html:33
 #: templates/codelists/recipient_detail.html:53
 msgid "Info"
@@ -467,23 +472,23 @@ msgstr "Fonte: OCSE"
 msgid "Italian development aid in brief"
 msgstr "Le politiche di cooperazione nel Paese"
 
-#: templates/commons/aid_tabs.html:9
+#: templates/commons/aid_tabs.html:10
 msgid "Italian development activities"
 msgstr "Le iniziative della cooperazione italiana nel mondo"
 
-#: templates/commons/aid_tabs.html:13
+#: templates/commons/aid_tabs.html:16
 msgid "Total funding committed"
 msgstr "I fondi complessivi impegnati"
 
-#: templates/commons/aid_tabs.html:17
+#: templates/commons/aid_tabs.html:20
 msgid "Total funding used"
 msgstr "I fondi complessivi erogati"
 
-#: templates/commons/aid_tabs.html:24 templates/commons/aid_tabs.html.py:27
+#: templates/commons/aid_tabs.html:27 templates/commons/aid_tabs.html.py:30
 msgid "Bilateral and Multi-bilateral Official Development Assistance"
 msgstr "Aiuto pubblico Bilaterale e Multi-Bilaterale"
 
-#: templates/commons/aid_tabs.html:28
+#: templates/commons/aid_tabs.html:31
 msgid ""
 "Bilateral transactions are those undertaken by a donor country directly\n"
 "with a developing country.  They also encompass transactions with non-"
@@ -500,27 +505,27 @@ msgstr ""
 "cancellazione del debito, alle spese amministrative del donatore correlate "
 "agli aiuti e alle spese per rifugiati."
 
-#: templates/commons/aid_tabs.html:40 templates/commons/aid_tabs.html.py:60
-#: templates/commons/aid_tabs.html:73 templates/commons/stats_multi.html:7
+#: templates/commons/aid_tabs.html:43 templates/commons/aid_tabs.html.py:63
+#: templates/commons/aid_tabs.html:76 templates/commons/stats_multi.html:7
 #: templates/commons/stats_totals.html:7
 msgid "Committed funds"
 msgstr "Fondi Impegnati"
 
-#: templates/commons/aid_tabs.html:44 templates/commons/aid_tabs.html.py:64
-#: templates/commons/aid_tabs.html:77 templates/commons/stats_multi.html:27
+#: templates/commons/aid_tabs.html:47 templates/commons/aid_tabs.html.py:67
+#: templates/commons/aid_tabs.html:80 templates/commons/stats_multi.html:27
 #: templates/commons/stats_totals.html:29
 msgid "Used funds"
 msgstr "Fondi erogati"
 
-#: templates/commons/aid_tabs.html:50
+#: templates/commons/aid_tabs.html:53
 msgid "Activities"
 msgstr "Iniziative"
 
-#: templates/commons/aid_tabs.html:56 templates/commons/stats_multi.html:46
+#: templates/commons/aid_tabs.html:59 templates/commons/stats_multi.html:46
 msgid "Multilateral Official Development Assistance"
 msgstr "Aiuto pubblico Multilaterale"
 
-#: templates/commons/aid_tabs.html:69 templates/commons/stats_totals.html:50
+#: templates/commons/aid_tabs.html:72 templates/commons/stats_totals.html:50
 msgid "Official Development Assistance (ODA) - total"
 msgstr "Totale dell'aiuto pubblico allo sviluppo (APS)"
 

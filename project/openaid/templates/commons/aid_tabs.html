@@ -2,10 +2,13 @@
 {% load icons %}
 {% load crs %}
 {% load humanize %}
+{% load search_utils %}
 {% if selected_facet %}
 
 <div class="col-md-4">
-    <h4>{{ projects_count|intcomma }}</h4>
+    <h4>{{ projects_count|intcomma }}
+        <a href="{% search_url selected_facet selected_code_list.code %}&year={{ selected_year }}">{% trans 'Show all activities' %} {% icon 'list-alt' %}</a>
+    </h4>
     <p>{% trans "Italian development activities" %}</p>
 </div>
 <div class="col-md-4">

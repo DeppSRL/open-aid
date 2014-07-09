@@ -22,7 +22,7 @@
             <br>
             {% block codelist_header %}
             <h2 class="pull-left">{{ object.name }}</h2>
-            <a href="{% search_url object.code_list_facet object.code %}" class="read-more pull-left pad">VEDI TUTTE LE INIZIATIVE {% icon 'align-justify' %}</a>
+            <a href="{% search_url object.code_list_facet object.code %}" class="read-more pull-left pad">{% trans 'Show all activities' %} {% icon 'list-alt' %}</a>
             {% if object.parent %}
             <h3 class="sub-title">{% if object.parent.parent %}&gt; {{ object.parent.parent.name }} {% endif %}&gt; {{ object.parent.name }}</h3>
             {% endif %}

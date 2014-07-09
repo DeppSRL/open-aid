@@ -89,6 +89,9 @@ dl#acronyms dt {
  -moz-border-radius: 8px 8px 0 0;
       border-radius: 8px 8px 0 0;
 }
+#main-content #stats-panel .panel-heading a { font-size: 13px; font-weight:normal; margin-left: 10px; color: white; }
+#main-content #stats-panel .panel-heading a:hover { color: white; }
+
 a .right-dots { border-right: 4px dotted #f7505a; }
 a:hover .right-dots, .active a .right-dots, .active a:hover .right-dots { border-right: 4px dotted white; }
 #main-content #stats-panel .nav-tabs a:hover,
