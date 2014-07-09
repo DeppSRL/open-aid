@@ -47,7 +47,7 @@ class Command(LabelCommand):
             rows = csvkit.DictReader(crs_file, encoding='utf-8')
 
             for i, row in enumerate(rows, start=1):
-                updates, matches = self.translate(row, field, languages, **options)
+                updates, matches = self.translate(row, field, languages, override=options['override'])
                 if matches == 0:
                     self.stdout.write("\rRow %d non corrisponde a nessuna Activity" % (i))
                 else:
@@ -59,7 +59,7 @@ class Command(LabelCommand):
         self.stdout.write("\nTotal rows: %d" % i)
         self.stdout.write("Execution time: %d seconds" % (time.time() - start_time))
 
-    def translate(self, row, field, languages, **options):
+    def translate(self, row, field, languages, override=False):
 
         # translations ={}
         updates = 0
@@ -82,7 +82,7 @@ class Command(LabelCommand):
 
                     translated_field_value = text_cleaner(row[translated_field])
 
-                    if (translated_field_value and options['override']) or not getattr(activity, translated_field):
+                    if (translated_field_value and override) or not getattr(activity, translated_field):
                         if getattr(activity, translated_field) != translated_field_value:
                             setattr(activity, translated_field, translated_field_value)
                             i +=1
