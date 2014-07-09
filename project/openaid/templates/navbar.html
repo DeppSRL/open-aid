@@ -17,7 +17,7 @@
                 <ul class="nav navbar-nav">
                     <li><a href="#" class="dropdown-toggle first" data-toggle="dropdown">{% trans 'Where does the aid go?' %} <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            {% for recipient, children in recipients %}
+                            {% for recipient, children in recipients %}{% if recipient.activity_count > 0 %}
                             {% if children|length > 0 %}
                             <li class="dropdown-submenu">
                                 <a href="#" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown">{{ recipient.name }}</a>
@@ -31,7 +31,7 @@
                             <li>
                                 <a href="{% url 'codelists:recipient-detail' code=recipient.code %}">{{ recipient.name }}</a>
                             </li>
-                            {% endif %}
+                            {% endif %}{% endif %}
                             {% endfor %}
                         </ul>
                     </li>
