@@ -51,7 +51,7 @@ def crs_stats(context, instance=None, year=None, show_map=True):
     if len(filters.keys()):
         activities = activities.filter(**filters)
 
-    selected_fact = instance.code_list_facet if instance else None
+    selected_facet = instance.code_list_facet if instance else None
 
     commitment_sum = activities.aggregate(Sum('commitment'))['commitment__sum']
     disbursements_sum = activities.aggregate(Sum('disbursement'))['disbursement__sum']
@@ -59,7 +59,7 @@ def crs_stats(context, instance=None, year=None, show_map=True):
     ctx = {
         'selected_year': year,
         'selected_code_list': instance,
-        'selected_facet': selected_fact,
+        'selected_facet': selected_facet,
         'start_year': start_year,
         'end_year': end_year,
         'sector_stats': cleaner(sectors),
@@ -74,7 +74,7 @@ def crs_stats(context, instance=None, year=None, show_map=True):
 
     ctx['columns'] = 3 if len(ctx['sector_stats']) and len(ctx['agency_stats']) and len(ctx['aid_stats']) else 2
 
-    if not selected_fact:
+    if not selected_facet:
 
         multi_projects = projects_models.AnnualFunds.objects.filter(year=year).aggregate(
             multi_commitments_sum=Sum('commitment'),

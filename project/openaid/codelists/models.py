@@ -77,6 +77,7 @@ class CodeListTreeModel(MPTTModel, CodeListModel):
 class Recipient(CodeListTreeModel):
 
     code_list = 'recipient'
+    code_list_facet = 'recipient'
 
     INCOME_GROUPS = Choices(
         ('10016', 'ldc', _('LDC')),

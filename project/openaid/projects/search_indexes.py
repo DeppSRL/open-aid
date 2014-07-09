@@ -55,4 +55,4 @@ class ProjectIndex(indexes.ModelSearchIndex, indexes.Indexable):
 
     class Meta:
         model = Project
-        exclude = ['has_focus', ]
+        # excludes = ['has_focus', ]
