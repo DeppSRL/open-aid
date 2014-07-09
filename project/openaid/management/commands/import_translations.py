@@ -16,13 +16,13 @@ class Command(LabelCommand):
 
     option_list = LabelCommand.option_list + (
         make_option('-f', '--field',
-            action='store', dest='field',
-            help="Comma separated of fields to check"),
+            action='store', dest='field', default=ActivityTranslationOptions.fields[0],
+            help="Field to translate"),
         make_option('-l', '--lang',
             action='store', dest='lang',
             help="Import only this language."),
         make_option('-o', '--override',
-            action='store', dest='override',
+            action='store_true', dest='override',
             help="Override old values."),
     )
 
@@ -31,10 +31,7 @@ class Command(LabelCommand):
         start_time = time.time()
         i = 0
         translations = 0
-        if options['field']:
-            fields = [f.strip() for f in options['field'].split(',')]
-        else:
-            fields = list(ActivityTranslationOptions.fields)
+        field = options['field']
 
         languages = [lang[0].split('-')[0] for lang in settings.LANGUAGES]
         if options['lang']:
@@ -42,7 +39,7 @@ class Command(LabelCommand):
                 raise CommandError("Invalid language code '%s'. Try: %s" % (options['lang'], ', '.join(languages)))
             languages = [options['lang'], ]
 
-        self.stdout.write('FIELDS: %s' % fields)
+        self.stdout.write('FIELD: %s' % field)
         self.stdout.write('LANGUAGES: %s' % languages)
 
         with open(crs_file, 'r') as crs_file:
@@ -50,7 +47,7 @@ class Command(LabelCommand):
             rows = csvkit.DictReader(crs_file, encoding='utf-8')
 
             for i, row in enumerate(rows, start=1):
-                updates, matches = self.translate(row, fields, languages, **options)
+                updates, matches = self.translate(row, field, languages, **options)
                 if matches == 0:
                     self.stdout.write("\rRow %d non corrisponde a nessuna Activity" % (i))
                 else:
@@ -62,17 +59,15 @@ class Command(LabelCommand):
         self.stdout.write("\nTotal rows: %d" % i)
         self.stdout.write("Execution time: %d seconds" % (time.time() - start_time))
 
-    def translate(self, row, fields, languages, **options):
+    def translate(self, row, field, languages, **options):
 
         # translations ={}
         updates = 0
         matches = 0
 
-        for field in filter(lambda f: f in row.keys(), fields):
 
-            field_value = text_cleaner(row[field])
-            if field_value == '':
-                continue
+        field_value = text_cleaner(row[field])
+        if field_value:
 
             for activity in models.Activity.objects.filter(**{
                 '%s__iexact' % field: field_value

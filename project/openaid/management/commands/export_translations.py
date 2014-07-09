@@ -4,6 +4,7 @@ import csvkit
 from optparse import make_option
 from django.core.management.base import LabelCommand, CommandError
 from django.conf import settings
+from django.db.models.query_utils import Q
 from openaid.projects.translation import ActivityTranslationOptions
 from openaid.projects import models
 
@@ -37,8 +38,8 @@ class Command(LabelCommand):
 
     option_list = LabelCommand.option_list + (
         make_option('-f', '--field',
-            action='store', dest='field',
-            help="Comma separated of fields to check"),
+            action='store', dest='field', default=ActivityTranslationOptions.fields[0],
+            help="Field to translate"),
         make_option('-l', '--lang',
             action='store', dest='lang',
             help="Import only this language."),
@@ -48,11 +49,7 @@ class Command(LabelCommand):
 
         start_time = time.time()
         i = 0
-        if options['field']:
-            fields = [f.strip() for f in options['field'].split(',')]
-        else:
-            fields = list(ActivityTranslationOptions.fields)
-        fields = prepare_fields(fields)
+        field = options['field']
 
         languages = [lang[0].split('-')[0] for lang in settings.LANGUAGES]
         if options['lang']:
@@ -60,12 +57,12 @@ class Command(LabelCommand):
                 raise CommandError("Invalid language code '%s'. Try: %s" % (options['lang'], ', '.join(languages)))
             languages = [options['lang'], ]
 
-        all_fields = fields[:]
+        all_fields = [field, ]
         for lang in languages:
-            all_fields += ['%s_%s' % (f, lang) for f in fields]
+            all_fields.append('%s_%s' % (field, lang))
         all_fields = prepare_fields(all_fields)
 
-        self.stdout.write('FIELDS: %s' % fields)
+        self.stdout.write('FIELD: %s' % field)
         self.stdout.write('LANGUAGES: %s' % languages)
         self.stdout.write('ALL FIELDS: %s' % all_fields)
 
@@ -73,7 +70,7 @@ class Command(LabelCommand):
 
             writer = csvkit.DictWriter(crs_file, all_fields)
             writer.writeheader()
-            for i, activity in enumerate(models.Activity.objects.values(*all_fields).distinct()):
+            for i, activity in enumerate(models.Activity.objects.exclude(**{field: ''}).order_by(*all_fields).values(*all_fields).distinct(*all_fields)):
                 writer.writerow(activity)
                 self.stdout.write("\rExported activities %d" % (i,), ending='')
                 self.stdout.flush()
