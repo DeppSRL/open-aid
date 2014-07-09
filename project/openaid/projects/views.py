@@ -58,7 +58,7 @@ class SearchFacetedProjectView(FacetedSearchView):
 
     def __init__(self, *args, **kwargs):
 
-        sqs = SearchQuerySet()
+        sqs = SearchQuerySet().order_by('-end_year')
 
         for facet in kwargs.pop('facets', []):
             sqs = sqs.facet(facet)
