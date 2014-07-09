@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-09 18:34+0200\n"
+"POT-Creation-Date: 2014-07-09 19:00+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -434,7 +434,6 @@ msgid "Download XML"
 msgstr "Scarica i dati in XML"
 
 #: templates/codelists/base_codelist.html:25
-#: templates/commons/aid_tabs.html:11
 msgid "Show all activities"
 msgstr "Mostra tutte le iniziative"
 
@@ -473,6 +472,10 @@ msgid "Italian development aid in brief"
 msgstr "Le politiche di cooperazione nel Paese"
 
 #: templates/commons/aid_tabs.html:10
+msgid "Show activities list"
+msgstr "Mostra la lista delle iniziative"
+
+#: templates/commons/aid_tabs.html:12
 msgid "Italian development activities"
 msgstr "Le iniziative della cooperazione italiana nel mondo"
 
