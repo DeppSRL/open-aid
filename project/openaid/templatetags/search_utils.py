@@ -75,10 +75,10 @@ def search_url(context, facet='', term='', remove=False, absolute=True):
 
 
 @register.inclusion_tag('search/facet_filters.html', takes_context=True)
-def show_facets(context, facet, skip_empty=True, multi_select=False):
+def show_facets(context, facet, skip_empty=True, multi_select=False, codelist=None):
     """
-This inclusion tag prints a list of facet terms.
-"""
+    This inclusion tag prints a list of facet terms.
+    """
     if ('facets' not in context) or ('fields' not in context['facets']) or (facet not in context['facets']['fields']):
         raise template.TemplateSyntaxError(u"Cannot retrieve facet '{0}' from context facets fields".format(facet))
 
@@ -90,7 +90,7 @@ This inclusion tag prints a list of facet terms.
         'selected_terms': [],
         'multi_select': multi_select,
     }
-
+    codelist_terms = []
     for term, count in context['facets']['fields'][facet]:
 
         if skip_empty and count == 0:
@@ -105,10 +105,14 @@ This inclusion tag prints a list of facet terms.
                                                    u"Add multi_select option".format(facet))
             result_context['selected_terms'].append(term)
 
+        if codelist:
+            codelist_terms.append(term)
+
         result_context['terms'].append({
             'term': term,
             'count': count,
             'is_selected': is_term_selected,
+            'label': term,
         })
 
     if result_context['selected_terms'] and not multi_select and result_context['terms']:
@@ -118,5 +122,12 @@ This inclusion tag prints a list of facet terms.
             lambda T: T['term'] in result_context['selected_terms'],
             result_context['terms']
         )
+
+    if codelist and len(codelist_terms) > 0:
+        # take labels localized from database
+        from ..codelists import models
+        terms = dict(models.get_codelist(codelist).objects.filter(code__in=codelist_terms).values_list('code', 'name'))
+        for item in result_context['terms']:
+            item['label'] = terms[item['term']]
 
     return result_context

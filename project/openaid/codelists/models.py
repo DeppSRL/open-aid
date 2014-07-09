@@ -188,3 +188,6 @@ class Sector(CodeListTreeModel):
 CODE_LISTS = [Recipient, Donor, Agency, Channel, FinanceType, AidType, Sector]
 CODE_LIST_NAMES = [c.code_list for c in CODE_LISTS]
 CODE_LISTS_DICT = dict(zip(CODE_LIST_NAMES, CODE_LISTS))
+
+def get_codelist(name):
+    return CODE_LISTS_DICT[name]

@@ -11,25 +11,23 @@ def get_using(language, alias=DEFAULT_ALIAS):
 
 
 class MultilingualSolrSearchBackend(SolrSearchBackend):
-    def update(self, index, iterable, commit=True, multilingual=True):
-        if multilingual:
-            initial_language = translation.get_language()[:2]
-            # retrieve unique backend name
-            backends = []
-            for language, __ in settings.LANGUAGES:
-                using = get_using(language, alias=self.connection_alias)
-                # Ensure each backend is called only once
-                if using in backends:
-                    continue
-                else:
-                    backends.append(using)
-                translation.activate(language)
-                backend = connections[using].get_backend()
-                backend.update(index, iterable, commit, multilingual=False)
-            translation.activate(initial_language)
+    def update(self, index, iterable, commit=True):
+        # keep starting language
+        initial_language = translation.get_language()[:2]
+
+        if self.connection_alias == 'default':
+            # default connection is for settings.LANGUAGE_CODE[:2] (LANG_CODE)
+            language = settings.LANG_CODE
         else:
-            print "[%s]" % self.connection_alias
-            super(MultilingualSolrSearchBackend, self).update(index, iterable, commit)
+            # connection for other languages
+            language = self.connection_alias[-2:]
+
+        # active the language to use django-modeltranslation magic fields (*_en, *_it)
+        translation.activate(language)
+        # call the default solr update method
+        super(MultilingualSolrSearchBackend, self).update(index, iterable, commit=commit)
+        # rollback to the starting language
+        translation.activate(initial_language)
 
 
 class MultilingualSolrSearchQuery(SolrSearchQuery):

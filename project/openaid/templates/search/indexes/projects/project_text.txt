@@ -1,12 +1,17 @@
 {{ object.title }}
 {{ object.description }}
 {{ object.crsid }}
+{{ object.recipient.name }}
 {{ object.channel_reported }}
 {% for year in object.years_range %}{{ year }} {% endfor %}
-{% for codelist in object.recipients %}{{ codelist.name }} {% endfor %}
-{% for codelist in object.agencies %}{{ codelist.name }} {% endfor %}
-{% for codelist in object.aid_types %}{{ codelist.name }} {% endfor %}
-{% for codelist in object.channels %}{{ codelist.name }} {% endfor %}
-{% for codelist in object.finance_types %}{{ codelist.name }} {% endfor %}
-{% for codelist in object.sectors %}{{ codelist.name }} {% endfor %}
+{% for activity in object.activities %}
+{% if activity.number %}{{ activity.number }} {% endif %}
+{% if activity.geography %}{{ activity.geography }} {% endif %}
+{% if activity.long_description %}{{ activity.long_description }} {% endif %}
+{% endfor %}
+{% for codelist in object.agencies %}{% if codelist %}{{ codelist.name }} {% endif %}{% endfor %}
+{% for codelist in object.aid_types %}{% if codelist %}{{ codelist.name }} {% endif %}{% endfor %}
+{% for codelist in object.channels %}{% if codelist %}{{ codelist.name }} {% endif %}{% endfor %}
+{% for codelist in object.finance_types %}{% if codelist %}{{ codelist.name }} {% endif %}{% endfor %}
+{% for codelist in object.sectors %}{% if codelist %}{{ codelist.name }} {% endif %}{% endfor %}
 

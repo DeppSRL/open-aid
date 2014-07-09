@@ -92,6 +92,7 @@ TIME_ZONE = 'Europe/Rome'
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#language-code
 LANGUAGE_CODE = 'en-US'
+LANG_CODE = LANGUAGE_CODE[:2]
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#site-id
 SITE_ID = 1
@@ -369,10 +370,10 @@ def solr_url(lang):
         'URL': SOLR_BASE_URL.format(lang=lang),
     }
 HAYSTACK_CONNECTIONS = {
-    'default': solr_url(LANGUAGE_CODE[:2]),
+    'default': solr_url(LANG_CODE),
 }
 HAYSTACK_CONNECTIONS.update(dict([
-    ('default_%s' % lang, solr_url(lang)) for lang, __ in LANGUAGES
+    ('default_%s' % lang, solr_url(lang)) for lang, __ in LANGUAGES if lang != LANG_CODE
 ]))
 ########## END DJANGO-HAYSTACK CONFIGURATION
 

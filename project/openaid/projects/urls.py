@@ -18,7 +18,7 @@ urls = (
 
     url(r'^search/', search_view_factory(
         views.SearchFacetedProjectView, facets=[
-            'years', 'recipients', 'agencies', 'aid_types', 'channels',
+            'years', 'recipient', 'agencies', 'aid_types', 'channels',
             'finance_types', 'sectors']
     ), name='search'),
 )

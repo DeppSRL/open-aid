@@ -149,19 +149,13 @@
 
     <field name="start_year" type="long" indexed="true" stored="true" multiValued="false" />
 
-    <field name="description" type="text_en" indexed="true" stored="true" multiValued="false" />
-
     <field name="sectors" type="string" indexed="true" stored="true" multiValued="true" />
-
-    <field name="title" type="text_en" indexed="true" stored="true" multiValued="false" />
 
     <field name="has_focus" type="boolean" indexed="true" stored="true" multiValued="false" />
 
-    <field name="crsid" type="text_en" indexed="true" stored="true" multiValued="false" />
-
     <field name="text" type="text_en" indexed="true" stored="true" multiValued="false" />
 
-    <field name="recipients" type="string" indexed="true" stored="true" multiValued="true" />
+    <field name="crsid" type="text_en" indexed="true" stored="true" multiValued="false" />
 
     <field name="agencies" type="string" indexed="true" stored="true" multiValued="true" />
 
@@ -175,9 +169,7 @@
 
     <field name="finance_types" type="string" indexed="true" stored="true" multiValued="true" />
 
-    <field name="long_description" type="text_en" indexed="true" stored="true" multiValued="false" />
-
-    <field name="geography" type="text_en" indexed="true" stored="true" multiValued="false" />
+    <field name="recipient" type="string" indexed="true" stored="true" multiValued="false" />
 
   </fields>
 

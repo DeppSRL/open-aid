@@ -12,43 +12,47 @@ def only_roots(objects):
         roots.append(obj)
     return list(set(roots))
 
+def prepare_codelist(items):
+    return set([i.code for i in items if i])
+
 class ProjectIndex(indexes.ModelSearchIndex, indexes.Indexable):
 
     text = indexes.CharField(document=True, use_template=True)
-    title = indexes.CharField()
-    description = indexes.CharField()
-    long_description = indexes.CharField()
-    geography = indexes.CharField()
 
     # facets
     years = indexes.FacetMultiValueField()
-
-    def prepare_years(self, obj):
-        return obj.years_range()
-
     # facets for code-lists
-    recipients = indexes.FacetMultiValueField()
+    recipient = indexes.FacetCharField()
     agencies = indexes.FacetMultiValueField()
     aid_types = indexes.FacetMultiValueField()
     channels = indexes.FacetMultiValueField()
     finance_types = indexes.FacetMultiValueField()
     sectors = indexes.FacetMultiValueField()
 
-    def prepare_recipients(self, obj):
-        return obj.recipients()
+    def prepare_years(self, obj):
+        return obj.years_range()
+    def prepare_recipient(self, obj):
+        return obj.recipient.code
+
+    def _prepare_codelist(self, items, roots=True):
+        if roots:
+            items = only_roots(items)
+        return list(set([i.code for i in items if i]))
+
     def prepare_agencies(self, obj):
-        return obj.agencies()
+        return self._prepare_codelist(obj.agencies(), roots=False)
     def prepare_aid_types(self, obj):
-        return only_roots(obj.aid_types())
+        return self._prepare_codelist(obj.aid_types())
     def prepare_channels(self, obj):
-        return only_roots(obj.channels())
+        return self._prepare_codelist(obj.channels())
     def prepare_finance_types(self, obj):
-        return only_roots(obj.finance_types())
+        return self._prepare_codelist(obj.finance_types())
     def prepare_sectors(self, obj):
-        return only_roots(obj.sectors())
+        return self._prepare_codelist(obj.sectors())
 
     def get_facets_counts(self):
         return self.objects.facet('year').facet_counts().get('fields', {})
 
     class Meta:
         model = Project
+        exclude = ['has_focus', ]
