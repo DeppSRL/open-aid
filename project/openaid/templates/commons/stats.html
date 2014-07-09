@@ -41,7 +41,7 @@ should be reported under the sector to which they are directed, not under educat
                             {% elif selected_code_list.code_list == 'sector' %}
                                 <span data-title="{{ sector.name }}">{{ sector.name }}</span>
                             {% else %}
-                                <a href="{% search_url sector.code_list_facet sector.code %}&selected_facets={{ selected_facet }}:{{ selected_code_list.code }}&year={{ selected_year }}" data-title="{{ sector.name }}">{{ sector.name }}</a>
+                                <a href="{% search_url sector.code_list_facet sector.code %}&selected_facets={{ selected_facet }}:{{ selected_code_list.code }}&years={{ selected_year }}" data-title="{{ sector.name }}">{{ sector.name }}</a>
                             {% endif %}
                         </td>
                         <td class="col-sm-4"><span data-value="{{ tot }}">{{ tot|currency }}</span></td>
@@ -75,7 +75,7 @@ a multilateral organisation, or a basket fund).  It does not track the end uses
                             {% elif selected_code_list.code_list == 'aid_type' %}
                                 <span data-title="{{ aid_type.name }}">{{ aid_type.name }}</span>
                             {% else %}
-                                <a href="{% search_url aid_type.code_list_facet aid_type.code %}&selected_facets={{ selected_facet }}:{{ selected_code_list.code }}&year={{ selected_year }}" data-title="{{ aid_type.name }}">{{ aid_type.name }}</a>
+                                <a href="{% search_url aid_type.code_list_facet aid_type.code %}&selected_facets={{ selected_facet }}:{{ selected_code_list.code }}&years={{ selected_year }}" data-title="{{ aid_type.name }}">{{ aid_type.name }}</a>
                             {% endif %}
 
                         </td>
@@ -116,7 +116,7 @@ report the borrower (i.e. the first entity outside the donor country that receiv
                             {% elif selected_code_list.code_list == 'agency' %}
                                 <span data-title="{{ agency.name }}">{{ agency.name }}</span>
                             {% else %}
-                                <a href="{% search_url agency.code_list_facet agency.code %}&selected_facets={{ selected_facet }}:{{ selected_code_list.code }}&year={{ selected_year }}" data-title="{{ agency.name }}">{{ agency.name }}</a>
+                                <a href="{% search_url agency.code_list_facet agency.code %}&selected_facets={{ selected_facet }}:{{ selected_code_list.code }}&years={{ selected_year }}" data-title="{{ agency.name }}">{{ agency.name }}</a>
                             {% endif %}
 
                         </td>
