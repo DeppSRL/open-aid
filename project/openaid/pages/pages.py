@@ -30,7 +30,6 @@ footer_comefare_pages = OrderedDict([
 footer_od_pages = OrderedDict([
             ('scarica_dati', _(u'Download the data')),
             ('api', _(u'API')),
-            ('licenze_cc', _(u'CC Licenses')),
             ('dati_per_ricerca', _(u'Data fair use')),
             ('open_data_pa', _(u'PA\'s open data')),
         ])

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-10 19:14+0200\n"
+"POT-Creation-Date: 2014-07-10 19:33+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -103,46 +103,42 @@ msgid "API"
 msgstr "API"
 
 #: pages/pages.py:33
-msgid "CC Licenses"
-msgstr "Licenze CC"
-
-#: pages/pages.py:34
 msgid "Data fair use"
 msgstr "Utilizzo per informazione e ricerca"
 
-#: pages/pages.py:35
+#: pages/pages.py:34
 msgid "PA's open data"
 msgstr "I dati aperti della PA"
 
-#: pages/pages.py:48
+#: pages/pages.py:47
 msgid "The Italian Development Cooperation"
 msgstr "La Cooperazione allo Sviluppo italiana"
 
-#: pages/pages.py:49
+#: pages/pages.py:48
 msgid "Objectives and Priorities"
 msgstr "Obiettivi e priorità"
 
-#: pages/pages.py:50
+#: pages/pages.py:49
 msgid "Emergency and humanitarian aid"
 msgstr "Interventi d’emergenza"
 
-#: pages/pages.py:51
+#: pages/pages.py:50
 msgid "Sistema Italia"
 msgstr "SIstema Italia"
 
-#: pages/pages.py:52
+#: pages/pages.py:51
 msgid "Best practices"
 msgstr "Buone pratiche"
 
-#: pages/pages.py:53
+#: pages/pages.py:52
 msgid "The international context"
 msgstr "Il contesto internazionale"
 
-#: pages/pages.py:54
+#: pages/pages.py:53
 msgid "The Millennium Development Goals (MDGs)"
 msgstr "Millennium goals"
 
-#: pages/pages.py:55
+#: pages/pages.py:54
 msgid "The Post 2015 Development Agenda"
 msgstr "Nuova Agenda di sviluppo post 2015"
 
@@ -732,6 +728,9 @@ msgstr "Canale"
 #: templates/search/search_results.html:113
 msgid "Recipient"
 msgstr "Destinatario"
+
+#~ msgid "CC Licenses"
+#~ msgstr "Licenze CC"
 
 #~ msgid "How to ..."
 #~ msgstr "Come fare per ..."
