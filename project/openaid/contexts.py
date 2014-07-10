@@ -55,5 +55,6 @@ def project_context(request):
         'aid_types': aid_types,
         YEAR_FIELD: request.GET.get(YEAR_GET_FIELD, END_YEAR),
         YEARS_RANGE_FIELD: YEARS,
-        'search_form': FacetedProjectSearchForm(request.GET)
+        'search_form': FacetedProjectSearchForm(request.GET),
+        'addthis_profile': settings.ADDTHIS_PROFILE,
     }
