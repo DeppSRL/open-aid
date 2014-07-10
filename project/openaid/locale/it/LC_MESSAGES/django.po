@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-09 19:00+0200\n"
+"POT-Creation-Date: 2014-07-10 18:14+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -292,23 +292,39 @@ msgstr "Inglese"
 msgid "Italian"
 msgstr "Italiano"
 
-#: templates/footer.html:6
+#: templates/footer.html:7
 msgid "Open Aid Italia"
 msgstr "Open Aid Italia"
 
-#: templates/footer.html:17
-msgid "How to ..."
-msgstr "Come fare per ..."
+#: templates/footer.html:18
+msgid "FAQ"
+msgstr "FAQ"
 
-#: templates/footer.html:25
-msgid "Frequently Asked Questions"
-msgstr "Domande frequenti"
+#: templates/footer.html:21
+msgid "Why isn't the data updated to 2013?"
+msgstr "Perché i dati non sono aggiornati al 2013?"
+
+#: templates/footer.html:22
+msgid "Where does the data come from?"
+msgstr "Quali sono le fonti dei dati?"
+
+#: templates/footer.html:23
+msgid "To which extent is the data reliable?"
+msgstr "Qual è il grado di affidabilità dei dati?"
+
+#: templates/footer.html:24
+msgid "What do we mean by Bilateral and Multi-bilateral ODA?"
+msgstr "Che cos'è l'Aiuto Pubblico Bilaterale e Multi-Bilaterale?"
 
 #: templates/footer.html:31
+msgid "Other questions and answers"
+msgstr "Altre domande e risposte"
+
+#: templates/footer.html:37
 msgid "Open data"
 msgstr "Open data"
 
-#: templates/footer.html:42
+#: templates/footer.html:65
 msgid "Open Aid is a project by"
 msgstr "Open Aid è un progetto di"
 
@@ -316,11 +332,11 @@ msgstr "Open Aid è un progetto di"
 msgid "show/hide navigation"
 msgstr "mostra/nascondi navigazione"
 
-#: templates/header.html:20 templates/home.html:13
+#: templates/header.html:28 templates/home.html:13
 msgid "Italian Development Cooperation"
 msgstr "La Cooperazione Italiana allo Sviluppo"
 
-#: templates/header.html:21 templates/home.html:30
+#: templates/header.html:29 templates/home.html:30
 msgid "News"
 msgstr "Notizie"
 
@@ -716,3 +732,9 @@ msgstr "Canale"
 #: templates/search/search_results.html:113
 msgid "Recipient"
 msgstr "Destinatario"
+
+#~ msgid "How to ..."
+#~ msgstr "Come fare per ..."
+
+#~ msgid "Frequently Asked Questions"
+#~ msgstr "Domande frequenti"
