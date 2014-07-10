@@ -9,8 +9,8 @@
     <div class="row">
         <header class="col-md-9">
             <div class="btn-group">
-                <a href="#" class="btn btn-aid">{% trans 'Download JSON' %} <span class="fa fa-download"> </span></a>
-                <a href="#" class="btn btn-aid">{% trans 'Download XML' %} <span class="fa fa-download"> </span></a>
+                <a href="{% url 'api' %}" class="btn btn-aid">{% trans 'Download JSON' %} <span class="fa fa-download"> </span></a>
+{#                <a href="#" class="btn btn-aid">{% trans 'Download XML' %} <span class="fa fa-download"> </span></a>#}
             </div>
         <br>
             <h2 class="pull-left">{{ project.title }}</h2>
@@ -174,10 +174,11 @@
         </div>
      </div><!-- .row -->
 
-    <div class="row">
-        <div class="col-md-12">
-            {% include 'commons/top_projects.html' with project=project top_projects=project.related_projects %}
-        </div>
-    </div>
+{# TODO: add an algorithm to retrieve related projects #}
+{#    <div class="row">#}
+{#        <div class="col-md-12">#}
+{#            {% include 'commons/top_projects.html' with project=project top_projects=project.related_projects %}#}
+{#        </div>#}
+{#    </div>#}
 
 {% endblock content %}
