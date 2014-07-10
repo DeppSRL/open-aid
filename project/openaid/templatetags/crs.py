@@ -38,8 +38,6 @@ def crs_stats(context, instance=None, year=None, show_map=True):
         filters['%s__in' % instance.code_list] = instance.get_descendants_pks(include_self=True)
 
     sectors = _get_code_list_items(instance, codelists_models.Sector)
-    # channels = _get_code_list_items(instance, codelists_models.Channel)
-    # agencies = codelists_models.Agency.objects.all() if not instance else []
     agencies = codelists_models.Agency.objects.all() if not isinstance(instance, codelists_models.Agency) else []
     aid_types = _get_code_list_items(instance, codelists_models.AidType)
 
@@ -91,10 +89,5 @@ def crs_stats(context, instance=None, year=None, show_map=True):
         ctx.update({
             'multi_stats': projects_models.AnnualFunds.objects.filter(year=year).select_related('organization'),
         })
-
-        # for c in ['commitments_sum', 'disbursements_sum',]:
-        #     ctx[c] = ctx[c] / 1000000.0
-        #     ctx['total_%s' % c] = ctx['total_%s' % c] / 1000000.0
-        #     ctx['multi_%s' % c] = ctx['multi_%s' % c] / 1000000.0
 
     return ctx

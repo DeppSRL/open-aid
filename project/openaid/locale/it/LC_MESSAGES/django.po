@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-10 18:14+0200\n"
+"POT-Creation-Date: 2014-07-10 19:14+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -284,11 +284,11 @@ msgstr ""
 msgid "Investment Project"
 msgstr "Progetto di investimento"
 
-#: settings/base.py:350
+#: settings/base.py:352
 msgid "English"
 msgstr "Inglese"
 
-#: settings/base.py:351
+#: settings/base.py:353
 msgid "Italian"
 msgstr "Italiano"
 
@@ -317,7 +317,7 @@ msgid "What do we mean by Bilateral and Multi-bilateral ODA?"
 msgstr "Che cos'è l'Aiuto Pubblico Bilaterale e Multi-Bilaterale?"
 
 #: templates/footer.html:31
-msgid "Other questions and answers"
+msgid "More questions and answers"
 msgstr "Altre domande e risposte"
 
 #: templates/footer.html:37
