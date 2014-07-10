@@ -15,7 +15,7 @@
             </div>
 
             <div class="col-md-3">
-                <h4>{% trans 'How to ...' %}</h4>
+                <h4>{% trans 'FAQ' %}</h4>
                 <ul class="list-unstyled">
                     {% for url_name, label in footer_sections.comefare.items %}
                     <li>
@@ -32,11 +32,27 @@
                 <h4>{% trans 'Open data' %}</h4>
                 <ul class="list-unstyled">
                     {% for url_name, label in footer_sections.od.items %}
+                    {% if url_name != 'licenze_cc' %}
                     <li>
                         <a href="{% url url_name %}">{% trans label %}</a>
                     </li>
+                    {% endif %}
                     {% endfor %}
                 </ul>
+                <ul class="list-inline">
+                    <li>
+                        <a href="{% url 'licenze_cc' %}">
+                            <img src="http://creativecommons.org/images/public/somerights20.png" alt="CC License"/>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://www.dati.gov.it/">
+                            <img src="{% static 'img/layout/logo_opendata.png' %}" alt="Open Data"/>
+                        </a>
+                    </li>
+                </ul>
+
+
             </div>
 
             <div class="col-md-3">
@@ -44,22 +60,8 @@
                 <ul class="list-unstyled clearfix">
                     <li>
                         <a href="http://www.esteri.it/" target="_blank">
-                            <img src="{% static 'img/layout/logo_farnesina.png' %}" class="img-responsive" alt="Ministero degli Esteri" />
-                        </a>
-                    </li>
-                    <li>
-                        <a href="http://www.cooperazioneallosviluppo.esteri.it/">
-                            <img src="{% static 'img/layout/logo_dgcs.png' %}" class="img-responsive" alt="DGCS"/>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <img src="{% static 'img/layout/logo_cc.png' %}" alt="CC License"/>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="http://www.dati.gov.it/">
-                            <img src="{% static 'img/layout/logo_opendata.png' %}" alt="Open Data"/>
+                            <img src="{% static 'img/layout/logo_farnesina.png' %}" class="img-responsive img-thumbnail"
+                                 alt="Ministero degli Esteri" />
                         </a>
                     </li>
                 </ul>
