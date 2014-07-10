@@ -148,3 +148,39 @@ aimed at maintaining peace and managing migration flows.{% endblocktrans %}
     </div><!-- .row -->
 
 {% endblock %}
+
+{% block modal %}
+<div class="modal fade" id="welcomeModal" tabindex="-1" role="dialog" aria-labelledby="welcomeModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">{% trans 'close' %}</span></button>
+                <h4 class="modal-title" id="welcomeModalLabel">{% trans "WELCOME TO OPEN AID ITALIA" %}</h4>
+            </div>
+            <div class="modal-body">
+{% blocktrans %}<p>This website aims at making data on Italian Development Aid available for all.
+The website is in its first development phase, involving the on-line publication of all data on Italian ODA since 2004.</p>
+<p>In the second phase, the website will be integrated with additional contents on individual initiatives and with further information on different development actors.</p>
+<p>In the third phase different actors will be enabled to contribute to the website by publishing contents on the initiatives they are involved in.</p>
+<p>In the fourth phase, the website will provide detailed information also on other sources of financing for development, in order to provide a comprehensive picture of the Italian commitment to development.</p>
+<p>We are at the beginning of a challenging project: keep following us!</p>{% endblocktrans %}
+                <div class="text-right"><a href="#" class="text-muted" data-dismiss="modal">{% trans 'close' %}</a></div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+{% endblock modal %}
+
+{% block javascript %}
+{{ block.super }}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.0/jquery.cookie.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            if ($.cookie('welcome-modal') == null || location.hash == '#welcome') {
+                $('#welcomeModal').modal('show');
+                $.cookie('welcome-modal', 7);
+            }
+        });
+    </script>
+
+{% endblock %}

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-10 19:33+0200\n"
+"POT-Creation-Date: 2014-07-10 20:15+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -398,7 +398,8 @@ msgstr "Esecutore"
 msgid "Description"
 msgstr "Descrizione"
 
-#: templates/home.html:111 templates/codelists/recipient_detail.html:50
+#: templates/home.html:111 templates/home.html.py:157 templates/home.html:167
+#: templates/codelists/recipient_detail.html:50
 #: templates/commons/stats.html:28 templates/commons/stats.html.py:63
 #: templates/commons/stats.html:104 templates/projects/project_detail.html:61
 #: templates/search/search_results.html:117
@@ -414,6 +415,41 @@ msgstr "Tipologia di aiuto"
 #: templates/projects/project_detail.html:83
 msgid "Channels"
 msgstr "Canali"
+
+#: templates/home.html:158
+msgid "WELCOME TO OPEN AID ITALIA"
+msgstr "BENVENUTO SU OPEN AID ITALIA"
+
+#: templates/home.html:161
+msgid ""
+"<p>This website aims at making data on Italian Development Aid available for "
+"all.\n"
+"The website is in its first development phase, involving the on-line "
+"publication of all data on Italian ODA since 2004.</p>\n"
+"<p>In the second phase, the website will be integrated with additional "
+"contents on individual initiatives and with further information on different "
+"development actors.</p>\n"
+"<p>In the third phase different actors will be enabled to contribute to the "
+"website by publishing contents on the initiatives they are involved in.</p>\n"
+"<p>In the fourth phase, the website will provide detailed information also "
+"on other sources of financing for development, in order to provide a "
+"comprehensive picture of the Italian commitment to development.</p>\n"
+"<p>We are at the beginning of a challenging project: keep following us!</p>"
+msgstr ""
+"<p>Questo sito intende mettere a disposizione di tutti i dati sull’Aiuto "
+"allo Sviluppo Italiano.Il sito è nella sua prima fase di sviluppo, che "
+"prevede la pubblicazione di tutti i dati sull’Aiuto Pubblico allo Sviluppo "
+"italiano a partire dal 2004.</p>\n"
+"<p>Nella seconda fase il sito sarà integrato da ulteriori contenuti, anche "
+"multimediali,sulle singole iniziative e da maggiori informazioni sui diversi "
+"soggetti attuatori.</p>\n"
+"<p>Nella terza fase il sito sarà aperto ai contributi dei diversi attori, "
+"che potranno pubblicare contenuti sulle iniziative in cui sono coinvolti.</"
+"p>\n"
+"<p>Nella quarta fase il portale potrà fornire informazioni dettagliate anche "
+"su altre fonti di finanziamento dello sviluppo, per fornire un quadro "
+"completo dell’impegno italiano.</p>\n"
+"<p>Siamo all’inizio di un grande progetto: continuate a seguirci!</p>"
 
 #: templates/navbar.html:18
 msgid "Where does the aid go?"
