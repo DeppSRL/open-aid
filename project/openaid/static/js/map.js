@@ -5,13 +5,14 @@
 var map = L.map('map', {
     minZoom: 2,
     maxZoom: 5,
-    scrollWheelZoom: false,
+    scrollWheelZoom: false
 //    maxBounds: [[-90.0, -180.0],[90.0, 180.0]]
 }).setView([0.0, 0.0], 2);
 
 // proxied tiles
 var cloudmade = L.tileLayer('http://tilestache.openpolis.it/cm_109537/{z}/{x}/{y}.png', {
-    attribution: 'Mappa &copy; 2011 OpenStreetMap contributors e CloudMade | Dati &copy; <a href="http://http://stats.oecd.org/">OECD</a>',
+//    attribution: 'Mappa &copy; 2011 OpenStreetMap contributors e CloudMade | Dati &copy; <a href="http://http://stats.oecd.org/">OECD</a>',
+    attribution: 'Mappa &copy; 2014 OpenStreetMap contributors e CloudMade',
     noWrap: true,
     continuousWorld: false
 }).addTo(map);

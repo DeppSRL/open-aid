@@ -37,7 +37,7 @@ should be reported under the sector to which they are directed, not under educat
                     <tr class="dotted">
                         <td class="col-sm-8">
                             {% if not selected_code_list %}
-                                <a href="{% url 'codelists:sector-detail' code=sector.code %}" data-title="{{ sector.name }}">{{ sector.name }}</a>
+                                <a href="{% url 'codelists:sector-detail' code=sector.code %}?year={{ selected_year }}" data-title="{{ sector.name }}">{{ sector.name }}</a>
                             {% elif selected_code_list.code_list == 'sector' %}
                                 <span data-title="{{ sector.name }}">{{ sector.name }}</span>
                             {% else %}
@@ -71,7 +71,7 @@ a multilateral organisation, or a basket fund).  It does not track the end uses
                     <tr class="dotted">
                         <td class="col-sm-8">
                             {% if not selected_code_list %}
-                                <a href="{% url 'codelists:aid_type-detail' code=aid_type.code %}" data-title="{{ aid_type.name }}">{{ aid_type.name }}</a>
+                                <a href="{% url 'codelists:aid_type-detail' code=aid_type.code %}?year={{ selected_year }}" data-title="{{ aid_type.name }}">{{ aid_type.name }}</a>
                             {% elif selected_code_list.code_list == 'aid_type' %}
                                 <span data-title="{{ aid_type.name }}">{{ aid_type.name }}</span>
                             {% else %}
@@ -112,7 +112,7 @@ report the borrower (i.e. the first entity outside the donor country that receiv
                     <tr class="dotted">
                         <td class="col-sm-8">
                             {% if not selected_code_list %}
-                                <a href="{% url 'codelists:agency-detail' code=agency.code %}" data-title="{{ agency.name }}">{{ agency.name }}</a>
+                                <a href="{% url 'codelists:agency-detail' code=agency.code %}?year={{ selected_year }}" data-title="{{ agency.name }}">{{ agency.name }}</a>
                             {% elif selected_code_list.code_list == 'agency' %}
                                 <span data-title="{{ agency.name }}">{{ agency.name }}</span>
                             {% else %}
