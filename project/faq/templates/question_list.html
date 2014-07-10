@@ -21,7 +21,7 @@
     <script type="text/javascript">
     $(document).ready(function() {
         // hide all answers
-        jQuery('.faq-answer').hide();
+        // jQuery('.faq-answer').hide();
 
         // show answer when question is clicked
         jQuery('.faq-question').css('cursor', 'pointer').on('click', function() {
@@ -36,12 +36,12 @@
           }
         });
 
-        hash = location.hash.replace('#', '');
+        /*hash = location.hash.replace('#', '');
         if (hash) {
           $('body').find('.faq-question a[name='+hash+']').trigger('click')
         } else {
           $('body').find('.faq-question').first().trigger('click');
-        }
+        }*/
     });
     </script>
 
