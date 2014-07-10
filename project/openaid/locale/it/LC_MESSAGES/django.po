@@ -144,7 +144,7 @@ msgstr "Millennium goals"
 
 #: pages/pages.py:55
 msgid "The Post 2015 Development Agenda"
-msgstr "Nuova Agenda di svilupop post 2015"
+msgstr "Nuova Agenda di sviluppo post 2015"
 
 #: projects/fields.py:16
 msgid "Not screened"
