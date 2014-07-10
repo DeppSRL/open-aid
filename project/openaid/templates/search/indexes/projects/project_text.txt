@@ -1,5 +1,5 @@
 {{ object.title }}
-{{ object.description }}
+{{ object.description|striptags }}
 {{ object.crsid }}
 {{ object.recipient.name }}
 {{ object.channel_reported }}

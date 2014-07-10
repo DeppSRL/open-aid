@@ -9,8 +9,8 @@
 
     <dl>
     {% for question in questions %}
-      <dt class="faq-question"><a name="{{ question.slug }}" style="margin-top: 2em">{{ question.text }}</a></dt>
-      <dd class="faq-answer">{{ question.answer }}</dd>
+      <dt class="faq-question"><a name="{{ question.slug }}" style="margin-top: 2em">{{ question.text|safe }}</a></dt>
+      <dd class="faq-answer">{{ question.answer|safe }}</dd>
       <hr>
     {% endfor %}
     </dl>

@@ -106,7 +106,7 @@ aimed at maintaining peace and managing migration flows.{% endblocktrans %}
                             <div class="col-md-12">
                                 <h4>{% trans 'Description' %}</h4>
                                 <p class="readmore small-paragraph" data-max-height="40">
-                                    {{ project_focus.description }}
+                                    {{ project_focus.description|safe }}
                                     <a href="#" class="readmore-open">{% trans 'read more' %} {% icon 'caret-down' %}</a>
                                     <a href="#" class="readmore-close">{% trans 'close' %} {% icon 'caret-up' %}</a>
                                 </p>

@@ -37,7 +37,7 @@
         <div class="col-md-12">
             {% block codelist_description %}
             <p>
-                {{ object.description }}
+                {{ object.description|safe }}
 {#                <a href="#" class="readmore-open">{% trans 'read more' %} {% icon 'caret-down' %}</a>#}
 {#                <a href="#" class="readmore-close">{% trans 'close' %} {% icon 'caret-up' %}</a>#}
             </p>
