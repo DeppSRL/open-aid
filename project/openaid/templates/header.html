@@ -12,7 +12,15 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'img/layout/openaid.png' %}" class="img-responsive"></a>
+                        <div class="navbar-brand">
+                            <a href="http://www.esteri.it/" target="_blank">
+                                <img src="{% static 'img/layout/logo_farnesina.png' %}" alt="Ministero degli Esteri" />
+                            </a>
+                            <a href="http://www.cooperazioneallosviluppo.esteri.it/">
+                                <img src="{% static 'img/layout/logo_dgcs.png' %}" alt="DGCS"/>
+                            </a>
+                        </div>
+                        <a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'img/layout/logo_openaid.png' %}" class="img-responsive"></a>
                     </div>
 
                     <div class="navbar-collapse collapse">

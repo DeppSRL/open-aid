@@ -2,6 +2,12 @@
   margin-bottom: 15px;
 }
 
+#header .navbar-brand a img { width: 120px; }
+#header .navbar-brand a {
+    display: block;
+    margin-bottom: 5px;
+}
+
 .dropdown-menu {z-index: 10000; }
 .dropdown-submenu{position:relative;}
 .dropdown-submenu>.dropdown-menu{top:0;left:100%;margin-top:-6px;margin-left:-1px;-webkit-border-radius:0 6px 6px 6px;-moz-border-radius:0 6px 6px 6px;border-radius:0 6px 6px 6px;}
