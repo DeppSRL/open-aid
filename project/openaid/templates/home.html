@@ -71,34 +71,38 @@ aimed at maintaining peace and managing migration flows.{% endblocktrans %}
                         <div class="row no-marg">
                             {% with p_total_commitment=project_focus.total_commitment|default:0 p_total_disbursement=project_focus.total_disbursement|default:0 %}
                             <div id="pie4" data-chart="pie" data-values="{{ p_total_commitment|stringformat:"f" }}|{{ p_total_disbursement }}"></div>
-                            <div class="col-md-4 numbers bg-red bordered-radius small-pad">{% if p_total_commitment %}€
+                            <div class="col-md-4 col-sm-4 col-xs-4 numbers bg-red bordered-radius small-pad">{% if p_total_commitment %}€
                                 {{ p_total_commitment|currency }}{% else %}-{% endif %}<br><span class="eleven">{% trans 'Committed' %}</span></div>
-                            <div class="col-md-4 col-md-offset-1 numbers bg-blue bordered-radius small-pad">{% if p_total_disbursement %}€
+                            <div class="col-md-4 col-sm-4 col-xs-4 col-md-offset-1 col-sm-offset-1 col-xs-offset-1 numbers bg-blue bordered-radius small-pad">{% if p_total_disbursement %}€
                                 {{ p_total_disbursement|currency }}{% else %}-{% endif %}<br><span class="eleven">{% trans 'Used' %}</span></div>
                             {% endwith %}
                         </div>
                         <div class="row no-marg">
-                            <h3><a href="{% url 'projects:project-detail' pk=project_focus.pk %}">{{ project_focus.title }}</a></h3>
-                            {% for recipient in project_focus.recipients|unique %}
-                                <a href="{% url 'codelists:recipient-detail' code=recipient.code %}">{{ recipient.name }}</a>
-                            {% endfor %}
-                             <span class="light-gray eleven">{{ project_focus.start_year }}-{{ project_focus.end_eyar }}</span>
+                            <div class="col-md-12 col-sm-6 col-xs-6">
+                                <h3><a href="{% url 'projects:project-detail' pk=project_focus.pk %}">{{ project_focus.title }}</a></h3>
+                                {% for recipient in project_focus.recipients|unique %}
+                                    <a href="{% url 'codelists:recipient-detail' code=recipient.code %}">{{ recipient.name }}</a>
+                                {% endfor %}
+                                 <span class="light-gray eleven">{{ project_focus.start_year }}-{{ project_focus.end_eyar }}</span>
+                            </div>
+                            <div class="small-spacer"></div>
+                            {% with photo_set=project_focus.photo_set.all %}{% if photo_set|length > 0 %}
+                            <div class="col-md-12 col-sm-6 col-xs-6">
+                                <ul class="gallery gallery-small">
+                                    {% for photo in photo_set %}{% if forloop.counter <= 3 %}
+                                    <li><img src="{{ photo.file.url }}"></li>
+                                    {% endif %}{% endfor %}
+                                </ul>
+                            </div>
+                            <div class="spacer"></div>
+                            {% endif %}{% endwith %}
                         </div>
-                        <div class="small-spacer"></div>
-                        {% with photo_set=project_focus.photo_set.all %}{% if photo_set|length > 0 %}
-                        <ul class="gallery gallery-small">
-                            {% for photo in photo_set %}{% if forloop.counter <= 3 %}
-                            <li><img src="{{ photo.file.url }}"></li>
-                            {% endif %}{% endfor %}
-                        </ul>
-                        <div class="spacer"></div>
-                        {% endif %}{% endwith %}
                         <div class="row no-marg">
-                            <div class="col-md-6">
+                            <div class="col-md-6 col-sm-6 col-xs-6">
                                 <h4>{% trans 'Agency' %}</h4>
                                 <p class="small-paragraph">{{ project_focus.agency }}</p>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-6 col-sm-6 col-xs-6">
                                 <h4>{% trans 'Channel reported' %}</h4>
                                 <p class="small-paragraph">{{ project_focus.channel_reported|default_if_none:'-' }}</p>
                             </div>
@@ -125,13 +129,13 @@ aimed at maintaining peace and managing migration flows.{% endblocktrans %}
                         </ul>
 
                         <div class="row no-marg">
-                            <div class="col-md-6">
+                            <div class="col-md-6 col-sm-6 col-xs-6">
                                 <span class="eleven light-gray block">{% trans 'Aid type' %}</span>
                                 {% for aid_type in project_focus.aid_types|unique %}{% if aid_type %}
                                 <a href="{% url 'codelists:aid_type-detail' code=aid_type.code %}" class="eleven">{{ aid_type.name }}</a>{% if not forloop.last %}, {% endif %}
                                 {% endif %}{% endfor %}
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-6 col-sm-6 col-xs-6">
                                 <span class="eleven light-gray block">{% trans 'Channels' %}</span>
                                 {% for channel in project_focus.channels|unique %}{% if channel %}
                                 <a href="{% url 'codelists:channel-detail' code=channel.code %}" class="eleven">{{ channel.name }}</a>{% if not forloop.last %}, {% endif %}

@@ -1,3 +1,4 @@
+#main-content { width: 100% !important;}
 .modal-header { background-color: #f7505a;
     -webkit-border-radius:6px 6px 0 0;-moz-border-radius:6px 6px 0 0;border-radius:6px 6px 0 0;
 }
@@ -241,4 +242,14 @@ ul.gallery-small li {
 #myModal .next {
     float:right;
     text-align:right;
+}
+
+
+@media (min-width: 768px) {
+    #main-menu > .container { width: 100%; }
+    #main-menu > .container > .row { margin: 0 15px; display: block; }
+    #main-menu > .container > .row .navbar-nav > li > a { padding-left: 10px; padding-right: 10px; }
+    #header .navbar-nav.navbar-right li > a { line-height: 12px; }
+    #header .navbar-nav.navbar-right li { display: block; float: none; text-align: right; line-height: 12px; margin-bottom: 4px;  }
+    #header .navbar-nav.navbar-right { max-width: 140px; }
 }

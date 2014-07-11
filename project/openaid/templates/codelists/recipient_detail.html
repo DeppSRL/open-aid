@@ -27,7 +27,7 @@
 
 {% block codelist_description %}
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-4 col-sm-6">
         <div class="small-map"><div id="map" data-chart="map" style="height: 260px;" data-iso-code="{{ object.iso_code }}"></div></div>
         {% if object.description %}
         <h3>{% trans 'Info' %}</h3>
@@ -41,7 +41,7 @@
         {% endif %}
     </div>
 
-    <div class="col-md-8">
+    <div class="col-md-8 col-sm-6">
         {% if object.description %}
         <h3>{% trans "Italian development aid in brief" %}</h3>
         <div class="readmore" data-max-height="380">

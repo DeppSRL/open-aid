@@ -18,32 +18,34 @@
         </header>
         <div class="row">
             {% with p_total_commitment=project.total_commitment|default:0 p_total_disbursement=project.total_disbursement|default:0 %}
-            <div class="col-md-3">
+            <div class="col-md-3 col-sm-6 col-xs-6">
                 <div class=" numbers bg-red bordered-radius small-pad">{% if p_total_commitment %}€ {{ p_total_commitment|currency }}{% else %}-{% endif %}<br><span class="eleven">{% trans 'Committed' %}</span></div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3 col-sm-6 col-xs-6">
                 <div class=" numbers bg-blue bordered-radius small-pad">{% if p_total_disbursement %}€ {{ p_total_disbursement|currency }}{% else %}-{% endif %}<br><span class="eleven">{% trans 'Used' %}</span></div>
             </div>
             {% endwith %}
-            <div class="col-md-3">
+            <div class="col-md-3 col-sm-6 col-xs-6">
                 <span class="eleven light-gray block">{% trans 'Aid types' %}</span>
                 {% for aid_type in project.aid_types|unique %}
                 <a href="{% url 'codelists:aid_type-detail' code=aid_type.code %}" class="eleven">{{ aid_type.name }}</a>{% if not forloop.last %}, {% endif %}
                 {% endfor %}
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3 col-sm-6 col-xs-6">
                 <span class="eleven light-gray block">{% trans 'Channels' %}</span>
                 {% for channel in project.channels|unique %}
                 <a href="{% url 'codelists:channel-detail' code=channel.code %}" class="eleven">{{ channel.name }}</a>{% if not forloop.last %}, {% endif %}
                 {% endfor %}
             </div>
-            {% if project.recipient %}
+         </div><!-- .row -->
+        {% if project.recipient %}
+        <div class="row">
             <div class="col-md-12">
                 {% for recipient in project.recipients|unique %}
                 <a href="{% url 'codelists:recipient-detail' code=recipient.code %}" class="twelve">{{ recipient.name }}</a>
                 {% endfor %}
             </div>
-            {% endif %}
-         </div><!-- .row -->
+        </div>
+        {% endif %}
     </article>
 </div>
