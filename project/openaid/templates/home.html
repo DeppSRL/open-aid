@@ -102,7 +102,7 @@ aimed at maintaining peace and managing migration flows.{% endblocktrans %}
                             </div>
                         </div>
                         {% if project_focus.description %}
-                        <div class="row">
+                        <div class="row no-marg project-description">
                             <div class="col-md-12">
                                 <h4>{% trans 'Description' %}</h4>
                                 <p class="readmore small-paragraph" data-max-height="40">
@@ -150,6 +150,7 @@ aimed at maintaining peace and managing migration flows.{% endblocktrans %}
 {% endblock %}
 
 {% block modal %}
+{{ block.super }}
 <div class="modal fade" id="welcomeModal" tabindex="-1" role="dialog" aria-labelledby="welcomeModalLabel">
     <div class="modal-dialog">
         <div class="modal-content">

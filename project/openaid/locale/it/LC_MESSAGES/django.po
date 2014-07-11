@@ -642,7 +642,7 @@ msgid ""
 msgstr ""
 "Enti governativi (a livello centrale, statale o locale) che finanziano le "
 "iniziative di Aiuto Pubblico allo Sviluppo con fondi attinti direttamente "
-"dal proprio bilancio."
+"dal proprio bilancio.<br/>&nbsp;"
 
 #: templates/commons/stats_multi.html:49
 msgid ""

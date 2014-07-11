@@ -6,6 +6,8 @@
   margin-bottom: 5px;
 }
 
+#main-content .project-description { margin-bottom: 10px; }
+
 #header .navbar-brand a img { width: 120px; }
 #header .navbar-brand a {
     display: block;
