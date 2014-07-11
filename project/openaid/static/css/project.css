@@ -7,6 +7,7 @@
 }
 
 #main-content .project-description { margin-bottom: 10px; }
+#main-content .home-blog.media-list .media .media-body { font-size: 16px; }
 
 #header .navbar-brand a img { width: 120px; }
 #header .navbar-brand a {
