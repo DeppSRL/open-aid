@@ -70,7 +70,7 @@ aimed at maintaining peace and managing migration flows.{% endblocktrans %}
                         <div class="spacer"></div>
                         <div class="row no-marg">
                             {% with p_total_commitment=project_focus.total_commitment|default:0 p_total_disbursement=project_focus.total_disbursement|default:0 %}
-                            <div id="pie4" data-chart="pie" data-values="{{ p_total_commitment }}|{{ p_total_disbursement }}"></div>
+                            <div id="pie4" data-chart="pie" data-values="{{ p_total_commitment|stringformat:"f" }}|{{ p_total_disbursement }}"></div>
                             <div class="col-md-4 numbers bg-red bordered-radius small-pad">{% if p_total_commitment %}€
                                 {{ p_total_commitment|currency }}{% else %}-{% endif %}<br><span class="eleven">{% trans 'Committed' %}</span></div>
                             <div class="col-md-4 col-md-offset-1 numbers bg-blue bordered-radius small-pad">{% if p_total_disbursement %}€

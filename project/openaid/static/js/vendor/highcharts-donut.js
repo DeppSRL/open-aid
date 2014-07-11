@@ -35,7 +35,7 @@ function SetChartDonut(id_donut) {
             //gestione tooltip
             getTooltip($(this), number_tr);
 
-            total = total + parseInt(valore);
+            total = total + parseFloat(valore);
             number_tr++;
             //console.log(id_donut, 'Tot', total, number_tr);
         }

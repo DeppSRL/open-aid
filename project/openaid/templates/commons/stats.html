@@ -44,7 +44,7 @@ should be reported under the sector to which they are directed, not under educat
                                 <a href="{% search_url sector.code_list_facet sector.code %}&selected_facets={{ selected_facet }}:{{ selected_code_list.code }}&selected_facets=years:{{ selected_year }}" data-title="{{ sector.name }}">{{ sector.name }}</a>
                             {% endif %}
                         </td>
-                        <td class="col-sm-4"><span data-value="{{ tot }}">{{ tot|currency }}</span></td>
+                        <td class="col-sm-4"><span data-value="{{ tot|stringformat:"f" }}">{{ tot|currency }}</span></td>
                     </tr>
                     {% endif %}{% endfor %}
                     </tbody>
@@ -79,7 +79,7 @@ a multilateral organisation, or a basket fund).  It does not track the end uses
                             {% endif %}
 
                         </td>
-                        <td class="col-sm-4"><span data-value="{{ tot }}">{{ tot|currency }}</span></td>
+                        <td class="col-sm-4"><span data-value="{{ tot|stringformat:"f" }}">{{ tot|currency }}</span></td>
                     </tr>
                     {% endif %}{% endfor %}
                     </tbody>
@@ -117,7 +117,7 @@ entities should not be reported as extending agencies but as channels of deliver
                             {% endif %}
 
                         </td>
-                        <td class="col-sm-4"><span data-value="{{ tot }}">{{ tot|currency }}</span></td>
+                        <td class="col-sm-4"><span data-value="{{ tot|stringformat:"f" }}">{{ tot|currency }}</span></td>
                     </tr>
                     {% endif %}{% endfor %}
                     </tbody>

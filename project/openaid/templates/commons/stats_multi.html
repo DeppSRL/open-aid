@@ -14,7 +14,7 @@
                 {% for fund in multi_stats %}
                 <tr class="dotted">
                     <td class="col-sm-8" data-title="{{ fund.organization }}">{{ fund.organization }}</td>
-                    <td class="col-sm-4"><span data-value="{{ fund.commitment }}">{{ fund.commitment|currency }}</span></td>
+                    <td class="col-sm-4"><span data-value="{{ fund.commitment|stringformat:"f" }}">{{ fund.commitment|currency }}</span></td>
                 </tr>
                 {% endfor %}
                 </tbody>
@@ -34,7 +34,7 @@
                 {% for fund in multi_stats %}
                 <tr class="dotted">
                     <td class="col-sm-8" data-title="{{ fund.organization }}">{{ fund.organization }}</td>
-                    <td class="col-sm-4"><span data-value="{{ fund.disbursement }}">{{ fund.disbursement|currency }}</span></td>
+                    <td class="col-sm-4"><span data-value="{{ fund.disbursement|stringformat:"f" }}">{{ fund.disbursement|currency }}</span></td>
                 </tr>
                 {% endfor %}
                 </tbody>
