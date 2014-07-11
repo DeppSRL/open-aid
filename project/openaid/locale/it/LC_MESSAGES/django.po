@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-11 13:07+0200\n"
+"POT-Creation-Date: 2014-07-11 19:57+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -230,7 +230,7 @@ msgstr ""
 msgid "Official Development Assistance"
 msgstr ""
 
-#: projects/models.py:214 templates/projects/project_detail.html:131
+#: projects/models.py:214 templates/projects/project_detail.html:133
 msgid "Flow type"
 msgstr ""
 
@@ -264,19 +264,19 @@ msgstr ""
 msgid "Private sector outflows"
 msgstr ""
 
-#: projects/models.py:226 templates/projects/project_detail.html:134
+#: projects/models.py:226 templates/projects/project_detail.html:136
 msgid "Bi/Multilateral"
 msgstr "Bi/Multilaterale"
 
-#: projects/models.py:228 templates/projects/project_detail.html:136
+#: projects/models.py:228 templates/projects/project_detail.html:138
 msgid "Free Standing Technical Cooperation"
 msgstr ""
 
-#: projects/models.py:229 templates/projects/project_detail.html:137
+#: projects/models.py:229 templates/projects/project_detail.html:139
 msgid "Programme Based Approaches"
 msgstr ""
 
-#: projects/models.py:230 templates/projects/project_detail.html:138
+#: projects/models.py:230 templates/projects/project_detail.html:140
 msgid "Investment Project"
 msgstr "Progetto di investimento"
 
@@ -361,10 +361,10 @@ msgstr ""
 "scelte di politica estera italiana, in armonia con gli interventi per il "
 "mantenimento della pace e la gestione dei flussi migratori."
 
-#: templates/home.html:24 templates/home.html.py:110
+#: templates/home.html:24 templates/home.html.py:112
 #: templates/codelists/recipient_detail.html:49
 #: templates/commons/stats.html:27 templates/commons/stats.html.py:62
-#: templates/commons/stats.html:100 templates/projects/project_detail.html:60
+#: templates/commons/stats.html:100 templates/projects/project_detail.html:62
 #: templates/search/search_results.html:116
 msgid "read more"
 msgstr "leggi tutto"
@@ -373,58 +373,58 @@ msgstr "leggi tutto"
 msgid "Focus on"
 msgstr "Focus on"
 
-#: templates/home.html:74 templates/commons/project_element.html:21
-#: templates/projects/project_detail.html:40
-#: templates/projects/project_detail.html:100
+#: templates/home.html:75 templates/commons/project_element.html:22
+#: templates/projects/project_detail.html:41
+#: templates/projects/project_detail.html:102
 msgid "Committed"
 msgstr "Impegnati"
 
-#: templates/home.html:76 templates/commons/project_element.html:24
-#: templates/projects/project_detail.html:41
-#: templates/projects/project_detail.html:101
+#: templates/home.html:77 templates/commons/project_element.html:25
+#: templates/projects/project_detail.html:42
+#: templates/projects/project_detail.html:103
 msgid "Used"
 msgstr "Erogati"
 
-#: templates/home.html:96 templates/projects/project_detail.html:45
+#: templates/home.html:98 templates/projects/project_detail.html:47
 #: templates/search/search_results.html:93
 msgid "Agency"
 msgstr "Finanziatore"
 
-#: templates/home.html:100 templates/projects/project_detail.html:49
+#: templates/home.html:102 templates/projects/project_detail.html:51
 msgid "Channel reported"
 msgstr "Esecutore"
 
-#: templates/home.html:107 templates/projects/project_detail.html:57
+#: templates/home.html:109 templates/projects/project_detail.html:59
 msgid "Description"
 msgstr "Descrizione"
 
-#: templates/home.html:111 templates/home.html.py:157 templates/home.html:167
+#: templates/home.html:113 templates/home.html.py:160 templates/home.html:170
 #: templates/codelists/recipient_detail.html:50
 #: templates/commons/stats.html:28 templates/commons/stats.html.py:63
-#: templates/commons/stats.html:101 templates/projects/project_detail.html:61
+#: templates/commons/stats.html:101 templates/projects/project_detail.html:63
 #: templates/search/search_results.html:117
 msgid "close"
 msgstr "chiudi"
 
-#: templates/home.html:127 templates/projects/project_detail.html:77
+#: templates/home.html:129 templates/projects/project_detail.html:79
 #: templates/search/search_results.html:101
 msgid "Aid type"
 msgstr "Tipologia di aiuto"
 
-#: templates/home.html:133 templates/commons/project_element.html:33
-#: templates/projects/project_detail.html:83
+#: templates/home.html:135 templates/commons/project_element.html:35
+#: templates/projects/project_detail.html:85
 msgid "Channels"
 msgstr "Canali"
 
-#: templates/home.html:158
+#: templates/home.html:161
 msgid "WELCOME TO OPEN AID ITALIA"
 msgstr "BENVENUTO SU OPEN AID ITALIA"
 
-#: templates/home.html:161
+#: templates/home.html:164
 msgid ""
 "<p>This website aims at making data on Italian Development Aid available for "
-"all.\n"
-"The website is in its first development phase, involving the on-line "
+"all.</p>\n"
+"<p>The website is in its first development phase, involving the on-line "
 "publication of all data on Italian ODA since 2004.</p>\n"
 "<p>In the second phase, the website will be integrated with additional "
 "contents on individual initiatives and with further information on different "
@@ -588,7 +588,7 @@ msgstr "Fondi impegnati, valori in euro"
 msgid "No title"
 msgstr "Nessun titolo"
 
-#: templates/commons/project_element.html:27
+#: templates/commons/project_element.html:29
 msgid "Aid types"
 msgstr "Tipologie di aiuti"
 
@@ -699,37 +699,37 @@ msgstr "L'Aiuto in numeri"
 msgid "Bilateral and Multi-bilateral"
 msgstr "Bilaterale e Multi-Bilaterale"
 
-#: templates/projects/project_detail.html:99
+#: templates/projects/project_detail.html:101
 #: templates/search/search_results.html:97
 msgid "Year"
 msgstr "Anno"
 
-#: templates/projects/project_detail.html:115
+#: templates/projects/project_detail.html:117
 msgid "Project data"
 msgstr "Dati del progetto"
 
-#: templates/projects/project_detail.html:118
+#: templates/projects/project_detail.html:120
 msgid "Expected start date"
 msgstr "Data inizio prevista"
 
-#: templates/projects/project_detail.html:121
+#: templates/projects/project_detail.html:123
 msgid "Completion date"
 msgstr "Data di completamento"
 
-#: templates/projects/project_detail.html:123
+#: templates/projects/project_detail.html:125
 msgid "CRSID"
 msgstr "CRSID"
 
-#: templates/projects/project_detail.html:124
+#: templates/projects/project_detail.html:126
 msgid "Purpose"
 msgstr "Scopo"
 
-#: templates/projects/project_detail.html:128
+#: templates/projects/project_detail.html:130
 #: templates/search/search_results.html:105
 msgid "Finance type"
 msgstr "Tipo di finanziamento"
 
-#: templates/projects/project_detail.html:167
+#: templates/projects/project_detail.html:169
 msgid "Photo gallery"
 msgstr "Photo gallery"
 

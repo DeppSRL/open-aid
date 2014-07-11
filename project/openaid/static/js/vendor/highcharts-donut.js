@@ -29,7 +29,7 @@ function SetChartDonut(id_donut) {
         //calcolo somma totale
         var valore = $(this).find("*[data-value]").data('value');
 
-        valore = valore.replace(/\./g, '');
+//        valore = valore.replace(/\./g, '');
 
         if (valore != "") {
             //gestione tooltip
@@ -46,7 +46,7 @@ function SetChartDonut(id_donut) {
         var titolo = $(this).find("*[data-title]").data('title');
         var valore = $(this).find("*[data-value]").data('value');
 
-        valore = valore.replace(/\./g, '');
+//        valore = valore.replace(/\./g, '');
 
         var percent = (parseFloat(valore) * 100) / total;
         percent = percent.toFixed(2);
