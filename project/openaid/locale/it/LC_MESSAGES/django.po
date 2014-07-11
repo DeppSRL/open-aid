@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-11 12:55+0200\n"
+"POT-Creation-Date: 2014-07-11 12:58+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -364,7 +364,7 @@ msgstr ""
 #: templates/home.html:24 templates/home.html.py:110
 #: templates/codelists/recipient_detail.html:49
 #: templates/commons/stats.html:27 templates/commons/stats.html.py:62
-#: templates/commons/stats.html:103 templates/projects/project_detail.html:60
+#: templates/commons/stats.html:100 templates/projects/project_detail.html:60
 #: templates/search/search_results.html:116
 msgid "read more"
 msgstr "leggi tutto"
@@ -401,7 +401,7 @@ msgstr "Descrizione"
 #: templates/home.html:111 templates/home.html.py:157 templates/home.html:167
 #: templates/codelists/recipient_detail.html:50
 #: templates/commons/stats.html:28 templates/commons/stats.html.py:63
-#: templates/commons/stats.html:104 templates/projects/project_detail.html:61
+#: templates/commons/stats.html:101 templates/projects/project_detail.html:61
 #: templates/search/search_results.html:117
 msgid "close"
 msgstr "chiudi"
@@ -631,26 +631,17 @@ msgstr ""
 
 #: templates/commons/stats.html:96
 msgid ""
-"The channel of delivery is the first implementing partner. It is the entity "
-"that has implementing responsibility\n"
-"over the funds and is normally linked to the extending agency by a contract "
-"or other binding agreement,\n"
-"and is directly accountable to it. Where several levels of implementation "
-"are involved (e.g. when the extending\n"
-"agency hires a national implementer which in turn may hire a local "
-"implementer), report the first level of\n"
-"implementation as the channel of delivery.  Where activities have several "
-"implementers, the principal implementer\n"
-"should be reported (e.g. the entity receiving the most funding). In the case "
-"of loans,\n"
-"report the borrower (i.e. the first entity outside the donor country that "
-"receives the funds)."
+"The extending agency is the government entity (central, state or local "
+"government agency\n"
+"or department) financing the activity from its own budget. It is the budget "
+"holder, controlling the\n"
+"activity on its own account. Agencies administering activities on behalf of "
+"other government \n"
+"entities should not be reported as extending agencies but as channels of "
+"delivery."
 msgstr ""
-"Il canale di finanziamento è il primo partner che riceve il finanziamento da "
-"parte dell’ente finanziatore, è direttamente responsabile nei suoi confronti "
-"ed ha la responsabilità di esecuzione del progetto. Nel caso dei prestiti, "
-"ci si riferisce al mutuatario (cioè la prima entità al di fuori del paese "
-"donatore che riceve i fondi)."
+"Enti governativi (a livello centrale, statale o locale) che finanziano le iniziative di "
+"Aiuto Pubblico allo Sviluppo con fondi attinti direttamente dal proprio bilancio."
 
 #: templates/commons/stats_multi.html:49
 msgid ""
@@ -764,6 +755,28 @@ msgstr "Canale"
 #: templates/search/search_results.html:113
 msgid "Recipient"
 msgstr "Destinatario"
+
+#~ msgid ""
+#~ "The channel of delivery is the first implementing partner. It is the "
+#~ "entity that has implementing responsibility\n"
+#~ "over the funds and is normally linked to the extending agency by a "
+#~ "contract or other binding agreement,\n"
+#~ "and is directly accountable to it. Where several levels of implementation "
+#~ "are involved (e.g. when the extending\n"
+#~ "agency hires a national implementer which in turn may hire a local "
+#~ "implementer), report the first level of\n"
+#~ "implementation as the channel of delivery.  Where activities have several "
+#~ "implementers, the principal implementer\n"
+#~ "should be reported (e.g. the entity receiving the most funding). In the "
+#~ "case of loans,\n"
+#~ "report the borrower (i.e. the first entity outside the donor country that "
+#~ "receives the funds)."
+#~ msgstr ""
+#~ "Il canale di finanziamento è il primo partner che riceve il finanziamento "
+#~ "da parte dell’ente finanziatore, è direttamente responsabile nei suoi "
+#~ "confronti ed ha la responsabilità di esecuzione del progetto. Nel caso "
+#~ "dei prestiti, ci si riferisce al mutuatario (cioè la prima entità al di "
+#~ "fuori del paese donatore che riceve i fondi)."
 
 #~ msgid "CC Licenses"
 #~ msgstr "Licenze CC"

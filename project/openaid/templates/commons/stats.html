@@ -93,13 +93,10 @@ a multilateral organisation, or a basket fund).  It does not track the end uses
         <div class="{% if columns == 3 %}col-md-4{% else %}col-md-6{% endif %}">
             <h3>{% trans 'Who funds?' %}</h3>
             <p class="twelve readmore">
-{% blocktrans %}The channel of delivery is the first implementing partner. It is the entity that has implementing responsibility
-over the funds and is normally linked to the extending agency by a contract or other binding agreement,
-and is directly accountable to it. Where several levels of implementation are involved (e.g. when the extending
-agency hires a national implementer which in turn may hire a local implementer), report the first level of
-implementation as the channel of delivery.  Where activities have several implementers, the principal implementer
-should be reported (e.g. the entity receiving the most funding). In the case of loans,
-report the borrower (i.e. the first entity outside the donor country that receives the funds).{% endblocktrans %}
+                {% blocktrans %}The extending agency is the government entity (central, state or local government agency
+or department) financing the activity from its own budget. It is the budget holder, controlling the
+activity on its own account. Agencies administering activities on behalf of other government
+entities should not be reported as extending agencies but as channels of delivery.{% endblocktrans %}
                 <a href="#" class="readmore-open">{% trans 'read more' %} {% icon 'caret-down' %}</a>
                 <a href="#" class="readmore-close">{% trans 'close' %} {% icon 'caret-up' %}</a>
             </p>
