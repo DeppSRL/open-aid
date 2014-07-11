@@ -2,7 +2,7 @@
     -webkit-border-radius:6px 6px 0 0;-moz-border-radius:6px 6px 0 0;border-radius:6px 6px 0 0;
 }
 .modal-header h4.modal-title { color: white; }
-#main-content #main-menu .bg-red {
+#main-content #main-menu.bg-red {
   margin-bottom: 5px;
 }
 
