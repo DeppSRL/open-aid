@@ -32,7 +32,7 @@
         {% if object.description %}
         <h3>{% trans 'Info' %}</h3>
         <dl class="dl-horizontal">
-            <dt>{% trans 'Population' %}</dt><dd>{{ object.popolazione|intcomma|default_if_none:'-' }}</dd>
+            <dt>{% trans 'Population' %}</dt><dd>{% if object.popolazione %}{{ object.popolazione|intcomma }}{% else %}-{% endif %}</dd>
             <dt>{% trans 'Population growth' %}</dt><dd>{% if object.crescita_popolazione %}{{ object.crescita_popolazione }} % {% else %}-{% endif %}</dd>
             <dt>{% trans 'GDP' %}</dt><dd>{% if object.pil %}{{ object.pil|intcomma }} ${% else %}-{% endif %}</dd>
             <dt>{% trans 'GDP per capita' %}</dt><dd>{% if object.pil_procapite %}{{ object.pil_procapite|intcomma }} ${% else %}-{% endif %}</dd>
