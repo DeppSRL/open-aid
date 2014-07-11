@@ -630,7 +630,6 @@ msgstr ""
 "dal donatore."
 
 #: templates/commons/stats.html:96
-#, fuzzy
 msgid ""
 "The extending agency is the government entity (central, state or local "
 "government agency\n"
