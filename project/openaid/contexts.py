@@ -49,7 +49,7 @@ def project_context(request):
         'project_name': settings.PROJECT_NAME,
         'available_languages': map(lambda x: x[0], settings.LANGUAGES),
         'footer_sections': pages_urls.footer_sections,
-        'recipients': sorted(recipients, key=lambda r: r[0].name),
+        'recipients': sorted(recipients, key=lambda r: r[0].code),
         'sectors': sectors,
         'agencies': agencies,
         'aid_types': aid_types,
