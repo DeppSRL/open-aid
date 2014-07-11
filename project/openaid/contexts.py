@@ -57,4 +57,5 @@ def project_context(request):
         YEARS_RANGE_FIELD: YEARS,
         'search_form': FacetedProjectSearchForm(request.GET),
         'addthis_profile': settings.ADDTHIS_PROFILE,
+        'donor_code': settings.OPENAID_CRS_DONOR,
     }
