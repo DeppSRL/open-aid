@@ -37,7 +37,7 @@
                     </li>
                     <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">{% trans 'What is it spent for?' %} <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            {% for sector in sectors|dictsort:'name' %}{% if sector.activity_count > 0 %}
+                            {% for sector in sectors|dictsort:'code' %}{% if sector.activity_count > 0 %}
                             <li>
                                 <a href="{% url 'codelists:sector-detail' code=sector.code %}">{{ sector.name }}</a>
                             </li>
@@ -46,7 +46,7 @@
                     </li>
                     <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">{% trans 'Who funds?' %} <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            {% for agency in agencies|dictsort:'name' %}{% if agency.activity_count > 0 %}
+                            {% for agency in agencies|dictsort:'code' %}{% if agency.activity_count > 0 %}
                             <li>
                                 <a href="{% url 'codelists:agency-detail' code=agency.code %}">{{ agency.name }}</a>
                             </li>
@@ -55,7 +55,7 @@
                     </li>
                     <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">{% trans 'By means of?' %} <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            {% for aid_type in aid_types|dictsort:'name' %}{% if aid_type.activity_count > 0 %}
+                            {% for aid_type in aid_types|dictsort:'code' %}{% if aid_type.activity_count > 0 %}
                             <li>
                                 <a href="{% url 'codelists:aid_type-detail' code=aid_type.code %}">{{ aid_type.name }}</a>
                             </li>

@@ -17,12 +17,14 @@
             {% endwith %}
         </header>
         <div class="row">
+            {% with p_total_commitment=project.total_commitment|default:0 p_total_disbursement=project.total_disbursement|default:0 %}
             <div class="col-md-3">
-                <div class=" numbers bg-red bordered-radius small-pad">€ {{ project.total_commitment|currency }}<br><span class="eleven">{% trans 'Committed' %}</span></div>
+                <div class=" numbers bg-red bordered-radius small-pad">{% if p_total_commitment %}€ {{ p_total_commitment|currency }}{% else %}-{% endif %}<br><span class="eleven">{% trans 'Committed' %}</span></div>
             </div>
             <div class="col-md-3">
-                <div class=" numbers bg-blue bordered-radius small-pad">€ {{ project.total_disbursement|currency }}<br><span class="eleven">{% trans 'Used' %}</span></div>
+                <div class=" numbers bg-blue bordered-radius small-pad">{% if p_total_disbursement %}€ {{ p_total_disbursement|currency }}{% else %}-{% endif %}<br><span class="eleven">{% trans 'Used' %}</span></div>
             </div>
+            {% endwith %}
             <div class="col-md-3">
                 <span class="eleven light-gray block">{% trans 'Aid types' %}</span>
                 {% for aid_type in project.aid_types|unique %}
