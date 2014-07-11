@@ -1,4 +1,4 @@
-from django.contrib.gis import admin
+from django.contrib import admin
 from modeltranslation.admin import TranslationAdmin
 from models import Entry
 from django.forms import ModelForm, CharField
