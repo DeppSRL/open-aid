@@ -27,7 +27,7 @@ function SetChartDonut(id_donut) {
 
     $("table[data-container='"+id_donut+"'] tr").each(function() {
         //calcolo somma totale
-        var valore = $(this).find("*[data-value]").html();
+        var valore = $(this).find("*[data-value]").data('value');
 
         valore = valore.replace(/\./g, '');
 
@@ -43,13 +43,13 @@ function SetChartDonut(id_donut) {
 
     //prelevo i dati dalla tabella e creo l'array
     $("table[data-container='"+id_donut+"'] tr").each(function() {
-        var titolo = $(this).find("*[data-title]").html();
-        var valore = $(this).find("*[data-value]").html();
+        var titolo = $(this).find("*[data-title]").data('title');
+        var valore = $(this).find("*[data-value]").data('value');
 
         valore = valore.replace(/\./g, '');
 
         var percent = (parseFloat(valore) * 100) / total;
-        percent = percent.toFixed(2).replace('.', ',');
+        percent = percent.toFixed(2);
 
         if (valore != "") {
 
