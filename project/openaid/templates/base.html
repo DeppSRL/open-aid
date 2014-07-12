@@ -98,5 +98,13 @@
     <!-- place project specific Javascript in this file -->
     <script src="{% static 'js/main.js' %}"></script>
 {% endblock javascript %}
+    {% verbatim %}<script type="text/javascript">
+        var addthis_share =
+        {
+            templates: {
+                twitter: '{{title}} {{url}} #OpenAid italia'
+            }
+        };
+    </script>{% endverbatim %}
 </body>
 </html>
