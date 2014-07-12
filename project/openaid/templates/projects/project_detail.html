@@ -4,6 +4,9 @@
 {% load icons %}
 {% load staticfiles %}
 
+{% block page_title %}OpenAID - {{ object.title|truncatechars:10 }} - {{ object.recipient.name }}{% endblock %}
+{% block og_title %}OpenAID - {{ object.title }}{% endblock %}
+
 {% block content %}
 
     <div class="row">

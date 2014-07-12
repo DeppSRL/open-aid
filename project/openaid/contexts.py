@@ -58,4 +58,6 @@ def project_context(request):
         'search_form': FacetedProjectSearchForm(request.GET),
         'addthis_profile': settings.ADDTHIS_PROFILE,
         'donor_code': settings.OPENAID_CRS_DONOR,
+        'site_full_url': request.build_absolute_uri('/')[:-1],
+        'page_full_url': request.build_absolute_uri(),
     }

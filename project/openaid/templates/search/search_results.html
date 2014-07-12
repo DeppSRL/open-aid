@@ -6,6 +6,9 @@
 {% load search_utils %}
 {% load staticfiles %}
 
+{% block page_title %}OpenAID - {% trans "Search" %}{% endblock %}
+{% block og_title %}OpenAID - {% trans "Search" %}{% endblock %}
+
 {% block header %}
     {% if search_facets %}
     <div class="container">
