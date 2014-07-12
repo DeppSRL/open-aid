@@ -28,4 +28,4 @@ class PrivateBetaMiddleware(object):
         if '%s' % view_func.__module__ in whitelisted_modules:
             return
         else:
-            return TemplateView.as_view(template_name='base.html')(request)
+            return TemplateView.as_view(template_name='earlybird.html')(request)
