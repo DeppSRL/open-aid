@@ -74,11 +74,12 @@
         <div class="col-md-4 col-md-offset-4">
             <img src="{% static 'img/layout/logo_openaid.png' %}" class="img-responsive" id="main-logo">
 
-            <form class="form-signin collapse" role="form" method="post" action="/admin/">{% csrf_token %}
-                <input type="text" name="username" class="form-control" placeholder="Username" required autofocus>
-                <input type="password" name="password" class="form-control" placeholder="Password" required>
-                <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-            </form>
+{#            <form class="form-signin collapse" role="form" method="post" action="/admin/">{% csrf_token %}#}
+{#                <input type="hidden" name="next" value="/"/>#}
+{#                <input type="text" name="username" class="form-control" placeholder="Username" required autofocus>#}
+{#                <input type="password" name="password" class="form-control" placeholder="Password" required>#}
+{#                <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>#}
+{#            </form>#}
         </div>
 
 
@@ -99,7 +100,7 @@
 <script type="text/javascript">
     $(document).ready(function(){
         $( "#main-logo" ).dblclick(function() {
-            $('.form-signin').collapse('toggle')
+{#            $('.form-signin').collapse('toggle')#}
         });
     });
 </script>
