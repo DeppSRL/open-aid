@@ -1,12 +1,14 @@
+#main-content { width: 100% !important;}
 .modal-header { background-color: #f7505a;
     -webkit-border-radius:6px 6px 0 0;-moz-border-radius:6px 6px 0 0;border-radius:6px 6px 0 0;
 }
 .modal-header h4.modal-title { color: white; }
-#main-content #main-menu .bg-red {
+#main-content #main-menu.bg-red {
   margin-bottom: 5px;
 }
 
 #main-content .project-description { margin-bottom: 10px; }
+#main-content .home-blog.media-list .media .media-body { font-size: 16px; }
 
 #header .navbar-brand a img { width: 120px; }
 #header .navbar-brand a {
@@ -240,4 +242,28 @@ ul.gallery-small li {
 #myModal .next {
     float:right;
     text-align:right;
+}
+
+
+@media (min-width: 768px) and (max-width: 991px) {
+    #main-menu > .container { width: 100%; }
+    #main-menu > .container > .row { margin: 0 15px; display: block; }
+    #main-menu > .container > .row .navbar-nav > li > a { padding-left: 10px; padding-right: 10px; }
+    #header .navbar-nav.navbar-right li > a { line-height: 12px; }
+    #header .navbar-nav.navbar-right li { display: block; float: none; text-align: right; line-height: 12px; margin-bottom: 4px;  }
+    #header .navbar-nav.navbar-right { max-width: 140px; }
+}
+
+@media (max-width: 767px) {
+    #header .navbar-header { float: left; }
+    #header .navbar-nav.navbar-right { max-width: 140px; float: right; }
+    #header .navbar-nav.navbar-right li > a { line-height: 12px; }
+    #header .navbar-nav.navbar-right li { display: block; float: none; text-align: right; line-height: 12px; margin-bottom: 4px;  }
+    #main-menu > .container { width: 100%; }
+    #main-menu > .container > .row { margin: 0 15px; display: block; }
+    /*#main-menu > .container > .row .navbar-nav > li { float: left; }*/
+    #main-content #main-menu .navbar-nav > li > a { border: 0; }
+    #main-menu > .container > .row .navbar-nav > li > a { padding-left: 10px; padding-right: 10px; }
+    #main-content .years-navigation .navbar-nav > li { width: 10% !important; float:left; }
+    /*#main-content .years-navigation .navbar-nav > li.selected a { color: #f7505a; }*/
 }

@@ -107,6 +107,13 @@ USE_L10N = True
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#use-tz
 USE_TZ = True
+
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#locale-paths
+LOCALE_PATHS = (
+    PACKAGE_PATH,
+    join(PROJECT_PATH, "blog"),
+    join(PROJECT_PATH, "faq"),
+)
 ########## END GENERAL CONFIGURATION
 
 

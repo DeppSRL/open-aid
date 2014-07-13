@@ -133,7 +133,7 @@ legend.onAdd = function (map) {
         grades_labels = [
             'fino a 100 mila',
             'da 100 mila a 1 milione',
-            'da 1 a 10 miloni',
+            'da 1 a 10 milioni',
             'da 10 a 100 milioni',
             'oltre 100 milioni'
         ],

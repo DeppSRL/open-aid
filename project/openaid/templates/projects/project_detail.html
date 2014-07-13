@@ -4,6 +4,9 @@
 {% load icons %}
 {% load staticfiles %}
 
+{% block page_title %}OpenAID - {{ object.title|truncatechars:10 }} - {{ object.recipient.name }}{% endblock %}
+{% block og_title %}OpenAID - {{ object.title }}{% endblock %}
+
 {% block content %}
 
     <div class="row">
@@ -28,18 +31,18 @@
     <div class="spacer"> </div>
 
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-4 col-sm-6 col-xs-6">
             <div class="small-map"><div id="map" data-chart="map" style="height: 260px;" data-iso-code="{{ object.recipient.iso_code }}"></div></div>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-4 col-sm-6 col-xs-6">
             <div class="row">
                 <div class="focus">
                     <div class="row no-marg">
                         {% with p_total_commitment=project.total_commitment|default:0 p_total_disbursement=project.total_disbursement|default:0 %}
-                        <div id="project-pie-{{ project.pk }}" data-chart="pie" data-values="{{ p_total_commitment }}|{{ p_total_disbursement }}"></div>
-                        <div class="col-md-4 numbers bg-red bordered-radius small-pad">{% if p_total_commitment %}€ {{ project.total_commitment|currency }}{% else %}-{% endif %}<br><span class="eleven">{% trans 'Committed' %}</span></div>
-                        <div class="col-md-4 col-md-offset-1 numbers bg-blue bordered-radius small-pad">{% if p_total_disbursement %}€ {{ project.total_disbursement|currency }}{% else %}-{% endif %}<br><span class="eleven">{% trans 'Used' %}</span></div>
+                        <div id="project-pie-{{ project.pk }}" data-chart="pie" data-values="{{ p_total_commitment|stringformat:"f" }}|{{ p_total_disbursement|stringformat:"f" }}"></div>
+                        <div class="col-md-4  col-sm-4 col-xs-4 numbers bg-red bordered-radius small-pad">{% if p_total_commitment %}€ {{ project.total_commitment|currency }}{% else %}-{% endif %}<br><span class="eleven">{% trans 'Committed' %}</span></div>
+                        <div class="col-md-4  col-sm-4 col-xs-4 col-md-offset-1 col-sm-offset-1 col-offset-xs-1 numbers bg-blue bordered-radius small-pad">{% if p_total_disbursement %}€ {{ project.total_disbursement|currency }}{% else %}-{% endif %}<br><span class="eleven">{% trans 'Used' %}</span></div>
                         {% endwith %}
                     </div>
                     <div class="row no-marg">
@@ -75,13 +78,13 @@
                     </ul>
 
                     <div class="row no-marg">
-                        <div class="col-md-6">
+                        <div class="col-md-6 col-sm-6 col-xs-6">
                             <span class="eleven light-gray block">{% trans 'Aid type' %}</span>
                             {% for aid_type in project.aid_types|unique %}{% if aid_type %}
                             <a href="{% url 'codelists:aid_type-detail' code=aid_type.code %}" class="eleven">{{ aid_type.name }}</a>{% if not forloop.last %}, {% endif %}
                             {% endif %}{% endfor %}
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6 col-sm-6 col-xs-6">
                             <span class="eleven light-gray block">{% trans 'Channels' %}</span>
                             {% for channel in project.channels|unique %}{% if channel %}
                             <a href="{% url 'codelists:channel-detail' code=channel.code %}" class="eleven">{{ channel.name }}</a>{% if not forloop.last %}, {% endif %}
@@ -93,7 +96,7 @@
             </div>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-4 col-sm-12 col-xs-12">
 
             <table class="table table-default">
                 <thead>

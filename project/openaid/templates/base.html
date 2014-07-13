@@ -1,11 +1,17 @@
 {% load staticfiles i18n icons %}{% get_current_language as LANGUAGE_CODE %}<!DOCTYPE html>
-<html lang="{{ LANGUAGE_CODE }}">
+<html lang="{{ LANGUAGE_CODE }}" prefix="og: http://ogp.me/ns#">
 <head>
     <meta charset="utf-8">
     <title>{% block page_title %}OpenAID{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="{% block page_description %}{% endblock %}">
     <meta name="author" content="{% block page_author %}depp srl{% endblock %}">
+    <meta property="og:title" content="{% block og_title %}OpenAID{% endblock %}" />
+    <meta property="og:description" content="OpenAID" />
+    <meta property="og:site_name" content="OpenAID" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{{ page_full_url }}" />
+    <meta property="og:image" content="{{ site_full_url }}{% static 'img/socialicon.png' %}" />
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -23,7 +29,15 @@
     {% endblock css %}
 
     <link rel="icon" type="image/png" href="{% static 'img/favicon.png' %}"><!-- Major Browsers -->
-    <!--[if IE]><link rel="SHORTCUT ICON" href="{% static 'img/favicon.ico' %}"/><![endif]--><!-- Internet Explorer-->
+    <!--[if IE]><link rel="SHORTCUT ICON" href="{% static 'img/favicon.ico' %}" type="image/x-icon"/><![endif]--><!-- Internet Explorer-->
+    <link rel="apple-touch-icon" href="{% static 'img/apple/apple-touch-icon.png' %}" />
+    <link rel="apple-touch-icon" sizes="57x57" href="{% static 'img/apple/apple-touch-icon-57x57.png' %}" />
+    <link rel="apple-touch-icon" sizes="72x72" href="{% static 'img/apple/apple-touch-icon-72x72.png' %}" />
+    <link rel="apple-touch-icon" sizes="76x76" href="{% static 'img/apple/apple-touch-icon-76x76.png' %}" />
+    <link rel="apple-touch-icon" sizes="114x114" href="{% static 'img/apple/apple-touch-icon-114x114.png' %}" />
+    <link rel="apple-touch-icon" sizes="120x120" href="{% static 'img/apple/apple-touch-icon-120x120.png' %}" />
+    <link rel="apple-touch-icon" sizes="144x144" href="{% static 'img/apple/apple-touch-icon-144x144.png' %}" />
+    <link rel="apple-touch-icon" sizes="152x152" href="{% static 'img/apple/apple-touch-icon-152x152.png' %}" />
 </head>
 
 <body>
@@ -84,5 +98,23 @@
     <!-- place project specific Javascript in this file -->
     <script src="{% static 'js/main.js' %}"></script>
 {% endblock javascript %}
+    {% verbatim %}<script type="text/javascript">
+        var addthis_share =
+        {
+            templates: {
+                twitter: '{{title}} {{url}} #OpenAid italia'
+            }
+        };
+    </script>{% endverbatim %}
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-980632-27', 'auto');
+      ga('send', 'pageview');
+
+    </script>
 </body>
 </html>

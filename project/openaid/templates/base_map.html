@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 
+{% load i18n %}
 {% load staticfiles %}
 
 {% block css %}
@@ -50,6 +51,6 @@
     </script>
 
     <script type="text/javascript" src="{% static 'js/humanize.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/map.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/map_'|add:LANGUAGE_CODE|add:'.js' %}"></script>
 
 {% endblock %}

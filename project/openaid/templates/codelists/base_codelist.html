@@ -7,6 +7,9 @@
 {% load icons %}
 {% load search_utils %}
 
+{% block page_title %}OpenAID - {{ object.name }}{% endblock %}
+{% block og_title %}OpenAID - {{ object.name }}{% endblock %}
+
 {% block content %}
 
 <div class="container">
@@ -16,8 +19,8 @@
         <header class="col-md-9">
 
             <div class="btn-group">
-                <a href="#" class="btn btn-aid">{% trans 'Download JSON' %} <span class="fa fa-download"> </span></a>
-                <a href="#" class="btn btn-aid">{% trans 'Download XML' %} <span class="fa fa-download"> </span></a>
+                <a href="{% url 'api' %}" class="btn btn-aid">{% trans 'Download JSON' %} <span class="fa fa-download"> </span></a>
+{#                <a href="#" class="btn btn-aid">{% trans 'Download XML' %} <span class="fa fa-download"> </span></a>#}
             </div>
             <br>
             {% block codelist_header %}
