@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block page_title %}{% trans 'Last news' %}{% endblock %}
+
+{% block content %}
+  <div id="blog">
+    {% for object in object_list %}
+      {% include 'entry_item.html' with object=object title_linked=1 only %}
+      {% if not forloop.last %}
+        <hr style="margin-top:2em; border-top: 1px solid navy;">
+      {% endif %}
+    {% endfor %}
+  </div>
+
+{% endblock content %}
+

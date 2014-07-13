@@ -1,0 +1,10 @@
+{% extends 'pages_base.html' %}
+
+{% block container %}
+    <p>A breve sarà disponibile l'API di Open Aid Italia.</p>
+    <p>L'API sarà un'interfaccia applicativa che consentirà a qualunque componente software esterno di accedere ai dati sulla cooperazione italiana allo sviluppo.</p>
+    <p>I dati saranno disponibili nei formati json e html e la struttura sarà compatibile con lo standard Iati.</p>
+    <p>Oggi comunque puoi già scaricare tutti i dati nel formato CSV cliccando <a
+            href="{% url 'scarica_dati' %}">qui</a>. </p>
+{% endblock container %}
+

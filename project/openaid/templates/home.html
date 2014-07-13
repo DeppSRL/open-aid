@@ -1,282 +1,193 @@
-{% extends 'base.html' %}
+{% extends 'base_map.html' %}
+{% load i18n %}
+{% load staticfiles %}
 {% load idioticon %}
 {% load icons %}
 {% load humanize %}
 {% load crs %}
 
 {% block content %}
-<div class="row">
-    <div class="container">
-        <div class="col-md-6">
-            <h2><a href="#">LA COOPERAZIONE ITALIANA</a></h2>
-            <div class="row">
-                <div class="col-md-2"><img src="http://www.polyvore.com/cgi/img-thing?.out=jpg&size=l&tid=33633876" alt="avatar" class="img-responsive img-circle"></div>
-                <div class="col-md-10"><p>Lorem Ipsum è un testo segnaposto utilizzato nel settore della tipografia e della stampa. Lorem Ipsum è considerato il testo segnaposto standard sin dal sedicesimo secolo.</p></div>
+    <div class="row">
+        <div class="container">
+            <div class="col-md-7">
+                <h2><a href="{% url 'cooperazione_italiana' %}">{% trans 'Italian Development Cooperation' %}</a></h2>
+
+                <p>
+{% blocktrans %}Since the 1950s, Italian Development Cooperation has grown through aid programs in
+countries linked to Italy by former colonial ties.
+Italy has developed a more systematic cooperative approach aimed at alleviating poverty worldwide
+and helping developing countries to strengthen their institutions and governance.
+In recent years, due to new global plights, Italian Cooperation has played a crucial role in
+defining Italian foreign policy,
+aimed at maintaining peace and managing migration flows.{% endblocktrans %}
+                    <a href="{% url 'cooperazione_italiana' %}"
+                       class="read-more pull-right twelve">{% trans 'read more' %} {% icon 'caret-right' %}</a>
+                </p>
+
             </div>
-            <div class="row">
-                <div class="col-md-2"><img src="http://www.polyvore.com/cgi/img-thing?.out=jpg&size=l&tid=33633876" alt="avatar" class="img-responsive img-circle"></div>
-                <div class="col-md-10"><p>Lorem Ipsum è un testo segnaposto utilizzato nel settore della Lorem Ipsum è un testo segnaposto utilizzato nel settore della
-tipografia e della stampa.<br><br>
-Lorem Ipsum è considerato il testo segnaposto standard sin dal sedicesimo secolo.</p></div>
+
+            <div class="col-md-5">
+                <h2><a href="{% url 'blog_home' %}">{% trans "News" %}</a></h2>
+
+                <ul class="media-list home-blog">
+                    {% for entry in entries_list %}
+                        <li class="media">
+                            <article class="media-body">
+                                <header>
+                                    <a href="{% url 'blog_item' entry.slug %}">{{ entry.title }}</a>
+                                </header>
+                                <div class="text">
+                                    {{ entry.abstract|safe }}
+                                </div>
+{#                                <footer>#}
+{#                                    <time datetime="2014-05-06 19:00">{{ entry.published_at|date:'d/m/Y' }}</time>#}
+{#                                </footer>#}
+                            </article>
+                        </li>
+                    {% endfor %}
+                </ul>
+
             </div>
-            <a href="#" class="read-more pull-right twelve">LEGGI TUTTO <span class="fa fa-caret-right"> </span></a>
         </div>
+        <!-- .container -->
+    </div><!-- .row -->
 
-        <div class="col-md-6">
-            <h2><a href="#">DIARIO DEI PROGETTI</a></h2>
-            <ul class="media-list">
-                <li class="media">
-                    <figure class="pull-left">
-                        <img src="http://cambelt.co/42x42/ML?color=5e6a77" alt="avatar" class="img-responsive">
-                    </figure>
-                    <article class="media-body">
-                        <header>
-                            <a href="#">Titolo del post lorem ipsum dolor sit amet</a>
-                        </header>
-                        <div class="text">
-                            <p>Lorem Ipsum è un testo segnaposto utilizzato nel settore della tipografia ...</p>
-                        </div>
-                        <footer>
-                            <time datetime="2014-05-06 19:00">6 maggio 2014</time>
-                        </footer>
-                    </article>
-                </li>
-                <li class="media">
-                    <figure class="pull-left">
-                        <img src="http://cambelt.co/42x42/ML?color=5e6a77" alt="avatar" class="img-responsive">
-                    </figure>
-                    <article class="media-body">
-                        <header>
-                            <a href="#">Titolo del post lorem ipsum dolor sit amet</a>
-                        </header>
-                        <div class="text">
-                            <p>Lorem Ipsum è un testo segnaposto utilizzato nel settore della tipografia ...</p>
-                        </div>
-                        <footer>
-                            <time datetime="2014-05-06 19:00">6 maggio 2014</time>
-                        </footer>
-                    </article>
-                </li>
-                <li class="media">
-                    <figure class="pull-left">
-                        <img src="http://cambelt.co/42x42/ML?color=5e6a77" alt="avatar" class="img-responsive">
-                    </figure>
-                    <article class="media-body">
-                        <header>
-                            <a href="#">Titolo del post lorem ipsum dolor sit amet</a>
-                        </header>
-                        <div class="text">
-                            <p>Lorem Ipsum è un testo segnaposto utilizzato nel settore della tipografia ...</p>
-                        </div>
-                        <footer>
-                            <time datetime="2014-05-06 19:00">6 maggio 2014</time>
-                        </footer>
-                    </article>
-                </li>
-            </ul>
-            <a href="#" class="read-more pull-right twelve">LEGGI TUTTO <span class="fa fa-caret-right"> </span></a>
-        </div>
-    </div><!-- .container -->
-</div><!-- .row -->
+    <div class="spacer"></div>
 
-<div class="spacer"> </div>
+    {% crs_stats %}
 
-{% crs_stats %}
-
-<div class="row">
-    <div class="container">
+    <div class="row">
         <div class="col-md-8">
-            <div class="progetti">
-                <h2><a href="#">I PROGETTI CON I MAGGIORI FINANZIAMENTI</a></h2>
-                <div class="bordered-radius" style="overflow:hidden;">
-                    <ul class="list-unstyled">
-                        <li>
-                            <ul class="nav nav-pills ">
-                                <li>
-                                    <a href="#"><span class="fa fa-chevron-right"> </span>Infrastrutture e servizi sociali</a>
-                                </li>
-                                <li>
-                                    <a href="#"><span class="fa fa-chevron-right"> </span> Lorem ipsum dolor sit armet</a>
-                                </li>
-                                <li>
-                                    <a href="#"><span class="fa fa-chevron-right"> </span> Lorem ipsum dolor sit amet nome troppo luced adisciping</a>
-                                </li>
-                            </ul>
-                            <article class="progetti-body">
-                                <header>
-                                    <div id="pie1"></div>
-                                    <a href="#">Incentivazione dei processi di Rigenerazione Culturale, organizzazione degli
-spazi e promozione dei diritti delle Comunità Indigene Mapuche in Araucania</a>
-                                </header>
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <div class=" numbers bg-red bordered-radius small-pad">€ 300.000.000<br><span class="eleven">IMPEGNATI, 2012</span></div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class=" numbers bg-blue bordered-radius small-pad">€ 300.000.000<br><span class="eleven">IMPEGNATI, 2012</span></div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <span class="eleven light-gray block">TIPOLOGIA</span>
-                                        <a class="eleven">Lorem ipsum</a>, <a class="eleven">Lorem ipsum</a>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <span class="eleven light-gray block">TIPOLOGIA</span>
-                                        <a class="eleven">Lorem ipsum</a>, <a class="eleven">Lorem ipsum</a>
-                                    </div>
-                                    <div class="col-md-12"><a href="#" class="twelve">PAESE</a> <a href="#" class="twelve">PAESE</a> <span class="twelve light-gray">anno</span> <span class="twelve light-gray">anno</span></div>
-                                 </div><!-- .row -->
-                            </article>
-                        </li>
-                        <li>
-                            <ul class="nav nav-pills ">
-                                <li>
-                                    <a href="#"><span class="fa fa-chevron-right"> </span>Infrastrutture e servizi sociali</a>
-                                </li>
-                                <li>
-                                    <a href="#"><span class="fa fa-chevron-right"> </span> Lorem ipsum dolor sit armet</a>
-                                </li>
-                                <li>
-                                    <a href="#"><span class="fa fa-chevron-right"> </span> Lorem ipsum dolor sit amet nome troppo luced adisciping</a>
-                                </li>
-                            </ul>
-                            <article class="progetti-body">
-                                <header>
-                                    <div id="pie2"></div>
-                                    <a href="#">Incentivazione dei processi di Rigenerazione Culturale, organizzazione degli
-spazi e promozione dei diritti delle Comunità Indigene Mapuche in Araucania</a>
-                                </header>
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <div class=" numbers bg-red bordered-radius small-pad">€ 300.000.000<br><span class="eleven">IMPEGNATI, 2012</span></div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class=" numbers bg-blue bordered-radius small-pad">€ 300.000.000<br><span class="eleven">IMPEGNATI, 2012</span></div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <span class="eleven light-gray block">TIPOLOGIA</span>
-                                        <a class="eleven">Lorem ipsum</a>, <a class="eleven">Lorem ipsum</a>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <span class="eleven light-gray block">TIPOLOGIA</span>
-                                        <a class="eleven">Lorem ipsum</a>, <a class="eleven">Lorem ipsum</a>
-                                    </div>
-                                    <div class="col-md-12"><a href="#" class="twelve">PAESE</a> <a href="#" class="twelve">PAESE</a> <span class="twelve light-gray">anno</span> <span class="twelve light-gray">anno</span></div>
-                                 </div><!-- .row -->
-                            </article>
-                        </li>
-                        <li>
-                            <ul class="nav nav-pills ">
-                                <li>
-                                    <a href="#"><span class="fa fa-chevron-right"> </span>Infrastrutture e servizi sociali</a>
-                                </li>
-                                <li>
-                                    <a href="#"><span class="fa fa-chevron-right"> </span> Lorem ipsum dolor sit armet</a>
-                                </li>
-                                <li>
-                                    <a href="#"><span class="fa fa-chevron-right"> </span> Lorem ipsum dolor sit amet nome troppo luced adisciping</a>
-                                </li>
-                            </ul>
-                            <article class="progetti-body">
-                                <header>
-                                    <div id="pie3"></div>
-                                    <a href="#">Incentivazione dei processi di Rigenerazione Culturale, organizzazione degli
-spazi e promozione dei diritti delle Comunità Indigene Mapuche in Araucania</a>
-                                </header>
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <div class=" numbers bg-red bordered-radius small-pad">€ 300.000.000<br><span class="eleven">IMPEGNATI, 2012</span></div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class=" numbers bg-blue bordered-radius small-pad">€ 300.000.000<br><span class="eleven">IMPEGNATI, 2012</span></div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <span class="eleven light-gray block">TIPOLOGIA</span>
-                                        <a class="eleven">Lorem ipsum</a>, <a class="eleven">Lorem ipsum</a>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <span class="eleven light-gray block">TIPOLOGIA</span>
-                                        <a class="eleven">Lorem ipsum</a>, <a class="eleven">Lorem ipsum</a>
-                                    </div>
-                                    <div class="col-md-12"><a href="#" class="twelve">PAESE</a> <a href="#" class="twelve">PAESE</a> <span class="twelve light-gray">anno</span> <span class="twelve light-gray">anno</span></div>
-                                 </div><!-- .row -->
-                            </article>
-                        </li>
-                    </ul>
-                    <a href="#" class="read-more pull-right pad">VEDI TUTTI I PROGETTI <span class="fa fa-align-justify"> </span></a>
-                </div>
-            </div>
+            {% include 'commons/top_projects.html' with top_projects=top_projects %}
         </div>
-
 
         <div class="col-md-4">
-            <h2><a href="#">FOCUS SU UN PROGETTO</a></h2>
+            <h2>{% trans 'Focus on' %}</h2>
+            {% if project_focus %}
             <div class="row">
                 <div class="col-md-12">
                     <div class="focus">
-                        <div class="spacer"> </div>
+                        <div class="spacer"></div>
                         <div class="row no-marg">
-                            <div id="pie4"></div>
-                            <div class="col-md-4 numbers bg-red bordered-radius small-pad">€ 300.000.000<br><span class="eleven">IMPEGNATI, 2012</span></div>
-                            <div class="col-md-4 col-md-offset-1 numbers bg-blue bordered-radius small-pad">€ 300.000.000<br><span class="eleven">IMPEGNATI, 2012</span></div>
+                            {% with p_total_commitment=project_focus.total_commitment|default:0 p_total_disbursement=project_focus.total_disbursement|default:0 %}
+                            <div id="pie4" data-chart="pie" data-values="{{ p_total_commitment|stringformat:"f" }}|{{ p_total_disbursement }}"></div>
+                            <div class="col-md-4 col-sm-4 col-xs-4 numbers bg-red bordered-radius small-pad">{% if p_total_commitment %}€
+                                {{ p_total_commitment|currency }}{% else %}-{% endif %}<br><span class="eleven">{% trans 'Committed' %}</span></div>
+                            <div class="col-md-4 col-sm-4 col-xs-4 col-md-offset-1 col-sm-offset-1 col-xs-offset-1 numbers bg-blue bordered-radius small-pad">{% if p_total_disbursement %}€
+                                {{ p_total_disbursement|currency }}{% else %}-{% endif %}<br><span class="eleven">{% trans 'Used' %}</span></div>
+                            {% endwith %}
                         </div>
                         <div class="row no-marg">
-                            <h3><a href="#">Nome progetto Lorem Ipsum dolor sit amet </a></h3>
-                            <a href="#">PAESE</a> <span class="light-gray eleven">2012-2014</span>
-                        </div>
-                        <div class="small-spacer"> </div>
-                        <div class="row no-marg">
-                            <div class="col-md-3"><img src="img/contents/thumbnail.jpg" class="img-responsive img-thumbnail"></div>
-                            <div class="col-md-3"><img src="img/contents/thumbnail.jpg" class="img-responsive img-thumbnail"></div>
-                            <div class="col-md-3"><img src="img/contents/thumbnail.jpg" class="img-responsive img-thumbnail"></div>
-                            <div class="col-md-3"><img src="img/contents/thumbnail.jpg" class="img-responsive img-thumbnail"></div>
-                        </div>
-                        <div class="spacer"> </div>
-                        <div class="row no-marg">
-                            <div class="col-md-6">
-                                <h4>REALIZZATORE</h4>
-                                <p class="small-paragraph">Lorem Ipsum dolor sit amet</p>
+                            <div class="col-md-12 col-sm-6 col-xs-6">
+                                <h3><a href="{% url 'projects:project-detail' pk=project_focus.pk %}">{{ project_focus.title }}</a></h3>
+                                {% for recipient in project_focus.recipients|unique %}
+                                    <a href="{% url 'codelists:recipient-detail' code=recipient.code %}">{{ recipient.name }}</a>
+                                {% endfor %}
+                                 <span class="light-gray eleven">{{ project_focus.start_year }}-{{ project_focus.end_eyar }}</span>
                             </div>
-                            <div class="col-md-6">
-                                <h4>FINANZIATORE</h4>
-                                <p class="small-paragraph"><a href="#">Lorem Ipsum dolor sit amet</a></p>
+                            <div class="small-spacer"></div>
+                            {% with photo_set=project_focus.photo_set.all %}{% if photo_set|length > 0 %}
+                            <div class="col-md-12 col-sm-6 col-xs-6">
+                                <ul class="gallery gallery-small">
+                                    {% for photo in photo_set %}{% if forloop.counter <= 3 %}
+                                    <li><img src="{{ photo.file.url }}"></li>
+                                    {% endif %}{% endfor %}
+                                </ul>
                             </div>
-                            <div class="col-md-6">
-                                <h4>DESCRIZIONE</h4>
-                                <p class="small-paragraph">Lorem Ipsum dolor sit amet</p>
+                            <div class="spacer"></div>
+                            {% endif %}{% endwith %}
+                        </div>
+                        <div class="row no-marg">
+                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                <h4>{% trans 'Agency' %}</h4>
+                                <p class="small-paragraph">{{ project_focus.agency }}</p>
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                <h4>{% trans 'Channel reported' %}</h4>
+                                <p class="small-paragraph">{{ project_focus.channel_reported|default_if_none:'-' }}</p>
                             </div>
                         </div>
+                        {% if project_focus.description %}
+                        <div class="row no-marg project-description">
+                            <div class="col-md-12">
+                                <h4>{% trans 'Description' %}</h4>
+                                <p class="readmore small-paragraph" data-max-height="40">
+                                    {{ project_focus.description|safe }}
+                                    <a href="#" class="readmore-open">{% trans 'read more' %} {% icon 'caret-down' %}</a>
+                                    <a href="#" class="readmore-close">{% trans 'close' %} {% icon 'caret-up' %}</a>
+                                </p>
+                            </div>
+                        </div>
+                        {% endif %}
 
                         <ul class="nav nav-pills top-dotted">
+                            {% for sector in project_focus.sectors|unique %}
                             <li>
-                                <a href="#"><span class="fa fa-chevron-right"> </span>Infrastrutture e servizi sociali</a>
+                                <a href="{% url 'codelists:sector-detail' code=sector.get_root.code %}">{% icon 'chevron-right' %}{{ sector.get_root.name }}</a>
                             </li>
-                            <li>
-                                <a href="#"><span class="fa fa-chevron-right"> </span> Lorem ipsum dolor sit armet</a>
-                            </li>
-                            <li>
-                                <a href="#"><span class="fa fa-chevron-right"> </span> Lorem ipsum dolor sit amet nome troppo luced adisciping</a>
-                            </li>
+                            {% endfor %}
                         </ul>
 
                         <div class="row no-marg">
-                            <div class="col-md-6">
-                                <span class="eleven light-gray block">TIPOLOGIA</span>
-                                <a class="eleven">Lorem ipsum</a>, <a class="eleven">Lorem ipsum</a>
+                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                <span class="eleven light-gray block">{% trans 'Aid type' %}</span>
+                                {% for aid_type in project_focus.aid_types|unique %}{% if aid_type %}
+                                <a href="{% url 'codelists:aid_type-detail' code=aid_type.code %}" class="eleven">{{ aid_type.name }}</a>{% if not forloop.last %}, {% endif %}
+                                {% endif %}{% endfor %}
                             </div>
-                            <div class="col-md-6">
-                                <span class="eleven light-gray block">TIPOLOGIA</span>
-                                <a class="eleven">Lorem ipsum</a>, <a class="eleven">Lorem ipsum</a>
+                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                <span class="eleven light-gray block">{% trans 'Channels' %}</span>
+                                {% for channel in project_focus.channels|unique %}{% if channel %}
+                                <a href="{% url 'codelists:channel-detail' code=channel.code %}" class="eleven">{{ channel.name }}</a>{% if not forloop.last %}, {% endif %}
+                                {% endif %}{% endfor %}
                             </div>
                         </div>
-                    </div><!-- .focus -->
-                    <div class="like"><img src="img/layout/like.jpg" class="pull-left"></div>
-                    <a href="#" class="pull-right">1 <span class="fa fa-comment-o"> </span></a>
+                    </div>
+                    <!-- .focus -->
+{#                    <div class="like"><img src="{% static 'img/layout/like.jpg' %}" class="pull-left"></div>#}
                 </div>
 
             </div>
+            {% endif %}
 
         </div>
-    </div><!-- .container -->
-</div><!-- .row -->
+    </div><!-- .row -->
+
+{% endblock %}
+
+{% block modal %}
+{{ block.super }}
+<div class="modal fade" id="welcomeModal" tabindex="-1" role="dialog" aria-labelledby="welcomeModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">{% trans 'close' %}</span></button>
+                <h4 class="modal-title" id="welcomeModalLabel">{% trans "WELCOME TO OPEN AID ITALIA" %}</h4>
+            </div>
+            <div class="modal-body">
+{% blocktrans %}<p>This website aims at making data on Italian Development Aid available for all.</p>
+<p>The website is in its first development phase, involving the on-line publication of all data on Italian ODA since 2004.</p>
+<p>In the second phase, the website will be integrated with additional contents on individual initiatives and with further information on different development actors.</p>
+<p>In the third phase different actors will be enabled to contribute to the website by publishing contents on the initiatives they are involved in.</p>
+<p>In the fourth phase, the website will provide detailed information also on other sources of financing for development, in order to provide a comprehensive picture of the Italian commitment to development.</p>
+<p>We are at the beginning of a challenging project: keep following us!</p>{% endblocktrans %}
+                <div class="text-right"><a href="#" class="text-muted" data-dismiss="modal">{% trans 'close' %}</a></div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+{% endblock modal %}
+
+{% block javascript %}
+{{ block.super }}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.0/jquery.cookie.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            if ($.cookie('welcome-modal') == null || location.hash == '#welcome') {
+                $('#welcomeModal').modal('show');
+                $.cookie('welcome-modal', 7);
+            }
+        });
+    </script>
 
 {% endblock %}

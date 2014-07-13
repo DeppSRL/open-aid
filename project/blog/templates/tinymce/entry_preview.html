@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load tinymce_tags %}
+
+{% block page_title %}{{ object.title }}{% endblock %}
+
+{% block content %}
+<article id="{{ object.slug }}">
+  <header class="page-header">
+    <h1>
+      {{ object.title }}
+      <small>{{ object.published_at|date:'d/m/Y' }}</small>
+    </h1>
+  </header>
+      <div id="blog">
+        {% tinymce_preview "blog" %}
+      </div>
+</article>
+{% endblock %}
+
+{% block javascript %}
+    {{ block.super }}
+    <script type="text/javascript">
+    $(document).ready(function() {
+        dt = window.opener.document.getElementById('id_published_at_0').value;
+        tit = window.opener.document.getElementById('id_title').value;
+        h = window.document.getElementsByClassName('page-header').item().getElementsByTagName('h1').item();
+        h.innerHTML = tit + ' <small>' + dt + '</small>';
+    });
+    </script>
+
+{% endblock javascript %}

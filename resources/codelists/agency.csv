@@ -1,0 +1,283 @@
+code,acronym,name,name_en,name_it,donor
+1,BMF,Federal Ministry of Finance,Federal Ministry of Finance,,1
+2,MIN,Various ministries,Various ministries,,1
+3,BReg,Federal Government of Austria,Federal Government of Austria,,1
+4,OeKB,Oesterreichische Kontrollbank AG,Oesterreichische Kontrollbank AG,,1
+5,BMeiA,Federal Ministry for European and International Affairs ,Federal Ministry for European and International Affairs ,,1
+6,Reg,"Provincial governments, local communities","Provincial governments, local communities",,1
+7,BKA,Federal Chancellery,Federal Chancellery,,1
+8,ADA,Austrian Development Agency,Austrian Development Agency,,1
+9,BM/BWK,Education and Science Ministry,Education and Science Ministry,,1
+10,BMLFUW,Ministry for Agriculture and Environment,Ministry for Agriculture and Environment,,1
+11,BMLV,Ministry of Defense,Ministry of Defense,,1
+12,BMI,Ministry of Interior,Ministry of Interior,,1
+13,OeEB,Austrian Development Bank,Austrian Development Bank,,1
+14,BM:UKK,"Ministry for Education, Arts and Culture","Ministry for Education, Arts and Culture",,1
+15,BMWF,Ministry for Science and Research,Ministry for Science and Research,,1
+99,MISC,Miscellaneous,Miscellaneous,,1
+10,DGCD,Directorate General for Co-operation and Development,Directorate General for Co-operation and Development,,2
+20,SPAE,Official Federal Service of Foreign Affaires (excl. DGCD),Official Federal Service of Foreign Affaires (excl. DGCD),,2
+30,SPFF,Official Federal Service of Finance,Official Federal Service of Finance,,2
+31,OND,Ducroire National Office,Ducroire National Office,,2
+39,ASPF,Other Official Federal Services,Other Official Federal Services,,2
+70,MPRF,Flanders Official Regional Ministries,Flanders Official Regional Ministries,,2
+80,MPRW,Walloon Official Regional Ministries,Walloon Official Regional Ministries,,2
+91,MPRB,Brussels Official Regional Ministries,Brussels Official Regional Ministries,,2
+94,MPRG,German speaking Official Regional Ministries,German speaking Official Regional Ministries,,2
+99,MISC,Miscellaneous,Miscellaneous,,2
+1,MFA,Ministry of Foreign Affairs,Ministry of Foreign Affairs,,3
+2,DANIDA,Danish International Development Agency ,Danish International Development Agency ,,3
+72,EKR,Eksport Kredit Fonden,Eksport Kredit Fonden,,3
+99,MISC,Miscellaneous,Miscellaneous,,3
+1,GOUV,GOUV,GOUV,,4
+3,AFD,French Development Agency,French Development Agency,,4
+6,MAE,Ministry of Foreign Affairs,Ministry of Foreign Affairs,,4
+8,COOP DECENTRALISEE,COOP DECENTRALISED,COOP DECENTRALISED,,4
+10,MINEFI,"Ministry of Economy, Finance and Industry","Ministry of Economy, Finance and Industry",,4
+12,Intérieur,Ministry of Interior,Ministry of Interior,,4
+13,AGRI,Ministry of Agriculture,Ministry of Agriculture,,4
+14,DEF,Ministry of Defense,Ministry of Defense,,4
+15,INTER,Inter-ministerial,Inter-ministerial,,4
+16,AUTRES,Other Ministries,Other Ministries,,4
+17,MESR,Ministry of Higher education and Research,Ministry of Higher education and Research,,4
+37,MIN/TRAVAIL,MIN/TRAVAIL,MIN/TRAVAIL,,4
+42,MINEFI/BDF,Banque de France,Banque de France,,4
+43,Coface,Coface,Coface,,4
+99,MISC,Miscellaneous,Miscellaneous,,4
+1,BMZ,Bundesministerium für Wirtschaftliche Zusammenarbeit und Entwicklung,Bundesministerium für Wirtschaftliche Zusammenarbeit und Entwicklung,,5
+2,KFW,Kreditanstalt für Wiederaufbau,Kreditanstalt für Wiederaufbau,,5
+4,DEG,German Investment and Development Company,German Investment and Development Company,,5
+5,BMF,Federal Ministry of Finance,Federal Ministry of Finance,,5
+7,F O,Foreign Office,Foreign Office,,5
+9,BMU,"Federal Ministry for the Env., Nature Conservation and Nuclear Safety","Federal Ministry for the Env., Nature Conservation and Nuclear Safety",,5
+12,L G,Federal States and Local Governments,Federal States and Local Governments,,5
+14,Fed.Inst.,Federal Institutions,Federal Institutions,,5
+15,DED,Deutscher Entwicklungsdienst,Deutscher Entwicklungsdienst,,5
+16,Fed.Min.,Federal Ministries,Federal Ministries,,5
+17,Found,Foundations/Societies/Misc. (non federal),Foundations/Societies/Misc. (non federal),,5
+34,Euler Hermes,Euler Hermes Kreditversicherungs-AG,Euler Hermes Kreditversicherungs-AG,,5
+52,GIZ,Deutsche Gesellschaft für Internationale Zusammenarbeit,Deutsche Gesellschaft für Internationale Zusammenarbeit,,5
+99,MISC,Miscellaneous,Miscellaneous,,5
+1,MGI,MGI,MGI,,6
+2,AGEA,Agenzia Erogazioni Per l'Agricoltura,Agenzia per le Erogazioni in Agricoltura,Agenzia per le Erogazioni in Agricoltura,6
+3,OGPI,OGPI,OGPI,,6
+4,DGCS,Direzione Generale per la Cooperazione allo Sviluppo,Direzione Generale per la Cooperazione allo Sviluppo,Ministero degli Affari Esteri - Direzione Generale per la Cooperazione allo Sviluppo,6
+5,MC,MC,MC,Mediocredito Centrale,6
+7,CA,Central administration,Central administration,Amministrazioni Centrali,6
+8,LA,Local administration,Local administration,Amministrazioni Locali,6
+9,Art.,Artigiancassa,Artigiancassa,Artigiancassa,6
+74,SACE,Sezione Speciale per l'Assicurazione del Credito all'Esportazione,"SACE S.p.A. - Servizi Assicurativi del Commercio Estero, società per azioni","SACE S.p.A. - Servizi Assicurativi del Commercio Estero, società per azioni",6
+99,MISC,Miscellaneous,Miscellaneous,Altri,6
+1,MFA,Ministry of Foreign Affairs (DGIS),Ministry of Foreign Affairs (DGIS),,7
+3,NG,NG,NG,,7
+4,NIO/FMO,NLD Gov. through NLD Inv Bank for Developing Countries,NLD Gov. through NLD Inv Bank for Developing Countries,,7
+5,FMO,FMO,FMO,,7
+33,NCM,NCM Credit Management Worldwide,NCM Credit Management Worldwide,,7
+99,MISC,Miscellaneous,Miscellaneous,,7
+1,NORAD,Norwegian Agency for Development Co-operation,Norwegian Agency for Development Co-operation,,8
+4,MFA,Ministry of Foreign Affairs,Ministry of Foreign Affairs,,8
+7,IN,Innovation Norway,Innovation Norway,,8
+8,NORFUND,NORFUND,NORFUND,,8
+9,FK,FK Norway,FK Norway,,8
+10,OAG,Office of the Auditor General,Office of the Auditor General,,8
+71,GIEK,Garantiinstituttet for eksportkreditt,Garantiinstituttet for eksportkreditt,,8
+99,MISC,Miscellaneous,Miscellaneous,,8
+1,GP,Portuguese Government,Portuguese Government,,9
+2,IPAD,Institute for Portuguese Development Aid,Institute for Portuguese Development Aid,,9
+3,MUNIC,Municipalities,Municipalities,,9
+4,SOFID Society for Development Financing,SOFID Sociedade para o Financiamento do Desenvolvimento,SOFID Sociedade para o Financiamento do Desenvolvimento,,9
+71,COSEC,Conselho de garantias financeiras,Conselho de garantias financeiras,,9
+99,MISC,Miscellaneous,Miscellaneous,,9
+1,SIDA,SIDA,SIDA,,10
+2,MFA,Ministry of Foreign Affairs,Ministry of Foreign Affairs,,10
+3,SG,SG,SG,,10
+4,SAREC,SAREC,SAREC,,10
+5,BITS,BITS,BITS,,10
+6,Sida,Swedish International Development Authority,Swedish International Development Authority,,10
+71,EKN,Swedish Export Credits Guarantee Board,Swedish Export Credits Guarantee Board,,10
+99,MISC,Miscellaneous,Miscellaneous,,10
+1,FA,Federal Administration (various departments),Federal Administration (various departments),,11
+4,SDC,Swiss Agency for Development and Co-operation,Swiss Agency for Development and Co-operation,,11
+5,Seco,State Secretariat for Economic Affairs,State Secretariat for Economic Affairs,,11
+6,DFA,Federal Department of Foreign Affairs,Federal Department of Foreign Affairs,,11
+7,SER,State Secretariat for Education and Research,State Secretariat for Education and Research,,11
+8,FOM,Federal Office for Migration,Federal Office for Migration,,11
+9,DDPS,"Federal Department for Defence, Civil Protection and Sports","Federal Department for Defence, Civil Protection and Sports",,11
+10,SAEFL,"Swiss Agency for the Environment, Forests and Landscape","Swiss Agency for the Environment, Forests and Landscape",,11
+11,MUNIC,Municipalities,Municipalities,,11
+99,MISC,Miscellaneous,Miscellaneous,,11
+1,DFID,Department for International Development,Department for International Development,,12
+2,CDC,CDC Capital Partners PLC,CDC Capital Partners PLC,,12
+3,FCO,Foreign & Commonwealth Office,Foreign & Commonwealth Office,,12
+4,DECC,Department of Energy and Climate Change,Department of Energy and Climate Change,,12
+5,ECGD,Export Credit Guarantee Department,Export Credit Guarantee Department,,12
+6,HO,Home Office,Home Office,,12
+7,DEFRA,Department for Environment Food and Rural Affairs,Department for Environment Food and Rural Affairs,,12
+8,MOD,Ministry of Defence,Ministry of Defence,,12
+9,DWP,Department for Work and Pensions,Department for Work and Pensions,,12
+10,DH,Department of Health,Department of Health,,12
+11,BIS,"Department for Business, Innovation and Skills","Department for Business, Innovation and Skills",,12
+12,DCMS,"Department for Culture, Media and Sports","Department for Culture, Media and Sports",,12
+21,SG,Scottish Government,Scottish Government,,12
+22,WAG,Welsh Assembly Government,Welsh Assembly Government,,12
+99,MISC,Miscellaneous,Miscellaneous,,12
+1,FG,Finnish Government,Finnish Government,,18
+2,FF,FinnFund,FinnFund,,18
+3,MFA,Ministry of Foreign Affairs,Ministry of Foreign Affairs,,18
+4,Other Min.,Other Ministries,Other Ministries,,18
+72,FinnVera,FinnVera,FinnVera,,18
+99,MISC,Miscellaneous,Miscellaneous,,18
+1,MFA,Ministry of Foreign Affairs,Ministry of Foreign Affairs,,20
+2,ICEIDA,ICEIDA,ICEIDA,,20
+3,ICRU,ICRU,ICRU,,20
+1,DFA,Department of Foreign Affairs,Department of Foreign Affairs,,21
+2,DF,Department of Finance,Department of Finance,,21
+3,DAFM,"Department of Agriculture, Food and the Marine","Department of Agriculture, Food and the Marine",,21
+99,MISC,Miscellaneous,Miscellaneous,,21
+1,LuxDev,Lux-Development,Lux-Development,,22
+2,MFA,Ministry of Foreign Affairs,Ministry of Foreign Affairs,,22
+22,ODL,Ducroire Office,Ducroire Office,,22
+99,MISC,Miscellaneous,Miscellaneous,,22
+1,MI,Ministry of the Interior,Ministry of the Interior,,40
+2,MF,Ministry of Finance,Ministry of Finance,,40
+3,MFA,Ministry of Foreign Affairs,Ministry of Foreign Affairs,,40
+4,MND,Ministry of National Defense,Ministry of National Defense,,40
+5,MDCS,"Ministry of Development, Competitiveness & Shipping","Ministry of Development, Competitiveness & Shipping",,40
+6,MEECC,"Ministry of the Environment, Energy & Climate Change","Ministry of the Environment, Energy & Climate Change",,40
+7,MELLLR,"Ministry of Education, Life Long Learning & Religions","Ministry of Education, Life Long Learning & Religions",,40
+8,MITN,"Ministry of Infrastructure, Transport and Networks","Ministry of Infrastructure, Transport and Networks",,40
+9,MESS,Ministry of Employment & Social Security,Ministry of Employment & Social Security,,40
+10,MHSS,Ministry of Health & Social Solidarity,Ministry of Health & Social Solidarity,,40
+11,MADF,Ministry of Agricultural Development & Food,Ministry of Agricultural Development & Food,,40
+12,MJTHR,"Ministry of Justice, Transparency & Human Rights","Ministry of Justice, Transparency & Human Rights",,40
+13,MCP,Ministry of Citizen Protection,Ministry of Citizen Protection,,40
+14,MCT,Ministry of Culture & Tourism,Ministry of Culture & Tourism,,40
+15,LA,Municipalities,Municipalities,,40
+99,MISC,Miscellaneous,Miscellaneous,,40
+1,ICO,Instituto de Credito Oficial,Instituto de Credito Oficial,,50
+2,CESCE,Compania Espanola de Seguros de Credito a la Exportacion,Compania Espanola de Seguros de Credito a la Exportacion,,50
+4,AGR,"Ministry of Agriculture, Fisheries, and Food","Ministry of Agriculture, Fisheries, and Food",,50
+5,MFA,Ministry of Foreign Affairs and Co-operation,Ministry of Foreign Affairs and Co-operation,,50
+6,ECON,Ministry of Economy and Competitiveness,Ministry of Economy and Competitiveness,,50
+7,EDUC,"Ministry of Education, Culture and Sports","Ministry of Education, Culture and Sports",,50
+8,MPW,Ministry of Public Works,Ministry of Public Works,,50
+9,MIE,Ministry of Industry and Energy,Ministry of Industry and Energy,,50
+10,MARM,Ministry of the Environment and Rural and Marine Environs,Ministry of the Environment and Rural and Marine Environs,,50
+11,MOH,Ministry of Health,Ministry of Health,,50
+12,EMP,Ministry of Labour and Social Affairs,Ministry of Labour and Social Affairs,,50
+13,INT,Ministry of Interior,Ministry of Interior,,50
+14,MPA,Ministry of Public Administration,Ministry of Public Administration,,50
+15,AG,Autonomous Governments,Autonomous Governments,,50
+16,MUNIC,Municipalities,Municipalities,,50
+18,MST,Ministry of Science and Technology,Ministry of Science and Technology,,50
+19,DEF,Ministry of Defense,Ministry of Defense,,50
+20,UNIV,Public Universities,Public Universities,,50
+21,AECID,Spanish Agency for International Development Co-operation,Spanish Agency for International Development Co-operation,,50
+22,Oth. Min.,Others ministries,Others ministries,,50
+99,MISC,Miscellaneous,Miscellaneous,,50
+1,CZDA,Czech Development Agency,Czech Development Agency,,68
+2,MFA,Ministry of Foreign Affairs,Ministry of Foreign Affairs,,68
+3,MOF,Ministry of Finance,Ministry of Finance,,68
+4,MEYS,"Miinistry of Education, Youth, Sports","Miinistry of Education, Youth, Sports",,68
+5,MOI,Ministry of the Interior,Ministry of the Interior,,68
+6,Police,Police,Police,,68
+7,MD,Ministry of Defence,Ministry of Defence,,68
+8,MH,Ministry of Health,Ministry of Health,,68
+9,MIT,Ministry of Industry and Trade,Ministry of Industry and Trade,,68
+10,CNB,Czech National Bank,Czech National Bank,,68
+11,MJ,Ministry of Justice,Ministry of Justice,,68
+12,MOLSA,Ministry of Labour and Social Affairs,Ministry of Labour and Social Affairs,,68
+13,Universities,Universities,Universities,,68
+14,Regional Governments and Municipalities,Regional Governments and Municipalities,Regional Governments and Municipalities,,68
+15,MOE,Ministry of Environment,Ministry of Environment,,68
+16,SUJB,State Office for Nuclear Saftey,State Office for Nuclear Saftey,,68
+99,Other,Other,Other,,68
+1,CIDA,Canadian International Development Agency,Canadian International Development Agency,,301
+2,IDRC,International Development Research Centre,International Development Research Centre,,301
+3,DFATD,"Department of Foreign Affairs, Trade and Development","Department of Foreign Affairs, Trade and Development",,301
+4,FIN,Department of Finance Canada,Department of Finance Canada,,301
+6,DFAIT,Foreign Affairs and International Trade Canada,Foreign Affairs and International Trade Canada,,301
+7,DND,Department of National Defence,Department of National Defence,,301
+8,RCMP,Royal Canadian Mounted Police of Canada,Royal Canadian Mounted Police of Canada,,301
+9,GOV,Provincial Governments and municipalities,Provincial Governments and municipalities,,301
+31,EDC,Export Development Canada,Export Development Canada,,301
+99,MISC,Miscellaneous,Miscellaneous,,301
+1,AID,Agency for International Development,Agency for International Development,,302
+2,AGR,Department of Agriculture,Department of Agriculture,,302
+6,DTRE,Department of Treasury,Department of Treasury,,302
+7,DOD,Department of Defense,Department of Defense,,302
+9,INTERIOR,Department of the Interior,Department of the Interior,,302
+10,PEACE,Peace Corps,Peace Corps,,302
+11,STATE,State Department,State Department,,302
+12,TDA,Trade and Development Agency,Trade and Development Agency,,302
+13,ADF,African Development Foundation,African Development Foundation,,302
+14,HHS,Department of Health and Human Services,Department of Health and Human Services,,302
+15,JUSTICE,Department of Justice,Department of Justice,,302
+16,COMMERCE,Department of Commerce,Department of Commerce,,302
+17,LABOR,Department of Labor,Department of Labor,,302
+18,MCC,Millennium Challenge Corporation,Millennium Challenge Corporation,,302
+19,DHS,Department of Homeland Security,Department of Homeland Security,,302
+20,DOE,Department of Energy,Department of Energy,,302
+21,IADF,Inter-American Development Foundation,Inter-American Development Foundation,,302
+22,OPIC,Overseas Private Investment Corporation,Overseas Private Investment Corporation,,302
+23,FTC,Federal Trade Commission,Federal Trade Commission,,302
+24,NRC,Nuclear Regulatory Commission,Nuclear Regulatory Commission,,302
+25,NSF,National Science Foundation,National Science Foundation,,302
+26,DOT,Department of Transportation,Department of Transportation,,302
+27,USIP,United States Institute of Peace,United States Institute of Peace,,302
+28,LIC,Open World Leadership Center,Open World Leadership Center,,302
+29,POSTAL,United States Postal Service,United States Postal Service,,302
+30,EOP,Executive Office of the President,Executive Office of the President,,302
+31,EXIM,Export Import Bank,Export Import Bank,,302
+32,EPA,Environmental Protection Agency,Environmental Protection Agency,,302
+33,BBG,Broadcasting Board of Governors,Broadcasting Board of Governors,,302
+40,PRIVATE,Private flows,Private flows,,302
+99,MISC,Miscellaneous,Miscellaneous,,302
+1,KFAED,Kuwait Fund for Arab Economic Development,Kuwait Fund for Arab Economic Development,,552
+2,,Government Grants administered by KFAED KFAED,Government Grants administered by KFAED KFAED,,552
+99,MISC,Miscellaneous,Miscellaneous,,552
+2,DOF,Abu Dhabi Department of Finance,Abu Dhabi Department of Finance,,576
+3,ADFD,Abu Dhabi Fund for Development,Abu Dhabi Fund for Development,,576
+7,IHC,International Humanitarian City,International Humanitarian City,,576
+17,KZF,Khalifa Bin Zayed Al Nahyan Foundation,Khalifa Bin Zayed Al Nahyan Foundation,,576
+18,MRHC,Mohammed Bin Rashid Al Maktoum Humanitarian and Charity Establishment,Mohammed Bin Rashid Al Maktoum Humanitarian and Charity Establishment,,576
+19,ZCHF,Zayed Bin Sultan Al Nahyan Charitable and Humanitarian Foundation,Zayed Bin Sultan Al Nahyan Charitable and Humanitarian Foundation,,576
+20,MF,Al Maktoum Foundation,Al Maktoum Foundation,,576
+21,DC,Dubai Cares,Dubai Cares,,576
+22,RCA,UAE Red Crescent Authority,UAE Red Crescent Authority,,576
+23,ND,Noor Dubai,Noor Dubai,,576
+25,OTHER,Other Government Entitites,Other Government Entitites,,576
+99,MISC,Miscellaneous,Miscellaneous,,576
+1,MAFF,"Ministry of Agriculture, Forestry and Fisheries","Ministry of Agriculture, Forestry and Fisheries",,701
+2,MOFA,Ministry of Foreign Affairs,Ministry of Foreign Affairs,,701
+4,EXIM BANK,EXIM BANK,EXIM BANK,,701
+5,OECF,OECF,OECF,,701
+6,FOOD AID,FOOD AID,FOOD AID,,701
+7,OFCF,Overseas Fishery Co-operation Foundation,Overseas Fishery Co-operation Foundation,,701
+8,JICA,Japanese International Co-operation Agency,Japanese International Co-operation Agency,,701
+10,JODC,Japan Overseas Development Co-operation,Japan Overseas Development Co-operation,,701
+11,JBIC,Japan Bank for International Co-operation,Japan Bank for International Co-operation,,701
+12,Oth. MIN,Other Ministries,Other Ministries,,701
+13,PC,Public Corporations,Public Corporations,,701
+14,PRF,Prefectures,Prefectures,,701
+15,ODC,Ordinance-designed Cities,Ordinance-designed Cities,,701
+71,NEXI,Nippon Export and Investment Insurance,Nippon Export and Investment Insurance,,701
+99,MISC,Miscellaneous,Miscellaneous,,701
+1,MOSF,Ministry of Strategy and Finance,Ministry of Strategy and Finance,,742
+2,KEXIM,Export-Import Bank of Korea,Export-Import Bank of Korea,,742
+3,MOFAT,Ministry of Foreign Affairs and Trade,Ministry of Foreign Affairs and Trade,,742
+4,KOICA,Korea International Cooperation Agency,Korea International Cooperation Agency,,742
+99,MISC,Miscellaneous,Miscellaneous,,742
+2,AG,Attorney-General,Attorney-General,,801
+5,Aus Gov,Australian government,Australian government,,801
+72,EFIC,Export Finance and Insurance Corporation,Export Finance and Insurance Corporation,,801
+99,MISC,Miscellaneous,Miscellaneous,,801
+1,NZG,Ministry of Foreign Affairs and Trade,Ministry of Foreign Affairs and Trade,,820
+2,NZAid,New Zealand International Aid and Development Agency,New Zealand International Aid and Development Agency,,820
+99,MISC,Miscellaneous,Miscellaneous,,820
+1,CEC,Commission of the European Communities,Commission of the European Communities,,918
+2,EDF,European Development Fund,European Development Fund,,918
+3,EIB,European Investment Bank,European Investment Bank,,918
+4,ECHO,Humanitarian Aid Office of the European Commission,Humanitarian Aid Office of the European Commission,,918
+99,MISC,Miscellaneous,Miscellaneous,,918
+1,,Bill & Melinda Gates Foundation,Bill & Melinda Gates Foundation,,1601

@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+
+{% load i18n %}
+{% load icons %}
+{% load humanize %}
+{% load search_utils %}
+{% load staticfiles %}
+
+{% block page_title %}OpenAID - {% trans "Search" %}{% endblock %}
+{% block og_title %}OpenAID - {% trans "Search" %}{% endblock %}
+
+{% block header %}
+    {% if search_facets %}
+    <div class="container">
+        <div id="main-title">
+            <h1>{% trans 'Projects' %}: {% for facet, term in search_facets %}{{ term }}{% if not forloop.last %}, {% endif %}{% endfor %}</h1>
+        </div>
+    </div>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            {% include 'search/pagination.html' %}
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="progetti">
+                <div class="bordered-radius" style="overflow:hidden;">
+                    <ul class="list-unstyled">
+                        {% for result in page.object_list %}
+                        <li>
+                            {% include 'commons/project_element.html' with project=result.object %}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <div class="ordering">
+                {% include 'search/pagination.html' %}
+            </div>
+        </div>
+        <div class="col-md-4">
+{#            <section class="filters">#}
+{#                <div class="filter-labels">{% trans 'Search' %}</div>#}
+{#                <div class="filter-content">#}
+{#                    <form class="form-inline" role="form">#}
+{#                        <div class="form-group has-feedback eleven">#}
+{#                            <label class="sr-only" for="exampleInputEmail2">Email address</label>#}
+{#                            <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Una parola chiave nel nome">#}
+{#                            <span class="fa fa-times form-control-feedback"></span>#}
+{#                        </div>#}
+{#                        <div class="form-group has-feedback eleven">#}
+{#                            <label class="sr-only" for="exampleInputPassword2">Password</label>#}
+{#                            <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Un'area geografica">#}
+{#                            <span class="fa fa-times form-control-feedback"></span>#}
+{#                        </div>#}
+{#                        <button type="submit" class="btn btn-aid btn-inline">cerca <span class="fa fa-search"></span></button>#}
+{#                        <div class="checkbox">#}
+{#                            <label class="eleven">#}
+{#                                <input type="checkbox"> CERCA TRA I RISULTATI#}
+{#                            </label>#}
+{#                        </div>#}
+{#                    </form>#}
+{#                </div>#}
+{#            </section>#}
+
+            <section class="filters">
+                <div class="filter-labels">FILTRA</div>
+                <div class="filter-content">
+
+                    <p class="lead"><strong>{{ n_results }}</strong> {% trans "Search result" %}</p>
+                    <div class="edit-filters">
+
+                        <h4>MODIFICA I FILTRI <small class="pull-right eleven">{% trans "Remove filters" %} <a href="{% url 'projects:search' %}">{% icon 'times' %}</a></small></h4>
+                    </div>
+{#                    <div class="edit-filters">#}
+{#                        <p class="eleven no-marg-all filter-typology">TIPOLOGIA</p>#}
+{#                        <span class="eleven">Tipologia Lorem ipsum <a class="fa fa-times"> </a></span>#}
+{#                    </div>#}
+{#                    <h4>Fondi impegnati</h4>#}
+{#                    <img src="{% static 'img/layout/finanziamenti.jpg' %}">#}
+{#                    <div class="small-spacer"> </div>#}
+
+                    <div class="edit-filters">
+                        <h4>{% trans 'Sector' %}</h4>
+                        {% show_facets 'sectors' codelist='sector' %}
+                    </div>
+                    <div class="edit-filters">
+                        <h4>{% trans 'Agency' %}</h4>
+                        {% show_facets 'agencies' codelist='agency' %}
+                    </div>
+                    <div class="edit-filters">
+                        <h4>{% trans 'Year' %}</h4>
+                        {% show_facets 'years' %}
+                    </div>
+                    <div class="edit-filters">
+                        <h4>{% trans 'Aid type' %}</h4>
+                        {% show_facets 'aid_types' codelist='aid_type' %}
+                    </div>
+                    <div class="edit-filters">
+                        <h4>{% trans 'Finance type' %}</h4>
+                        {% show_facets 'finance_types' codelist='finance_type' %}
+                    </div>
+                    <div class="edit-filters">
+                        <h4>{% trans 'Channel' %}</h4>
+                        {% show_facets 'channels' codelist='channel' %}
+                    </div>
+                    <div class="edit-filters">
+                        <h4>{% trans 'Recipient' %}</h4>
+                        <div class="readmore" data-max-height="200">
+                            {% show_facets 'recipient' codelist='recipient' %}
+                            <a href="#" class="readmore-open">{% trans 'read more' %} {% icon 'caret-down' %}</a>
+                            <a href="#" class="readmore-close">{% trans 'close' %} {% icon 'caret-up' %}</a>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+        </div>
+    </div><!-- /.row -->
+</div><!-- /.container -->
+
+
+{% endblock %}

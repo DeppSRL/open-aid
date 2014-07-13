@@ -1,0 +1,21 @@
+<article id="{{ object.slug }}">
+  <header class="page-header">
+    <h1>
+      {% if title_linked %}
+        <a href="{% url 'blog_item' object.slug %}">{{ object.title }}</a>
+      {% else %}
+        {{ object.title }}
+      {% endif %}
+      <small>{{ object.published_at|date:'d/m/Y' }}</small>
+    </h1>
+  </header>
+  {% if full_view %}
+    <div>
+      {{ object.body|safe }}
+    </div>
+  {% else %}
+    <div>
+      {{ object.abstract|safe }}
+    </div>
+  {% endif %}
+</article>

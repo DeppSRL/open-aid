@@ -1,0 +1,41 @@
+{% load i18n icons humanize crs %}
+
+<div class="row">
+    <div class="col-md-12">
+        {% include 'commons/years_bar.html' %}
+    </div>
+</div>
+
+<div id="stats-panel">
+
+    {% if not selected_facet %}{% include 'commons/aid_tabs.html' %}{% endif %}
+
+    <div class="panel panel-default{% if not selected_facet %} stats-home{% endif %}">
+
+        {% if selected_facet %}
+        <div class="panel-heading">
+            {% include 'commons/aid_tabs.html' %}
+        </div>
+        {% endif %}
+
+        {% if selected_facet %}
+        {% include 'commons/stats.html' %}
+        {% else %}
+        <!-- Tab panes -->
+        <div class="tab-content panel-body">
+            <div class="tab-pane active" id="bi-multi-tab">
+                {% include 'commons/stats.html' %}
+            </div>
+            <div class="tab-pane" id="multi-tab">
+                {% include 'commons/stats_multi.html' %}
+            </div>
+            <div class="tab-pane" id="total-aid-tab">
+                {% include 'commons/stats_totals.html' %}
+            </div>
+        </div>
+        {% endif %}
+        <div class="panel-footer text-right">
+            <small class="text-muted">{% trans 'Committed funds, amounts in euros.' %}</small>
+        </div>
+    </div>
+</div>

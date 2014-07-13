@@ -1,0 +1,68 @@
+{% extends 'codelists/base_codelist.html' %}
+
+{% load staticfiles %}
+{% load crs %}
+{% load i18n %}
+{% load icons %}
+{% load humanize %}
+
+{% block codelist_header %}
+
+<div class="media">
+
+    {% if object.iso_alpha2 %}
+    <span class="pull-left">
+        <img style="height: 56px;" class="media-object img-thumbnail" src="{% static 'img/flags' %}/{{ object.iso_alpha2|lower }}.png" alt="{{ object.name }}"/>
+    </span>
+    {% endif %}
+    <div class="media-body">
+        {{ block.super }}
+    </div>
+</div>
+{% endblock %}
+
+{% block codelist_statistics %}
+{% crs_stats object show_map=False %}
+{% endblock %}
+
+{% block codelist_description %}
+<div class="row">
+    <div class="col-md-4 col-sm-6">
+        <div class="small-map"><div id="map" data-chart="map" style="height: 260px;" data-iso-code="{{ object.iso_code }}"></div></div>
+        {% if object.description %}
+        <h3>{% trans 'Info' %}</h3>
+        <dl class="dl-horizontal">
+            <dt>{% trans 'Population' %}</dt><dd>{% if object.popolazione %}{{ object.popolazione|intcomma }}{% else %}-{% endif %}</dd>
+            <dt>{% trans 'Population growth' %}</dt><dd>{% if object.crescita_popolazione %}{{ object.crescita_popolazione }} % {% else %}-{% endif %}</dd>
+            <dt>{% trans 'GDP' %}</dt><dd>{% if object.pil %}{{ object.pil|intcomma }} ${% else %}-{% endif %}</dd>
+            <dt>{% trans 'GDP per capita' %}</dt><dd>{% if object.pil_procapite %}{{ object.pil_procapite|intcomma }} ${% else %}-{% endif %}</dd>
+        </dl>
+        <span class="eleven light-gray block"><a href="http://stats.oecd.org/" target="_blank">{% trans "OECD data" %}</a></span>
+        {% endif %}
+    </div>
+
+    <div class="col-md-8 col-sm-6">
+        {% if object.description %}
+        <h3>{% trans "Italian development aid in brief" %}</h3>
+        <div class="readmore" data-max-height="380">
+            {{ object.description|safe }}
+            <a href="#" class="readmore-open">{% trans 'read more' %} {% icon 'caret-down' %}</a>
+            <a href="#" class="readmore-close">{% trans 'close' %} {% icon 'caret-up' %}</a>
+        </div>
+        {% else %}
+        <h3>{% trans 'Info' %}</h3>
+        <dl class="dl-horizontal">
+            <dt>{% trans 'Population' %}</dt><dd>{{ object.popolazione|intcomma|default_if_none:'-' }}</dd>
+            <dt>{% trans 'Population growth' %}</dt><dd>{% if object.crescita_popolazione %}{{ object.crescita_popolazione }} % {% else %}-{% endif %}</dd>
+            <dt>{% trans 'GDP' %}</dt><dd>{% if object.pil %}{{ object.pil|intcomma }} ${% else %}-{% endif %}</dd>
+            <dt>{% trans 'GDP per capita' %}</dt><dd>{% if object.pil_procapite %}{{ object.pil_procapite|intcomma }} ${% else %}-{% endif %}</dd>
+        </dl>
+        <span class="eleven light-gray block"><a href="http://stats.oecd.org/" target="_blank">{% trans "OECD data" %}</a></span>
+        {% endif %}
+        <div class="small-spacer"> </div>
+
+        <br/>
+    </div>
+
+</div><!-- .row -->
+{% endblock %}

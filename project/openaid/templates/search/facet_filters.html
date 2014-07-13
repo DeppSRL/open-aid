@@ -1,0 +1,20 @@
+{% load search_utils %}
+{#{% regroup terms|dictsort:"term" by term as ordered_terms %}#}
+<ul class="list-unstyled">
+    {% for term in terms|dictsort:"label" %}
+
+    {% if term.is_selected %}
+    <li class="active">
+        <a href="{% search_url facet term.term remove=True absolute=False %}" class="text-danger"><i class="fa fa-times"></i></a>
+        {{ term.label|default:term.term }}
+    </li>
+    {% else %}
+    <li>
+        <a href="{% search_url facet term.term absolute=False %}">{{ term.label|default:term.term }}
+            {% if term.count > 0 %}( <strong>{{ term.count }}</strong> ){% endif %}
+        </a>
+    </li>
+    {% endif %}
+
+    {% endfor %}
+</ul>

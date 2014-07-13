@@ -1,0 +1,16 @@
+{% extends 'pages_base.html' %}
+{% load static %}
+
+{% block container %}
+    <p>All data regarding the italian bilateral and multi-bilateral development aid is available in open data format.</p>
+    <p>You can download a single file for each year, as well as as OECD Guidelines.</p>
+    <p>APIs (Application Programming Interface) will soon be available, IATI Standard compatible</p>
+    <ul>
+        {% for year in years %}
+        <li><a href="{% get_media_prefix %}crs/CRS_{{ donor_code }}_{{ year }}.csv.zip">CRS_{{ donor_code }}_{{ year }}.csv.zip</a></li>
+        {% endfor %}
+    </ul>
+    <br/>
+    <p>All data is licensed under CC BY-SA 3.0 and in CSV format (Excel compatible).</p>
+{% endblock container %}
+

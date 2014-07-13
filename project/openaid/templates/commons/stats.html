@@ -1,130 +1,131 @@
+{% load search_utils %}
 {% load staticfiles %}
+{% load i18n %}
 {% load humanize %}
+{% load icons %}
 {% load crs %}
 
-<div class="row">
-<div class="container">
+<div>
 
-<div class="col-md-12">
+    {% if show_map %}
+    <div class="map">
+        <div id="map"></div>
+    </div>
+    {% endif %}
 
-    <div class="panel panel-default">
-        <div class="panel-heading clearfix">
-            <div class="col-md-4 bg-red no-margin">
-                <h4>{{ projects_count|intcomma }}</h4>
-                <p>I PROGETTI DELLA COOPERAZIONE ITALIANA NEL MONDO</p>
-            </div>
-            <div class="col-md-4 bg-red no-margin">
-                <h4>€ {{ commitments_sum|currency }}</h4>
-                <p>I FINANZIAMENTI COMPLESSIVI STANZIATI</p>
-            </div>
-            <div class="col-md-4 bg-red no-margin">
-                <h4>€ {{ disbursements_sum|currency }}</h4>
-                <p>I FINANZIAMENTI COMPLESSIVI EROGATI</p>
-            </div>
-        </div><!-- .panel-heading -->
+    <div class="row panel-pad stats-panel-columns">
 
-        <div class="map">
-            <img src="{% static 'img/contents/mappa-home.png' %}" class="img-responsive">
+        {% if sector_stats %}
+        <div class="{% if columns == 3 %}col-md-4{% else %}col-md-6{% endif %}">
+            <h3>{% trans 'What is it spent for?' %}</h3>
+            <p class="twelve readmore">
+{% blocktrans %}The purpose/sector of destination of a bilateral contribution should be selected
+by answering the question “which specific area of the recipient’s economic or social structure is the transfer intended to foster”.
+The sector classification does not refer to the type of goods or services provided by the donor.
+Sector specific education or research activities (e.g. agricultural education) or construction of infrastructure (e.g. agricultural storage)
+should be reported under the sector to which they are directed, not under education, construction, etc.{% endblocktrans %}
+                <a href="#" class="readmore-open">{% trans 'read more' %} {% icon 'caret-down' %}</a>
+                <a href="#" class="readmore-close">{% trans 'close' %} {% icon 'caret-up' %}</a>
+            </p>
+
+            <div id="donut-left"></div>
+
+            <div class="table-responsive">
+                <table class="table table-condensed table-hover" data-chart="donut" data-container="donut-left">
+                    <tbody>
+                    {% for sector, tot in sector_stats %}{% if tot > 0.0 %}
+                    <tr class="dotted">
+                        <td class="col-sm-8">
+                            {% if not selected_code_list %}
+                                <a href="{% url 'codelists:sector-detail' code=sector.code %}?year={{ selected_year }}" data-title="{{ sector.name }}">{{ sector.name }}</a>
+                            {% elif selected_code_list.code_list == 'sector' %}
+                                <span data-title="{{ sector.name }}">{{ sector.name }}</span>
+                            {% else %}
+                                <a href="{% search_url sector.code_list_facet sector.code %}&selected_facets={{ selected_facet }}:{{ selected_code_list.code }}&selected_facets=years:{{ selected_year }}" data-title="{{ sector.name }}">{{ sector.name }}</a>
+                            {% endif %}
+                        </td>
+                        <td class="col-sm-4"><span data-value="{{ tot|stringformat:"f" }}">{{ tot|currency }}</span></td>
+                    </tr>
+                    {% endif %}{% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
+        {% endif %}
 
+        {% if aid_stats %}
+        <div class="{% if columns == 3 %}col-md-4{% else %}col-md-6{% endif %}">
+            <h3>{% trans 'By means of?' %}</h3>
+            <p class="twelve readmore">
+{% blocktrans %}The typology identifies the modalities that are used in aid delivery. It classifies transfers from the donor to the first recipient of funds (e.g. the recipient country,
+a multilateral organisation, or a basket fund).  It does not track the end uses of the funds, which is addressed in the sector classification and to some extent through the policy objective markers.{% endblocktrans %}
+                <a href="#" class="readmore-open">{% trans 'read more' %} {% icon 'caret-down' %}</a>
+                <a href="#" class="readmore-close">{% trans 'close' %} {% icon 'caret-up' %}</a>
+            </p>
+            <div id="donut1"></div>
 
-        <div class="years-navigation">
-            <nav class="navbar navbar-default" role="navigation">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#years">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                </div>
+            <div class="table-responsive">
+                <table class="table table-condensed table-hover" data-chart="donut" data-container="donut1">
+                    <tbody>
+                    {% for aid_type, tot in aid_stats %}{% if tot > 0.0 %}
+                    <tr class="dotted">
+                        <td class="col-sm-8">
+                            {% if not selected_code_list %}
+                                <a href="{% url 'codelists:aid_type-detail' code=aid_type.code %}?year={{ selected_year }}" data-title="{{ aid_type.name }}">{{ aid_type.name }}</a>
+                            {% elif selected_code_list.code_list == 'aid_type' %}
+                                <span data-title="{{ aid_type.name }}">{{ aid_type.name }}</span>
+                            {% else %}
+                                <a href="{% search_url aid_type.code_list_facet aid_type.code %}&selected_facets={{ selected_facet }}:{{ selected_code_list.code }}&selected_facets=years:{{ selected_year }}" data-title="{{ aid_type.name }}">{{ aid_type.name }}</a>
+                            {% endif %}
 
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse" id="years">
-                    <ul class="nav navbar-nav">
-                        {% for year in years %}
-                        <li class="{% if forloop.first %}first{% elif forloop.last %}last{% endif %}"><a href="?year={{ year }}"><span class="point hidden-xs hidden-sm"> </span> {{ year }}</a></li>
-                        {% endfor %}
-                    </ul>
-                </div><!-- /.navbar-collapse -->
-            </nav>
-        </div><!-- .years-navigation -->
+                        </td>
+                        <td class="col-sm-4"><span data-value="{{ tot|stringformat:"f" }}">{{ tot|currency }}</span></td>
+                    </tr>
+                    {% endif %}{% endfor %}
+                    </tbody>
 
-        <div class="row panel-pad">
-
-            <div class="col-md-12"><h2>GLI AIUTI IN NUMERI</h2></div>
-
-            <div class="col-md-4">
-                <h3>PER COSA VENGONO UTILIZZATI?</h3>
-                <p class="twelve">I progetti per settore ... Lorem ipsum dolor sit amet è un testo segnaposto utilizzato nel settore della stampa e della tipografia...
-                    <a href="#" class="read-more pull-right">LEGGI TUTTO <span class="fa fa-caret-down"> </span></a>
-                </p>
-
-                <div id="highcharts-bubble"></div>
-
-                <div class="table-responsive">
-                    <table class="table table-condensed table-hover">
-                        <tbody>
-                        {% for sector, tot in sector_stats %}{% if tot > 0.0 %}
-                        <tr class="dotted">
-                            <td class="col-sm-8"><a href="{{ sector.get_absolute_url }}">{{ sector.name }}</a></td>
-                            <td class="col-sm-4">{{ tot|currency }}</td>
-                        </tr>
-                        {% endif %}{% empty %}<tr><td>-- empty --</td></tr>{% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-            </div><!-- .row -->
-
-            <div class="col-md-4">
-                <h3>CHI FINANZIA?</h3>
-                <p class="twelve">I progetti per settore ... Lorem ipsum dolor sit amet è un testo segnaposto utilizzato nel settore della stampa e della tipografia...
-                    <a href="#" class="read-more pull-right">LEGGI TUTTO <span class="fa fa-caret-down"> </span></a></p>
-
-                <div id="highcharts-bubble2"></div>
-
-                <div class="table-responsive">
-                    <table class="table table-condensed table-hover">
-                        <tbody>
-                        {% for channel, tot in channel_stats %}{% if tot > 0.0 %}
-                        <tr class="dotted">
-                            <td class="col-sm-8"><a href="{{ channel.get_absolute_url }}">{{ channel.name }}</a></td>
-                            <td class="col-sm-4">{{ tot|currency }}</td>
-                        </tr>
-                        {% endif %}{% empty %}<tr><td>-- empty --</td></tr>{% endfor %}
-                        </tbody>
-
-                    </table>
-                </div>
+                </table>
             </div>
+        </div>
+        {% endif %}
 
-            <div class="col-md-4">
-                <h3>CON QUALI STRUMENTI?</h3>
-                <p class="twelve">I progetti per settore ... Lorem ipsum dolor sit amet è un testo segnaposto utilizzato nel settore della stampa e della tipografia...
-                    <a href="#" class="read-more pull-right">LEGGI TUTTO <span class="fa fa-caret-down"> </span></a></p>
+        {% if agency_stats %}
+        <div class="{% if columns == 3 %}col-md-4{% else %}col-md-6{% endif %}">
+            <h3>{% trans 'Who funds?' %}</h3>
+            <p class="twelve readmore">
+                {% blocktrans %}The extending agency is the government entity (central, state or local government agency
+or department) financing the activity from its own budget. It is the budget holder, controlling the
+activity on its own account. Agencies administering activities on behalf of other government
+entities should not be reported as extending agencies but as channels of delivery.{% endblocktrans %}
+                <a href="#" class="readmore-open">{% trans 'read more' %} {% icon 'caret-down' %}</a>
+                <a href="#" class="readmore-close">{% trans 'close' %} {% icon 'caret-up' %}</a>
+            </p>
+            <div id="donut-right"></div>
 
-                <div id="highcharts-donut" ></div>
+            <div class="table-responsive">
+                <table class="table table-condensed table-hover" data-chart="donut" data-container="donut-right">
+                    <tbody>
+                    {% for agency, tot in agency_stats %}{% if tot > 0.0 %}
+                    <tr class="dotted">
+                        <td class="col-sm-8">
+                            {% if not selected_code_list %}
+                                <a href="{% url 'codelists:agency-detail' code=agency.code %}?year={{ selected_year }}" data-title="{{ agency.name }}">{{ agency.name }}</a>
+                            {% elif selected_code_list.code_list == 'agency' %}
+                                <span data-title="{{ agency.name }}">{{ agency.name }}</span>
+                            {% else %}
+                                <a href="{% search_url agency.code_list_facet agency.code %}&selected_facets={{ selected_facet }}:{{ selected_code_list.code }}&selected_facets=years:{{ selected_year }}" data-title="{{ agency.name }}">{{ agency.name }}</a>
+                            {% endif %}
 
-                <div class="table-responsive">
-                    <table class="table table-condensed table-hover">
-                        <tbody>
-                        {% for aid, tot in aid_stats %}{% if tot > 0.0 %}
-                        <tr class="dotted">
-                            <td class="col-sm-8"><a href="{{ aid.get_absolute_url }}">{{ aid.name }}</a></td>
-                            <td class="col-sm-4">{{ tot|currency }}</td>
-                        </tr>
-                        {% endif %}{% empty %}<tr><td>-- empty --</td></tr>{% endfor %}
-                        </tbody>
+                        </td>
+                        <td class="col-sm-4"><span data-value="{{ tot|stringformat:"f" }}">{{ tot|currency }}</span></td>
+                    </tr>
+                    {% endif %}{% endfor %}
+                    </tbody>
 
-                    </table>
-                </div>
+                </table>
             </div>
+        </div>
+        {% endif %}
+    </div><!-- .row -->
 
-        </div><!-- .row -->
-
-    </div><!-- .panel -->
-
-</div>
-
-</div><!-- .container -->
 </div><!-- .row -->

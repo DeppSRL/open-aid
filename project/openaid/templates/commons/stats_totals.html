@@ -1,0 +1,60 @@
+{% load i18n %}
+{% load crs %}
+{% load search_utils %}
+<div class="row panel-pad stats-panel-columns">
+
+    <div class="col-md-4">
+        <h3>{% trans 'Committed funds' %}</h3>
+
+        <div id="donut4"></div>
+
+        <div class="table-responsive">
+            <table class="table table-condensed table-hover" data-chart="donut" data-container="donut4">
+                <tbody>
+                <tr class="dotted">
+                    <td class="col-sm-8" data-title="Bilaterale e Multi-laterale">Bilaterale e Multi-laterale</td>
+                    <td class="col-sm-4"><span data-value="{{ commitments_sum|stringformat:"f" }}" data-title="Bilaterale e Multi-laterale">{{ commitments_sum|currency }}</span></td>
+                </tr>
+                <tr class="dotted">
+                    <td class="col-sm-8" data-title="Multilaterale">Multilaterale</td>
+                    <td class="col-sm-4"><span data-value="{{ multi_commitments_sum|stringformat:"f" }}" data-title="Multilaterale">{{ multi_commitments_sum|currency }}</span></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <div class="col-md-4">
+        <h3>{% trans 'Used funds' %}</h3>
+
+        <div id="donut5"></div>
+
+        <div class="table-responsive">
+            <table class="table table-condensed table-hover" data-chart="donut" data-container="donut5">
+                <tbody>
+                <tr class="dotted">
+                    <td class="col-sm-8" data-title="Bilaterale e Multi-laterale">Bilaterale e Multi-laterale</td>
+                    <td class="col-sm-4"><span data-value="{{ disbursements_sum|stringformat:"f" }}">{{ disbursements_sum|currency }}</span></td>
+                </tr>
+                <tr class="dotted">
+                    <td class="col-sm-8" data-title="Multilaterale">Multilaterale</td>
+                    <td class="col-sm-4"><span data-value="{{ multi_disbursements_sum|stringformat:"f" }}">{{ multi_disbursements_sum|currency }}</span></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <h3>{% trans 'Official Development Assistance (ODA) - total' %}</h3>
+
+        <p>
+{% blocktrans %}Official Development Assistance (ODA) is defined as those flows to
+developing countries and multilateral institutions provided by official agencies, including state and local
+governments, or by their executive agencies, each transaction of which meets the following tests: i) it
+is administered with the promotion of the economic development and welfare of developing countries as its
+main objective; and ii) it is concessional in character and conveys a grant element of at least 25 per cent.{% endblocktrans %}
+        </p>
+    </div>
+</div><!-- .row -->

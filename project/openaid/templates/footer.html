@@ -1,83 +1,74 @@
+{% load staticfiles %}
+{% load i18n %}
 <footer id="footer">
     <div class="container">
     <div class="row">
-            <div class="col-md-3">
-                <h4>OPEN AID ITALIA</h4>
+            <div class="col-md-3 col-sm-6 col-xs-6">
+                <h4>{% trans 'Open Aid Italia' %}</h4>
                 <ul class="list-unstyled">
+                    {% for url_name, label in footer_sections.oai.items %}
                     <li>
-                        <a href="#">Il progetto</a>
+                        <a href="{% url url_name %}">{% trans label %}</a>
                     </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="col-md-3 col-sm-6 col-xs-6">
+                <h4>{% trans 'FAQ' %}</h4>
+                <ul class="list-unstyled">
+                    {# TODO: Remove this hardcoding stuff!!!! #}
+                    <li><a href="{% url 'faq_question_list' %}#update">{% trans "Why isn't the data updated to 2013?" %}</a></li>
+                    <li><a href="{% url 'faq_question_list' %}#fonte">{% trans "Where does the data come from?" %}</a></li>
+                    <li><a href="{% url 'faq_question_list' %}#data">{% trans "To which extent is the data reliable?" %}</a></li>
+                    <li><a href="{% url 'faq_question_list' %}#bilaterale">{% trans "What do we mean by Bilateral and Multi-bilateral ODA?" %}</a></li>
+{#                    {% for url_name, label in footer_sections.comefare.items %}#}
+{#                    <li>#}
+{#                        <a href="{% url url_name %}">{% trans label %}</a>#}
+{#                    </li>#}
+{#                    {% endfor %}#}
                     <li>
-                        <a href="#">Chi siamo</a>
-                    </li>
-                    <li>
-                        <a href="#">Privacy e diritti degli utenti</a>
-                    </li>
-                    <li>
-                        <a href="#">Contatti</a>
-                    </li>
-                    <li>
-                        <a href="#">Licenza d'utilizzo</a>
+                        <a href="{% url 'faq_question_list' %}"><i>{% trans "More questions and answers" %}</i></a>
                     </li>
                 </ul>
             </div>
 
-            <div class="col-md-3">
-                <h4>Come fare per...</h4>
+            <div class="col-md-3 col-sm-6 col-xs-6">
+                <h4>{% trans 'Open data' %}</h4>
+                <ul class="list-unstyled">
+                    {% for url_name, label in footer_sections.od.items %}
+                    {# TODO: Remove this hardcoding stuff!!!! #}
+                    {% if url_name != 'licenze_cc' and url_name != 'dati_per_ricerca' and url_name != 'open_data_pa' %}
+                    <li>
+                        <a href="{% url url_name %}">{% trans label %}</a>
+                    </li>
+                    {% endif %}
+                    {% endfor %}
+                </ul>
                 <ul class="list-unstyled">
                     <li>
-                        <a href="#">Cercare un progetto</a>
+                        <a href="{% url 'licenza' %}">
+                            <img src="http://creativecommons.org/images/public/somerights20.png" alt="CC License"/>
+                        </a>
                     </li>
                     <li>
-                        <a href="#">Accreditarsi come soggetto APS</a>
-                    </li>
-                    <li>
-                        <a href="#">Scrivere sul diario di un progetto</a>
-                    </li>
-                    <li>
-                        <a href="#">Votare e commentare un progetto</a>
-                    </li>
-                    <li>
-                        <a href="#">FAQ</a>
+                        <a href="http://www.dati.gov.it/">
+                            <img src="{% static 'img/layout/logo_opendata.png' %}" alt="Open Data"/>
+                        </a>
                     </li>
                 </ul>
+
+
             </div>
 
-            <div class="col-md-3">
-                <h4>OPEN DATA</h4>
-                <ul class="list-unstyled">
+            <div class="col-md-3 col-sm-6 col-xs-6">
+                <h4>{% trans 'Open Aid is a project by' %}</h4>
+                <ul class="list-unstyled clearfix">
                     <li>
-                        <a href="#">Scarica i dati</a>
-                    </li>
-                    <li>
-                        <a href="#">API</a>
-                    </li>
-                    <li>
-                        <a href="#">Licenza CC...</a>
-                    </li>
-                    <li>
-                        <a href="#">Dati per informazione e ricerca</a>
-                    </li>
-                    <li>
-                        <a href="#">Dati aperti della PA</a>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="col-md-3">
-                <h4>OPENAID È UN PROGETTO DI</h4>
-                <ul class="list-unstyled partners clearfix">
-                    <li>
-                        <a href="#" class="ae"></a>
-                    </li>
-                    <li>
-                        <a href="#" class="coop"></a>
-                    </li>
-                    <li>
-                        <a href="#" class="cc"></a>
-                    </li>
-                    <li>
-                        <a href="#" class="od"></a>
+                        <a href="http://www.cooperazioneallosviluppo.esteri.it/" target="_blank">
+                            <img src="{% static 'img/layout/logo_dgcs_neg.png' %}" class="img-responsive" style="width: 163px" 
+                                 alt="DGCS" />
+                        </a>
                     </li>
                 </ul>
             </div>

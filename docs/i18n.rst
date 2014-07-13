@@ -1,0 +1,39 @@
+Traduzioni
+----------
+
+La traduzione nelle lingue previste in `settings.LANGUAGES` avviene in 3 modi.
+
+1. attraverso l'interfaccia di amministrazione
+2. import di traduzioni da csv per le Activity
+3. import di traduzioni da csv per le Codelist
+
+Translation file
+================
+
+Il file deve contenere un campo tra `name`, `description`, (e `long_description` per le Activity) che è la chiave di traduzione,
+e per ogniuno è possibile inserire una colonna per lingua `<field>_en` e `<field>_it`.
+
+
+Activity translations
+=====================
+
+Importare le traduzioni per le Activity (si trovano sul NAS, sotto ``DEPP/Progetti/Open AID/Dati``). ::
+
+    $ python project/manage.py import_translations <translations.csv> [options]
+
+        --field single o comma separated fields to translate
+        --lang : import translations only on this language
+        --override : override translations
+
+Codelist translations
+=====================
+
+Per le codelist i file si trovano dentro ``resources/codelists/`` ::
+
+    $ python project/manage.py codelists <translate> [options]
+
+        --field single o comma separated fields to translate
+        --lang : import translations only on this language
+        --override : override translations
+
+

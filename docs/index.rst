@@ -3,23 +3,24 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to OpenAID's documentation!
-===================================
+OpenAID - Documentazione Interna
+================================
 
-Contents:
+Contenuti:
 
 .. toctree::
    :maxdepth: 2
 
    analysis
    install
+   i18n
    deploy
    tests
 
 
 
-Indices and tables
-==================
+Indici e tabelle
+================
 
 * :ref:`genindex`
 * :ref:`modindex`

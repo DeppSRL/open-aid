@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block page_title %}{% trans "List of frequently asked questions" %}{% endblock %}
+
+
+{% block content %}
+    <h1>{% trans "List of frequently asked questions" %}</h1>
+
+    <dl>
+    {% for question in questions %}
+      <dt class="faq-question"><a name="{{ question.slug }}" style="margin-top: 2em">{{ question.text|safe }}</a></dt>
+      <dd class="faq-answer">{{ question.answer|safe }}</dd>
+      <hr>
+    {% endfor %}
+    </dl>
+{% endblock %}
+
+{% block javascript %}
+    {{ block.super }}
+    <script type="text/javascript">
+    $(document).ready(function() {
+        // hide all answers
+        // jQuery('.faq-answer').hide();
+
+        // show answer when question is clicked
+        jQuery('.faq-question').css('cursor', 'pointer').on('click', function() {
+          var self = jQuery(this);
+          jQuery('.faq-answer').each(function() {
+            jQuery(this).prev().is(self) ? jQuery(this).toggle() : jQuery(this).hide();
+          });
+
+          // add deep-link to location
+          if (self.next().is(':visible')) {
+            location.href = '#' + self.find('a').attr('name');
+          }
+        });
+
+        /*hash = location.hash.replace('#', '');
+        if (hash) {
+          $('body').find('.faq-question a[name='+hash+']').trigger('click')
+        } else {
+          $('body').find('.faq-question').first().trigger('click');
+        }*/
+    });
+    </script>
+
+{% endblock javascript %}
+
+

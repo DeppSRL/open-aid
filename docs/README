@@ -1,0 +1,8 @@
+After the documentation is changed.
+
+Save, rebuild, rsync ::
+
+    pushd docs
+    make html
+    rsync -rtvuz _build/html/ --exclude=.DS_Store root@ovhb2:/home/documentation.depp.it/open_aid/
+    popd

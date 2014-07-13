@@ -39,21 +39,21 @@ EARLYBIRD_ENABLE = env.bool('EARLYBIRD_ENABLE', True)
 OPENAID_CRS_DONOR = 6 # Italy
 OPENAID_DSD_FILE = join(RESOURCES_PATH, 'crs', 'dsd.xml')
 OPENAID_MULTIPLIER = 1000000.0
-OPENAID_CURRENCY = 918
+OPENAID_CURRENCY = 918 # EUR
+# USD-EUR
 OPENAID_CURRENCY_CONVERSIONS = {
-    # USD
-    302: {
-        2004: 0.8049,
-        2005: 0.8046,
-        2006: 0.7967,
-        2007: 0.7305,
-        2008: 0.6933,
-        2009: 0.7181,
-        2010: 0.755,
-        2011: 0.7192,
-        2012: 0.778,
-    }
+    2004: 0.8049,
+    2005: 0.8046,
+    2006: 0.7967,
+    2007: 0.7305,
+    2008: 0.6933,
+    2009: 0.7181,
+    2010: 0.755,
+    2011: 0.7192,
+    2012: 0.778,
 }
+
+ADDTHIS_PROFILE = 'ra-53be8c5b31fee67d'
 ########## END OPENAID CONFIGURATION
 
 
@@ -69,7 +69,7 @@ TEMPLATE_DEBUG = DEBUG
 ########## MANAGER CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#admins
 ADMINS = (
-    ('depp srl', 'daniele.faraglia@gmail.com'),
+    ('admin', 'admin@depp.it'),
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#managers
@@ -94,6 +94,7 @@ TIME_ZONE = 'Europe/Rome'
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#language-code
 LANGUAGE_CODE = 'en-US'
+LANG_CODE = LANGUAGE_CODE[:2]
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#site-id
 SITE_ID = 1
@@ -106,6 +107,13 @@ USE_L10N = True
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#use-tz
 USE_TZ = True
+
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#locale-paths
+LOCALE_PATHS = (
+    PACKAGE_PATH,
+    join(PROJECT_PATH, "blog"),
+    join(PROJECT_PATH, "faq"),
+)
 ########## END GENERAL CONFIGURATION
 
 
@@ -235,11 +243,23 @@ DJANGO_APPS = (
     'iconfonts.django', # icon renderer
     'idioticon', # term glossary
     'mptt', # tree structure for models
+
+    # third party apps
+    'tinymce',
+    'bootstrap_pagination',
+    'django_mptt_admin', # admin
 )
 
 # Apps specific for this project go here.
 LOCAL_APPS = (
-    'openaid.crs',
+    'openaid',
+    'openaid.codelists',
+    'openaid.projects',
+    'openaid.pages',
+    'openaid.attachments',
+    'tagging',
+    'blog',
+    'faq',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -263,7 +283,7 @@ LOGGING = {
     'disable_existing_loggers': False,
     'formatters': {
         'verbose': {
-            'format' : "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
+            'format': "[%(asctime)s.%(msecs).03d] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
             'datefmt' : "%d/%b/%Y %H:%M:%S"
         },
         'simple': {
@@ -281,14 +301,31 @@ LOGGING = {
             'filters': ['require_debug_false'],
             'class': 'django.utils.log.AdminEmailHandler'
         },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose'
+        },
         'file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
             'filename': normpath(join(RESOURCES_PATH, 'logs', 'openaid.log')),
             'formatter': 'verbose'
         },
+        'management_logfile': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': normpath(join(RESOURCES_PATH, 'logs', 'management.log')),
+            'mode': 'w',
+            'formatter': 'verbose',
+        },
     },
     'loggers': {
+        'management': {
+            'handlers': ['console', 'management_logfile'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
         'django.request': {
             'handlers': ['mail_admins'],
             'level': 'ERROR',
@@ -334,12 +371,19 @@ ICONFONT = 'font-awesome'
 INSTALLED_APPS += (
     'haystack',
 )
+SOLR_BASE_URL = env.str('SOLR_BASE_URL', default='http://127.0.0.1:8080/solr/open-aid-{lang}')
+def solr_url(lang):
+    return {
+        # 'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
+        'ENGINE': 'openaid.backends.MultilingualSolrEngine',
+        'URL': SOLR_BASE_URL.format(lang=lang),
+    }
 HAYSTACK_CONNECTIONS = {
-    'default': {
-        'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
-        'URL': 'http://127.0.0.1:8080/solr/open-aid',
-    },
+    'default': solr_url(LANG_CODE),
 }
+HAYSTACK_CONNECTIONS.update(dict([
+    ('default_%s' % lang, solr_url(lang)) for lang, __ in LANGUAGES if lang != LANG_CODE
+]))
 ########## END DJANGO-HAYSTACK CONFIGURATION
 
 

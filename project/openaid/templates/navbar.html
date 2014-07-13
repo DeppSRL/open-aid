@@ -1,79 +1,80 @@
-<div class="row">
-    <div class="col-sm-12 bg-red">
-        <div class="container">
-            <nav class="navbar navbar-default navbar-main" role="navigation">
-                <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                </button>
-                </div>
-
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li><a href="#" class="dropdown-toggle first" data-toggle="dropdown">DOVE VANNO GLI AIUTI? <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            {% for recipient in recipients %}
-                            <li class="dropdown-submenu">
-                                <a href="#" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown">{{ recipient.name }}</a>
-                                <ul class="dropdown-menu">
-                                    {% for child in recipient.recipient_set.all %}<li><a href="{{ child.get_absolute_url }}">{{ child.name }}</a></li>{% endfor %}
-                                </ul>
-                            </li>
-                            {% endfor %}
-                        </ul>
-                    </li>
-                    <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">PER COSA VENGONO UTILIZZATI? <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            {% for sector in sectors %}
-                            <li>
-                                <a href="{{ sector.get_absolute_url }}">{{ sector.name }}</a>
-                            </li>
-                            {% endfor %}
-                        </ul>
-                    </li>
-                    <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">CHI FINANZIA? <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            {% for channel in channels %}
-                            <li>
-                                <a href="{{ channel.get_absolute_url }}">{{ channel.name }}</a>
-                            </li>
-                            {% endfor %}
-                        </ul>
-                    </li>
-                    <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">CON QUALI STRUMENTI? <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            {% for aid in aids %}
-                            <li>
-                                <a href="{{ aid.get_absolute_url }}">{{ aid.name }}</a>
-                            </li>
-                            {% endfor %}
-
-                        </ul>
-                    </li>
-                </ul>
-                <form class="navbar-form navbar-right" role="search">
-
-                    <div class="search-form">
-                        <div class="form-white">
-                            <input type="text" class="form-control" placeholder="Search">
-                            <ul class="nav navbar-nav pull-right">
-                                <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">REALIZZATORI<b class="caret"></b></a>
+{% load i18n %}
+<div id="main-menu" class="bg-red">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <nav class="navbar navbar-default navbar-main" role="navigation">
+                    <ul class="nav navbar-nav">
+                        <li><a href="#" class="dropdown-toggle first" data-toggle="dropdown">{% trans 'Where does the aid go?' %} <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                {% for recipient, children in recipients %}{% if recipient.activity_count > 0 %}
+                                {% if children|length > 0 %}
+                                <li class="dropdown-submenu">
+                                    <a href="#" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown">{{ recipient.name }}</a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="#">Action</a></li>
-                                        <li><a href="#">Action</a></li>
+                                        {% for child in children|dictsort:'name' %}{% if child.activity_count > 0 %}
+                                        <li><a href="{% url 'codelists:recipient-detail' code=child.code %}">{{ child.name }}</a></li>
+                                        {% endif %}{% endfor %}
                                     </ul>
                                 </li>
+                                {% else %}
+                                <li>
+                                    <a href="{% url 'codelists:recipient-detail' code=recipient.code %}">{{ recipient.name }}</a>
+                                </li>
+                                {% endif %}{% endif %}
+                                {% endfor %}
                             </ul>
+                        </li>
+                        <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">{% trans 'What is it spent for?' %} <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                {% for sector in sectors|dictsort:'code' %}{% if sector.activity_count > 0 %}
+                                <li>
+                                    <a href="{% url 'codelists:sector-detail' code=sector.code %}">{{ sector.name }}</a>
+                                </li>
+                                {% endif %}{% endfor %}
+                            </ul>
+                        </li>
+                        <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">{% trans 'Who funds?' %} <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                {% for agency in agencies|dictsort:'code' %}{% if agency.activity_count > 0 %}
+                                <li>
+                                    <a href="{% url 'codelists:agency-detail' code=agency.code %}">{{ agency.name }}</a>
+                                </li>
+                                {% endif %}{% endfor %}
+                            </ul>
+                        </li>
+                        <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">{% trans 'By means of?' %} <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                {% for aid_type in aid_types|dictsort:'code' %}{% if aid_type.activity_count > 0 %}
+                                <li>
+                                    <a href="{% url 'codelists:aid_type-detail' code=aid_type.code %}">{{ aid_type.name }}</a>
+                                </li>
+                                {% endif %}{% endfor %}
+
+                            </ul>
+                        </li>
+                    </ul>
+                    <form class="navbar-form navbar-right" action="{% url 'projects:search' %}" method="get" role="search">
+
+                        <div class="search-form">
+                            <div class="form-white">
+                                <input class="form-control" id="search-input" name="{{ search_form.q.html_name }}"
+                                   value="{{ search_form.q.value|default_if_none:'' }}"
+                                   type="text" placeholder="{% trans "Search" %}">
+                                {#<ul class="{% comment %}nav navbar-nav pull-right">#}
+                                {#    <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">REALIZZATORI<b class="caret"></b></a>#}
+                                {#        <ul class="dropdown-menu">#}
+                                {#            <li><a href="#">Action</a></li>#}
+                                {#            <li><a href="#">Action</a></li>#}
+                                {#        </ul>#}
+                                {#    </li>#}
+                                {#</ul>{% endcomment %}#}
+                            </div>
+                            <button type="submit" class="fa fa-search" style="float:right"> </button>
                         </div>
-                        <button type="submit" class="fa fa-search" style="float:right"> </button>
-                    </div>
-                </form>
-                </div><!-- /.navbar-collapse -->
-            </nav>
-        </div><!-- .container -->
-    </div>
-</div><!-- .row -->
+                    </form>
+                </nav>
+            </div><!-- .col-md-12 -->
+        </div><!-- .row -->
+    </div><!-- .container -->
+</div>

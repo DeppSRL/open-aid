@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block content %}
+<div class="row">
+    <div class="container">
+        <header class="col-md-9">
+            <h2>
+            {% block page_title %}
+                {% trans page_label %}
+            {% endblock page_title %}
+            </h2>
+        </header>
+        <header class="col-md-3 text-right">
+        </header>
+    </div>
+</div>
+
+<div class="spacer"> </div>
+
+<div class="row">
+    <div class="container">
+        <div class="col-md-9">
+            {% block container %}{% endblock container %}
+        </div>
+        <div class="col-md-3">
+            {% block innermenu %}{% endblock innermenu %}
+        </div>
+    </div>
+</div>
+{% endblock content %}
