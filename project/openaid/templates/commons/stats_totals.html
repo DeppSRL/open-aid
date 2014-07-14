@@ -12,12 +12,12 @@
             <table class="table table-condensed table-hover" data-chart="donut" data-container="donut4">
                 <tbody>
                 <tr class="dotted">
-                    <td class="col-sm-8" data-title="Bilaterale e Multi-laterale">Bilaterale e Multi-laterale</td>
-                    <td class="col-sm-4"><span data-value="{{ commitments_sum|stringformat:"f" }}" data-title="Bilaterale e Multi-laterale">{{ commitments_sum|currency }}</span></td>
+                    <td class="col-sm-8" data-title="{% trans "Bilateral and Multi-bilateral" %}">{% trans "Bilateral and Multi-bilateral" %}</td>
+                    <td class="col-sm-4"><span data-value="{{ commitments_sum|stringformat:"f" }}" data-title="{% trans "Bilateral and Multi-bilateral" %}">{{ commitments_sum|currency }}</span></td>
                 </tr>
                 <tr class="dotted">
-                    <td class="col-sm-8" data-title="Multilaterale">Multilaterale</td>
-                    <td class="col-sm-4"><span data-value="{{ multi_commitments_sum|stringformat:"f" }}" data-title="Multilaterale">{{ multi_commitments_sum|currency }}</span></td>
+                    <td class="col-sm-8" data-title="{% trans "Multilateral" %}">{% trans "Multilateral" %}</td>
+                    <td class="col-sm-4"><span data-value="{{ multi_commitments_sum|stringformat:"f" }}" data-title="{% trans "Multilateral" %}">{{ multi_commitments_sum|currency }}</span></td>
                 </tr>
                 </tbody>
             </table>
@@ -34,11 +34,11 @@
             <table class="table table-condensed table-hover" data-chart="donut" data-container="donut5">
                 <tbody>
                 <tr class="dotted">
-                    <td class="col-sm-8" data-title="Bilaterale e Multi-laterale">Bilaterale e Multi-laterale</td>
+                    <td class="col-sm-8" data-title="{% trans "Bilateral and Multi-bilateral" %}">{% trans "Bilateral and Multi-bilateral" %}</td>
                     <td class="col-sm-4"><span data-value="{{ disbursements_sum|stringformat:"f" }}">{{ disbursements_sum|currency }}</span></td>
                 </tr>
                 <tr class="dotted">
-                    <td class="col-sm-8" data-title="Multilaterale">Multilaterale</td>
+                    <td class="col-sm-8" data-title="{% trans "Multilateral" %}">{% trans "Multilateral" %}</td>
                     <td class="col-sm-4"><span data-value="{{ multi_disbursements_sum|stringformat:"f" }}">{{ multi_disbursements_sum|currency }}</span></td>
                 </tr>
                 </tbody>
