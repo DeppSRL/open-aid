@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-11 19:57+0200\n"
+"POT-Creation-Date: 2014-07-14 11:14+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -230,7 +230,7 @@ msgstr ""
 msgid "Official Development Assistance"
 msgstr ""
 
-#: projects/models.py:214 templates/projects/project_detail.html:133
+#: projects/models.py:214 templates/projects/project_detail.html:136
 msgid "Flow type"
 msgstr ""
 
@@ -242,7 +242,9 @@ msgstr ""
 msgid "Bilateral"
 msgstr "Bilaterale"
 
-#: projects/models.py:220
+#: projects/models.py:220 templates/commons/stats_totals.html:19
+#: templates/commons/stats_totals.html:20
+#: templates/commons/stats_totals.html:41
 msgid "Multilateral"
 msgstr "Multilaterale"
 
@@ -264,27 +266,27 @@ msgstr ""
 msgid "Private sector outflows"
 msgstr ""
 
-#: projects/models.py:226 templates/projects/project_detail.html:136
+#: projects/models.py:226 templates/projects/project_detail.html:139
 msgid "Bi/Multilateral"
 msgstr "Bi/Multilaterale"
 
-#: projects/models.py:228 templates/projects/project_detail.html:138
+#: projects/models.py:228 templates/projects/project_detail.html:141
 msgid "Free Standing Technical Cooperation"
 msgstr ""
 
-#: projects/models.py:229 templates/projects/project_detail.html:139
+#: projects/models.py:229 templates/projects/project_detail.html:142
 msgid "Programme Based Approaches"
 msgstr ""
 
-#: projects/models.py:230 templates/projects/project_detail.html:140
+#: projects/models.py:230 templates/projects/project_detail.html:143
 msgid "Investment Project"
 msgstr "Progetto di investimento"
 
-#: settings/base.py:352
+#: settings/base.py:359
 msgid "English"
 msgstr "Inglese"
 
-#: settings/base.py:353
+#: settings/base.py:360
 msgid "Italian"
 msgstr "Italiano"
 
@@ -324,15 +326,11 @@ msgstr "Open data"
 msgid "Open Aid is a project by"
 msgstr "Open Aid è un progetto di"
 
-#: templates/header.html:10
-msgid "show/hide navigation"
-msgstr "mostra/nascondi navigazione"
-
-#: templates/header.html:28 templates/home.html:13
+#: templates/header.html:21 templates/home.html:13
 msgid "Italian Development Cooperation"
 msgstr "La Cooperazione Italiana allo Sviluppo"
 
-#: templates/header.html:29 templates/home.html:30
+#: templates/header.html:22 templates/home.html:30
 msgid "News"
 msgstr "Notizie"
 
@@ -361,11 +359,11 @@ msgstr ""
 "scelte di politica estera italiana, in armonia con gli interventi per il "
 "mantenimento della pace e la gestione dei flussi migratori."
 
-#: templates/home.html:24 templates/home.html.py:112
+#: templates/home.html:24 templates/home.html.py:116
 #: templates/codelists/recipient_detail.html:49
 #: templates/commons/stats.html:27 templates/commons/stats.html.py:62
-#: templates/commons/stats.html:100 templates/projects/project_detail.html:62
-#: templates/search/search_results.html:116
+#: templates/commons/stats.html:100 templates/projects/project_detail.html:65
+#: templates/search/search_results.html:119
 msgid "read more"
 msgstr "leggi tutto"
 
@@ -374,53 +372,53 @@ msgid "Focus on"
 msgstr "Focus on"
 
 #: templates/home.html:75 templates/commons/project_element.html:22
-#: templates/projects/project_detail.html:41
-#: templates/projects/project_detail.html:102
+#: templates/projects/project_detail.html:44
+#: templates/projects/project_detail.html:105
 msgid "Committed"
 msgstr "Impegnati"
 
 #: templates/home.html:77 templates/commons/project_element.html:25
-#: templates/projects/project_detail.html:42
-#: templates/projects/project_detail.html:103
+#: templates/projects/project_detail.html:45
+#: templates/projects/project_detail.html:106
 msgid "Used"
 msgstr "Erogati"
 
-#: templates/home.html:98 templates/projects/project_detail.html:47
-#: templates/search/search_results.html:93
+#: templates/home.html:102 templates/projects/project_detail.html:50
+#: templates/search/search_results.html:96
 msgid "Agency"
 msgstr "Finanziatore"
 
-#: templates/home.html:102 templates/projects/project_detail.html:51
+#: templates/home.html:106 templates/projects/project_detail.html:54
 msgid "Channel reported"
 msgstr "Esecutore"
 
-#: templates/home.html:109 templates/projects/project_detail.html:59
+#: templates/home.html:113 templates/projects/project_detail.html:62
 msgid "Description"
 msgstr "Descrizione"
 
-#: templates/home.html:113 templates/home.html.py:160 templates/home.html:170
+#: templates/home.html:117 templates/home.html.py:164 templates/home.html:174
 #: templates/codelists/recipient_detail.html:50
 #: templates/commons/stats.html:28 templates/commons/stats.html.py:63
-#: templates/commons/stats.html:101 templates/projects/project_detail.html:63
-#: templates/search/search_results.html:117
+#: templates/commons/stats.html:101 templates/projects/project_detail.html:66
+#: templates/search/search_results.html:120
 msgid "close"
 msgstr "chiudi"
 
-#: templates/home.html:129 templates/projects/project_detail.html:79
-#: templates/search/search_results.html:101
+#: templates/home.html:133 templates/projects/project_detail.html:82
+#: templates/search/search_results.html:104
 msgid "Aid type"
 msgstr "Tipologia di aiuto"
 
-#: templates/home.html:135 templates/commons/project_element.html:35
-#: templates/projects/project_detail.html:85
+#: templates/home.html:139 templates/commons/project_element.html:35
+#: templates/projects/project_detail.html:88
 msgid "Channels"
 msgstr "Canali"
 
-#: templates/home.html:161
+#: templates/home.html:165
 msgid "WELCOME TO OPEN AID ITALIA"
 msgstr "BENVENUTO SU OPEN AID ITALIA"
 
-#: templates/home.html:164
+#: templates/home.html:168
 msgid ""
 "<p>This website aims at making data on Italian Development Aid available for "
 "all.</p>\n"
@@ -452,36 +450,33 @@ msgstr ""
 "completo dell’impegno italiano.</p>\n"
 "<p>Siamo all’inizio di un grande progetto: continuate a seguirci!</p>"
 
-#: templates/navbar.html:18
+#: templates/navbar.html:8
 msgid "Where does the aid go?"
 msgstr "A chi vanno gli aiuti?"
 
-#: templates/navbar.html:38 templates/commons/stats.html:20
+#: templates/navbar.html:28 templates/commons/stats.html:20
 msgid "What is it spent for?"
 msgstr "Per cosa vengono utilizzati?"
 
-#: templates/navbar.html:47 templates/commons/stats.html:94
+#: templates/navbar.html:37 templates/commons/stats.html:94
 msgid "Who funds?"
 msgstr "Chi finanzia?"
 
-#: templates/navbar.html:56 templates/commons/stats.html:58
+#: templates/navbar.html:46 templates/commons/stats.html:58
 msgid "By means of?"
 msgstr "Con quali strumenti?"
 
-#: templates/navbar.html:73
+#: templates/navbar.html:63 templates/search/search_results.html:9
+#: templates/search/search_results.html:10
 msgid "Search"
 msgstr "Cerca"
 
-#: templates/codelists/base_codelist.html:19
-#: templates/projects/project_detail.html:12
+#: templates/codelists/base_codelist.html:22
+#: templates/projects/project_detail.html:15
 msgid "Download JSON"
 msgstr "Scarica i dati in JSON"
 
-#: templates/codelists/base_codelist.html:20
-msgid "Download XML"
-msgstr "Scarica i dati in XML"
-
-#: templates/codelists/base_codelist.html:25
+#: templates/codelists/base_codelist.html:28
 msgid "Show all activities"
 msgstr "Mostra tutte le iniziative"
 
@@ -658,6 +653,12 @@ msgstr ""
 "che ricevono tali contributi obbligatori (core funds) e la percentuale di "
 "tali contributi che può essere considerata APS."
 
+#: templates/commons/stats_totals.html:15
+#: templates/commons/stats_totals.html:16
+#: templates/commons/stats_totals.html:37 templates/commons/years_bar.html:4
+msgid "Bilateral and Multi-bilateral"
+msgstr "Bilaterale e Multi-Bilaterale"
+
 #: templates/commons/stats_totals.html:53
 msgid ""
 "Official Development Assistance (ODA) is defined as those flows to\n"
@@ -695,67 +696,69 @@ msgstr "vedi tutte"
 msgid "Aid in numbers"
 msgstr "L'Aiuto in numeri"
 
-#: templates/commons/years_bar.html:4
-msgid "Bilateral and Multi-bilateral"
-msgstr "Bilaterale e Multi-Bilaterale"
-
-#: templates/projects/project_detail.html:101
-#: templates/search/search_results.html:97
+#: templates/projects/project_detail.html:104
+#: templates/search/search_results.html:100
 msgid "Year"
 msgstr "Anno"
 
-#: templates/projects/project_detail.html:117
+#: templates/projects/project_detail.html:120
 msgid "Project data"
 msgstr "Dati del progetto"
 
-#: templates/projects/project_detail.html:120
+#: templates/projects/project_detail.html:123
 msgid "Expected start date"
 msgstr "Data inizio prevista"
 
-#: templates/projects/project_detail.html:123
+#: templates/projects/project_detail.html:126
 msgid "Completion date"
 msgstr "Data di completamento"
 
-#: templates/projects/project_detail.html:125
+#: templates/projects/project_detail.html:128
 msgid "CRSID"
 msgstr "CRSID"
 
-#: templates/projects/project_detail.html:126
+#: templates/projects/project_detail.html:129
 msgid "Purpose"
 msgstr "Scopo"
 
-#: templates/projects/project_detail.html:130
-#: templates/search/search_results.html:105
+#: templates/projects/project_detail.html:133
+#: templates/search/search_results.html:108
 msgid "Finance type"
 msgstr "Tipo di finanziamento"
 
-#: templates/projects/project_detail.html:169
+#: templates/projects/project_detail.html:172
 msgid "Photo gallery"
 msgstr "Photo gallery"
 
-#: templates/search/search_results.html:13
+#: templates/search/search_results.html:16
 msgid "Projects"
 msgstr "Progetti"
 
-#: templates/search/search_results.html:75
+#: templates/search/search_results.html:78
 msgid "Search result"
 msgstr "Risultati della ricerca"
 
-#: templates/search/search_results.html:78
+#: templates/search/search_results.html:81
 msgid "Remove filters"
 msgstr "Rimuovi filtri"
 
-#: templates/search/search_results.html:89
+#: templates/search/search_results.html:92
 msgid "Sector"
 msgstr "Settore"
 
-#: templates/search/search_results.html:109
+#: templates/search/search_results.html:112
 msgid "Channel"
 msgstr "Canale"
 
-#: templates/search/search_results.html:113
+#: templates/search/search_results.html:116
 msgid "Recipient"
 msgstr "Destinatario"
+
+#~ msgid "show/hide navigation"
+#~ msgstr "mostra/nascondi navigazione"
+
+#~ msgid "Download XML"
+#~ msgstr "Scarica i dati in XML"
 
 #~ msgid ""
 #~ "The channel of delivery is the first implementing partner. It is the "
