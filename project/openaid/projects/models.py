@@ -173,6 +173,9 @@ class Project(models.Model):
     def get_absolute_url(self):
         return reverse('projects:project-detail', kwargs={'pk': self.pk})
 
+    def __unicode__(self):
+        return "Project:%s:%s" % (self.crsid, self.recipient)
+
     class Meta:
         unique_together = (('crsid', 'recipient'),)
 
@@ -261,7 +264,7 @@ class Activity(models.Model):
         return super(Activity, self).save(*args, **kwargs)
 
     def __unicode__(self):
-        return u"{project}:{year}:{number}:{title}".format(year=self.year, project=self.project, number=self.number, title=self.title)
+        return u"{project}:{year}".format(year=self.year, project=self.project)
 
     class Meta:
         ordering = ('-year', 'number', 'title')
