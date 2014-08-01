@@ -48,7 +48,7 @@ def serialize_activity(activity):
         elif field in mapping.MARKERS_FIELDS_MAP:
             act[field] = getattr(activity.markers, mapping.MARKERS_FIELDS_MAP[field], '') or ''
 
-        elif field in CODELISTS_CSV_MAP.keys():
+        elif field in CODELISTS_FIELDS:
 
             if field.endswith('name'):
                 codelist = CODELISTS_CSV_MAP[field.replace('name', '')]
@@ -64,6 +64,8 @@ def serialize_activity(activity):
 
     for euros in ['commitment', 'disbursement']:
         act['eur_%s' % euros] = getattr(activity, euros, '')
+
+    act['openaid_id'] = activity.pk
 
     return act
 
