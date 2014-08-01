@@ -1,5 +1,6 @@
 # coding=utf-8
 import StringIO
+import csv
 import time
 import zipfile
 from os import path, rename
@@ -17,31 +18,46 @@ MEDIA_EXPORT_PATH = path.join(settings.MEDIA_ROOT, 'crs')
 CODELISTS_CSV_MAP = dict([(getattr(cl, 'code_list_csv_field', '%scode' % cl.code_list), cl) for cl in codelists.CODE_LISTS])
 
 EXPORTED_FIELDS = (
+    ['openaid_id', ] +
     mapping.ACTIVITY_FIELDS_MAP.keys() +
     mapping.CHANNEL_REPORTED_MAP.keys() +
-    mapping.MARKERS_FIELDS_MAP.keys() +
-    CODELISTS_CSV_MAP.keys() +
-    ['eur_commitment', 'eur_disbursement']
+    mapping.MARKERS_FIELDS_MAP.keys()
+    # CODELISTS_CSV_MAP.keys() +
+    # ['eur_commitment', 'eur_disbursement']
 )
 
+CODELISTS_FIELDS = []
+for cl in CODELISTS_CSV_MAP.keys():
+    CODELISTS_FIELDS += [cl, '%sname' % cl]
+EXPORTED_FIELDS += CODELISTS_FIELDS
+EXPORTED_FIELDS += ['eur_commitment', 'eur_disbursement']
+print EXPORTED_FIELDS
+
 def serialize_activity(activity):
-    act = dict.fromkeys(EXPORTED_FIELDS, '')
+    act = {'openaid_id': activity.pk}
+    act.update(dict.fromkeys(EXPORTED_FIELDS, ''))
     for field in EXPORTED_FIELDS:
 
         if field in mapping.ACTIVITY_FIELDS_MAP:
             act[field] = getattr(activity, mapping.ACTIVITY_FIELDS_MAP[field], '')
             if isinstance(act[field], bool):
                 act[field] = '1' if act[field] else '0'
-            elif isinstance(act[field], float):
-                act[field] = repr(act[field]).replace('.', ',')
+            # elif isinstance(act[field], float):
+            #     act[field] = repr(act[field]).replace('.', ',')
 
         elif field in mapping.MARKERS_FIELDS_MAP:
             act[field] = getattr(activity.markers, mapping.MARKERS_FIELDS_MAP[field], '') or ''
 
-        elif field in CODELISTS_CSV_MAP:
-            codelist = CODELISTS_CSV_MAP[field]
-            codelist_item = getattr(activity, codelist.code_list, None) or ''
-            act[field] = codelist_item.code if codelist_item else ''
+        elif field in CODELISTS_CSV_MAP.keys():
+
+            if field.endswith('name'):
+                codelist = CODELISTS_CSV_MAP[field.replace('name', '')]
+                codelist_item = getattr(activity, codelist.code_list, None) or ''
+                act[field] = codelist_item.name_en if codelist_item else ''
+            else:
+                codelist = CODELISTS_CSV_MAP[field]
+                codelist_item = getattr(activity, codelist.code_list, None) or ''
+                act[field] = codelist_item.code if codelist_item else ''
 
         elif field in mapping.CHANNEL_REPORTED_MAP:
             act[field] = activity.channel_reported.name if activity.channel_reported else ''
@@ -52,14 +68,14 @@ def serialize_activity(activity):
     return act
 
 def generate_file_path(year, to_backup=False):
-    csv_path = path.join(MEDIA_EXPORT_PATH, 'CRS_%d_%d' % (settings.OPENAID_CRS_DONOR, year))
+    csv_path = path.join(MEDIA_EXPORT_PATH, 'CRS_%s_%s' % (settings.OPENAID_CRS_DONOR, year))
     if not to_backup:
         return '%s.csv.zip' % csv_path
     return '%s_%s.csv.zip' % (csv_path, time.strftime('%Y%m%d-%H%M%S'))
 
 def export_activities_by_year(year):
 
-    print 'Start export for year: %d' % year
+    print 'Start export for year: %s' % year
 
     zip_file_path = generate_file_path(year)
     if path.isfile(zip_file_path):
@@ -72,7 +88,7 @@ def export_activities_by_year(year):
     csv_writer = csvkit.DictWriter(output, EXPORTED_FIELDS)
     csv_writer.writeheader()
     i = 0
-    for i, activity in enumerate(Activity.objects.filter(year=year), start=1):
+    for i, activity in enumerate(Activity.objects.filter(year=year) if year != 'all' else Activity.objects.all(), start=1):
         csv_writer.writerow(serialize_activity(activity))
         print "\r%d" % i,
         sys.stdout.flush()
@@ -80,10 +96,10 @@ def export_activities_by_year(year):
     csv_file = zipfile.ZipFile(zip_file_path, 'w')
     csv_file.writestr(path.basename(zip_file_path)[:-4], output.getvalue())
 
-    print '%d Activities for year %d exported in: %s' % (i, year, zip_file_path)
+    print '%d Activities for year %s exported in: %s' % (i, year, zip_file_path)
 
 
-def export_activities():
+def export_activities(year=None):
     """
     Questo task si occupa di generare i file csv contenenti le Activities.
     Se sono già state generate, si preoccupa di fare un backup e di rigenerare nuovamente i dati.
@@ -92,8 +108,10 @@ def export_activities():
     print 'Exporting Activities for %s Donor from %d to %d' % (
         settings.OPENAID_CRS_DONOR, START_YEAR, END_YEAR
     )
-    jobs = []
-    for year in range(START_YEAR, END_YEAR+1):
+    if not year:
+        for year in range(START_YEAR, END_YEAR+1):
+            export_activities_by_year(year)
+    else:
         export_activities_by_year(year)
         # p = Process(export_activities_by_year, args=(year, ))
         # jobs.append(p)
