@@ -29,7 +29,7 @@ EXPORTED_FIELDS = (
 
 CODELISTS_FIELDS = []
 for cl in CODELISTS_CSV_MAP.keys():
-    CODELISTS_FIELDS += [cl, '%sname' % cl]
+    CODELISTS_FIELDS += [cl, cl.replace('code', 'name')]
 EXPORTED_FIELDS += CODELISTS_FIELDS
 EXPORTED_FIELDS += ['eur_commitment', 'eur_disbursement']
 print EXPORTED_FIELDS
@@ -43,7 +43,7 @@ def serialize_activity(activity):
             act[field] = getattr(activity, mapping.ACTIVITY_FIELDS_MAP[field], '')
             if isinstance(act[field], bool):
                 act[field] = '1' if act[field] else '0'
-            elif isinstance(act[field], datetime):
+            elif isinstance(act[field], datetime.datetime):
                 act[field] = act[field].isoformat()
             # elif isinstance(act[field], float):
             #     act[field] = repr(act[field]).replace('.', ',')
@@ -54,7 +54,7 @@ def serialize_activity(activity):
         elif field in CODELISTS_FIELDS:
 
             if field.endswith('name'):
-                codelist = CODELISTS_CSV_MAP[field.replace('name', '')]
+                codelist = CODELISTS_CSV_MAP[field.replace('name', 'code')]
                 codelist_item = getattr(activity, codelist.code_list, None) or ''
                 act[field] = codelist_item.name_en if codelist_item else ''
             else:
