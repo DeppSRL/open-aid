@@ -3,6 +3,7 @@ import StringIO
 import csv
 import time
 import zipfile
+import datetime
 from os import path, rename
 import sys
 import csvkit
@@ -42,6 +43,8 @@ def serialize_activity(activity):
             act[field] = getattr(activity, mapping.ACTIVITY_FIELDS_MAP[field], '')
             if isinstance(act[field], bool):
                 act[field] = '1' if act[field] else '0'
+            elif isinstance(act[field], datetime):
+                act[field] = act[field].isoformat()
             # elif isinstance(act[field], float):
             #     act[field] = repr(act[field]).replace('.', ',')
 
@@ -87,7 +90,7 @@ def export_activities_by_year(year):
         print 'Backup old export: %s' % backup_file_path
 
     output = StringIO.StringIO() ## temp output file
-    csv_writer = csvkit.DictWriter(output, EXPORTED_FIELDS)
+    csv_writer = csvkit.DictWriter(output, EXPORTED_FIELDS, quoting=csv.QUOTE_ALL)
     csv_writer.writeheader()
     i = 0
     for i, activity in enumerate(Activity.objects.filter(year=year) if year != 'all' else Activity.objects.all(), start=1):
