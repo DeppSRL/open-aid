@@ -44,7 +44,7 @@ def serialize_activity(activity):
             if isinstance(act[field], bool):
                 act[field] = '1' if act[field] else '0'
             elif isinstance(act[field], datetime.datetime):
-                act[field] = act[field].isoformat()
+                act[field] = act[field].date().isoformat()
             # elif isinstance(act[field], float):
             #     act[field] = repr(act[field]).replace('.', ',')
 
