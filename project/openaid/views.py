@@ -1,5 +1,6 @@
 from django.views.generic import TemplateView
 from django.views.generic.base import ContextMixin
+from rest_framework import viewsets
 from blog.models import Entry
 from openaid import contexts
 from openaid.codelists.models import Recipient
@@ -42,3 +43,12 @@ class Home(MapFiltersContextMixin, TemplateView):
 
 class Numbers(Home):
     template_name = 'pages/numbers.html'
+
+
+class OpenaidViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+    This viewset automatically provides `list` and `detail` actions.
+    """
+    paginate_by = 10
+    paginate_by_param = 'page_size'
+    max_paginate_by = 100

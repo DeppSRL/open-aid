@@ -4,6 +4,8 @@ from haystack.query import SearchQuerySet
 from haystack.views import FacetedSearchView
 from . import models
 from .forms import FacetedProjectSearchForm
+from openaid.views import OpenaidViewSet
+from .serializers import ProjectSerializer, ActivitySerializer
 
 
 class ProjectDetail(DetailView):
@@ -89,3 +91,13 @@ class SearchFacetedProjectView(FacetedSearchView):
         extra['order_by'] = self.request.GET.get('order_by', self.form.default_order)
 
         return extra
+
+
+class ProjectViewSet(OpenaidViewSet):
+    queryset = models.Project.objects.all()
+    serializer_class = ProjectSerializer
+
+
+class ActivityViewSet(OpenaidViewSet):
+    queryset = models.Activity.objects.all()
+    serializer_class = ActivitySerializer

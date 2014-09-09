@@ -32,7 +32,7 @@ for cl in CODELISTS_CSV_MAP.keys():
     CODELISTS_FIELDS += [cl, cl.replace('code', 'name')]
 EXPORTED_FIELDS += CODELISTS_FIELDS
 EXPORTED_FIELDS += ['eur_commitment', 'eur_disbursement']
-print EXPORTED_FIELDS
+
 
 def serialize_activity(activity):
     act = {'openaid_id': activity.pk}
@@ -67,8 +67,6 @@ def serialize_activity(activity):
 
     for euros in ['commitment', 'disbursement']:
         act['eur_%s' % euros] = getattr(activity, euros, '')
-
-    act['openaid_id'] = activity.pk
 
     return act
 

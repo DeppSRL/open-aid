@@ -5,9 +5,6 @@ from django.conf.urls import patterns, url
 from haystack.views import search_view_factory
 from . import views
 
-# load admin modules
-from django.contrib import admin
-admin.autodiscover()
 
 
 urls = (

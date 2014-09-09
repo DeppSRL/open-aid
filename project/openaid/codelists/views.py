@@ -2,6 +2,8 @@ from django.views.generic import DetailView
 from . import models
 from .. import views
 from .. import contexts
+from openaid.codelists import serializers
+from openaid.views import OpenaidViewSet
 
 
 class CodeListView(views.MapFiltersContextMixin, DetailView):
@@ -48,11 +50,49 @@ class ChannelView(CodeListView):
 class AidTypeView(CodeListView):
     model = models.AidType
 
+
 class AgencyView(CodeListView):
     model = models.Agency
+
 
 class FinanceTypeView(CodeListView):
     model = models.FinanceType
 
+
 class DonorView(CodeListView):
     model = models.Donor
+
+
+class SectorViewSet(OpenaidViewSet):
+    queryset = models.Sector.objects.all()
+    serializer_class = serializers.SectorSerializer
+
+
+class RecipientViewSet(OpenaidViewSet):
+    queryset = models.Recipient.objects.all()
+    serializer_class = serializers.RecipientSerializer
+
+
+class ChannelViewSet(OpenaidViewSet):
+    queryset = models.Channel.objects.all()
+    serializer_class = serializers.ChannelSerializer
+
+
+class AidTypeViewSet(OpenaidViewSet):
+    queryset = models.AidType.objects.all()
+    serializer_class = serializers.AidTypeSerializer
+
+
+class AgencyViewSet(OpenaidViewSet):
+    queryset = models.Agency.objects.all()
+    serializer_class = serializers.AgencySerializer
+
+
+class FinanceTypeViewSet(OpenaidViewSet):
+    queryset = models.FinanceType.objects.all()
+    serializer_class = serializers.FinanceTypeSerializer
+
+
+class DonorViewSet(OpenaidViewSet):
+    queryset = models.Donor.objects.all()
+    serializer_class = serializers.DonorSerializer

@@ -248,6 +248,7 @@ DJANGO_APPS = (
     'tinymce',
     'bootstrap_pagination',
     'django_mptt_admin', # admin
+    'rest_framework', # api
 )
 
 # Apps specific for this project go here.
