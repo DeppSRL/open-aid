@@ -3,9 +3,10 @@ from django.db.models import Count
 from haystack.query import SearchQuerySet
 from haystack.views import FacetedSearchView
 from . import models
+from rest_framework.response import Response
 from .forms import FacetedProjectSearchForm
 from openaid.views import OpenaidViewSet
-from .serializers import ProjectSerializer, ActivitySerializer
+from .serializers import ProjectSerializer, ProjectDetailSerializer, ActivitySerializer
 
 
 class ProjectDetail(DetailView):
@@ -94,8 +95,13 @@ class SearchFacetedProjectView(FacetedSearchView):
 
 
 class ProjectViewSet(OpenaidViewSet):
-    queryset = models.Project.objects.all()
+    queryset = models.Project.objects.all().prefetch_related('activity_set')
     serializer_class = ProjectSerializer
+
+    def get_serializer_class(self):
+        if getattr(self, 'object', False):
+            return ProjectDetailSerializer
+        return super(ProjectViewSet, self).get_serializer_class()
 
 
 class ActivityViewSet(OpenaidViewSet):

@@ -36,3 +36,11 @@ class ActivitySerializer(TranslatedModelSerializer):
 
     class Meta:
         model = Activity
+
+
+class ProjectDetailSerializer(TranslatedModelSerializer):
+    url = serializers.HyperlinkedIdentityField(view_name='project-detail')
+    activities = ActivitySerializer(many=True)
+
+    class Meta:
+        model = Project
