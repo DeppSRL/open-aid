@@ -17,7 +17,7 @@ admin.autodiscover()
 
 
 # Create a router and register our viewsets with it.
-router = DefaultRouter()
+router = DefaultRouter(trailing_slash=False)
 router.register(r'projects', ProjectViewSet)
 router.register(r'activities', ActivityViewSet)
 router.register(r'sectors', SectorViewSet)
@@ -35,6 +35,8 @@ urlpatterns = [
     url(r'^tinymce/', include('tinymce.urls')),
     url(r'^i18n/', include('django.conf.urls.i18n')),
     url(r'^api/', include(router.urls)),
+    url(r'^api-auth/', include('rest_framework.urls',
+                               namespace='rest_framework')),
 ]
 
 openaid_urls = (
