@@ -7,10 +7,13 @@ class MarkersSerializer(TranslatedModelSerializer):
 
     class Meta:
         model = Markers
+        fields = (
+            'biodiversity', 'climate_adaptation', 'climate_mitigation', 'desertification',
+            'environment', 'gender', 'pd_gg', 'trade', )
 
 
 class ProjectSerializer(TranslatedModelSerializer):
-
+    url = serializers.HyperlinkedIdentityField(view_name='project-detail')
     activities = serializers.HyperlinkedRelatedField(many=True, read_only=True, view_name='activity-detail')
 
     class Meta:
@@ -18,7 +21,7 @@ class ProjectSerializer(TranslatedModelSerializer):
 
 
 class ActivitySerializer(TranslatedModelSerializer):
-
+    url = serializers.HyperlinkedIdentityField(view_name='activity-detail')
     project = serializers.HyperlinkedRelatedField(read_only=True, view_name='project-detail')
 
     recipient = serializers.HyperlinkedRelatedField(read_only=True, view_name='recipient-detail')

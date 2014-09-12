@@ -26,7 +26,7 @@ router.register(r'channels', ChannelViewSet)
 router.register(r'aid_types', AidTypeViewSet)
 router.register(r'agencies', AgencyViewSet)
 router.register(r'finance_types', FinanceTypeViewSet)
-router.register(r'donors', DonorViewSet)
+# router.register(r'donors', DonorViewSet)
 
 
 urlpatterns = [
