@@ -140,18 +140,19 @@ function SetChartDonut(id_donut) {
         );
     }
     function bubbleClick(element, numero_riga) {
-        element.on( "click", function() {
+        element.on( "click", function(e) {
+            e.stopPropagation();
             var link = $("table[data-container='"+id_donut+"'] tr:nth-child("+numero_riga+")").find("a[href]").attr('href');
             window.location.href = link;
             //alert("test " + link);
         });
     }
 
-    var numero_riga = 1;
-    $("#donut1 .highcharts-series-group .highcharts-series path").each(function() {
-
-        addHoverTable($(this), numero_riga);
-        bubbleClick($(this), numero_riga);
-        numero_riga++;
-    });
+//    var numero_riga = 1;
+//    $("#donut1 .highcharts-series-group .highcharts-series path").each(function() {
+//
+//        addHoverTable($(this), numero_riga);
+//        bubbleClick($(this), numero_riga);
+//        numero_riga++;
+//    });
 }
