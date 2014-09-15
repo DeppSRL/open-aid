@@ -1,10 +1,39 @@
 {% extends 'pages_base.html' %}
 
 {% block container %}
-    <p>A breve sarà disponibile l'API di Open Aid Italia.</p>
-    <p>L'API sarà un'interfaccia applicativa che consentirà a qualunque componente software esterno di accedere ai dati sulla cooperazione italiana allo sviluppo.</p>
-    <p>I dati saranno disponibili nei formati json e html e la struttura sarà compatibile con lo standard Iati.</p>
-    <p>Oggi comunque puoi già scaricare tutti i dati nel formato CSV cliccando <a
-            href="{% url 'scarica_dati' %}">qui</a>. </p>
+    <p>
+        L'API di Open Aid Italia, con architettura REST,
+        è un'interfaccia applicativa che permette a qualunque componente software esterno di accedere ai dati.
+    </p>
+    <p>L'indirizzo per accedere alla API è <a href="http://{{ request.get_host }}{% url 'api-root' format='json' %}" class="label label-info">http://{{ request.get_host }}{% url 'api-root' format='json' %}</a>.</p>
+    <p>I dati sono disponibili in formato HTML e JSON. <br/> Sono a disposizione i seguenti dati:</p>
+    <ul>
+        <li>Projects, elenco dei progetti di cooperazione intenazionale</li>
+        <li>Project, dettaglio dei dati su un singolo progetto</li>
+        <li>Activities, le attività negli anni legate a un singolo progetto</li>
+        <li>Recipients, la codelist dei Paesi e zone geografiche che ricevono gli aiuti e dove sono localizzati i progetti</li>
+        <li>Agencies, la lista dei soggetti del nostro Paese che finanziano i progetti</li>
+        <li>Sectors, la codelist dei settori a cui fanno riferimento i progetti</li>
+        <li>Finance_types, le tipologie dei finanziamenti erogati</li>
+        <li>Channels, la codelist dei canali dei finanziamenti</li>
+        <li>Aid_types, la codelist delle tipologie di aiuto</li>
+    </ul>
+
+    <p>Alcuni esempi:</p>
+    <ul>
+        <li>La lista di tutti i progetti: <span class="label label-info">http://{{ request.get_host }}{% url 'project-list' format='json' %}</span></li>
+        <li>Il dettaglio di un singolo progetto: <span class="label label-info">http://{{ request.get_host }}{% url 'project-detail' format='json' pk='PROJECT_ID' %}</span></li>
+        <li>La lista dei settori d'intervento: <span class="label label-info">http://{{ request.get_host }}{% url 'sector-list' format='json' %}</span></li>
+    </ul>
+
+    <p>Tutti i dati sono sono rilasciati con licenza CC BY-SA 3.0.</p>
+    <p>Navigando la API con un browser è possibile accedere ad una documentazione dettagliata in lingua inglese.</p>
+
+{#Per scaricare i dati in formato CSV è possibile farlo dalla pagina: http://openaid.deppsviluppo.org/it/scarica-dati#}
+{#    <p>A breve sarà disponibile l'API di Open Aid Italia.</p>#}
+{#    <p>L'API sarà un'interfaccia applicativa che consentirà a qualunque componente software esterno di accedere ai dati sulla cooperazione italiana allo sviluppo.</p>#}
+{#    <p>I dati saranno disponibili nei formati json e html e la struttura sarà compatibile con lo standard Iati.</p>#}
+{#    <p>Oggi comunque puoi già scaricare tutti i dati nel formato CSV cliccando <a#}
+{#            href="{% url 'scarica_dati' %}">qui</a>. </p>#}
 {% endblock container %}
 
