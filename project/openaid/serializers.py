@@ -3,7 +3,7 @@ from rest_framework import serializers
 from rest_framework import fields
 
 
-class TranslatedModelSerializer(serializers.ModelSerializer):
+class TranslatedModelSerializer(serializers.HyperlinkedModelSerializer):
 
     def get_field(self, model_field):
         kwargs = {}

@@ -13,24 +13,24 @@ class MarkersSerializer(TranslatedModelSerializer):
 
 
 class ProjectSerializer(TranslatedModelSerializer):
-    url = serializers.HyperlinkedIdentityField(view_name='project-detail')
+    recipient = serializers.HyperlinkedRelatedField(read_only=True, view_name='recipient-detail', lookup_field='code')
     activities = serializers.HyperlinkedRelatedField(many=True, read_only=True, view_name='activity-detail')
 
     class Meta:
         model = Project
+        fields = ('crsid', 'url', 'start_year', 'end_year', 'recipient', 'activities')
 
 
 class ActivitySerializer(TranslatedModelSerializer):
-    url = serializers.HyperlinkedIdentityField(view_name='activity-detail')
     project = serializers.HyperlinkedRelatedField(read_only=True, view_name='project-detail')
 
-    recipient = serializers.HyperlinkedRelatedField(read_only=True, view_name='recipient-detail')
-    channel = serializers.HyperlinkedRelatedField(read_only=True, view_name='channel-detail')
-    aid_type = serializers.HyperlinkedRelatedField(read_only=True, view_name='aidtype-detail')
-    agency = serializers.HyperlinkedRelatedField(read_only=True, view_name='agency-detail')
-    finance_type = serializers.HyperlinkedRelatedField(read_only=True, view_name='financetype-detail')
+    recipient = serializers.HyperlinkedRelatedField(read_only=True, view_name='recipient-detail', lookup_field='code')
+    channel = serializers.HyperlinkedRelatedField(read_only=True, view_name='channel-detail', lookup_field='code')
+    aid_type = serializers.HyperlinkedRelatedField(read_only=True, view_name='aidtype-detail', lookup_field='code')
+    agency = serializers.HyperlinkedRelatedField(read_only=True, view_name='agency-detail', lookup_field='code')
+    finance_type = serializers.HyperlinkedRelatedField(read_only=True, view_name='financetype-detail', lookup_field='code')
     # donor = serializers.HyperlinkedRelatedField(read_only=True, view_name='donor-detail')
-    sector = serializers.HyperlinkedRelatedField(read_only=True, view_name='sector-detail')
+    sector = serializers.HyperlinkedRelatedField(read_only=True, view_name='sector-detail', lookup_field='code')
 
     markers = MarkersSerializer()
 
@@ -39,8 +39,9 @@ class ActivitySerializer(TranslatedModelSerializer):
 
 
 class ProjectDetailSerializer(TranslatedModelSerializer):
-    url = serializers.HyperlinkedIdentityField(view_name='project-detail')
+    recipient = serializers.HyperlinkedRelatedField(read_only=True, view_name='recipient-detail', lookup_field='code')
     activities = ActivitySerializer(many=True)
 
     class Meta:
         model = Project
+        fields = ('crsid', 'url', 'start_year', 'end_year', 'recipient', 'activities')
