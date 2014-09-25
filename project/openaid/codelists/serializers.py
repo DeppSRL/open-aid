@@ -2,43 +2,51 @@ from .models import Recipient, Donor, Agency, Channel, FinanceType, AidType, Sec
 from ..serializers import TranslatedModelSerializer
 
 
+class CodeListMeta:
+    lookup_field = 'code'
+
+class TreeCodeListMeta(CodeListMeta):
+    exclude = ('id', 'lft', 'rght', 'tree_id', 'level')
+
+
 class RecipientSerializer(TranslatedModelSerializer):
 
-    class Meta:
+    class Meta(TreeCodeListMeta):
         model = Recipient
 
 
 class DonorSerializer(TranslatedModelSerializer):
 
-    class Meta:
+    class Meta(CodeListMeta):
         model = Donor
 
 
 class AgencySerializer(TranslatedModelSerializer):
 
-    class Meta:
+    class Meta(CodeListMeta):
         model = Agency
+        exclude = ('donor', )
 
 
 class ChannelSerializer(TranslatedModelSerializer):
 
-    class Meta:
+    class Meta(TreeCodeListMeta):
         model = Channel
 
 
 class FinanceTypeSerializer(TranslatedModelSerializer):
 
-    class Meta:
+    class Meta(TreeCodeListMeta):
         model = FinanceType
 
 
 class AidTypeSerializer(TranslatedModelSerializer):
 
-    class Meta:
+    class Meta(TreeCodeListMeta):
         model = AidType
 
 
 class SectorSerializer(TranslatedModelSerializer):
 
-    class Meta:
+    class Meta(TreeCodeListMeta):
         model = Sector

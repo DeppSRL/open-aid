@@ -63,36 +63,40 @@ class DonorView(CodeListView):
     model = models.Donor
 
 
-class SectorViewSet(OpenaidViewSet):
+class CodelistOpenaidViewSet(OpenaidViewSet):
+    lookup_field = 'code'
+
+
+class SectorViewSet(CodelistOpenaidViewSet):
     queryset = models.Sector.objects.all()
     serializer_class = serializers.SectorSerializer
 
 
-class RecipientViewSet(OpenaidViewSet):
+class RecipientViewSet(CodelistOpenaidViewSet):
     queryset = models.Recipient.objects.all()
     serializer_class = serializers.RecipientSerializer
 
 
-class ChannelViewSet(OpenaidViewSet):
+class ChannelViewSet(CodelistOpenaidViewSet):
     queryset = models.Channel.objects.all()
     serializer_class = serializers.ChannelSerializer
 
 
-class AidTypeViewSet(OpenaidViewSet):
+class AidTypeViewSet(CodelistOpenaidViewSet):
     queryset = models.AidType.objects.all()
     serializer_class = serializers.AidTypeSerializer
 
 
-class AgencyViewSet(OpenaidViewSet):
+class AgencyViewSet(CodelistOpenaidViewSet):
     queryset = models.Agency.objects.all()
     serializer_class = serializers.AgencySerializer
 
 
-class FinanceTypeViewSet(OpenaidViewSet):
+class FinanceTypeViewSet(CodelistOpenaidViewSet):
     queryset = models.FinanceType.objects.all()
     serializer_class = serializers.FinanceTypeSerializer
 
 
-class DonorViewSet(OpenaidViewSet):
+class DonorViewSet(CodelistOpenaidViewSet):
     queryset = models.Donor.objects.all()
     serializer_class = serializers.DonorSerializer
