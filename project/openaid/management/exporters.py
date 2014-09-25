@@ -72,8 +72,8 @@ def serialize_activity(activity):
         elif field in mapping.CHANNEL_REPORTED_MAP:
             act[field] = activity.channel_reported.name if activity.channel_reported else ''
 
-    for euros in ['commitment', 'disbursement']:
-        act['eur_%s' % euros] = getattr(activity, euros, '')
+    # for euros in ['commitment', 'disbursement']:
+    #     act['eur_%s' % euros] = getattr(activity, euros, '')
 
     return act
 
