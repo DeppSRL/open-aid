@@ -387,4 +387,33 @@ HAYSTACK_CONNECTIONS.update(dict([
 ]))
 ########## END DJANGO-HAYSTACK CONFIGURATION
 
+########## REST FRAMEWORK CONFIGURATION
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': (
+        'rest_framework.filters.DjangoFilterBackend',
+        'rest_framework.filters.OrderingFilter',
+    ),
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.JSONPRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    ),
+
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ),
+    'DEFAULT_THROTTLE_CLASSES': (
+        'rest_framework.throttling.AnonRateThrottle',
+        'rest_framework.throttling.UserRateThrottle'
+    ),
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '12/minute',  # 1 req every 5 seconds
+        'user': '2/second',  # un-throttled  (default: '1/second')
+    },
+    'PAGINATE_BY': 25,
+    'MAX_PAGE_BY': 500,
+    'PAGINATE_BY_PARAM': 'page_size',
+}
+########## END REST FRAMEWORK CONFIGURATION
 

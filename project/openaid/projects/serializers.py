@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from ..serializers import TranslatedModelSerializer
-from .models import Project, Activity, Markers
+from .models import Project, Activity, Markers, ChannelReported
 
 
 class MarkersSerializer(TranslatedModelSerializer):
@@ -10,6 +10,12 @@ class MarkersSerializer(TranslatedModelSerializer):
         fields = (
             'biodiversity', 'climate_adaptation', 'climate_mitigation', 'desertification',
             'environment', 'gender', 'pd_gg', 'trade', )
+
+
+class ChannelReportedSerializer(TranslatedModelSerializer):
+
+    class Meta:
+        model = ChannelReported
 
 
 class ProjectSerializer(TranslatedModelSerializer):
@@ -32,6 +38,7 @@ class ActivitySerializer(TranslatedModelSerializer):
     # donor = serializers.HyperlinkedRelatedField(read_only=True, view_name='donor-detail')
     sector = serializers.HyperlinkedRelatedField(read_only=True, view_name='sector-detail', lookup_field='code')
 
+    channel_reported = ChannelReportedSerializer()
     markers = MarkersSerializer()
 
     class Meta:

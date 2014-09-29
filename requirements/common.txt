@@ -37,3 +37,8 @@ csvkit
 sdmx
 -e git://github.com/joke2k/iconfonts.git#egg=iconfonts
 -e git://github.com/openpolis/django-idioticon.git#egg=django-idioticon
+
+# Api
+djangorestframework==2.4.2
+django-filter==0.8
+Markdown==2.5.1

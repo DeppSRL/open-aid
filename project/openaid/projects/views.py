@@ -3,10 +3,9 @@ from django.db.models import Count
 from haystack.query import SearchQuerySet
 from haystack.views import FacetedSearchView
 from . import models
-from rest_framework.response import Response
 from .forms import FacetedProjectSearchForm
 from openaid.views import OpenaidViewSet
-from .serializers import ProjectSerializer, ProjectDetailSerializer, ActivitySerializer
+from .serializers import ProjectSerializer, ProjectDetailSerializer, ActivitySerializer, ChannelReportedSerializer
 
 
 class ProjectDetail(DetailView):
@@ -95,8 +94,69 @@ class SearchFacetedProjectView(FacetedSearchView):
 
 
 class ProjectViewSet(OpenaidViewSet):
+    """
+    List of all **projects**.
+
+    A Project contains a list of **Activities**.
+
+    Projects can be filtered through filters below in the GET query-string parameters:
+
+    * ``crsid``
+    * ``start_year``
+    * ``end_year``
+    * ``recipient``
+
+    Filters use codes, and multiple filters can be built.
+
+    Codes values to be used in the filters are shown in the project list, and the complete lists can be extracted at:
+
+    * ``/api/recipient``
+
+    Examples
+    ========
+
+    * ``/api/projects?recipient=298``
+    * ``/api/projects?start_year=2004``
+
+    The results are paginated by default to 25 items per page.
+    The number of items per page can be changed through the ``page_size`` GET parameter.
+
+    Results are sorted by default by descending year (``-year``).
+    You can change the sorting order, using the ``ordering`` GET parameter.
+    These are the possible values:
+
+    * ``start_year``
+    * ``end_year``
+
+    a minus (-) in front of the field name indicates a *descending* order criterion.
+    """
+
     queryset = models.Project.objects.all().prefetch_related('activity_set')
     serializer_class = ProjectSerializer
+    filter_fields = ('crsid', 'start_year', 'end_year', )
+    ordering_fields = (
+        'start_year',
+        'end_year',
+    )
+
+    def get_queryset(self):
+        queryset = self.queryset
+
+        for codelist in (
+            'recipient',
+            # 'channel',
+            # 'aid_type',
+            # 'agency',
+            # 'finance_type',
+            # 'sector',
+        ):
+            codelist_code = self.request.QUERY_PARAMS.get(codelist, None)
+            if codelist_code:
+                queryset = queryset.filter(**{
+                    "%s__code" % codelist: codelist_code
+                })
+
+        return queryset
 
     def get_serializer_class(self):
         if getattr(self, 'object', False):
@@ -105,5 +165,124 @@ class ProjectViewSet(OpenaidViewSet):
 
 
 class ActivityViewSet(OpenaidViewSet):
-    queryset = models.Activity.objects.all()
+    """
+    List of all **activities**.
+
+    Activities can be filtered through filters below in the GET query-string parameters:
+
+    ``crsid`` ``year`` ``title`` ``description`` ``recipient`` ``channel`` ``aid_type`` ``agency`` ``finance_type``
+    ``sector`` ``channel_reported`` ``geography`` ``report_type`` ``flow_type`` ``bi_multi`` ``is_ftc`` ``is_pba``
+    ``is_investment`` ``grant_element`` ``number_repayment`` ``expected_start_date`` ``completion_date`` ``commitment_date``.
+
+    Filters use codes, and multiple filters can be built.
+
+    Codes values to be used in the filters are shown in the activity list, and the complete lists can be extracted at:
+
+    * ``/api/recipient``
+    * ``/api/channel``
+    * ``/api/aid_type``
+    * ``/api/agency``
+    * ``/api/finance_type``
+    * ``/api/sector``
+    * ``/api/channel_reported``
+
+    Examples
+    ========
+
+    * ``/api/activities?recipient=298``
+    * ``/api/activities?channel=istruzione``
+    * ``/api/activities?year=2004``
+    * ``/api/activities?is_ftc=true``
+    * ``/api/activities?recipient=298&channel=10000``
+
+    The results are paginated by default to 25 items per page.
+    The number of items per page can be changed through the ``page_size`` GET parameter.
+
+    Results are sorted by default by descending year (``-year``).
+    You can change the sorting order, using the ``ordering`` GET parameter.
+    These are the possible values:
+
+    * ``commitment``
+    * ``commitment_usd``
+    * ``disbursement``
+    * ``disbursement_usd``
+    * ``expected_start_date``
+    * ``completion_date``
+    * ``commitment_date``
+
+    a minus (-) in front of the field name indicates a *descending* order criterion.
+
+    """
+
+    queryset = models.Activity.objects.all().select_related(
+        'project',
+        'markers',
+        'recipient',
+        'channel',
+        'aid_type',
+        'agency',
+        'finance_type',
+        'sector',
+        'channel_reported',
+    )
+    filter_fields = (
+        'crsid',
+        'year',
+        'title',
+        'description',
+        'channel_reported',
+        
+        'geography',
+        'report_type',
+        'flow_type',
+        'bi_multi',
+        'is_ftc',
+        'is_pba',
+        'is_investment',
+        
+        'commitment',
+        'commitment_usd',
+        'disbursement',
+        'disbursement_usd',
+        'grant_element',
+        'number_repayment',
+        'expected_start_date',
+        'completion_date',
+        'commitment_date',
+
+    )
     serializer_class = ActivitySerializer
+    ordering_fields = (
+        'year',
+        'commitment',
+        'commitment_usd',
+        'disbursement',
+        'disbursement_usd',
+        'expected_start_date',
+        'completion_date',
+        'commitment_date',
+    )
+
+    def get_queryset(self):
+        queryset = self.queryset
+
+        for codelist in (
+            'recipient',
+            'channel',
+            'aid_type',
+            'agency',
+            'finance_type',
+            'sector',
+        ):
+            codelist_code = self.request.QUERY_PARAMS.get(codelist, None)
+            if codelist_code:
+                queryset = queryset.filter(**{
+                    "%s__code" % codelist: codelist_code
+                })
+
+        return queryset
+
+
+class ChannelReportedViewSet(OpenaidViewSet):
+    queryset = models.ChannelReported.objects.all()
+    serializer_class = ChannelReportedSerializer

@@ -3,13 +3,14 @@
 
 {% block container %}
     <p>Sono disponibili in formato aperto i dati sulle iniziative della cooperazione italiana allo sviluppo per quanto riguarda gli aiuti bilaterali e multi-bilaterali.</p>
-    <p>E' possibile scaricare un file per ogni anno e il file con la delle linee guida dell'OCSE.</p>
+    <p>E' possibile scaricare un file per ogni anno e il file con le linee guida dell'OCSE.</p>
     <p>A breve inoltre saranno disponibili le Api (Application Programming Interface) compatibili con lo standard IATI.</p>
     <ul>
         {% for year in years %}
         <li><a href="{% get_media_prefix %}crs/CRS_{{ donor_code }}_{{ year }}.csv.zip">CRS_{{ donor_code }}_{{ year }}.csv.zip</a></li>
         {% endfor %}
     </ul>
+    <p><a href="{% static 'crs/legenda.csv' %}">Legenda dei campi presenti nei file CRS</a></p>
     <br/>
     <p><a href="http://www.oecd.org/dac/stats/crsguide.htm">Linee guida OCSE</a></p>
     <p>Tutti i dati sono rilasciati con licenza CC BY-SA 3.0 e in formato CSV (leggibile da Excel).</p>

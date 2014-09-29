@@ -52,3 +52,28 @@ class OpenaidViewSet(viewsets.ReadOnlyModelViewSet):
     paginate_by = 10
     paginate_by_param = 'page_size'
     max_paginate_by = 100
+
+
+from rest_framework import generics
+
+class OpenaidApiRoot(generics.GenericAPIView):
+    """
+    This is the root entry-point of the OpenCoesione APIs.
+
+    The APIs are read-only, freely accessible to all through HTTP requests at ``http://www.opencoesione.gov/api``.
+
+    Responses are emitted in both **browseable-HTML** and **JSON** formats (``http://www.opencoesione.gov/api/.json``)
+
+    To serve all requests and avoid slow responses or downtimes due to misuse, we limit the requests rate.
+    When accessing the API **anonymously**, your client is limited to **12 requests per minute** from the same IP.
+    You can contact us to become an **authenticated API user** (it's still free),
+    then the rate-limit would be lifted to **1 request per second**.
+
+    Authentication is done through HTTP Basic Authentication.
+
+    You can request a username/password to authenticate,
+    by writing an email to the following address: opencoesione@dps.gov.it.
+
+    If for some reasons, you need to scrape all the OpenCoesione data, please consider a bulk **CSV download**.
+    See the ``http://www.opencoesione.gov.it/opendata/`` page in the web site.
+    """
