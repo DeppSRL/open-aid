@@ -10,6 +10,7 @@
         <li><a href="{% get_media_prefix %}crs/CRS_{{ donor_code }}_{{ year }}.csv.zip">CRS_{{ donor_code }}_{{ year }}.csv.zip</a></li>
         {% endfor %}
     </ul>
+    <p><a href="{% static 'crs/legenda.csv' %}">Legend of the fields in the CRS files.</a></p>
     <p><a href="http://www.oecd.org/dac/stats/crsguide.htm">OECD Guidelines</a></p>
     <br/>
     <p>All data is licensed under CC BY-SA 3.0 and in CSV format (Excel compatible).</p>

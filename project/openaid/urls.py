@@ -45,7 +45,7 @@ class APIRouter(DefaultRouter):
             then the rate-limit would be lifted to **1 request per second**.
 
             If for some reasons, you need to scrape all the OpenAID data, please consider a bulk **CSV download**.
-            
+
             See the ``http://openaid.esteri.it/scarica-dati/`` page in the web site.
             """
             _ignore_model_permissions = True
