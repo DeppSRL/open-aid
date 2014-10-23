@@ -184,7 +184,6 @@ class ActivityViewSet(OpenaidViewSet):
     * ``/api/agency``
     * ``/api/finance_type``
     * ``/api/sector``
-    * ``/api/channel_reported``
 
     Examples
     ========

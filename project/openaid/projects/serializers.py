@@ -38,7 +38,7 @@ class ActivitySerializer(TranslatedModelSerializer):
     # donor = serializers.HyperlinkedRelatedField(read_only=True, view_name='donor-detail')
     sector = serializers.HyperlinkedRelatedField(read_only=True, view_name='sector-detail', lookup_field='code')
 
-    channel_reported = ChannelReportedSerializer()
+    channel_reported = serializers.RelatedField(source='channel_reported.name')
     markers = MarkersSerializer()
 
     class Meta:
