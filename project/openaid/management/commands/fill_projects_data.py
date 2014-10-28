@@ -14,9 +14,19 @@ class Command(NoArgsCommand):
 
     def handle_noargs(self, **options):
 
+        projects = 0
+
         for project in models.Project.objects.all():
 
+            projects += 1
+
             for activity in project.activity_set.all().order_by('year'):
+
+                if activity.title:
+                    project.title = activity.title
+
+                if activity.long_description:
+                    project.description = activity.long_description
 
                 for codelist in ('agency', 'aid_type', 'channel', 'finance_type', 'sector'):
 
@@ -26,6 +36,9 @@ class Command(NoArgsCommand):
 
             project.markers.save()
             project.save()
+
+            self.stdout.write("\rFilled project: %d" % projects, ending='')
+            self.stdout.flush()
 
     def merge_markers(self, project, markers):
 
