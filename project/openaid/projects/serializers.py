@@ -65,6 +65,6 @@ class ProjectDetailSerializer(TranslatedModelSerializer):
 
     class Meta:
         model = Project
-        fields = ('crsid', 'url', 'start_year', 'end_year', 'recipient',
+        fields = ('crsid', 'url', 'title', 'description', 'start_year', 'end_year', 'recipient',
                   'channel', 'aid_type', 'agency', 'finance_type', 'sector', 'markers', 'activities')
 
