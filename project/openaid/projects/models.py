@@ -43,6 +43,14 @@ class Project(models.Model):
     has_focus = models.BooleanField(_('Focus'), default=False)
     photo_set = GenericRelation('attachments.Photo')
 
+    agency = models.ForeignKey('codelists.Agency', null=True, blank=True)
+    aid_type = models.ForeignKey('codelists.AidType', null=True, blank=True)
+    channel = models.ForeignKey('codelists.Channel', null=True, blank=True)
+    finance_type = models.ForeignKey('codelists.FinanceType', null=True, blank=True)
+    sector = models.ForeignKey('codelists.Sector', null=True, blank=True)
+
+    markers = models.ForeignKey(Markers, null=True, blank=True)
+
     @classmethod
     def get_top_projects(cls, qnt=3, order_by=None, year=None, **filters):
         if year:
@@ -101,8 +109,8 @@ class Project(models.Model):
     def agencies(self, year=None):
         return self._activities_map('agency', year=year)
 
-    def agency(self, year=None):
-        return self.agencies(year=year)[0]
+    # def agency(self, year=None):
+    #     return self.agencies(year=year)[0]
 
     def aid_types(self):
         return self._activities_map('aid_type', skip_none=True)
@@ -150,8 +158,8 @@ class Project(models.Model):
             return a.get_bi_multi_display()
         return None
 
-    def finance_type(self, year=None):
-        return self._activities_map('finance_type', year=year, skip_none=True)[0]
+    # def finance_type(self, year=None):
+    #     return self._activities_map('finance_type', year=year, skip_none=True)[0]
 
     def completion_date(self, year=None):
         dates = self._activities_map('completion_date', year=year, skip_none=True)

@@ -105,12 +105,22 @@ class ProjectViewSet(OpenaidViewSet):
     * ``start_year``
     * ``end_year``
     * ``recipient``
+    * ``channel``
+    * ``aid_type``
+    * ``agency``
+    * ``finance_type``
+    * ``sector``
 
     Filters use codes, and multiple filters can be built.
 
     Codes values to be used in the filters are shown in the project list, and the complete lists can be extracted at:
 
     * ``/api/recipient``
+    * ``/api/channel``
+    * ``/api/aid_type``
+    * ``/api/agency``
+    * ``/api/finance_type``
+    * ``/api/sector``
 
     Examples
     ========
@@ -131,7 +141,9 @@ class ProjectViewSet(OpenaidViewSet):
     a minus (-) in front of the field name indicates a *descending* order criterion.
     """
 
-    queryset = models.Project.objects.all().prefetch_related('activity_set')
+    queryset = models.Project.objects.all().prefetch_related('activity_set').select_related(
+        'channel', 'aid_type', 'agency', 'finance_type', 'sector', 'markers'
+    )
     serializer_class = ProjectSerializer
     filter_fields = ('crsid', 'start_year', 'end_year', )
     ordering_fields = (
@@ -144,11 +156,11 @@ class ProjectViewSet(OpenaidViewSet):
 
         for codelist in (
             'recipient',
-            # 'channel',
-            # 'aid_type',
-            # 'agency',
-            # 'finance_type',
-            # 'sector',
+            'channel',
+            'aid_type',
+            'agency',
+            'finance_type',
+            'sector',
         ):
             codelist_code = self.request.QUERY_PARAMS.get(codelist, None)
             if codelist_code:

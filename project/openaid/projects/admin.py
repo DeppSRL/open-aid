@@ -28,6 +28,9 @@ class ActivityInlineAdmin(admin.TabularInline):
 
 
 class ProjectAdmin(admin.ModelAdmin):
+
+    readonly_fields = ['recipient', 'agency', 'aid_type', 'channel', 'finance_type', 'sector', 'markers']
+
     inlines = [
         PhotoInlineAdmin,
         ActivityInlineAdmin,
