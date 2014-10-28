@@ -36,6 +36,9 @@ class Markers(models.Model):
 
 class Project(models.Model):
 
+    title = models.CharField(max_length=500, blank=True)
+    description = models.TextField(blank=True)
+
     crsid = models.CharField(max_length=128, blank=True)
     recipient = models.ForeignKey('codelists.Recipient', blank=True, null=True)
     start_year = models.PositiveSmallIntegerField()
@@ -79,29 +82,29 @@ class Project(models.Model):
     def years_range(self):
         return sorted(self._activities_map('year'))
 
-    def title(self, year=None):
-        titles = [a.title for a in self.activities(year)]
-        if not any(titles):
-            return ''
-        title = titles[0]
-        # prendo il titolo con piu caratteri
-        for t in titles[1:]:
-            if len(t) > len(title):
-                title = t
-        return title
-
-    def description(self, year=None):
-        descriptions = [a.description for a in self.activities(year)]
-        if not any(descriptions):
-            descriptions = [a.long_description for a in self.activities(year)]
-            if not any(descriptions):
-                return ''
-        description = descriptions[0]
-        # prendo il titolo con piu caratteri
-        for d in descriptions[1:]:
-            if len(d) > len(description):
-                description = d
-        return description
+    # def title(self, year=None):
+    #     titles = [a.title for a in self.activities(year)]
+    #     if not any(titles):
+    #         return ''
+    #     title = titles[0]
+    #     # prendo il titolo con piu caratteri
+    #     for t in titles[1:]:
+    #         if len(t) > len(title):
+    #             title = t
+    #     return title
+    #
+    # def description(self, year=None):
+    #     descriptions = [a.description for a in self.activities(year)]
+    #     if not any(descriptions):
+    #         descriptions = [a.long_description for a in self.activities(year)]
+    #         if not any(descriptions):
+    #             return ''
+    #     description = descriptions[0]
+    #     # prendo il titolo con piu caratteri
+    #     for d in descriptions[1:]:
+    #         if len(d) > len(description):
+    #             description = d
+    #     return description
 
     def recipients(self):
         return self._activities_map('recipient')
