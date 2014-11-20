@@ -71,6 +71,10 @@ def search_url(context, facet='', term='', remove=False, absolute=True):
         if value not in query.getlist('selected_facets'):
             query.appendlist('selected_facets', value)
 
+    # remove page from query to avoid empty pages
+    if 'page' in query:
+        del query['page']
+        
     return u"{0}?{1}".format(url, query.urlencode(safe=':/'))
 
 
