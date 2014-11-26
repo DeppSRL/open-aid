@@ -5,7 +5,9 @@ from django.utils.translation import ugettext as _
 from model_utils import Choices
 from openaid import utils
 from openaid.projects import fields
+import logging
 
+logger = logging.getLogger(__name__)
 
 class ChannelReported(models.Model):
 
@@ -30,22 +32,25 @@ class Markers(models.Model):
     def names(self):
         return ['biodiversity', 'climate_adaptation', 'climate_mitigation', 'desertification', 'environment', 'gender', 'pd_gg', 'trade']
 
+    def merge(self, markers, save=False):
+        updates = 0
+
+        for field in self.names:
+            mark = getattr(markers, field, None)
+            if mark is not None and getattr(self, field) != mark:
+                setattr(self, field, mark)
+                updates += 1
+
+        if save and updates > 0:
+            self.save()
+        return updates
+
     def __unicode__(self):
         return ("{}"*8).format(*[getattr(self, name) or '-' for name in self.names])
 
+class CodelistsModel(models.Model):
 
-class Project(models.Model):
-
-    title = models.CharField(max_length=500, blank=True)
-    description = models.TextField(blank=True)
-
-    crsid = models.CharField(max_length=128, blank=True)
     recipient = models.ForeignKey('codelists.Recipient', blank=True, null=True)
-    start_year = models.PositiveSmallIntegerField()
-    end_year = models.PositiveSmallIntegerField()
-    has_focus = models.BooleanField(_('Focus'), default=False)
-    photo_set = GenericRelation('attachments.Photo')
-
     agency = models.ForeignKey('codelists.Agency', null=True, blank=True)
     aid_type = models.ForeignKey('codelists.AidType', null=True, blank=True)
     channel = models.ForeignKey('codelists.Channel', null=True, blank=True)
@@ -53,6 +58,61 @@ class Project(models.Model):
     sector = models.ForeignKey('codelists.Sector', null=True, blank=True)
 
     markers = models.ForeignKey(Markers, null=True, blank=True)
+
+    def merge_markers(self, markers, save=False):
+        updates = 0
+
+        if self.markers is None:
+            self.markers = Markers()
+            updates += 1
+
+        updates += self.markers.merge(markers, False)
+
+        if save and updates > 0:
+            self.save()
+        return updates
+
+
+    def merge_codelists(self, activity, save=False):
+        updates = 0
+
+        for codelist in ('recipient', 'agency', 'aid_type', 'channel', 'finance_type', 'sector'):
+
+            value = getattr(activity, codelist, None)
+
+            if not value or value == getattr(self, codelist):
+                continue
+
+            if codelist == 'recipient':
+                logger.warning('Merge Activity %s in %s: Cambiamento di recipient non previsto (%s o %s?) [update ignorato del recipient]' % (
+                    activity,
+                    self,
+                    value,
+                    getattr(self, codelist)
+                ))
+                continue
+
+            setattr(self, codelist, value)
+            updates += 1
+
+        if save and updates > 0:
+            self.save()
+        return updates
+
+    class Meta:
+        abstract = True
+
+
+class Project(CodelistsModel):
+
+    title = models.CharField(max_length=500, blank=True)
+    description = models.TextField(blank=True)
+
+    crsid = models.CharField(max_length=128, blank=True)
+    start_year = models.PositiveSmallIntegerField()
+    end_year = models.PositiveSmallIntegerField()
+    has_focus = models.BooleanField(_('Focus'), default=False)
+    photo_set = GenericRelation('attachments.Photo')
 
     @classmethod
     def get_top_projects(cls, qnt=3, order_by=None, year=None, **filters):
@@ -184,14 +244,49 @@ class Project(models.Model):
     def get_absolute_url(self):
         return reverse('projects:project-detail', kwargs={'pk': self.pk})
 
+    def update_from_activities(self, save=False):
+        activity_updates = 0
+        markers_updates = 0
+        for activity in self.activity_set.all().order_by('year'):
+
+            if activity.title:
+                self.title = activity.title
+                activity_updates += 1
+
+            if activity.long_description:
+                self.description = activity.long_description
+                activity_updates += 1
+
+            if activity.year < self.start_year:
+                self.start_year = activity.year
+                activity_updates += 1
+
+            if activity.year > self.end_year:
+                self.end_year = activity.year
+                activity_updates += 1
+
+            activity_updates += self.merge_codelists(activity, False)
+            markers_updates += self.merge_markers(activity.markers, False)
+
+        if save:
+            markers_updates > 0 and self.markers.save()
+            activity_updates > 0 and self.save()
+
+        return activity_updates, markers_updates
+
     def __unicode__(self):
         return "Project:%s:%s" % (self.crsid, self.recipient)
+
+    def __repr__(self):
+        return u"<Project(id=%d, crsid='%s', recipient='%s')>" % (
+            self.pk, self.crsid, self.recipient
+        )
 
     class Meta:
         unique_together = (('crsid', 'recipient'),)
 
 
-class Activity(models.Model):
+class Activity(CodelistsModel):
 
     project = models.ForeignKey(Project, null=True, blank=True)
 
@@ -257,15 +352,56 @@ class Activity(models.Model):
     commitment_date = models.DateTimeField(blank=True, null=True)
 
     # external relations
-    markers = models.ForeignKey(Markers, null=True, blank=True)
+    # markers = models.ForeignKey(Markers, null=True, blank=True)
     channel_reported = models.ForeignKey(ChannelReported, blank=True, null=True)
 
-    recipient = models.ForeignKey('codelists.Recipient', null=True, blank=True)
-    agency = models.ForeignKey('codelists.Agency', null=True, blank=True)
-    aid_type = models.ForeignKey('codelists.AidType', null=True, blank=True)
-    channel = models.ForeignKey('codelists.Channel', null=True, blank=True)
-    finance_type = models.ForeignKey('codelists.FinanceType', null=True, blank=True)
-    sector = models.ForeignKey('codelists.Sector', null=True, blank=True)
+    # recipient = models.ForeignKey('codelists.Recipient', null=True, blank=True)
+    # agency = models.ForeignKey('codelists.Agency', null=True, blank=True)
+    # aid_type = models.ForeignKey('codelists.AidType', null=True, blank=True)
+    # channel = models.ForeignKey('codelists.Channel', null=True, blank=True)
+    # finance_type = models.ForeignKey('codelists.FinanceType', null=True, blank=True)
+    # sector = models.ForeignKey('codelists.Sector', null=True, blank=True)
+
+    def merge(self, activity, save=False):
+
+        updates = 0
+
+        for field in ['number', 'title', 'description', 'long_description', 'geography',
+                      'number_repayment', 'expected_start_date', 'completion_date', 'commitment_date',
+                      'channel_reported',
+                      'is_ftc', 'is_pba', 'is_investment']:
+            if not getattr(self, field) and getattr(activity, field):
+                setattr(self, field, getattr(activity, field))
+                updates += 1
+
+        for field in ['report_type', 'flow_type', 'bi_multi', ]:
+            self_value, activity_value = getattr(self, field), getattr(activity, field)
+            if self_value == activity_value:
+                continue
+            if self_value == 0 and activity_value > 0:
+                setattr(self, field, getattr(activity, field))
+                updates += 1
+            elif getattr(activity, field) > 0 and getattr(self, field) > 0:
+                logger.warning('Merge Activity %s in %s: Conflitto sul campo %s (%s o %s?) [update non eseguito]' % (
+                    activity, self, field, activity_value, self_value
+                ))
+
+        for field in ['commitment', 'commitment_usd', 'disbursement', 'disbursement_usd', 'grant_element']:
+            self_value, activity_value = getattr(self, field) or 0.0, getattr(activity, field) or 0.0
+            setattr(self, field, self_value + activity_value)
+            updates += 1
+            if self_value == activity_value:
+                logger.warning('Merge Activity %s in %s: Entrambe le Activity hanno lo stesso valore per il campo %s [update eseguito sommandoli]' % (
+                    activity, self, field
+                ))
+
+        markers_updates = self.merge_markers(activity.markers)
+        updates += self.merge_codelists(activity, False)
+
+        if save:
+            markers_updates > 0 and self.markers.save()
+            updates > 0 and self.save()
+        return updates, markers_updates
 
     def save(self, *args, **kwargs):
         if not self.commitment and self.commitment_usd:
@@ -276,6 +412,11 @@ class Activity(models.Model):
 
     def __unicode__(self):
         return u"{project}:{year}".format(year=self.year, project=self.project)
+
+    def __repr__(self):
+        return u"<Activity(id=%d, project=%s, year=%s, commitment=%s, disbursement=%s)>" % (
+            self.pk, self.project, self.year, self.commitment, self.disbursement
+        )
 
     class Meta:
         ordering = ('-year', 'number', 'title')
