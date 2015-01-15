@@ -1,4 +1,4 @@
-from django.views.generic import DetailView, ListView
+from django.views.generic import DetailView, ListView, TemplateView
 from django.db.models import Count
 from haystack.query import SearchQuerySet
 from haystack.views import FacetedSearchView
@@ -297,3 +297,36 @@ class ActivityViewSet(OpenaidViewSet):
 class ChannelReportedViewSet(OpenaidViewSet):
     queryset = models.ChannelReported.objects.all()
     serializer_class = ChannelReportedSerializer
+
+
+class ProjectStatsView(TemplateView):
+
+    template_name = 'projects/statistics.html'
+
+    def get_context_data(self, **kwargs):
+
+        context = super(ProjectStatsView, self).get_context_data(**kwargs)
+
+        from collections import OrderedDict
+        from django.db.models import Min, Max, Sum
+        from .models import Activity
+
+        START_YEAR = Activity.objects.aggregate(Min('year'))['year__min']
+        END_YEAR = Activity.objects.aggregate(Max('year'))['year__max']
+        context['activity_by_years'] = OrderedDict()
+        context['activity_count'] = 0
+        context['activity_commitments'] = 0.0
+        context['activity_disbursements'] = 0.0
+
+        for year in range(START_YEAR, END_YEAR+1):
+            activities = Activity.objects.filter(year=year)
+            context['activity_by_years'][year] = {
+                'count': activities.count(),
+                'disbursement': activities.aggregate(Sum('commitment'))['commitment__sum'],
+                'commitment': activities.aggregate(Sum('disbursement'))['disbursement__sum']
+            }
+            context['activity_count'] += context['activity_by_years'][year]['count']
+            context['activity_commitments'] += context['activity_by_years'][year]['commitment']
+            context['activity_disbursements'] += context['activity_by_years'][year]['disbursement']
+
+        return context

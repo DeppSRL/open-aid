@@ -12,6 +12,7 @@ urls = (
     url(r'^project/(?P<pk>\d+)/$', views.ProjectDetail.as_view(), name='project-detail'),
     url(r'^activity/list/$', views.ActivityList.as_view(), name='activity-list'),
     url(r'^activity/(?P<pk>\d+)/$', views.ActivityDetail.as_view(), name='activity-detail'),
+    url(r'^stats/$', views.ProjectStatsView.as_view(), name='projects-stats'),
 
     url(r'^search/', search_view_factory(
         views.SearchFacetedProjectView, facets=[
