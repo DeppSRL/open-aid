@@ -249,12 +249,20 @@ class Project(CodelistsModel):
         markers_updates = 0
         for activity in self.activity_set.all().order_by('year'):
 
-            if activity.title:
-                self.title = activity.title
+            if not self.title_it and activity.title_it:
+                self.title_it = activity.title_it
                 activity_updates += 1
 
-            if activity.long_description:
-                self.description = activity.long_description
+            if not self.title_en and activity.title_en:
+                self.title_en = activity.title_en
+                activity_updates += 1
+
+            if not self.description_it and activity.long_description_it:
+                self.description_it = activity.long_description_it
+                activity_updates += 1
+
+            if not self.description_en and activity.long_description_en:
+                self.description_en = activity.long_description_en
                 activity_updates += 1
 
             if activity.year < self.start_year:
@@ -370,9 +378,16 @@ class Activity(CodelistsModel):
                       'number_repayment', 'expected_start_date', 'completion_date', 'commitment_date',
                       'channel_reported',
                       'is_ftc', 'is_pba', 'is_investment']:
-            if not getattr(self, field) and getattr(activity, field):
-                setattr(self, field, getattr(activity, field))
-                updates += 1
+            if field in ['title', 'description', 'long_description']:
+                for field_i18n in ['_it', '_en']:
+                    field_i18n = ''.join([field, field_i18n])
+                    if not getattr(self, field_i18n) and getattr(activity, field_i18n):
+                        setattr(self, field_i18n, getattr(activity, field_i18n))
+                        updates += 1
+            else:
+                if not getattr(self, field) and getattr(activity, field):
+                    setattr(self, field, getattr(activity, field))
+                    updates += 1
 
         for field in ['report_type', 'flow_type', 'bi_multi', ]:
             self_value, activity_value = getattr(self, field), getattr(activity, field)
