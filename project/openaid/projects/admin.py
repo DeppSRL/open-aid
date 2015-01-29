@@ -41,6 +41,13 @@ class ProjectAdmin(admin.ModelAdmin):
         ActivityInlineAdmin,
     ]
 
+    def get_queryset(self, request):
+        queryset = super(ProjectAdmin, self).get_queryset(request)
+        if request.user.is_superuser:
+            return queryset
+        return queryset.filter(recipient__in=request.user.recipient_set.all())
+
+
 class ActivityAdmin(TranslationAdmin):
     codelists = ['recipient', 'agency', 'aid_type', 'channel', 'finance_type', 'sector']
     codelists_links = ['%s_link' % cl for cl in codelists]
