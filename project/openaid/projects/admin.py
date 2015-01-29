@@ -29,6 +29,11 @@ class ActivityInlineAdmin(admin.TabularInline):
 
 class ProjectAdmin(admin.ModelAdmin):
 
+    list_display = ('crsid', 'recipient', 'title', 'start_year', 'end_year', 'has_focus')
+    list_filter = ('has_focus', 'start_year', 'end_year')
+    list_select_related = ('recipient', )
+    search_fields = ('crsid', 'title', 'description', 'recipient__name', 'start_year')
+
     readonly_fields = ['recipient', 'agency', 'aid_type', 'channel', 'finance_type', 'sector', 'markers']
 
     inlines = [
