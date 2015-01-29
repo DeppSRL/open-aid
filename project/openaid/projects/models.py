@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 
 class ChannelReported(models.Model):
 
-    name = models.CharField(max_length=128)
+    name = models.CharField(max_length=1000)
 
     def __unicode__(self):
         return self.name
@@ -304,7 +304,7 @@ class Activity(CodelistsModel):
     title = models.CharField(max_length=500, blank=True)
     description = models.TextField(blank=True)
     long_description = models.TextField(blank=True)
-    geography = models.CharField(max_length=128, blank=True)
+    geography = models.CharField(max_length=500, blank=True)
 
     REPORT_TYPES = Choices(
         # prese da resources/crs/Codelist04042014.osd:Nature of submission

@@ -82,8 +82,8 @@ def crs_stats(context, instance=None, year=None, show_map=True):
         ctx.update(multi_projects)
 
         ctx.update({
-            'total_commitments_sum': multi_projects['multi_commitments_sum'] + commitment_sum,
-            'total_disbursements_sum': multi_projects['multi_disbursements_sum'] + disbursements_sum,
+            'total_commitments_sum': (multi_projects['multi_commitments_sum'] or 0.0) + commitment_sum,
+            'total_disbursements_sum': (multi_projects['multi_disbursements_sum'] or 0.0) + disbursements_sum,
         })
 
         ctx.update({
