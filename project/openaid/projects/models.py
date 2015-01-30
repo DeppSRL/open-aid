@@ -1,4 +1,3 @@
-from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.generic import GenericRelation
 from django.core.urlresolvers import reverse
 from django.db import models
@@ -9,7 +8,6 @@ from openaid.projects import fields
 import logging
 
 logger = logging.getLogger(__name__)
-UserModel = get_user_model()
 
 
 class ChannelReported(models.Model):
@@ -474,6 +472,6 @@ class Utl(models.Model):
     name = models.CharField(max_length=200)
     city = models.CharField(max_length=200)
 
-    user = models.ForeignKey(UserModel, blank=True)
+    user = models.ForeignKey('auth.User', blank=True)
     nation = models.OneToOneField('codelists.Recipient', related_name='+')
     recipient_set = models.ManyToManyField('codelists.Recipient', related_name='utl_set')
