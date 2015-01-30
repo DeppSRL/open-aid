@@ -258,7 +258,6 @@ LOCAL_APPS = (
     'openaid.projects',
     'openaid.pages',
     'openaid.attachments',
-    'openaid.users',
     'tagging',
     'blog',
     'faq',
@@ -347,11 +346,6 @@ LOGGING = {
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#wsgi-application
 WSGI_APPLICATION = '%s.wsgi.application' % PACKAGE_NAME
 ########## END WSGI CONFIGURATION
-
-
-########## CUSTOM USER CONFIGURATION
-AUTH_USER_MODEL = 'users.User'
-########## END CUSTOM USER CONFIGURATION
 
 
 ########## SOUTH CONFIGURATION

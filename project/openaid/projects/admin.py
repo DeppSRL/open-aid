@@ -3,7 +3,8 @@ from django.core.urlresolvers import reverse
 from django.utils.html import format_html
 from modeltranslation.admin import TranslationAdmin
 from ..attachments.admin import PhotoInlineAdmin
-from .models import Project, Activity, Markers, ChannelReported, Organization, AnnualFunds
+from ..codelists.models import Recipient
+from .models import Project, Activity, Markers, ChannelReported, Organization, AnnualFunds, Utl
 
 
 def make_admin_link(instance, name_field=None):
@@ -92,8 +93,24 @@ class OrganizationAdmin(admin.ModelAdmin):
     ]
 
 
+class RecipientInline(admin.TabularInline):
+    model = Utl.recipient_set.through
+    extra = 0
+    allow_add = True
+
+
+class UtlAdmin(admin.ModelAdmin):
+    model = Utl
+    fields = ('name', 'nation', 'city', 'user')
+    list_display = ('name', 'nation', 'city', 'user')
+    inlines = [
+        RecipientInline,
+    ]
+
+
 admin.site.register(Project, ProjectAdmin)
 admin.site.register(Activity, ActivityAdmin)
+admin.site.register(Utl, UtlAdmin)
 admin.site.register(Markers)
 admin.site.register(ChannelReported)
 admin.site.register(Organization, OrganizationAdmin)

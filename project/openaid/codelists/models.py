@@ -98,6 +98,8 @@ class Recipient(CodeListTreeModel):
     pil = models.BigIntegerField(null=True, blank=True)
     pil_procapite = models.IntegerField(null=True, blank=True)
 
+    # utl = models.ForeignKey('projects.Utl', blank=True, null=True)
+
     @classmethod
     def get_map_totals(cls, field='commitment', **filters):
 
