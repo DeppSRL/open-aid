@@ -472,6 +472,6 @@ class Utl(models.Model):
     name = models.CharField(max_length=200)
     city = models.CharField(max_length=200)
 
-    user = models.ForeignKey('auth.User', blank=True)
+    user = models.ForeignKey('auth.User', blank=True, related_name='utl')
     nation = models.OneToOneField('codelists.Recipient', related_name='+')
     recipient_set = models.ManyToManyField('codelists.Recipient', related_name='utl_set')
