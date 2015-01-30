@@ -244,6 +244,10 @@ ul.gallery-small li {
     text-align:right;
 }
 
+#main-content .years-navigation .navbar-nav > li {
+    width: 10% !important;
+}
+
 
 @media (min-width: 768px) and (max-width: 991px) {
     #main-menu > .container { width: 100%; }
