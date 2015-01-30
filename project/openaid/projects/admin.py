@@ -46,7 +46,9 @@ class ProjectAdmin(admin.ModelAdmin):
         queryset = super(ProjectAdmin, self).get_queryset(request)
         if request.user.is_superuser:
             return queryset
-        return queryset.filter(recipient__in=request.user.recipient_set.all())
+        elif request.user.utl is None:
+            return queryset.none()
+        return queryset.filter(recipient__in=request.user.utl.recipient_set.all())
 
 
 class ActivityAdmin(TranslationAdmin):
