@@ -55,9 +55,13 @@ class Command(BaseCommand):
 
         orgs = {}
 
-        for row in csvkit.DictReader(open(options['organizations'])):
+        self.stdout.write('Read: %s' % options['organizations'])
 
-            org, created = models.Organization.objects.get_or_create(code=row['code'], name=row['name'])
+        for row in csvkit.DictReader(open(options['organizations'])):
+            self.stdout.write('Try to retrive or create: %s' % row)
+            org, created = models.Organization.objects.get_or_create(code=row['code'].strip(), defaults={
+                'name': row['name'].strip()
+            })
             if created:
                 self.stdout.write('Create new organization: %s' % org)
             else:
@@ -70,7 +74,7 @@ class Command(BaseCommand):
             disbursement = float(row['disbursement'].replace(',', '.') or 0.0)
 
             fund, created = models.AnnualFunds.objects.get_or_create(
-                organization=orgs[row['organization']],
+                organization=orgs[row['organization'].strip()],
                 year=row['year'],
                 defaults={
                     'commitment': commitment,
