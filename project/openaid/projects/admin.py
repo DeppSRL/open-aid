@@ -1,9 +1,8 @@
 from django.contrib import admin
 from django.core.urlresolvers import reverse
 from django.utils.html import format_html
-from modeltranslation.admin import TranslationAdmin
+from modeltranslation.admin import TranslationAdmin, TranslationTabularInline, TranslationStackedInline
 from ..attachments.admin import PhotoInlineAdmin
-from ..codelists.models import Recipient
 from .models import Project, Activity, Markers, ChannelReported, Organization, AnnualFunds, Utl, Document, Problem, \
     Report
 
@@ -19,17 +18,16 @@ class ActivityInlineAdmin(admin.TabularInline):
     can_delete = False
     extra = 0
     model = Activity
-    fields = ['admin_link', 'number', 'title', ]
-    readonly_fields = ['title', 'number', 'admin_link', ]
+    fields = ['admin_link', 'number', 'title', 'commitment', 'disbursement']
+    readonly_fields = ['title', 'number', 'admin_link', 'commitment', 'disbursement']
 
     def admin_link(self, instance):
-        return make_admin_link(instance)
+        return make_admin_link(instance, instance.year)
 
     def has_add_permission(self, request):
         return False
 
 
-from modeltranslation.admin import TranslationTabularInline, TranslationStackedInline
 class ReportInlineAdmin(TranslationStackedInline):
     extra = 0
     model = Report
@@ -53,8 +51,8 @@ class ProjectAdmin(TranslationAdmin):
     readonly_fields = ['recipient', 'agency', 'aid_type', 'channel', 'finance_type', 'sector', 'markers']
 
     inlines = [
-        PhotoInlineAdmin,
         ActivityInlineAdmin,
+        PhotoInlineAdmin,
         ReportInlineAdmin,
         ProblemInlineAdmin,
         DocumentInlineAdmin,
