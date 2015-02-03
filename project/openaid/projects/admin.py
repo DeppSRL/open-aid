@@ -4,7 +4,8 @@ from django.utils.html import format_html
 from modeltranslation.admin import TranslationAdmin
 from ..attachments.admin import PhotoInlineAdmin
 from ..codelists.models import Recipient
-from .models import Project, Activity, Markers, ChannelReported, Organization, AnnualFunds, Utl
+from .models import Project, Activity, Markers, ChannelReported, Organization, AnnualFunds, Utl, Document, Problem, \
+    Report
 
 
 def make_admin_link(instance, name_field=None):
@@ -28,7 +29,21 @@ class ActivityInlineAdmin(admin.TabularInline):
         return False
 
 
-class ProjectAdmin(admin.ModelAdmin):
+from modeltranslation.admin import TranslationTabularInline, TranslationStackedInline
+class ReportInlineAdmin(TranslationStackedInline):
+    extra = 0
+    model = Report
+
+class ProblemInlineAdmin(TranslationStackedInline):
+    extra = 0
+    model = Problem
+
+class DocumentInlineAdmin(TranslationTabularInline):
+    extra = 0
+    model = Document
+
+
+class ProjectAdmin(TranslationAdmin):
 
     list_display = ('crsid', 'recipient', 'title', 'start_year', 'end_year', 'has_focus')
     list_filter = ('has_focus', 'start_year', 'end_year')
@@ -40,6 +55,9 @@ class ProjectAdmin(admin.ModelAdmin):
     inlines = [
         PhotoInlineAdmin,
         ActivityInlineAdmin,
+        ReportInlineAdmin,
+        ProblemInlineAdmin,
+        DocumentInlineAdmin,
     ]
 
     def get_queryset(self, request):
@@ -49,6 +67,16 @@ class ProjectAdmin(admin.ModelAdmin):
         elif request.user.utl is None:
             return queryset.none()
         return queryset.filter(recipient__in=request.user.utl.recipient_set.all())
+
+    class Media:
+        js = (
+            'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js',
+            'http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js',
+            'modeltranslation/js/tabbed_translation_fields.js',
+        )
+        css = {
+            'screen': ('modeltranslation/css/tabbed_translation_fields.css',),
+        }
 
 
 class ActivityAdmin(TranslationAdmin):

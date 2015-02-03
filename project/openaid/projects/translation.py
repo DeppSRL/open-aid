@@ -12,3 +12,21 @@ class ActivityTranslationOptions(TranslationOptions):
     fields = ('title', 'description', 'long_description', )
 
 translator.register(models.Activity, ActivityTranslationOptions)
+
+
+class ReportTranslationOptions(TranslationOptions):
+    fields = ('description', )
+
+translator.register(models.Report, ReportTranslationOptions)
+
+
+class ProblemTranslationOptions(TranslationOptions):
+    fields = ('event', 'impact', 'actions')
+
+translator.register(models.Problem, ProblemTranslationOptions)
+
+
+class DocumentTranslationOptions(TranslationOptions):
+    fields = ('description', )
+
+translator.register(models.Document, DocumentTranslationOptions)

@@ -113,6 +113,14 @@ class Project(CodelistsModel):
     start_year = models.PositiveSmallIntegerField()
     end_year = models.PositiveSmallIntegerField()
     has_focus = models.BooleanField(_('Focus'), default=False)
+    last_update = models.DateField(_('Last update'), null=True, auto_now=True)
+    outcome = models.TextField(_('Outcome'), blank=True)
+    beneficiaries = models.TextField(_('Beneficiaries'), blank=True)
+    beneficiaries_female = models.FloatField(blank=True, null=True)
+    is_suspended = models.BooleanField(default=False)
+    counterpart_authority = models.CharField(max_length=500, blank=True)
+    email = models.EmailField(blank=True)
+    location = models.TextField(blank=True)
     photo_set = GenericRelation('attachments.Photo')
 
     @classmethod
@@ -475,3 +483,46 @@ class Utl(models.Model):
     user = models.OneToOneField('auth.User', blank=True, related_name='utl')
     nation = models.OneToOneField('codelists.Recipient', related_name='+')
     recipient_set = models.ManyToManyField('codelists.Recipient', related_name='utl_set')
+
+
+class Problem(models.Model):
+
+    event = models.TextField(blank=True)
+    impact = models.TextField(blank=True)
+    actions = models.TextField(blank=True)
+    project = models.ForeignKey(Project)
+
+
+class Document(models.Model):
+
+    date = models.DateField(auto_now=True)
+    description = models.TextField(blank=True)
+    file = models.FileField(upload_to='project/documents/', blank=True, null=True)
+    source_url = models.URLField(blank=True)
+    project = models.ForeignKey(Project)
+
+class Report(models.Model):
+
+    REPORT_TYPES = Choices(
+        (1, _('Consulenti')),
+        (2, _('Servizi')),
+        (3, _('Lavori')),
+        (4, _('Forniture')),
+    )
+    type = models.IntegerField(choices=REPORT_TYPES)
+
+    PROCEDURE_TYPES = Choices(
+        (1, _('Direct contracting')),
+        (2, _('Limited international bidding')),
+        # ...
+    )
+    procurement_procedure = models.IntegerField(choices=PROCEDURE_TYPES)
+
+    STATUS_TYPES = Choices(
+        (1, _('???')),
+    )
+    status = models.IntegerField(choices=STATUS_TYPES, default=1)
+
+    awarding_entity = models.FloatField()
+    description = models.TextField(blank=True)
+    project = models.ForeignKey(Project)
