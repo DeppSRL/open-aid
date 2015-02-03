@@ -100,6 +100,16 @@ class ActivityAdmin(TranslationAdmin):
     def project_link(self, instance):
         return make_admin_link(instance.project, unicode(instance.project))
 
+    class Media:
+        js = (
+            'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js',
+            'http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js',
+            'modeltranslation/js/tabbed_translation_fields.js',
+        )
+        css = {
+            'screen': ('modeltranslation/css/tabbed_translation_fields.css',),
+        }
+
 def _codelist_link(codelist):
     def wrap(self, obj):
         return make_admin_link(getattr(obj, codelist), name_field=getattr(obj, codelist).name)
