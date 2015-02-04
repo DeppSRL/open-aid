@@ -56,7 +56,7 @@ class ProjectAdmin(TranslationAdmin):
             (None, {
                 'fields': ('recipient', 'aid_type', 'outcome', 'beneficiaries', 'beneficiaries_female',
                            'status', 'is_suspended', 'start_year', 'end_year', 'expected_start_year', 'expected_completion_year',
-                           'total_project_costs', 'other_financiers', 'load_amount_approved', 'grant_amount_approved',
+                           'total_project_costs', 'other_financiers', 'loan_amount_approved', 'grant_amount_approved',
                            'agency', 'counterpart_authority', 'email', 'location', )
             }),
         )
