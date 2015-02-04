@@ -37,7 +37,7 @@ class ProblemInlineAdmin(TranslationStackedInline):
     model = Problem
 
 class DocumentInlineAdmin(TranslationTabularInline):
-    extra = 0
+    extra = 1
     model = Document
 
 
@@ -47,15 +47,36 @@ class ProjectAdmin(TranslationAdmin):
     list_filter = ('has_focus', 'start_year', 'end_year')
     list_select_related = ('recipient', )
     search_fields = ('crsid', 'title', 'description', 'recipient__name', 'start_year')
-
+    ordering = ('-end_year', )
     readonly_fields = ['recipient', 'agency', 'aid_type', 'channel', 'finance_type', 'sector', 'markers']
+    fieldsets = (
+            (None, {
+                'fields': ('title', 'description', )
+            }),
+            (None, {
+                'fields': ('recipient', 'aid_type', 'outcome', 'beneficiaries', 'beneficiaries_female',
+                           'status', 'is_suspended', 'start_year', 'end_year', 'expected_start_year', 'expected_completion_year',
+                           'total_project_costs', 'other_financiers', 'load_amount_approved', 'grant_amount_approved',
+                           'agency', 'counterpart_authority', 'email', 'location', )
+            }),
+        )
+    # def get_fieldsets(self, request, obj=None):
+    #     # if request.user.is_superuser:
+    #     #     return super(ProjectAdmin, self).get_fieldsets(request, obj)
+    #     return (
+    #         (None, {
+    #             'fields': ('title', 'description', )
+    #         }),
+    #         (None, {
+    #             'fields': ('location', 'outcome', 'beneficiaries', 'beneficiaries_female', 'status', 'is_suspended', )
+    #         })
+    #     )
 
     inlines = [
-        ActivityInlineAdmin,
-        PhotoInlineAdmin,
         ReportInlineAdmin,
         ProblemInlineAdmin,
         DocumentInlineAdmin,
+        PhotoInlineAdmin,
     ]
 
     def get_queryset(self, request):

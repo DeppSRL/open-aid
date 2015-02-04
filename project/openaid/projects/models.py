@@ -112,14 +112,28 @@ class Project(CodelistsModel):
     crsid = models.CharField(max_length=128, blank=True)
     start_year = models.PositiveSmallIntegerField()
     end_year = models.PositiveSmallIntegerField()
+    expected_start_year = models.IntegerField(blank=True, null=True)
+    expected_completion_year = models.IntegerField(blank=True, null=True)
     has_focus = models.BooleanField(_('Focus'), default=False)
     last_update = models.DateField(_('Last update'), null=True, auto_now=True)
-    outcome = models.TextField(_('Outcome'), blank=True)
+    outcome = models.TextField(_('Main Outcome'), blank=True)
     beneficiaries = models.TextField(_('Beneficiaries'), blank=True)
-    beneficiaries_female = models.FloatField(blank=True, null=True)
+    beneficiaries_female = models.FloatField(_('Beneficiaries of which females (%)'), blank=True, null=True)
+    STATUS_CHOICES = Choices(
+        ('0', '0%'),
+        ('25', '25%'),
+        ('50', '50%'),
+        ('75', '75%'),
+        ('100', 'Almost completed'),
+    )
+    status = models.CharField(_('Status'), max_length=3, help_text=_('Progress based on Approved vs Disbursed'), choices=STATUS_CHOICES, default='0')
     is_suspended = models.BooleanField(default=False)
+    total_project_costs = models.FloatField(blank=True, null=True)
+    other_financiers = models.TextField(blank=True)
+    load_amount_approved = models.FloatField(blank=True, null=True)
+    grant_amount_approved = models.FloatField(blank=True, null=True)
     counterpart_authority = models.CharField(max_length=500, blank=True)
-    email = models.EmailField(blank=True)
+    email = models.EmailField(_('Officer in charge (email)'), blank=True)
     location = models.TextField(blank=True)
     photo_set = GenericRelation('attachments.Photo')
 
@@ -480,7 +494,7 @@ class Utl(models.Model):
     name = models.CharField(max_length=200)
     city = models.CharField(max_length=200)
 
-    user = models.OneToOneField('auth.User', blank=True, related_name='utl')
+    user = models.OneToOneField('auth.User', blank=True, null=True, related_name='utl')
     nation = models.OneToOneField('codelists.Recipient', related_name='+')
     recipient_set = models.ManyToManyField('codelists.Recipient', related_name='utl_set')
 
@@ -496,7 +510,7 @@ class Problem(models.Model):
 class Document(models.Model):
 
     date = models.DateField(auto_now=True)
-    description = models.TextField(blank=True)
+    description = models.CharField(max_length=500, blank=True)
     file = models.FileField(upload_to='project/documents/', blank=True, null=True)
     source_url = models.URLField(blank=True)
     project = models.ForeignKey(Project)
@@ -517,12 +531,7 @@ class Report(models.Model):
         # ...
     )
     procurement_procedure = models.IntegerField(choices=PROCEDURE_TYPES)
-
-    STATUS_TYPES = Choices(
-        (1, _('???')),
-    )
-    status = models.IntegerField(choices=STATUS_TYPES, default=1)
-
+    status = models.CharField(max_length=200, blank=True)
     awarding_entity = models.FloatField()
     description = models.TextField(blank=True)
     project = models.ForeignKey(Project)
