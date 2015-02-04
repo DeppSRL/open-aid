@@ -22,7 +22,7 @@ EXPORTED_FIELDS = (
     ['openaid_id', ] +
     mapping.ACTIVITY_FIELDS_MAP.keys() +
     mapping.CHANNEL_REPORTED_MAP.keys() +
-    mapping.MARKERS_FIELDS_MAP.keys()
+    mapping.MARKERS_FIELDS_MAP.keys() 
     # CODELISTS_CSV_MAP.keys() +
     # ['eur_commitment', 'eur_disbursement']
 )
@@ -35,12 +35,14 @@ for cl in CODELISTS_CSV_MAP.keys():
     else:
         CODELISTS_FIELDS.append(cl.replace('code', 'name'))
 EXPORTED_FIELDS += CODELISTS_FIELDS
-# EXPORTED_FIELDS += ['eur_commitment', 'eur_disbursement']
+EXPORTED_FIELDS += ['eur_commitment', 'eur_disbursement']
 
 
 def serialize_activity(activity):
-    act = {'openaid_id': activity.pk}
-    act.update(dict.fromkeys(EXPORTED_FIELDS, ''))
+    # act = {'openaid_id': activity.pk}
+    # act.update(dict.fromkeys(EXPORTED_FIELDS, ''))
+    act = dict.fromkeys(EXPORTED_FIELDS, '')
+    act['openaid_id'] = activity.pk
     for field in EXPORTED_FIELDS:
 
         if field in mapping.ACTIVITY_FIELDS_MAP:
@@ -72,8 +74,8 @@ def serialize_activity(activity):
         elif field in mapping.CHANNEL_REPORTED_MAP:
             act[field] = activity.channel_reported.name if activity.channel_reported else ''
 
-    # for euros in ['commitment', 'disbursement']:
-    #     act['eur_%s' % euros] = getattr(activity, euros, '')
+    for euros in ['commitment', 'disbursement']:
+        act['eur_%s' % euros] = getattr(activity, euros, '')
 
     return act
 

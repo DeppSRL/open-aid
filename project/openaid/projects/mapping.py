@@ -75,7 +75,7 @@ ACTIVITY_FIELDS_MAP = OrderedDict([
     ('Year', 'year'),
     ('projecttitle', 'title'),
     ('projectnumber', 'number'),
-    # ('shortdescription', 'description'),
+    ('shortdescription', 'short_description'),
     ('longdescription', 'description'),
     ('initialreport', 'report_type'),
     ('FTC', 'is_ftc'),
