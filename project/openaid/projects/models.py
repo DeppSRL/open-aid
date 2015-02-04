@@ -130,7 +130,7 @@ class Project(CodelistsModel):
     is_suspended = models.BooleanField(default=False)
     total_project_costs = models.FloatField(blank=True, null=True)
     other_financiers = models.TextField(blank=True)
-    load_amount_approved = models.FloatField(blank=True, null=True)
+    loan_amount_approved = models.FloatField(blank=True, null=True)
     grant_amount_approved = models.FloatField(blank=True, null=True)
     counterpart_authority = models.CharField(max_length=500, blank=True)
     email = models.EmailField(_('Officer in charge (email)'), blank=True)
