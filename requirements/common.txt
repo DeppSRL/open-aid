@@ -42,3 +42,4 @@ sdmx
 djangorestframework==2.4.2
 django-filter==0.8
 Markdown==2.5.1
+Django-Select2==4.2.2

@@ -249,6 +249,7 @@ DJANGO_APPS = (
     'bootstrap_pagination',
     'django_mptt_admin', # admin
     'rest_framework', # api
+    'django_select2',
 )
 
 # Apps specific for this project go here.

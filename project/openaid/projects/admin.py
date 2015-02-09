@@ -2,10 +2,12 @@ from django.contrib import admin
 from django.core.urlresolvers import reverse
 from django import forms
 from django.utils.html import format_html
-from modeltranslation.admin import TranslationAdmin, TranslationTabularInline, TranslationStackedInline
+from django_select2 import ModelSelect2Field, Select2Widget
+from modeltranslation.admin import TranslationAdmin, TranslationStackedInline
 from ..attachments.admin import PhotoInlineAdmin, DocumentInlineAdmin
 from .models import Project, Activity, Markers, ChannelReported, Organization, AnnualFunds, Utl, Problem, \
     Report, NewProject
+from ..codelists import models as codelist_models
 
 
 def make_admin_link(instance, name_field=None):
@@ -171,11 +173,43 @@ class UtlAdmin(admin.ModelAdmin):
     ]
 
 
+class CodelistSelect2Widget(Select2Widget):
+    options = {
+        'minimumResultsForSearch': 6,  # Only applicable for single value select.
+        'placeholder': '',  # Empty text label
+        'allowClear': True,  # Not allowed when field is multiple since there each value has a clear button.
+        'multiple': False,  # Not allowed when attached to <select>
+        'closeOnSelect': False,
+        'width': '350px',
+    }
+
+
+class CodelistSelect2Field(ModelSelect2Field):
+    widget = CodelistSelect2Widget
+
+
+class NewProjectAdminForm(forms.ModelForm):
+
+    recipient = CodelistSelect2Field(queryset=codelist_models.Recipient.objects)
+    agency = CodelistSelect2Field(queryset=codelist_models.Agency.objects)
+    channel = CodelistSelect2Field(queryset=codelist_models.Channel.objects)
+    finance_type = CodelistSelect2Field(queryset=codelist_models.FinanceType.objects)
+    aid_type = CodelistSelect2Field(queryset=codelist_models.AidType.objects)
+    sector = ModelSelect2Field(queryset=codelist_models.Sector.objects, widget=Select2Widget(select2_options={
+        'width': '350px',
+    }))
+
+    class Meta:
+        model = NewProject
+
+
 class NewProjectAdmin(TranslationAdmin, BeautyTranslationAdmin):
     model = NewProject
+    form = NewProjectAdminForm
     fields = ('title', 'description', 'year', 'commitment', 'disbursement',
               'recipient', 'agency', 'aid_type', 'channel', 'finance_type', 'sector')
     list_filter = ('year', 'agency')
+    list_display = ('title', 'year', 'recipient', 'agency')
     inlines = [
         DocumentInlineAdmin,
     ]
