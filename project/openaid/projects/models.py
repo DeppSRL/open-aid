@@ -49,14 +49,8 @@ class Markers(models.Model):
     def __unicode__(self):
         return ("{}"*8).format(*[getattr(self, name) or '-' for name in self.names])
 
-class CodelistsModel(models.Model):
 
-    recipient = models.ForeignKey('codelists.Recipient', blank=True, null=True)
-    agency = models.ForeignKey('codelists.Agency', null=True, blank=True)
-    aid_type = models.ForeignKey('codelists.AidType', null=True, blank=True)
-    channel = models.ForeignKey('codelists.Channel', null=True, blank=True)
-    finance_type = models.ForeignKey('codelists.FinanceType', null=True, blank=True)
-    sector = models.ForeignKey('codelists.Sector', null=True, blank=True)
+class MarkedModel(models.Model):
 
     markers = models.ForeignKey(Markers, null=True, blank=True)
 
@@ -72,6 +66,19 @@ class CodelistsModel(models.Model):
         if save and updates > 0:
             self.save()
         return updates
+
+    class Meta:
+        abstract = True
+
+
+class CodelistsModel(models.Model):
+
+    recipient = models.ForeignKey('codelists.Recipient', verbose_name=_('Country'), blank=True, null=True)
+    agency = models.ForeignKey('codelists.Agency', null=True, blank=True)
+    aid_type = models.ForeignKey('codelists.AidType', null=True, blank=True)
+    channel = models.ForeignKey('codelists.Channel', null=True, blank=True)
+    finance_type = models.ForeignKey('codelists.FinanceType', null=True, blank=True)
+    sector = models.ForeignKey('codelists.Sector', verbose_name=_('Main Sector'), null=True, blank=True)
 
 
     def merge_codelists(self, activity, save=False):
@@ -104,10 +111,10 @@ class CodelistsModel(models.Model):
         abstract = True
 
 
-class Project(CodelistsModel):
+class Project(CodelistsModel, MarkedModel):
 
     title = models.CharField(max_length=500, blank=True)
-    description = models.TextField(blank=True)
+    description = models.TextField(_('Abstract'), blank=True)
 
     crsid = models.CharField(max_length=128, blank=True)
     start_year = models.PositiveSmallIntegerField()
@@ -120,13 +127,14 @@ class Project(CodelistsModel):
     beneficiaries = models.TextField(_('Beneficiaries'), blank=True)
     beneficiaries_female = models.FloatField(_('Beneficiaries of which females (%)'), blank=True, null=True)
     STATUS_CHOICES = Choices(
+        ('-', 'Not available'),
         ('0', '0%'),
         ('25', '25%'),
         ('50', '50%'),
         ('75', '75%'),
         ('100', 'Almost completed'),
     )
-    status = models.CharField(_('Status'), max_length=3, help_text=_('Progress based on Approved vs Disbursed'), choices=STATUS_CHOICES, default='0')
+    status = models.CharField(_('Status'), max_length=3, help_text=_('Progress based on Approved vs Disbursed'), choices=STATUS_CHOICES, default='-')
     is_suspended = models.BooleanField(default=False)
     total_project_costs = models.FloatField(blank=True, null=True)
     other_financiers = models.TextField(blank=True)
@@ -136,6 +144,7 @@ class Project(CodelistsModel):
     email = models.EmailField(_('Officer in charge (email)'), blank=True)
     location = models.TextField(blank=True)
     photo_set = GenericRelation('attachments.Photo')
+    document_set = GenericRelation('attachments.Document')
 
     @classmethod
     def get_top_projects(cls, qnt=3, order_by=None, year=None, **filters):
@@ -165,38 +174,11 @@ class Project(CodelistsModel):
     def years_range(self):
         return sorted(self._activities_map('year'))
 
-    # def title(self, year=None):
-    #     titles = [a.title for a in self.activities(year)]
-    #     if not any(titles):
-    #         return ''
-    #     title = titles[0]
-    #     # prendo il titolo con piu caratteri
-    #     for t in titles[1:]:
-    #         if len(t) > len(title):
-    #             title = t
-    #     return title
-    #
-    # def description(self, year=None):
-    #     descriptions = [a.description for a in self.activities(year)]
-    #     if not any(descriptions):
-    #         descriptions = [a.long_description for a in self.activities(year)]
-    #         if not any(descriptions):
-    #             return ''
-    #     description = descriptions[0]
-    #     # prendo il titolo con piu caratteri
-    #     for d in descriptions[1:]:
-    #         if len(d) > len(description):
-    #             description = d
-    #     return description
-
     def recipients(self):
         return self._activities_map('recipient')
 
     def agencies(self, year=None):
         return self._activities_map('agency', year=year)
-
-    # def agency(self, year=None):
-    #     return self.agencies(year=year)[0]
 
     def aid_types(self):
         return self._activities_map('aid_type', skip_none=True)
@@ -243,9 +225,6 @@ class Project(CodelistsModel):
         for a in self.activities(year=year):
             return a.get_bi_multi_display()
         return None
-
-    # def finance_type(self, year=None):
-    #     return self._activities_map('finance_type', year=year, skip_none=True)[0]
 
     def completion_date(self, year=None):
         dates = self._activities_map('completion_date', year=year, skip_none=True)
@@ -317,7 +296,7 @@ class Project(CodelistsModel):
         unique_together = (('crsid', 'recipient'),)
 
 
-class Activity(CodelistsModel):
+class Activity(CodelistsModel, MarkedModel):
 
     project = models.ForeignKey(Project, null=True, blank=True)
 
@@ -383,15 +362,7 @@ class Activity(CodelistsModel):
     commitment_date = models.DateTimeField(blank=True, null=True)
 
     # external relations
-    # markers = models.ForeignKey(Markers, null=True, blank=True)
     channel_reported = models.ForeignKey(ChannelReported, blank=True, null=True)
-
-    # recipient = models.ForeignKey('codelists.Recipient', null=True, blank=True)
-    # agency = models.ForeignKey('codelists.Agency', null=True, blank=True)
-    # aid_type = models.ForeignKey('codelists.AidType', null=True, blank=True)
-    # channel = models.ForeignKey('codelists.Channel', null=True, blank=True)
-    # finance_type = models.ForeignKey('codelists.FinanceType', null=True, blank=True)
-    # sector = models.ForeignKey('codelists.Sector', null=True, blank=True)
 
     def merge(self, activity, save=False):
 
@@ -501,19 +472,11 @@ class Utl(models.Model):
 
 class Problem(models.Model):
 
-    event = models.TextField(blank=True)
+    event = models.TextField(_('Unforeseen event'), blank=True)
     impact = models.TextField(blank=True)
-    actions = models.TextField(blank=True)
+    actions = models.TextField(_('Actions carried out'), blank=True)
     project = models.ForeignKey(Project)
 
-
-class Document(models.Model):
-
-    date = models.DateField(auto_now=True)
-    description = models.CharField(max_length=500, blank=True)
-    file = models.FileField(upload_to='project/documents/', blank=True, null=True)
-    source_url = models.URLField(blank=True)
-    project = models.ForeignKey(Project)
 
 class Report(models.Model):
 
@@ -535,3 +498,17 @@ class Report(models.Model):
     awarding_entity = models.FloatField()
     description = models.TextField(blank=True)
     project = models.ForeignKey(Project)
+
+    class Meta:
+        verbose_name = _('Project Activity')
+        verbose_name_plural = _('Project Activities')
+
+
+class NewProject(CodelistsModel):
+
+    title = models.CharField(max_length=500)
+    description = models.TextField()
+    year = models.PositiveSmallIntegerField()
+    commitment = models.FloatField(blank=True)
+    disbursement = models.FloatField(blank=True)
+    document_set = GenericRelation('attachments.Document')

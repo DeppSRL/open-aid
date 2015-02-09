@@ -26,7 +26,8 @@ class ProblemTranslationOptions(TranslationOptions):
 translator.register(models.Problem, ProblemTranslationOptions)
 
 
-class DocumentTranslationOptions(TranslationOptions):
-    fields = ('description', )
+class NewProjectTranslationOptions(TranslationOptions):
+    fields = ('title', 'description', )
 
-translator.register(models.Document, DocumentTranslationOptions)
+translator.register(models.NewProject, NewProjectTranslationOptions)
+

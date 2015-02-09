@@ -1,10 +1,11 @@
 from django.contrib import admin
 from django.core.urlresolvers import reverse
+from django import forms
 from django.utils.html import format_html
 from modeltranslation.admin import TranslationAdmin, TranslationTabularInline, TranslationStackedInline
-from ..attachments.admin import PhotoInlineAdmin
-from .models import Project, Activity, Markers, ChannelReported, Organization, AnnualFunds, Utl, Document, Problem, \
-    Report
+from ..attachments.admin import PhotoInlineAdmin, DocumentInlineAdmin
+from .models import Project, Activity, Markers, ChannelReported, Organization, AnnualFunds, Utl, Problem, \
+    Report, NewProject
 
 
 def make_admin_link(instance, name_field=None):
@@ -12,6 +13,19 @@ def make_admin_link(instance, name_field=None):
                                           instance._meta.module_name),
                   args=(instance.id,))
     return format_html(u'<a href="{}">{}</a>', url, name_field or 'Edit')
+
+
+class BeautyTranslationAdmin(object):
+
+    class Media:
+        js = (
+            'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js',
+            'http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js',
+            'modeltranslation/js/tabbed_translation_fields.js',
+        )
+        css = {
+            'screen': ('modeltranslation/css/tabbed_translation_fields.css',),
+        }
 
 
 class ActivityInlineAdmin(admin.TabularInline):
@@ -36,41 +50,50 @@ class ProblemInlineAdmin(TranslationStackedInline):
     extra = 0
     model = Problem
 
-class DocumentInlineAdmin(TranslationTabularInline):
-    extra = 1
-    model = Document
+
+class ProjectAdminForm(forms.ModelForm):
+    class Meta:
+        model = Project
+        widgets = {
+            'beneficiaries': forms.Textarea(attrs={'rows': 2}),
+            'outcome': forms.Textarea(attrs={'rows': 2}),
+            'other_financiers': forms.Textarea(attrs={'rows': 2}),
+            'location': forms.Textarea(attrs={'rows': 2}),
+        }
 
 
-class ProjectAdmin(TranslationAdmin):
-
+class ProjectAdmin(TranslationAdmin, BeautyTranslationAdmin):
+    form = ProjectAdminForm
     list_display = ('crsid', 'recipient', 'title', 'start_year', 'end_year', 'has_focus')
-    list_filter = ('has_focus', 'start_year', 'end_year')
+    list_filter = ('has_focus', 'start_year', 'end_year', 'agency')
     list_select_related = ('recipient', )
     search_fields = ('crsid', 'title', 'description', 'recipient__name', 'start_year')
     ordering = ('-end_year', )
-    readonly_fields = ['recipient', 'agency', 'aid_type', 'channel', 'finance_type', 'sector', 'markers']
+    readonly_fields = ['recipient', 'agency', 'aid_type', 'channel', 'finance_type', 'sector', 'markers', 'crsid']
     fieldsets = (
             (None, {
-                'fields': ('title', 'description', )
+                'fields': ('crsid', 'title', 'description', )
             }),
             (None, {
-                'fields': ('recipient', 'aid_type', 'outcome', 'beneficiaries', 'beneficiaries_female',
+                'fields': ('recipient', 'aid_type', 'outcome', 'sector', 'beneficiaries', 'beneficiaries_female',
                            'status', 'is_suspended', 'start_year', 'end_year', 'expected_start_year', 'expected_completion_year',
                            'total_project_costs', 'other_financiers', 'loan_amount_approved', 'grant_amount_approved',
                            'agency', 'counterpart_authority', 'email', 'location', )
             }),
         )
-    # def get_fieldsets(self, request, obj=None):
-    #     # if request.user.is_superuser:
-    #     #     return super(ProjectAdmin, self).get_fieldsets(request, obj)
-    #     return (
-    #         (None, {
-    #             'fields': ('title', 'description', )
-    #         }),
-    #         (None, {
-    #             'fields': ('location', 'outcome', 'beneficiaries', 'beneficiaries_female', 'status', 'is_suspended', )
-    #         })
-    #     )
+
+    def get_list_display(self, request):
+        list_display = super(ProjectAdmin, self).get_list_display(request)
+        if request.user.is_superuser:
+            return list_display
+        return [x for x in list_display if x != 'has_focus']
+
+    def get_list_filter(self, request):
+        list_filter = super(ProjectAdmin, self).get_list_filter(request)
+        if request.user.is_superuser:
+            return list_filter
+        return [x for x in list_filter if x != 'has_focus']
+
 
     inlines = [
         ReportInlineAdmin,
@@ -87,18 +110,8 @@ class ProjectAdmin(TranslationAdmin):
             return queryset.none()
         return queryset.filter(recipient__in=request.user.utl.recipient_set.all())
 
-    class Media:
-        js = (
-            'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js',
-            'http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js',
-            'modeltranslation/js/tabbed_translation_fields.js',
-        )
-        css = {
-            'screen': ('modeltranslation/css/tabbed_translation_fields.css',),
-        }
 
-
-class ActivityAdmin(TranslationAdmin):
+class ActivityAdmin(TranslationAdmin, BeautyTranslationAdmin):
     codelists = ['recipient', 'agency', 'aid_type', 'channel', 'finance_type', 'sector']
     codelists_links = ['%s_link' % cl for cl in codelists]
 
@@ -121,15 +134,6 @@ class ActivityAdmin(TranslationAdmin):
     def project_link(self, instance):
         return make_admin_link(instance.project, unicode(instance.project))
 
-    class Media:
-        js = (
-            'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js',
-            'http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js',
-            'modeltranslation/js/tabbed_translation_fields.js',
-        )
-        css = {
-            'screen': ('modeltranslation/css/tabbed_translation_fields.css',),
-        }
 
 def _codelist_link(codelist):
     def wrap(self, obj):
@@ -167,6 +171,29 @@ class UtlAdmin(admin.ModelAdmin):
     ]
 
 
+class NewProjectAdmin(TranslationAdmin, BeautyTranslationAdmin):
+    model = NewProject
+    fields = ('title', 'description', 'year', 'commitment', 'disbursement',
+              'recipient', 'agency', 'aid_type', 'channel', 'finance_type', 'sector')
+
+    inlines = [
+        DocumentInlineAdmin,
+    ]
+
+    def render_change_form(self, request, context, *args, **kwargs):
+        if not request.user.is_superuser and request.user.utl:
+            context['adminform'].form.fields['recipient'].queryset = request.user.utl.recipient_set.all()
+        return super(NewProjectAdmin, self).render_change_form(request, context, args, kwargs)
+
+    def get_queryset(self, request):
+        queryset = super(NewProjectAdmin, self).get_queryset(request)
+        if request.user.is_superuser:
+            return queryset
+        elif request.user.utl is None:
+            return queryset.none()
+        return queryset.filter(recipient__in=request.user.utl.recipient_set.all())
+
+
 admin.site.register(Project, ProjectAdmin)
 admin.site.register(Activity, ActivityAdmin)
 admin.site.register(Utl, UtlAdmin)
@@ -174,3 +201,4 @@ admin.site.register(Markers)
 admin.site.register(ChannelReported)
 admin.site.register(Organization, OrganizationAdmin)
 admin.site.register(AnnualFunds)
+admin.site.register(NewProject, NewProjectAdmin)

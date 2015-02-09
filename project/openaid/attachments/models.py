@@ -1,11 +1,13 @@
 from django.contrib.contenttypes.generic import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
+from django.utils.translation import ugettext as _
 
 class Attachment(models.Model):
 
     name = models.CharField(max_length=255)
-    file = models.ImageField(upload_to='photo/')
+    description = models.TextField(blank=True)
+    date = models.DateField(blank=True)
 
     content_type = models.ForeignKey(ContentType)
     object_id = models.PositiveIntegerField()
@@ -20,4 +22,10 @@ class Attachment(models.Model):
         abstract = True
 
 class Photo(Attachment):
-    pass
+    file = models.ImageField(upload_to='photos/')
+
+
+class Document(Attachment):
+
+    file = models.ImageField(upload_to='documents/', blank=True, null=True)
+    source_url = models.URLField(help_text=_('Se non caricato direttamente indicare l\'indirizzo dove poter scaricare il documento.'), blank=True)
