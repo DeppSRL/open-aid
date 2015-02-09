@@ -175,7 +175,7 @@ class NewProjectAdmin(TranslationAdmin, BeautyTranslationAdmin):
     model = NewProject
     fields = ('title', 'description', 'year', 'commitment', 'disbursement',
               'recipient', 'agency', 'aid_type', 'channel', 'finance_type', 'sector')
-
+    list_filter = ('year', 'agency')
     inlines = [
         DocumentInlineAdmin,
     ]
