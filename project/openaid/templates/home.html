@@ -56,7 +56,7 @@ aimed at maintaining peace and managing migration flows.{% endblocktrans %}
 
     {% crs_stats %}
 
-    <div class="row">
+    <div class="row" id="focus-panels">
         <div class="col-md-8">
             {% include 'commons/top_projects.html' with top_projects=top_projects %}
         </div>
@@ -187,6 +187,18 @@ aimed at maintaining peace and managing migration flows.{% endblocktrans %}
                 $('#welcomeModal').modal('show');
                 $.cookie('welcome-modal', 7);
             }
+            $('a[href=#multi-tab]').on('shown.bs.tab', function(){
+                $('#focus-panels').hide();
+                console.log('shown');
+            });
+            $('a[href=#bi-multi-tab]').on('shown.bs.tab', function(){
+                $('#focus-panels').show();
+                console.log('hidden');
+            });
+            $('a[href=#total-aid-tab]').on('shown.bs.tab', function(){
+                $('#focus-panels').show();
+                console.log('hidden');
+            });
         });
     </script>
 
