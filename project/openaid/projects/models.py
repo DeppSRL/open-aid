@@ -509,6 +509,6 @@ class NewProject(CodelistsModel):
     title = models.CharField(max_length=500)
     description = models.TextField()
     year = models.PositiveSmallIntegerField()
-    commitment = models.FloatField(blank=True)
-    disbursement = models.FloatField(blank=True)
+    commitment = models.FloatField(help_text=_('Migliaia di euro'), blank=True)
+    disbursement = models.FloatField(help_text=_('Migliaia di euro'), blank=True)
     document_set = GenericRelation('attachments.Document')
