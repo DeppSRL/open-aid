@@ -49,7 +49,7 @@ class CodeListModel(models.Model):
         return reverse('codelists:%s-detail' % self.code_list, kwargs={'code': self.code})
 
     def __unicode__(self):
-        return self.name_en
+        return '[%s] %s' % (self.code, self.name_en)
 
     def __repr__(self):
         return u"<{0}:{1}> {2}".format(self.code_list, self.code, self.__unicode__())
