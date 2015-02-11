@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.db.models import Min, Max, Count
+from faq.models import Question
 from openaid.pages import urls as pages_urls
 from .codelists import models
 from .projects import models as projects_models
@@ -60,4 +61,5 @@ def project_context(request):
         'donor_code': settings.OPENAID_CRS_DONOR,
         'site_full_url': request.build_absolute_uri('/')[:-1],
         'page_full_url': request.build_absolute_uri(),
+        'faq_list': Question.objects.all()[:4],
     }

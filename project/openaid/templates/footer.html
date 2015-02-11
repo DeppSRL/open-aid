@@ -17,16 +17,11 @@
             <div class="col-md-3 col-sm-6 col-xs-6">
                 <h4>{% trans 'FAQ' %}</h4>
                 <ul class="list-unstyled">
-                    {# TODO: Remove this hardcoding stuff!!!! #}
-                    <li><a href="{% url 'faq_question_list' %}#update">{% trans "Why isn't the data updated to 2013?" %}</a></li>
-                    <li><a href="{% url 'faq_question_list' %}#fonte">{% trans "Where does the data come from?" %}</a></li>
-                    <li><a href="{% url 'faq_question_list' %}#data">{% trans "To which extent is the data reliable?" %}</a></li>
-                    <li><a href="{% url 'faq_question_list' %}#bilaterale">{% trans "What do we mean by Bilateral and Multi-bilateral ODA?" %}</a></li>
-{#                    {% for url_name, label in footer_sections.comefare.items %}#}
-{#                    <li>#}
-{#                        <a href="{% url url_name %}">{% trans label %}</a>#}
-{#                    </li>#}
-{#                    {% endfor %}#}
+                    {% for faq in faq_list %}
+                    <li>
+                        <a href="{% url 'faq_question_list' %}#{{ faq.slug }}">{{ faq.text|safe }}</a>
+                    </li>
+                    {% endfor %}
                     <li>
                         <a href="{% url 'faq_question_list' %}"><i>{% trans "More questions and answers" %}</i></a>
                     </li>
