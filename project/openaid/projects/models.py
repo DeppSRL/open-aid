@@ -117,6 +117,7 @@ class Project(CodelistsModel, MarkedModel):
     description = models.TextField(_('Abstract'), blank=True)
 
     crsid = models.CharField(max_length=128, blank=True)
+    number = models.CharField(max_length=128, blank=True, verbose_name=_('N. ID DGCS'))
     start_year = models.PositiveSmallIntegerField()
     end_year = models.PositiveSmallIntegerField()
     expected_start_year = models.IntegerField(blank=True, null=True)
@@ -125,7 +126,7 @@ class Project(CodelistsModel, MarkedModel):
     last_update = models.DateField(_('Last update'), null=True, auto_now=True)
     outcome = models.TextField(_('Main Outcome'), blank=True)
     beneficiaries = models.TextField(_('Beneficiaries'), blank=True)
-    beneficiaries_female = models.FloatField(_('Beneficiaries of which females (%)'), blank=True, null=True)
+    beneficiaries_female = models.FloatField(verbose_name=_('of which females (%)'), help_text=_('Beneficiaries of which females (%)'), blank=True, null=True)
     STATUS_CHOICES = Choices(
         ('-', 'Not available'),
         ('0', '0%'),
@@ -135,9 +136,9 @@ class Project(CodelistsModel, MarkedModel):
         ('100', 'Almost completed'),
     )
     status = models.CharField(_('Status'), max_length=3, help_text=_('Progress based on Approved vs Disbursed'), choices=STATUS_CHOICES, default='-')
-    is_suspended = models.BooleanField(default=False)
+    is_suspended = models.BooleanField(verbose_name=_('suspended'), default=False)
     total_project_costs = models.FloatField(blank=True, null=True)
-    other_financiers = models.TextField(blank=True)
+    other_financiers = models.TextField(blank=True, verbose_name=_('Other funders'))
     loan_amount_approved = models.FloatField(blank=True, null=True)
     grant_amount_approved = models.FloatField(blank=True, null=True)
     counterpart_authority = models.CharField(max_length=500, blank=True)
@@ -496,7 +497,7 @@ class Report(models.Model):
     procurement_procedure = models.IntegerField(choices=PROCEDURE_TYPES)
     status = models.CharField(max_length=200, blank=True)
     awarding_entity = models.FloatField()
-    description = models.TextField(blank=True)
+    description = models.TextField(blank=True, verbose_name=_('Observation'))
     project = models.ForeignKey(Project)
 
     class Meta:
@@ -507,8 +508,10 @@ class Report(models.Model):
 class NewProject(CodelistsModel):
 
     title = models.CharField(max_length=500)
-    description = models.TextField()
+    number = models.CharField(verbose_name=_('N. ID DGCS'), blank=True, max_length=100)
+    description = models.TextField(verbose_name=_('Abstract'))
     year = models.PositiveSmallIntegerField()
     commitment = models.FloatField(help_text=_('Migliaia di euro'), blank=True)
     disbursement = models.FloatField(help_text=_('Migliaia di euro'), blank=True)
-    document_set = GenericRelation('attachments.Document')
+    # document_set = GenericRelation('attachments.Document')
+    photo_set = GenericRelation('attachments.Photo')
