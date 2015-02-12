@@ -482,19 +482,21 @@ class Problem(models.Model):
 class Report(models.Model):
 
     REPORT_TYPES = Choices(
-        (1, _('Consulenti')),
-        (2, _('Servizi')),
-        (3, _('Lavori')),
-        (4, _('Forniture')),
+        (1, _('Technical Assistance/Consultancy and related expenses')),
+        (2, _('Works, Supply, Services')),
+        (3, _('Contributions')),
+        (4, _('Scholarships')),
     )
-    type = models.IntegerField(choices=REPORT_TYPES)
+    type = models.IntegerField(choices=REPORT_TYPES, default=None, null=True)
 
     PROCEDURE_TYPES = Choices(
-        (1, _('Direct contracting')),
-        (2, _('Limited international bidding')),
+        (1, _('Call for Proposal')),
+        (2, _('Direct Contracting/Direct Assignment')),
+        (3, _('Competitive Bidding')),
+        (4, _('Call for Grant')),
         # ...
     )
-    procurement_procedure = models.IntegerField(choices=PROCEDURE_TYPES)
+    procurement_procedure = models.IntegerField(choices=PROCEDURE_TYPES, default=None, null=True)
     status = models.CharField(max_length=200, blank=True)
     awarding_entity = models.FloatField()
     description = models.TextField(blank=True, verbose_name=_('Observation'))
