@@ -59,4 +59,4 @@ class ProjectIndex(indexes.ModelSearchIndex, indexes.Indexable):
                     'last_update', 'outcome', 'beneficiaries', 'beneficiaries_female',
                     'total_project_costs', 'other_financiers', 'loan_amount_approved',
                     'grant_amount_approved', 'counterpart_authority', 'email', 'location',
-                    'description', 'title', 'title_it', 'title_en', 'description_it', 'description_en']
+                    'description', 'title', 'title_it', 'title_en', 'description_it', 'description_en', 'number']
