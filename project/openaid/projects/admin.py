@@ -84,6 +84,14 @@ class ProjectAdmin(TranslationAdmin, BeautyTranslationAdmin):
             }),
         )
 
+    def get_readonly_fields(self, request, obj=None):
+        fields = super(ProjectAdmin, self).get_readonly_fields(request, obj)
+        if not request.user.is_superuser:
+            fields.append('title')
+            fields.append('title_en')
+            fields.append('title_it')
+        return fields
+
     def get_list_display(self, request):
         list_display = super(ProjectAdmin, self).get_list_display(request)
         if request.user.is_superuser:
