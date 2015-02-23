@@ -498,13 +498,14 @@ class Report(models.Model):
     )
     procurement_procedure = models.IntegerField(choices=PROCEDURE_TYPES, default=None, null=True)
     status = models.CharField(max_length=200, blank=True)
-    awarding_entity = models.CharField(max_length=1000)
+    number = models.CharField(verbose_name=_('N. ID DGCS'), max_length=128, blank=True)
+    awarding_entity = models.CharField(max_length=1000, blank=True)
     description = models.TextField(blank=True, verbose_name=_('Observation'))
     project = models.ForeignKey(Project)
 
     class Meta:
-        verbose_name = _('Project Activity')
-        verbose_name_plural = _('Project Activities')
+        verbose_name = _('Procurement')
+        verbose_name_plural = _('Procurements')
 
 
 class NewProject(CodelistsModel):
