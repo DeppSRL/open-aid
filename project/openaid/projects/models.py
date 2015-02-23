@@ -498,7 +498,7 @@ class Report(models.Model):
     )
     procurement_procedure = models.IntegerField(choices=PROCEDURE_TYPES, default=None, null=True)
     status = models.CharField(max_length=200, blank=True)
-    awarding_entity = models.FloatField()
+    awarding_entity = models.CharField(max_length=1000)
     description = models.TextField(blank=True, verbose_name=_('Observation'))
     project = models.ForeignKey(Project)
 
