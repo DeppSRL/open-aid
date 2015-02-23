@@ -3,7 +3,7 @@ from . import models
 
 
 class ProjectTranslationOptions(TranslationOptions):
-    fields = ('title', 'description', )
+    fields = ('title', 'description', 'outcome', 'beneficiaries', 'other_financiers', 'counterpart_authority', 'location')
 
 translator.register(models.Project, ProjectTranslationOptions)
 

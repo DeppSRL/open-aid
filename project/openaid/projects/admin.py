@@ -198,14 +198,14 @@ class CodelistSelect2Field(ModelSelect2Field):
 
 class NewProjectAdminForm(forms.ModelForm):
 
-    recipient = CodelistSelect2Field(queryset=codelist_models.Recipient.objects)
-    agency = CodelistSelect2Field(queryset=codelist_models.Agency.objects)
-    channel = CodelistSelect2Field(queryset=codelist_models.Channel.objects)
-    finance_type = CodelistSelect2Field(queryset=codelist_models.FinanceType.objects)
-    aid_type = CodelistSelect2Field(queryset=codelist_models.AidType.objects)
+    recipient = CodelistSelect2Field(queryset=codelist_models.Recipient.objects, required=True)
+    agency = CodelistSelect2Field(queryset=codelist_models.Agency.objects, required=False)
+    channel = CodelistSelect2Field(queryset=codelist_models.Channel.objects, required=False)
+    finance_type = CodelistSelect2Field(queryset=codelist_models.FinanceType.objects, required=False)
+    aid_type = CodelistSelect2Field(queryset=codelist_models.AidType.objects, required=False)
     sector = ModelSelect2Field(queryset=codelist_models.Sector.objects, widget=Select2Widget(select2_options={
         'width': '350px',
-    }))
+    }), required=False)
 
     class Meta:
         model = NewProject

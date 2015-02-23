@@ -510,11 +510,11 @@ class Report(models.Model):
 
 class NewProject(CodelistsModel):
 
-    title = models.CharField(max_length=500)
+    title = models.CharField(max_length=500, blank=True)
     number = models.CharField(verbose_name=_('N. ID DGCS'), blank=True, max_length=100)
-    description = models.TextField(verbose_name=_('Abstract'))
-    year = models.PositiveSmallIntegerField()
-    commitment = models.FloatField(help_text=_('Migliaia di euro'), blank=True)
-    disbursement = models.FloatField(help_text=_('Migliaia di euro'), blank=True)
+    description = models.TextField(verbose_name=_('Abstract'), blank=True)
+    year = models.PositiveSmallIntegerField(null=True, blank=True)
+    commitment = models.FloatField(help_text=_('Migliaia di euro'), blank=True, null=True)
+    disbursement = models.FloatField(help_text=_('Migliaia di euro'), blank=True, null=True)
     # document_set = GenericRelation('attachments.Document')
     photo_set = GenericRelation('attachments.Photo')
