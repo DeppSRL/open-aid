@@ -224,8 +224,10 @@ class NewProjectAdmin(TranslationAdmin, BeautyTranslationAdmin):
     ]
 
     def render_change_form(self, request, context, *args, **kwargs):
-        # if not request.user.is_superuser and request.user.utl:
-        context['adminform'].form.fields['recipient'].queryset = request.user.utl.recipient_set.all()
+        if not request.user.is_superuser and request.user.utl:
+            context['adminform'].form.fields['recipient'].queryset = request.user.utl.recipient_set.all()
+        else:
+            context['adminform'].form.fields['recipient'].queryset = codelist_models.Recipient.all()
         context['adminform'].form.fields['aid_type'].queryset = codelist_models.AidType.objects.root_nodes()
         context['adminform'].form.fields['channel'].queryset = codelist_models.Channel.objects.root_nodes()
         context['adminform'].form.fields['finance_type'].queryset = codelist_models.FinanceType.objects.root_nodes()
