@@ -147,6 +147,12 @@ class Project(CodelistsModel, MarkedModel):
     photo_set = GenericRelation('attachments.Photo')
     document_set = GenericRelation('attachments.Document')
 
+    def get_initiative(self):
+        try:
+            return Initiative.objects.get(code=self.number)
+        except Initiative.DoesNotExist:
+            return None
+
     @classmethod
     def get_top_projects(cls, qnt=3, order_by=None, year=None, **filters):
         if year:
@@ -518,3 +524,29 @@ class NewProject(CodelistsModel):
     disbursement = models.FloatField(help_text=_('Migliaia di euro'), blank=True, null=True)
     # document_set = GenericRelation('attachments.Document')
     photo_set = GenericRelation('attachments.Photo')
+
+
+class Initiative(models.Model):
+
+    code = models.CharField(max_length=6, unique=True)
+    title = models.CharField(max_length=1000)
+    country = models.CharField(max_length=1000, blank=True)
+
+    def projects_count(self):
+        return self.get_projects().count()
+
+    def get_projects(self):
+        return Project.objects.filter(number__startswith=self.code)
+
+    def save(self, *args, **kwargs):
+        if len(self.code) != 6:
+            self.code = self.code.zfill(6)
+        return super(Initiative, self).save(*args, **kwargs)
+
+    def __unicode__(self):
+        return '%s:%s "%s"' % (self.code, self.country, self.title)
+
+    def __repr__(self):
+        return u"<Initiative(id=%d, code=%s, title=\"%s\", country=%s)>" % (
+            self.pk, self.code, self.title, self.conutry
+        )

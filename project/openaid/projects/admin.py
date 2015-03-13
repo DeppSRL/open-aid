@@ -6,7 +6,7 @@ from django_select2 import ModelSelect2Field, Select2Widget
 from modeltranslation.admin import TranslationAdmin, TranslationStackedInline
 from ..attachments.admin import PhotoInlineAdmin, DocumentInlineAdmin
 from .models import Project, Activity, Markers, ChannelReported, Organization, AnnualFunds, Utl, Problem, \
-    Report, NewProject
+    Report, NewProject, Initiative
 from ..codelists import models as codelist_models
 
 
@@ -243,6 +243,12 @@ class NewProjectAdmin(TranslationAdmin, BeautyTranslationAdmin):
         return queryset.filter(recipient__in=request.user.utl.recipient_set.all())
 
 
+class InitiativeAdmin(TranslationAdmin, BeautyTranslationAdmin):
+    model = Initiative
+
+    list_display = ('code', 'title', 'country', 'projects_count')
+
+
 admin.site.register(Project, ProjectAdmin)
 admin.site.register(Activity, ActivityAdmin)
 admin.site.register(Utl, UtlAdmin)
@@ -251,3 +257,4 @@ admin.site.register(ChannelReported)
 admin.site.register(Organization, OrganizationAdmin)
 admin.site.register(AnnualFunds)
 admin.site.register(NewProject, NewProjectAdmin)
+admin.site.register(Initiative, InitiativeAdmin)
