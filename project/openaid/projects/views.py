@@ -330,3 +330,10 @@ class ProjectStatsView(TemplateView):
             context['activity_disbursements'] += context['activity_by_years'][year]['disbursement']
 
         return context
+
+
+class InitiativeDetail(DetailView):
+
+    model = models.Initiative
+    slug_field = 'code'
+    slug_url_kwarg = 'code'

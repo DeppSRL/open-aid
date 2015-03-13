@@ -149,7 +149,7 @@ class Project(CodelistsModel, MarkedModel):
 
     def get_initiative(self):
         try:
-            return Initiative.objects.get(code=self.number)
+            return Initiative.objects.get(code=self.number.split('/')[0])
         except Initiative.DoesNotExist:
             return None
 
@@ -543,10 +543,13 @@ class Initiative(models.Model):
             self.code = self.code.zfill(6)
         return super(Initiative, self).save(*args, **kwargs)
 
+    def get_absolute_url(self):
+        return reverse('projects:initiative-detail', kwargs={'code': self.code})
+
     def __unicode__(self):
         return '%s:%s "%s"' % (self.code, self.country, self.title)
 
     def __repr__(self):
         return u"<Initiative(id=%d, code=%s, title=\"%s\", country=%s)>" % (
-            self.pk, self.code, self.title, self.conutry
+            self.pk, self.code, self.title, self.country
         )

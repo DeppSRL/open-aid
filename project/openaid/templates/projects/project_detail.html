@@ -18,6 +18,9 @@
         <br>
             <h2 class="pull-left">{{ project.title }}</h2>
             <h3 class="sub-title">
+                 {% with initiative=project.get_initiative %}{% if initiative %}
+                  <a href="{{ initiative.get_absolute_url }}">{{ initiative.title }}</a><br/>
+                {% endif %}{% endwith %}
                 {% for recipient in project.recipients|unique %}
                     <a href="{% url 'codelists:recipient-detail' code=recipient.code %}">{{ recipient.name }}</a>
                 {% endfor %}
@@ -131,7 +134,7 @@
                 </li>
                 {% if project.finance_type %}
                 <li>{% trans 'Finance type' %}
-                    <span class="pull-right reds">{{ project.finance_type }}</span></li>{% endif %}
+                    <span class="pull-right reds">{{ project.finance_type.name }}</span></li>{% endif %}
                 {% if project.flow_type %}
                 <li>{% trans 'Flow type' %}
                     <span class="pull-right reds">{{ project.flow_type }}</span></li>{% endif %}
