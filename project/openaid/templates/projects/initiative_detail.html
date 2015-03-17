@@ -11,10 +11,14 @@
 
   <h2>{{ object.title }} <small>{{ object.code }}</small></h2>
   <h3>{{ object.country }}</h3>
+
   <ul>
     {% for project in object.get_projects %}
-    <li><a href="{{ project.get_absolute_url }}">{{ project.title }}</a></li>
+    <li><a href="{{ project.get_absolute_url }}">{{ project.title }}</a> [{{ project.commitments }}/{{ project.disbursements }}]</li>
     {% endfor %}
   </ul>
+
+  <p>Commitment: {{ object.tot_commitments }}</p>
+  <p>Disbursement: {{ object.tot_disbursements }}</p>
 
 {% endblock content %}

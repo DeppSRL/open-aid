@@ -337,3 +337,18 @@ class InitiativeDetail(DetailView):
     model = models.Initiative
     slug_field = 'code'
     slug_url_kwarg = 'code'
+
+    def get_object(self, queryset=None):
+        obj = super(InitiativeDetail, self).get_object(queryset)
+
+        # aggregate commitments and disbursements
+        # for each projects and their activities
+        obj.tot_commitments = 0.0
+        for p in obj.get_projects():
+            obj.tot_commitments = sum(p.commitments())
+
+        obj.tot_disbursements = 0.0
+        for p in obj.get_projects():
+            obj.tot_disbursements += sum(p.disbursements())
+
+        return obj
