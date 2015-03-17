@@ -7,7 +7,7 @@ class Attachment(models.Model):
 
     name = models.CharField(max_length=255)
     description = models.TextField(blank=True)
-    date = models.DateField(blank=True)
+    date = models.DateField(blank=True, null=True)
 
     content_type = models.ForeignKey(ContentType)
     object_id = models.PositiveIntegerField()
