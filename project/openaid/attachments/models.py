@@ -22,10 +22,10 @@ class Attachment(models.Model):
         abstract = True
 
 class Photo(Attachment):
-    file = models.ImageField(upload_to='photos/')
+    file = models.ImageField(upload_to=u'photos/')
 
 
 class Document(Attachment):
 
-    file = models.FileField(upload_to='documents/', blank=True, null=True)
+    file = models.FileField(upload_to=u'documents/', blank=True, null=True)
     source_url = models.URLField(help_text=_('Se non caricato direttamente indicare l\'indirizzo dove poter scaricare il documento.'), blank=True)
