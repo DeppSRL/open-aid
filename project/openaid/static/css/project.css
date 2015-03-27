@@ -24,7 +24,13 @@
 .dropdown-submenu:hover>a:after{border-left-color:#ffffff;}
 .dropdown-submenu.pull-left{float:none;}.dropdown-submenu.pull-left>.dropdown-menu{left:-100%;margin-left:10px;-webkit-border-radius:6px 0 6px 6px;-moz-border-radius:6px 0 6px 6px;border-radius:6px 0 6px 6px;}
 
-.small-map {margin-top: 20px; }
+.small-map, .project-initiative {margin-top: 20px; }
+.project-initiative {
+    border-top: 2px dotted #8a8274;
+    border-bottom: 2px dotted #8a8274;
+    margin-bottom: 20px;
+    padding-bottom: 5px;
+}
 
 .collapse-menu > li.active > a {
   background: #fff;

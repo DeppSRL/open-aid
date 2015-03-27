@@ -317,7 +317,7 @@ class Activity(CodelistsModel, MarkedModel):
 
     REPORT_TYPES = Choices(
         # prese da resources/crs/Codelist04042014.osd:Nature of submission
-        (0, _('Unkwnon')),
+        (0, _('Unknown')),
         (1, _('New activity reported')),
         (2, _('Revision')),
         (3, _('Previously reported activity')), # increase/decrease of earlier commitment, disbursement on earlier commitment
@@ -328,7 +328,7 @@ class Activity(CodelistsModel, MarkedModel):
 
     FLOW_TYPES = Choices(
         # prese da resources/crs/dsd.xml:CL_CRS1_FLOW
-        (0, _('Unkwnon')),
+        (0, _('Unknown')),
         (11, _('ODA Grants')),
         (12, _('ODA Grant-Like')),
         (13, _('ODA Loans')),

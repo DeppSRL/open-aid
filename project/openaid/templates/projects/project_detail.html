@@ -18,9 +18,6 @@
         <br>
             <h2 class="pull-left">{{ project.title }}</h2>
             <h3 class="sub-title">
-                 {% with initiative=project.get_initiative %}{% if initiative %}
-                  <a href="{{ initiative.get_absolute_url }}">{{ initiative.title }}</a><br/>
-                {% endif %}{% endwith %}
                 {% for recipient in project.recipients|unique %}
                     <a href="{% url 'codelists:recipient-detail' code=recipient.code %}">{{ recipient.name }}</a>
                 {% endfor %}
@@ -38,65 +35,73 @@
             <div class="small-map"><div id="map" data-chart="map" style="height: 260px;" data-iso-code="{{ object.recipient.iso_code }}"></div></div>
         </div>
 
+        {% with initiative=project.get_initiative %}{% if initiative %}
+        <div class="col-md-8 col-sm-6 col-xs-6">
+          <div class="project-initiative">
+            <div class="eleven light-gray" style="text-transform: uppercase;">{% trans 'Is part of the initiative' %}</div>
+            <a href="{{ initiative.get_absolute_url }}">{{ initiative.title }}</a>
+          </div>
+        </div>
+        {% endif %}{% endwith %}
+
         <div class="col-md-4 col-sm-6 col-xs-6">
-            <div class="row">
-                <div class="focus">
-                    <div class="row no-marg">
-                        {% with p_total_commitment=project.total_commitment|default:0 p_total_disbursement=project.total_disbursement|default:0 %}
-                        <div id="project-pie-{{ project.pk }}" data-chart="pie" data-values="{{ p_total_commitment|stringformat:"f" }}|{{ p_total_disbursement|stringformat:"f" }}"></div>
-                        <div class="col-md-4  col-sm-4 col-xs-4 numbers bg-red bordered-radius small-pad">{% if p_total_commitment %}€ {{ project.total_commitment|currency }}{% else %}-{% endif %}<br><span class="eleven">{% trans 'Committed' %}</span></div>
-                        <div class="col-md-4  col-sm-4 col-xs-4 col-md-offset-1 col-sm-offset-1 col-offset-xs-1 numbers bg-blue bordered-radius small-pad">{% if p_total_disbursement %}€ {{ project.total_disbursement|currency }}{% else %}-{% endif %}<br><span class="eleven">{% trans 'Used' %}</span></div>
-                        {% endwith %}
-                    </div>
-                    <div class="row no-marg">
-                        <div class="col-md-6">
-                            <h4>{% trans 'Agency' %}</h4>
-                            <p class="small-paragraph">{{ project.agency }}</p>
-                        </div>
-                        <div class="col-md-6">
-                            <h4>{% trans 'Channel reported' %}</h4>
-                            <p class="small-paragraph">{{ project.channel_reported|default_if_none:'-' }}</p>
-                        </div>
-                    </div>
 
-                    {% if project.description %}
-                    <div class="row no-marg project-description">
-                        <div class="col-md-12">
-                            <h4>{% trans 'Description' %}</h4>
-                            <p class="readmore small-paragraph" data-max-height="70">
-                                {{ project.description|safe }}
-                                <a href="#" class="readmore-open">{% trans 'read more' %} {% icon 'caret-down' %}</a>
-                                <a href="#" class="readmore-close">{% trans 'close' %} {% icon 'caret-up' %}</a>
-                            </p>
-                        </div>
+            <div class="focus">
+                <div class="row no-marg">
+                    {% with p_total_commitment=project.total_commitment|default:0 p_total_disbursement=project.total_disbursement|default:0 %}
+                    <div id="project-pie-{{ project.pk }}" data-chart="pie" data-values="{{ p_total_commitment|stringformat:"f" }}|{{ p_total_disbursement|stringformat:"f" }}"></div>
+                    <div class="col-md-4  col-sm-4 col-xs-4 numbers bg-red bordered-radius small-pad">{% if p_total_commitment %}€ {{ project.total_commitment|currency }}{% else %}-{% endif %}<br><span class="eleven">{% trans 'Committed' %}</span></div>
+                    <div class="col-md-4  col-sm-4 col-xs-4 col-md-offset-1 col-sm-offset-1 col-offset-xs-1 numbers bg-blue bordered-radius small-pad">{% if p_total_disbursement %}€ {{ project.total_disbursement|currency }}{% else %}-{% endif %}<br><span class="eleven">{% trans 'Used' %}</span></div>
+                    {% endwith %}
+                </div>
+                <div class="row no-marg">
+                    <div class="col-md-6">
+                        <h4>{% trans 'Agency' %}</h4>
+                        <p class="small-paragraph">{{ project.agency }}</p>
                     </div>
-                    {% endif %}
-
-                    <ul class="nav nav-pills top-dotted">
-                        {% for sector in project.sectors|unique %}
-                        <li>
-                            <a href="{% url 'codelists:sector-detail' code=sector.get_root.code %}">{% icon 'chevron-right' %}{{ sector.get_root.name }}</a>
-                        </li>
-                        {% endfor %}
-                    </ul>
-
-                    <div class="row no-marg">
-                        <div class="col-md-6 col-sm-6 col-xs-6">
-                            <span class="eleven light-gray block">{% trans 'Aid type' %}</span>
-                            {% for aid_type in project.aid_types|unique %}{% if aid_type %}
-                            <a href="{% url 'codelists:aid_type-detail' code=aid_type.code %}" class="eleven">{{ aid_type.name }}</a>{% if not forloop.last %}, {% endif %}
-                            {% endif %}{% endfor %}
-                        </div>
-                        <div class="col-md-6 col-sm-6 col-xs-6">
-                            <span class="eleven light-gray block">{% trans 'Channels' %}</span>
-                            {% for channel in project.channels|unique %}{% if channel %}
-                            <a href="{% url 'codelists:channel-detail' code=channel.code %}" class="eleven">{{ channel.name }}</a>{% if not forloop.last %}, {% endif %}
-                            {% endif %}{% endfor %}
-                        </div>
+                    <div class="col-md-6">
+                        <h4>{% trans 'Channel reported' %}</h4>
+                        <p class="small-paragraph">{{ project.channel_reported|default_if_none:'-' }}</p>
                     </div>
-                </div><!-- .focus -->
-{#                <div class="like"><img src="{% static 'img/layout/like.jpg' %}" class="pull-left"></div>#}
-            </div>
+                </div>
+
+                {% if project.description %}
+                <div class="row no-marg project-description">
+                    <div class="col-md-12">
+                        <h4>{% trans 'Description' %}</h4>
+                        <p class="readmore small-paragraph" data-max-height="70">
+                            {{ project.description|safe }}
+                            <a href="#" class="readmore-open">{% trans 'read more' %} {% icon 'caret-down' %}</a>
+                            <a href="#" class="readmore-close">{% trans 'close' %} {% icon 'caret-up' %}</a>
+                        </p>
+                    </div>
+                </div>
+                {% endif %}
+
+                <ul class="nav nav-pills top-dotted">
+                    {% for sector in project.sectors|unique %}
+                    <li>
+                        <a href="{% url 'codelists:sector-detail' code=sector.get_root.code %}">{% icon 'chevron-right' %}{{ sector.get_root.name }}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+
+                <div class="row no-marg">
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        <span class="eleven light-gray block">{% trans 'Aid type' %}</span>
+                        {% for aid_type in project.aid_types|unique %}{% if aid_type %}
+                        <a href="{% url 'codelists:aid_type-detail' code=aid_type.code %}" class="eleven">{{ aid_type.name }}</a>{% if not forloop.last %}, {% endif %}
+                        {% endif %}{% endfor %}
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        <span class="eleven light-gray block">{% trans 'Channels' %}</span>
+                        {% for channel in project.channels|unique %}{% if channel %}
+                        <a href="{% url 'codelists:channel-detail' code=channel.code %}" class="eleven">{{ channel.name }}</a>{% if not forloop.last %}, {% endif %}
+                        {% endif %}{% endfor %}
+                    </div>
+                </div>
+            </div><!-- .focus -->
+
         </div>
 
         <div class="col-md-4 col-sm-12 col-xs-12">
