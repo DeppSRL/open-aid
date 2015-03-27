@@ -13,8 +13,8 @@
   <h3>{{ object.country }}</h3>
 
   <ul>
-    {% for project in object.get_projects %}
-    <li><a href="{{ project.get_absolute_url }}">{{ project.title }}</a> [{{ project.commitments }}/{{ project.disbursements }}]</li>
+    {% for project in projects %}
+    <li><a href="{{ project.get_absolute_url }}">{{ project.title }}</a> [{{ project.tot_commitments }}/{{ project.tot_disbursements }}]</li>
     {% endfor %}
   </ul>
 

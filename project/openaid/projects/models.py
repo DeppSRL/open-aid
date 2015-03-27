@@ -113,6 +113,8 @@ class CodelistsModel(models.Model):
 
 class Project(CodelistsModel, MarkedModel):
 
+    initiative = models.ForeignKey('projects.Initiative', blank=True, null=True, on_delete=models.SET_NULL)
+
     title = models.CharField(max_length=500, blank=True)
     description = models.TextField(_('Abstract'), blank=True)
 
@@ -531,12 +533,6 @@ class Initiative(models.Model):
     code = models.CharField(max_length=6, unique=True)
     title = models.CharField(max_length=1000)
     country = models.CharField(max_length=1000, blank=True)
-
-    def projects_count(self):
-        return self.get_projects().count()
-
-    def get_projects(self):
-        return Project.objects.filter(number__startswith=self.code)
 
     def save(self, *args, **kwargs):
         if len(self.code) != 6:

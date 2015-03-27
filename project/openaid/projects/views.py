@@ -1,5 +1,5 @@
 from django.views.generic import DetailView, ListView, TemplateView
-from django.db.models import Count
+from django.db.models import Count, Sum
 from haystack.query import SearchQuerySet
 from haystack.views import FacetedSearchView
 from . import models
@@ -338,17 +338,17 @@ class InitiativeDetail(DetailView):
     slug_field = 'code'
     slug_url_kwarg = 'code'
 
-    def get_object(self, queryset=None):
-        obj = super(InitiativeDetail, self).get_object(queryset)
+    def get_context_data(self, **kwargs):
+        obj = self.object
+        projects = obj.project_set.annotate(
+            tot_commitments=Sum('activity__commitment'),
+            tot_disbursements=Sum('activity__disbursement')
+        )
+        obj.tot_disbursements = obj.tot_commitments = 0.0
+        for p in projects:
+            obj.tot_commitments += p.tot_commitments
+            obj.tot_disbursements += p.tot_disbursements
 
-        # aggregate commitments and disbursements
-        # for each projects and their activities
-        obj.tot_commitments = 0.0
-        for p in obj.get_projects():
-            obj.tot_commitments = sum(p.commitments())
-
-        obj.tot_disbursements = 0.0
-        for p in obj.get_projects():
-            obj.tot_disbursements += sum(p.disbursements())
-
-        return obj
+        return super(InitiativeDetail, self).get_context_data(
+            projects=projects,
+            **kwargs)
