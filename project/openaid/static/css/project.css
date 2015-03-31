@@ -277,3 +277,7 @@ ul.gallery-small li {
     #main-content .years-navigation .navbar-nav > li { width: 10% !important; float:left; }
     /*#main-content .years-navigation .navbar-nav > li.selected a { color: #f7505a; }*/
 }
+
+.numbers { display: inline-block; }
+.small-pad.numbers { padding: 6px; margin-left: 5px; margin-right: 5px;}
+.progetti .media-body p {text-transform: none; }

@@ -1,6 +1,7 @@
 from django.contrib.contenttypes.generic import GenericRelation
 from django.core.urlresolvers import reverse
 from django.db import models
+from django.db.models import Sum
 from django.utils.translation import ugettext as _
 from model_utils import Choices
 from openaid import utils
@@ -217,7 +218,7 @@ class Project(CodelistsModel, MarkedModel):
         return sum(self._activities_map('commitment', skip_none=True), 0.0)
 
     def disbursements(self, year=None):
-        return self._activities_map('disbursement')
+        return self._activities_map('disbursement', year=year)
 
     def disbursement(self, year=None):
         return sum(self._activities_map('disbursement', year=year or self.end_year, skip_none=True), 0.0)
@@ -533,6 +534,191 @@ class Initiative(models.Model):
     code = models.CharField(max_length=6, unique=True)
     title = models.CharField(max_length=1000)
     country = models.CharField(max_length=1000, blank=True)
+
+    def years_range(self):
+        range = set()
+        for project in self.projects():
+            for year in project.years_range():
+                range.add(year)
+        return sorted(range)
+
+    def years_stats(self):
+        for year in self.years_range():
+            commitment = disbursement = 0.0
+            for project in self.projects():
+                commitment += sum([x for x in project.commitments(year=year) if x])
+                disbursement += sum([x for x in project.disbursements(year=year) if x])
+
+            yield (year, commitment, disbursement)
+
+    @property
+    def description(self):
+        try:
+            return [p.description for p in self.projects() if p.description][0]
+        except IndexError:
+            return ''
+
+    def photos(self):
+        return list(self._projects_map('photo_set', 'all'))
+
+    @property
+    def image(self):
+        try:
+            return self.photos()[0]
+        except IndexError:
+            return ''
+
+    @classmethod
+    def get_top_initiatives(cls, qnt=6, order_by=None, year=None, **filters):
+        if year:
+            filters['project__activity__year__exact'] = year
+        initiatives = Initiative.objects.annotate(
+            total_commitment=Sum('project__activity__commitment'),
+            total_disbursement=Sum('project__activity__disbursement'),
+        ).order_by('-total_commitment').filter(total_commitment__gt=0)
+        return initiatives.filter(**filters)[:qnt]
+
+    def projects(self):
+        if not getattr(self, '_projects', False):
+            self._projects = list(self.project_set.all().prefetch_related('recipient'))
+        return self._projects
+
+    def _projects_map(self, field, callback=None, skip_none=False):
+        for project in self.projects():
+            method = getattr(project, field)
+            for value in method() if not callback else getattr(method, callback)():
+                if skip_none and value is None:
+                    continue
+                yield value
+
+    def documents(self):
+        return list(self._projects_map('document_set', 'all'))
+
+    def problems(self):
+        return list(self._projects_map('problem_set', 'all'))
+
+    def reports(self):
+        return list(self._projects_map('report_set', 'all'))
+
+    def recipients(self):
+        return list(set(self._projects_map('recipients')))
+
+    def aid_types(self):
+        aid_types = []
+        for aid_type in list(self._projects_map('aid_types')):
+            aid_types.append(aid_type.get_root())
+        return set(aid_types)
+
+    def sectors(self):
+        sectors = []
+        for sector in list(self._projects_map('sectors')):
+            sectors.append(sector.get_root())
+        return set(sectors)
+
+    def channels(self):
+        channels = []
+        for channel in list(self._projects_map('channels')):
+            channels.append(channel.get_root())
+        return set(channels)
+
+    def finance_type(self):
+        return self._get_first_project_value('finance_types')
+
+    def flow_type(self):
+        return self._get_first_project_value('flow_type')
+
+    def agency(self):
+        return self._get_first_project_value('agencies')
+
+    def _get_first_project_value(self, field, skip_values=None):
+        for project in self.projects():
+            if not hasattr(project, field):
+                continue
+            value = getattr(project, field, None)
+
+            if hasattr(value, '__call__'):
+                value = value()
+            if hasattr(value, '__iter__'):
+                for v in value:
+                    if v:
+                        return v
+                else:
+                    continue
+            if not value:
+                continue
+            elif skip_values and value in skip_values:
+                continue
+            return value
+        return None
+
+    @property
+    def purpose(self):
+        return self._get_first_project_value('purpose')
+
+    @property
+    def expected_start_date(self):
+        return self._get_first_project_value('expected_start_date')
+
+    @property
+    def expected_completion_year(self):
+        return self._get_first_project_value('expected_completion_year')
+
+    @property
+    def is_suspended(self):
+        return self._get_first_project_value('is_suspended')
+
+    @property
+    def total_project_costs(self):
+        return self._get_first_project_value('total_project_costs')
+
+    @property
+    def beneficiaries(self):
+        return self._get_first_project_value('beneficiaries')
+
+    @property
+    def beneficiaries_female(self):
+        return self._get_first_project_value('beneficiaries_female')
+
+    @property
+    def loan_amount_approved(self):
+        return self._get_first_project_value('loan_amount_approved')
+
+    @property
+    def grant_amount_approved(self):
+        return self._get_first_project_value('grant_amount_approved')
+
+    @property
+    def counterpart_authority(self):
+        return self._get_first_project_value('counterpart_authority')
+
+    @property
+    def email(self):
+        return self._get_first_project_value('email')
+
+    @property
+    def status(self):
+        return self._get_first_project_value('status', skip_values=['0', '-'])
+
+    @property
+    def crsid(self):
+        return self._get_first_project_value('crsid')
+
+    @property
+    def bi_multi(self):
+        return self._get_first_project_value('bi_multi')
+
+    @property
+    def is_ftc(self):
+        return self._get_first_project_value('is_ftc')
+
+    @property
+    def is_pba(self):
+        return self._get_first_project_value('is_pba')
+
+    @property
+    def is_investment(self):
+        return self._get_first_project_value('is_investment')
+
 
     def save(self, *args, **kwargs):
         if len(self.code) != 6:

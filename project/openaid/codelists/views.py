@@ -21,7 +21,8 @@ class CodeListView(views.MapFiltersContextMixin, DetailView):
         context = super(CodeListView, self).get_context_data(**kwargs)
         context = DetailView.get_context_data(self, **context)
         context.update({
-            'top_projects': self.object.top_projects(year=self.request.GET.get('year', contexts.END_YEAR))
+            # 'top_projects': self.object.top_projects(year=self.request.GET.get('year', contexts.END_YEAR)),
+            'top_initiatives': self.object.top_initiatives(year=self.request.GET.get('year', contexts.END_YEAR))
         })
         return context
 

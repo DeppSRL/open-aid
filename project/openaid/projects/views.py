@@ -341,13 +341,13 @@ class InitiativeDetail(DetailView):
     def get_context_data(self, **kwargs):
         obj = self.object
         projects = obj.project_set.annotate(
-            tot_commitments=Sum('activity__commitment'),
-            tot_disbursements=Sum('activity__disbursement')
+            total_commitment=Sum('activity__commitment'),
+            total_disbursement=Sum('activity__disbursement')
         )
-        obj.tot_disbursements = obj.tot_commitments = 0.0
+        obj.total_disbursement = obj.total_commitment = 0.0
         for p in projects:
-            obj.tot_commitments += p.tot_commitments
-            obj.tot_disbursements += p.tot_disbursements
+            obj.total_commitment += p.total_commitment
+            obj.total_disbursement += p.total_disbursement
 
         return super(InitiativeDetail, self).get_context_data(
             projects=projects,
