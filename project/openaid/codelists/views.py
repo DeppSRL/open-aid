@@ -24,6 +24,8 @@ class CodeListView(views.MapFiltersContextMixin, DetailView):
             # 'top_projects': self.object.top_projects(year=self.request.GET.get('year', contexts.END_YEAR)),
             'top_initiatives': self.object.top_initiatives(year=self.request.GET.get('year', contexts.END_YEAR))
         })
+        if len(context['top_initiatives']) == 0:
+            context['top_projects'] = self.object.top_projects(year=self.request.GET.get('year', contexts.END_YEAR))
         return context
 
     def get_map_filters(self):

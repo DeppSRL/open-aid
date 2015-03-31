@@ -57,8 +57,11 @@
 
 <div class="row">
     <div class="col-md-12">
-{#        {% include 'commons/top_projects.html' with object=object top_projects=top_projects %}#}
+      {% if top_initiatives|length == 0 %}
+        {% include 'commons/top_projects.html' with object=object top_projects=top_projects %}
+      {% else %}
         {% include 'commons/top_initiatives.html' with object=object top_initiatives=top_initiatives %}
+      {% endif %}
     </div>
 </div>
 
