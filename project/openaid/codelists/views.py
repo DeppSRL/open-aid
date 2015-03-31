@@ -39,9 +39,9 @@ class SectorView(CodeListView):
 class RecipientView(CodeListView):
     model = models.Recipient
 
-    def get_context_data(self, **kwargs):
-        # bypass totale_territori loader
-        return DetailView.get_context_data(self, top_projects=self.object.top_projects(year=self.request.GET.get('year', contexts.END_YEAR)), **kwargs)
+    # def get_context_data(self, **kwargs):
+    #     # bypass totale_territori loader
+    #     return DetailView.get_context_data(self, top_projects=self.object.top_projects(year=self.request.GET.get('year', contexts.END_YEAR)), **kwargs)
 
 
 class ChannelView(CodeListView):
