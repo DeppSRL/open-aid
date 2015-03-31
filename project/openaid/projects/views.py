@@ -346,8 +346,10 @@ class InitiativeDetail(DetailView):
         )
         obj.total_disbursement = obj.total_commitment = 0.0
         for p in projects:
-            obj.total_commitment += p.total_commitment
-            obj.total_disbursement += p.total_disbursement
+            if p.total_commitment:
+                obj.total_commitment += p.total_commitment
+            if p.total_disbursement:
+                obj.total_disbursement += p.total_disbursement
 
         return super(InitiativeDetail, self).get_context_data(
             projects=projects,
