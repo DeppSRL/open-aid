@@ -32,23 +32,21 @@
       <p><strong>{% trans 'Location' %}:</strong> {{ initiative.country }}</p>
 
       <h4>{% trans 'Initiative data' %}</h4>
-      <ul class="list-unstyled simple-menu" style="height: auto;">
-        <li>{% trans 'CRSID' %}<span class="pull-right reds">{{ initiative.crsid }}</span></li>
-        <li>{% trans 'Purpose' %}
-            <span class="pull-right reds">{{ initiative.purpose.name }}</span></li>
-        {% if initiative.finance_type %}
-          <li>{% trans 'Finance type' %}
-            <span class="pull-right reds">{{ initiative.finance_type.name }}</span></li>{% endif %}
-        {% if initiative.flow_type %}
-          <li>{% trans 'Flow type' %}
-            <span class="pull-right reds">{{ initiative.flow_type }}</span></li>{% endif %}
-        {% if initiative.bi_multi %}
-          <li>{% trans 'Bi/Multilateral' %}
-            <span class="pull-right reds">{{ initiative.bi_multi }}</span></li>{% endif %}
+      <dl class="dl-horizontal">
+        <dt>{% trans 'CRSID' %}</dt><dd>{{ initiative.crsid }}</dd>
+      </dl><dl class="dl-horizontal">
+        <dt>{% trans 'Purpose' %}</dt><dd>{{ initiative.purpose.name }}</dd>
+      </dl><dl class="dl-horizontal">
+        <dt>{% trans 'Finance type' %}</dt><dd>{{ initiative.finance_type.name }}</dd>
+      </dl><dl class="dl-horizontal">
+        <dt>{% trans 'Flow type' %}</dt><dd>{{ initiative.flow_type }}</dd>
+      </dl><dl class="dl-horizontal">
+        <dt>{% trans 'Bi/Multilateral' %}</dt><dd>{{ initiative.bi_multi }}</dd>
+      </dl>
+      <ul class="list-unstyled simple-menu">
         {% if initiative.is_ftc %}<li>{% trans 'Free Standing Technical Cooperation' %}</li>{% endif %}
         {% if initiative.is_pba %}<li>{% trans 'Programme Based Approaches' %}</li>{% endif %}
         {% if initiative.is_investment %}<li>{% trans 'Investment Project' %}</li>{% endif %}
-
       </ul>
 
       {% with documents=initiative.documents %}{% if documents|length > 0 %}
@@ -56,7 +54,7 @@
       <ul class="list-unstyled simple-menu" style="height: auto;">
         {% for document in documents %}
           <li><a href="{{ document.file.url }}">{% icon 'download' %} {{ document.name }}</a>
-          <p>{{ document.description }}</p>
+          <p class="small-paragraph">{{ document.description }}</p>
           <h5>{{ document.date|date:"r" }}</h5>
           </li>
         {% endfor %}
@@ -65,11 +63,11 @@
     </div>
 
     <div class="col-md-8 col-sm-6 col-xs-6">
-
+      <div class="spacer"></div>
       <div class="focus">
         {% with description=initiative.description %}{% if description %}
         <div class="project-description">
-          <p class="readmore small-paragraph" data-max-height="70">
+          <p class="readmore" data-max-height="90">
             {{ initiative.description|safe }}
             <a href="#" class="readmore-open">{% trans 'read more' %} {% icon 'caret-down' %}</a>
             <a href="#" class="readmore-close">{% trans 'close' %} {% icon 'caret-up' %}</a>
@@ -100,81 +98,63 @@
             <h4>Finanziatore</h4>{{ initiative.agency.name }}
           </div>
           <div class="col-md-4">
-            <h4>Responsabile in loco</h4>{{ initiative.email|default:'-' }}
+            <h4>Responsabile in loco</h4><small class="text-muted">{{ initiative.email|default:'-' }}</small>
           </div>
           <div class="col-md-4">
             <h4>Autorità locale</h4>{{ initiative.counterpart_authority|default:'-' }}
-          </div>
+          </div>{% if initiative.other_financiers %}
           <div class="col-md-12">
             <h4>Altri finanziatori</h4>
             {{ initiative.other_financiers|default:'-' }}
-          </div>
+          </div>{% endif %}
         </div>
       </div>
 
-       {% with expected_start_date=initiative.expected_start_date expected_completion_year=initiative.expected_completion_year %}{% if expected_start_date or expected_completion_year %}
+       {% with years=initiative.years_range %}{% if years %}
       <div class="focus">
-        <h5>Iniziativa avviata nel {{ expected_start_date|date:'SHORT_DATE_FORMAT' }}{% if expected_completion_year %},
-          termine previsto {{ expected_completion_year }}{% endif %}</h5>
+        <h5>Iniziativa avviata nel {{ years|first }}{% if years|length > 1 %},
+          termine previsto {{ years|last }}{% endif %}</h5>
+        {% if initiative.main_outcome %}
+          <p>{{ initiative.main_outcome|safe }}</p>{% endif %}
       </div>
       {% endif %}{% endwith %}
-
-      <h4>Costo totale dell'iniziativa</h4>
 
       <div class="focus">
 
         <div class="row">
           <div class="col-md-6">
             {% with total_project_costs=initiative.total_project_costs loan_amount_approved=initiative.loan_amount_approved grant_amount_approved=initiative.grant_amount_approved %}{% if total_project_costs or loan_amount_approved or grant_amount_approved %}
-            <div style="color:#f7505a; text-transform: uppercase;"><span style="font-size: 2.2em; font-weight: bold;">€ {{ total_project_costs|intcomma }}</span> suddivisi in</div>
-            <div class="row">
-              <div class="col-md-6">
-                <div class="list-group">
-                  <p class="list-group-item" style="color:#2b6a7c; border-color:#2b6a7c; padding: 4px 8px;">
-                    {% if initiative.loan_amount_approved %}
-                    <strong>€ {{ initiative.loan_amount_approved|intcomma }}</strong>{% else %}-{% endif %}
-                     <span style="font-size: 0.8em">PRESTITI</span>
-                  </p>
+              <h3>Costo totale dell'iniziativa</h3>
+              <div style="color:#f7505a; text-transform: uppercase;"><span style="font-size: 2.2em; font-weight: bold;">€ {{ total_project_costs|intcomma }}</span> suddivisi in</div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="list-group">
+                    <p class="list-group-item" style="color:#2b6a7c; border-color:#2b6a7c; padding: 4px 8px;">
+                      {% if initiative.loan_amount_approved %}
+                      <strong>€ {{ initiative.loan_amount_approved|intcomma }}</strong>{% else %}-{% endif %}
+                      <br/><span style="font-size: 0.8em">PRESTITI</span>
+                    </p>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="list-group">
+                    <p class="list-group-item" style="color:#2b6a7c; border-color:#2b6a7c; padding: 4px 8px;">
+                      {% if initiative.grant_amount_approved %}
+                      <strong>€ {{ initiative.grant_amount_approved|intcomma }}</strong>{% else %}-{% endif %}
+                      <br/><span style="font-size: 0.8em">DONAZIONI</span>
+                    </p>
+                  </div>
                 </div>
               </div>
-              <div class="col-md-6">
-                <div class="list-group">
-                  <p class="list-group-item" style="color:#2b6a7c; border-color:#2b6a7c; padding: 4px 8px;">
-                    {% if initiative.grant_amount_approved %}
-                    <strong>€ {{ initiative.grant_amount_approved|intcomma }}</strong>{% else %}-{% endif %}
-                     <span style="font-size: 0.8em">DONAZIONI</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-            {% endif %}{% endwith %}
-            <div class="row no-marg">
-              {% with p_total_commitment=initiative.total_commitment|default:0 p_total_disbursement=initiative.total_disbursement|default:0 %}
-                <div id="project-pie-{{ initiative.pk }}" data-chart="pie" data-values="{{ p_total_commitment|stringformat:"f" }}|{{ p_total_disbursement|stringformat:"f" }}"></div>
-                <div class="col-md-4  col-sm-4 col-xs-4 numbers bg-red bordered-radius small-pad">{% if p_total_commitment %}€ {{ initiative.total_commitment|currency }}{% else %}-{% endif %}<br><span class="eleven">{% trans 'Committed' %}</span></div>
-                <div class="col-md-4  col-sm-4 col-xs-4 col-md-offset-1 col-sm-offset-1 col-offset-xs-1 numbers bg-blue bordered-radius small-pad">{% if p_total_disbursement %}€ {{ initiative.total_disbursement|currency }}{% else %}-{% endif %}<br><span class="eleven">{% trans 'Used' %}</span></div>
-              {% endwith %}
-            </div>
+              {% endif %}{% endwith %}
           </div>
           <div class="col-md-6">
-            <table class="table table-default">
-              <thead>
-              <tr>
-                <th>{% trans 'Year' %}</th>
-                <th>{% trans 'Committed' %}</th>
-                <th>{% trans 'Used' %}</th>
-              </tr>
-              </thead>
-              <tbody>
-              {% for year, commitment, disbursement in initiative.years_stats %}
-                <tr>
-                  <td>{{ year }}</td>
-                  <td>{% if commitment %}€ {{ commitment|currency }}{% else %}-{% endif %}</td>
-                  <td>{% if disbursement %}€ {{ disbursement|currency }}{% else %}-{% endif %}</td>
-                </tr>
+            <h3>I progetti di questa iniziativa</h3>
+            <ul class="list-unstyled simple-menu">
+              {% for project in projects %}
+              <li><a href="{{ project.get_absolute_url }}">{{ project.title }}</a></li>
               {% endfor %}
-              </tbody>
-            </table>
+            </ul>
           </div>
         </div>
       </div><!-- .focus -->
@@ -183,7 +163,7 @@
       <div class="focus">
         <h4>Beneficiari</h4>
         {% if beneficiaries %}<p>{{ beneficiaries }}</p>{% endif %}
-        {% if beneficiaries_female %}<strong>Il {{ beneficiaries_female }} dei beneficiari sono donne.</strong>{% endif %}
+        {% if beneficiaries_female %}<strong>Il {{ beneficiaries_female }}% dei beneficiari sono donne.</strong>{% endif %}
       </div>{% endif %}{% endwith %}
 
       <div class="focus">
@@ -210,15 +190,6 @@
                         {% endif %}{% endfor %}
           </div>
         </div>
-      </div>
-
-      <div>
-        <h3>I progetti di questa iniziativa</h3>
-        <ul class="list-unstyled simple-menu">
-          {% for project in projects %}
-          <li><a href="{{ project.get_absolute_url }}">{{ project.title }}</a></li>
-          {% endfor %}
-        </ul>
       </div>
 
       {% with problems=initiative.problems reports=initiative.reports %}{% if problems|length > 0 or reports|length > 0 %}

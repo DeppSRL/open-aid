@@ -558,6 +558,10 @@ class Initiative(models.Model):
         except IndexError:
             return ''
 
+    @property
+    def outcome(self):
+        return self._get_first_project_value('outcome')
+
     def photos(self):
         return list(self._projects_map('photo_set', 'all'))
 
@@ -680,12 +684,22 @@ class Initiative(models.Model):
         return self._get_first_project_value('beneficiaries_female')
 
     @property
+    def other_financiers(self):
+        return self._get_first_project_value('other_financiers')
+
+    def _project_fields_map(self, field, skip_none=False):
+        for project in self.projects():
+            value = getattr(project, field)
+            if value is None and skip_none:
+                continue
+            yield value
+    @property
     def loan_amount_approved(self):
-        return self._get_first_project_value('loan_amount_approved')
+        return sum(self._project_fields_map('loan_amount_approved',skip_none=True))
 
     @property
     def grant_amount_approved(self):
-        return self._get_first_project_value('grant_amount_approved')
+        return sum(self._project_fields_map('grant_amount_approved',skip_none=True))
 
     @property
     def counterpart_authority(self):

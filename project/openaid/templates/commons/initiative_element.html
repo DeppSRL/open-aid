@@ -1,5 +1,7 @@
 {% load i18n %}
 {% load crs %}
+{% load icons %}
+{% load humanize %}
 
 <div>
     <ul class="nav nav-pills ">
@@ -19,23 +21,21 @@
                 <img width="50px" class="media-object" src="{{ initiative.image.file.url }}" >
               </div>{% endif %}{% endwith %}
               <div class="media-body">
-                <p>{{ initiative.description }}</p>
+                <p class="readmore" data-max-height="90">
+                  {{ initiative.description|safe }}
+{#                  <a href="#" class="readmore-open">{% trans 'read more' %} {% icon 'caret-down' %}</a>#}
+{#                  <a href="#" class="readmore-close">{% trans 'close' %} {% icon 'caret-up' %}</a>#}
+                </p>
               </div>
             </div>
           {% endif %}{% endwith %}
         </header>
         <div class="row">
             <div class="col-md-6">
-              <div id="project-pie-{{ initiative.pk }}" data-chart="pie" data-values="{{ initiative.total_commitment|stringformat:"f"|default:'0' }}|{{ initiative.total_disbursement|stringformat:"f"|default:'0' }}"></div>
-{#            </div>#}
-            {% with p_total_commitment=initiative.total_commitment|default:0 p_total_disbursement=initiative.total_disbursement|default:0 %}
-{#            <div class="col-md-3 col-sm-6 col-xs-6">#}
-                <div class=" numbers bg-red bordered-radius small-pad">{% if p_total_commitment %}€ {{ p_total_commitment|currency }}{% else %}-{% endif %}<br><span class="eleven">{% trans 'Committed' %}</span></div>
-{#            </div>#}
-{#            <div class="col-md-3 col-sm-6 col-xs-6">#}
-                <div class=" numbers bg-blue bordered-radius small-pad">{% if p_total_disbursement %}€ {{ p_total_disbursement|currency }}{% else %}-{% endif %}<br><span class="eleven">{% trans 'Used' %}</span></div>
+              {% with total_project_costs=initiative.total_project_costs %}{% if total_project_costs %}
+              <div style="color:#f7505a; text-transform: uppercase;"><span style="font-size: 2em; font-weight: bold;">€ {{ total_project_costs|intcomma }}</span></div>
+              {% endif %}{% endwith %}
             </div>
-            {% endwith %}
             <div class="col-md-6 col-sm-12 col-xs-12">
                 <span class="eleven light-gray block">{% trans 'Aid types' %}</span>
                 {% for aid_type in initiative.aid_types|unique %}
