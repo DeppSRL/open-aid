@@ -538,8 +538,9 @@ class Initiative(models.Model):
     def years_range(self):
         range = set()
         for project in self.projects():
-            for year in project.years_range():
-                range.add(year)
+            range.add(project.start_year)
+            range.add(project.end_year)
+
         return sorted(range)
 
     def years_stats(self):
