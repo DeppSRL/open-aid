@@ -114,8 +114,8 @@
       <div class="focus">
         <h5>Iniziativa avviata nel {{ years|first }}{% if years|length > 1 %},
           termine previsto {{ years|last }}{% endif %}</h5>
-        {% if initiative.main_outcome %}
-          <p>{{ initiative.main_outcome|safe }}</p>{% endif %}
+        {% if initiative.outcome %}
+          <p>{{ initiative.outcome|safe }}</p>{% endif %}
       </div>
       {% endif %}{% endwith %}
 
