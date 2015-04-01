@@ -112,9 +112,10 @@
 
        {% with years=initiative.years_range %}{% if years %}
       <div class="focus">
-        <h5>Iniziativa avviata nel {{ years|first }}{% if years|length > 1 %},
-          termine previsto {{ years|last }}{% endif %}</h5>
+        <h5>Data inizio: {{ years|first }}{% if years|length > 1 %}
+          Data fine: {{ years|last }}{% endif %}</h5>
         {% if initiative.outcome %}
+          <h4>Obiettivo principale</h4>
           <p>{{ initiative.outcome|safe }}</p>{% endif %}
       </div>
       {% endif %}{% endwith %}
