@@ -53,7 +53,7 @@
       <h2>{% trans 'Documents' %}</h2>
       <ul class="list-unstyled simple-menu" style="height: auto;">
         {% for document in documents %}
-          <li><a href="{{ document.file.url }}">{% icon 'download' %} {{ document.name }}</a>
+          <li><a href="{% if document.file %}{{ document.file.url }}{% else %}{{ document.source_url|default:'#' }}{% endif %}">{% icon 'download' %} {{ document.name }}</a>
           <p class="small-paragraph">{{ document.description }}</p>
           <h5>{{ document.date|date:"r" }}</h5>
           </li>
