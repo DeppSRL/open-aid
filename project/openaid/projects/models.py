@@ -535,6 +535,9 @@ class Initiative(models.Model):
     title = models.CharField(max_length=1000)
     country = models.CharField(max_length=1000, blank=True)
 
+    def locations(self):
+        return list(self._project_fields_map('location', skip_none=True))
+
     def years_range(self):
         range = set()
         for project in self.projects():

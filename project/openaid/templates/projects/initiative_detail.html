@@ -29,7 +29,11 @@
     <div class="col-md-4 col-sm-6 col-xs-6">
       <div class="small-map"><div id="map" data-chart="map" style="height: 260px;" data-iso-code="{% for recipient in initiative.recipients|unique %}{{ recipient.iso_code }}{% if not forloop.last %},{% endif %}{% endfor %}"></div></div>
       <br/>
-      <p><strong>{% trans 'Location' %}:</strong> {{ initiative.country }}</p>
+      {% with locations=initiative.locations %}{% if locations|length > 0 %}
+      <p><strong>{% trans 'Location' %}:</strong>
+      {% for loc in locations %}{{ loc }} {% if not forloop.last %}, {% endif %}{% endfor %}
+      </p>
+      {% endif %}{% endwith %}
 
       <h4>{% trans 'Initiative data' %}</h4>
       <dl class="dl-horizontal">
@@ -112,13 +116,17 @@
 
        {% with years=initiative.years_range %}{% if years %}
       <div class="focus">
-        <h5>Data inizio: {{ years|first }}{% if years|length > 1 %}
-          Data fine: {{ years|last }}{% endif %}</h5>
-        {% if initiative.outcome %}
-          <h4>Obiettivo principale</h4>
-          <p>{{ initiative.outcome|safe }}</p>{% endif %}
+        <h4>Data inizio: {{ years|first }}{% if years|length > 1 %}
+          Data fine: {{ years|last }}{% endif %}</h4>
       </div>
       {% endif %}{% endwith %}
+
+      {% if initiative.outcome %}
+      <div class="focus">
+        <h4>Obiettivo principale</h4>
+        <p>{{ initiative.outcome|safe }}</p>
+      </div>
+      {% endif %}
 
       <div class="focus">
 
