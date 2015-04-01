@@ -31,7 +31,7 @@
       <br/>
       {% with locations=initiative.locations %}{% if locations|length > 0 %}
       <p><strong>{% trans 'Location' %}:</strong>
-      {% for loc in locations %}{{ loc }} {% if not forloop.last %}, {% endif %}{% endfor %}
+      {% for loc in locations|unique %}{{ loc }} {% if not forloop.last %}, {% endif %}{% endfor %}
       </p>
       {% endif %}{% endwith %}
 
@@ -84,11 +84,11 @@
       {% with is_suspended=initiative.is_suspended status=initiative.status %}{% if is_suspended or status %}
       <div class="focus">
         {% if is_suspended %}
-        <div class="pull-right">{% icon 'exclamation-circle' %} Intervento Sospeso</div>{% endif %}
+        <div class="pull-right">{% icon 'exclamation-circle' %} {% trans 'Suspended intervention' %}</div>{% endif %}
         <div>STATUS
           <div class="progress" style="width: 200px; display: inline-block; margin-bottom: 0; height: 14px; margin-top:4px; ">
             <div class="progress-bar" role="progressbar" aria-valuenow="{{ status }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ status }}%;">
-              <span class="sr-only">{{ status }} Complete</span>
+              <span class="sr-only">{{ status }} {% trans 'Complete' %}</span>
             </div>
           </div>
           {{ initiative.status }}%
@@ -99,16 +99,16 @@
       <div class="focus">
         <div class="row">
           <div class="col-md-4">
-            <h4>Finanziatore</h4>{{ initiative.agency.name }}
+            <h4>{% trans 'Agency' %}</h4>{{ initiative.agency.name }}
           </div>
           <div class="col-md-4">
-            <h4>Responsabile in loco</h4><small class="text-muted">{{ initiative.email|default:'-' }}</small>
+            <h4>{% trans 'Representative' %}</h4><small class="text-muted">{{ initiative.email|default:'-' }}</small>
           </div>
           <div class="col-md-4">
-            <h4>Autorità locale</h4>{{ initiative.counterpart_authority|default:'-' }}
+            <h4>{% trans 'Counterpart authority' %}</h4>{{ initiative.counterpart_authority|default:'-' }}
           </div>{% if initiative.other_financiers %}
           <div class="col-md-12">
-            <h4>Altri finanziatori</h4>
+            <h4>{% trans 'Other financiers' %}</h4>
             {{ initiative.other_financiers|default:'-' }}
           </div>{% endif %}
         </div>
@@ -116,14 +116,14 @@
 
        {% with years=initiative.years_range %}{% if years %}
       <div class="focus">
-        <h4>Data inizio: {{ years|first }}{% if years|length > 1 %}
-          Data fine: {{ years|last }}{% endif %}</h4>
+        <h4>{% trans 'Start date' %}: {{ years|first }}{% if years|length > 1 %}
+          {% trans 'End date' %}: {{ years|last }}{% endif %}</h4>
       </div>
       {% endif %}{% endwith %}
 
       {% if initiative.outcome %}
       <div class="focus">
-        <h4>Obiettivo principale</h4>
+        <h4>{% trans 'Main outcome' %}</h4>
         <p>{{ initiative.outcome|safe }}</p>
       </div>
       {% endif %}
@@ -133,7 +133,7 @@
         <div class="row">
           <div class="col-md-6">
             {% with total_project_costs=initiative.total_project_costs loan_amount_approved=initiative.loan_amount_approved grant_amount_approved=initiative.grant_amount_approved %}{% if total_project_costs or loan_amount_approved or grant_amount_approved %}
-              <h3>Costo totale dell'iniziativa</h3>
+              <h3>{% trans 'Total initiative costs' %}</h3>
               <div style="color:#f7505a; text-transform: uppercase;"><span style="font-size: 2.2em; font-weight: bold;">€ {{ total_project_costs|intcomma }}</span> suddivisi in</div>
               <div class="row">
                 <div class="col-md-6">
@@ -141,7 +141,7 @@
                     <p class="list-group-item" style="color:#2b6a7c; border-color:#2b6a7c; padding: 4px 8px;">
                       {% if initiative.loan_amount_approved %}
                       <strong>€ {{ initiative.loan_amount_approved|intcomma }}</strong>{% else %}-{% endif %}
-                      <br/><span style="font-size: 0.8em">PRESTITI</span>
+                      <br/><span style="font-size: 0.8em">{% trans 'Loans' %}</span>
                     </p>
                   </div>
                 </div>
@@ -150,7 +150,7 @@
                     <p class="list-group-item" style="color:#2b6a7c; border-color:#2b6a7c; padding: 4px 8px;">
                       {% if initiative.grant_amount_approved %}
                       <strong>€ {{ initiative.grant_amount_approved|intcomma }}</strong>{% else %}-{% endif %}
-                      <br/><span style="font-size: 0.8em">DONAZIONI</span>
+                      <br/><span style="font-size: 0.8em">{% trans 'Grants' %}</span>
                     </p>
                   </div>
                 </div>
@@ -158,7 +158,7 @@
               {% endif %}{% endwith %}
           </div>
           <div class="col-md-6">
-            <h3>I progetti di questa iniziativa</h3>
+            <h3>{% trans 'Initiative projects' %}</h3>
             <ul class="list-unstyled simple-menu">
               {% for project in projects %}
               <li><a href="{{ project.get_absolute_url }}">{{ project.title }}</a></li>
@@ -170,9 +170,10 @@
 
       {% with beneficiaries=initiative.beneficiaries beneficiaries_female=initiative.beneficiaries_female %}{% if beneficiaries or beneficiaries_female %}
       <div class="focus">
-        <h4>Beneficiari</h4>
+        <h4>{% trans 'Beneficiaries' %}</h4>
         {% if beneficiaries %}<p>{{ beneficiaries }}</p>{% endif %}
-        {% if beneficiaries_female %}<strong>Il {{ beneficiaries_female }}% dei beneficiari sono donne.</strong>{% endif %}
+        {% if beneficiaries_female %}<strong>
+          {% blocktrans %}Beneficiaries of which females {{ beneficiaries_female }}%{% endblocktrans %}</strong>{% endif %}
       </div>{% endif %}{% endwith %}
 
       <div class="focus">
@@ -212,7 +213,7 @@
               <h4>{{ problem.event }}</h4>
               <p>{{ problem.impact }}</p>
               {% if problem.actions %}
-              <h4 class="light-gray">Azioni svolte</h4>
+              <h4 class="light-gray">{% trans 'Actions taken' %}</h4>
               <strong>{{ problem.actions }}</strong>
               {% endif %}
             </li>
@@ -232,11 +233,11 @@
 
               <div class="row">
                 <div class="col-md-6">
-                  <h5 class="light-gray">Tipo</h5>
+                  <h5 class="light-gray">{% trans 'Type' %}</h5>
                   <strong>{{ report.get_type_display }}</strong>
                 </div>
                 <div class="col-md-6">
-                  <h5 class="light-gray">Procedura</h5>
+                  <h5 class="light-gray">{% trans 'Procedure' %}</h5>
                   <strong>{{ report.get_procurement_procedure_display }}</strong>
                 </div>
               </div>
@@ -260,15 +261,5 @@
 
     </div>
   </div><!-- .row -->
-
-{#  <h2>{{ object.title }} <small>{{ object.code }}</small></h2>#}
-{#  <h3>{{ object.country }}</h3>#}
-{#  <ul>#}
-{#    {% for project in projects %}#}
-{#    <li><a href="{{ project.get_absolute_url }}">{{ project.title }}</a> [{{ project.total_commitment }}/{{ project.total_disbursement }}]</li>#}
-{#    {% endfor %}#}
-{#  </ul>#}
-{#  <p>Commitment: {{ object.total_commitment }}</p>#}
-{#  <p>Disbursement: {{ object.total_disbursement }}</p>#}
 
 {% endblock content %}
