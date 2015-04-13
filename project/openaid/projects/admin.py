@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.core.urlresolvers import reverse
 from django import forms
-from django.db.models import Count
+from django.db.models import Count, Max
 from django.utils.html import format_html
 from django_select2 import ModelSelect2Field, Select2Widget
 from modeltranslation.admin import TranslationAdmin, TranslationStackedInline
@@ -247,15 +247,23 @@ class NewProjectAdmin(TranslationAdmin, BeautyTranslationAdmin):
 class InitiativeAdmin(TranslationAdmin, BeautyTranslationAdmin):
     model = Initiative
 
-    list_display = ('code', 'title', 'country', 'show_projects_count')
+    list_display = ('code', 'title', 'country', 'show_projects_count', 'show_last_update')
 
     def get_queryset(self, request):
-        return super(InitiativeAdmin, self).get_queryset(request).annotate(projects_count=Count('project'))
+        return super(InitiativeAdmin, self).get_queryset(request).annotate(
+            projects_count=Count('project'),
+            projects_last_update=Max('project__last_update')
+        )
 
     def show_projects_count(self, inst):
         return inst.projects_count
     show_projects_count.admin_order_field = 'projects_count'
     show_projects_count.short_description = 'Projects'
+
+    def show_last_update(self, inst):
+        return inst.projects_last_update
+    show_last_update.admin_order_field = 'projects_last_update'
+    show_last_update.short_description = 'Last Update'
 
 
 admin.site.register(Project, ProjectAdmin)

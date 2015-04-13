@@ -288,6 +288,9 @@ class Project(CodelistsModel, MarkedModel):
             activity_updates += self.merge_codelists(activity, False)
             markers_updates += self.merge_markers(activity.markers, False)
 
+            if not self.number or self.number != activity.number:
+                self.number = activity.number
+
         if save:
             markers_updates > 0 and self.markers.save()
             activity_updates > 0 and self.save()
@@ -402,7 +405,7 @@ class Activity(CodelistsModel, MarkedModel):
                 updates += 1
             elif getattr(activity, field) > 0 and getattr(self, field) > 0:
                 logger.warning('Merge Activity %s in %s: Conflitto sul campo %s (%s o %s?) [update non eseguito]' % (
-                    activity, self, field, activity_value, self_value
+                    repr(activity), repr(self), field, activity_value, self_value
                 ))
 
         for field in ['commitment', 'commitment_usd', 'disbursement', 'disbursement_usd', 'grant_element']:
@@ -411,7 +414,7 @@ class Activity(CodelistsModel, MarkedModel):
             updates += 1
             if self_value == activity_value:
                 logger.warning('Merge Activity %s in %s: Entrambe le Activity hanno lo stesso valore per il campo %s [update eseguito sommandoli]' % (
-                    activity, self, field
+                    repr(activity), repr(self), field
                 ))
 
         markers_updates = self.merge_markers(activity.markers)
@@ -528,12 +531,25 @@ class NewProject(CodelistsModel):
     # document_set = GenericRelation('attachments.Document')
     photo_set = GenericRelation('attachments.Photo')
 
+    def get_absolute_url(self):
+        return reverse('projects:newproject-detail', kwargs={'pk': self.pk})
+
 
 class Initiative(models.Model):
 
     code = models.CharField(max_length=6, unique=True)
     title = models.CharField(max_length=1000)
     country = models.CharField(max_length=1000, blank=True)
+    total_project_costs = models.FloatField(blank=True, null=True)
+    loan_amount_approved = models.FloatField(blank=True, null=True)
+    grant_amount_approved = models.FloatField(blank=True, null=True)
+
+    @property
+    def last_update(self):
+        dates = list(self._project_fields_map('last_update', skip_none=True))
+        if len(dates) == 0:
+            return None
+        return max(dates)
 
     def locations(self):
         return list(self._project_fields_map('location', skip_none=True))
@@ -676,10 +692,6 @@ class Initiative(models.Model):
         return self._get_first_project_value('is_suspended')
 
     @property
-    def total_project_costs(self):
-        return self._get_first_project_value('total_project_costs')
-
-    @property
     def beneficiaries(self):
         return self._get_first_project_value('beneficiaries')
 
@@ -697,13 +709,6 @@ class Initiative(models.Model):
             if value is None and skip_none:
                 continue
             yield value
-    @property
-    def loan_amount_approved(self):
-        return sum(self._project_fields_map('loan_amount_approved',skip_none=True))
-
-    @property
-    def grant_amount_approved(self):
-        return sum(self._project_fields_map('grant_amount_approved',skip_none=True))
 
     @property
     def counterpart_authority(self):

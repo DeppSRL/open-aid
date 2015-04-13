@@ -354,3 +354,8 @@ class InitiativeDetail(DetailView):
         return super(InitiativeDetail, self).get_context_data(
             projects=projects,
             **kwargs)
+
+
+class NewProjectDetail(DetailView):
+
+    model = models.NewProject
