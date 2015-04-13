@@ -246,8 +246,8 @@ class NewProjectAdmin(TranslationAdmin, BeautyTranslationAdmin):
 
 class InitiativeAdmin(TranslationAdmin, BeautyTranslationAdmin):
     model = Initiative
-
-    list_display = ('code', 'title', 'country', 'show_projects_count', 'show_last_update')
+    
+    list_display = ('code', 'title', 'country', 'total_project_costs', 'loan_amount_approved', 'grant_amount_approved', 'show_projects_count', 'show_last_update')
 
     def get_queryset(self, request):
         return super(InitiativeAdmin, self).get_queryset(request).annotate(
