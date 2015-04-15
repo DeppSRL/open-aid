@@ -2,6 +2,11 @@ from modeltranslation.translator import translator, TranslationOptions
 from . import models
 
 
+class InitiativeTranslationOptions(TranslationOptions):
+    fields = ('title', )
+
+translator.register(models.Initiative, InitiativeTranslationOptions)
+
 class ProjectTranslationOptions(TranslationOptions):
     fields = ('title', 'description', 'outcome', 'beneficiaries', 'other_financiers', 'counterpart_authority', 'location')
 

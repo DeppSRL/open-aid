@@ -1,0 +1,54 @@
+{% load i18n %}
+{% load crs %}
+{% load icons %}
+{% load humanize %}
+
+<div>
+    <ul class="nav nav-pills ">
+        {% for sector in initiative.sectors|unique %}
+        <li>
+            <a href="{% url 'codelists:sector-detail' code=sector.code %}"><span class="fa fa-chevron-right"> </span>{{ sector.name }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+    <article class="progetti-body">
+        <header>
+          <a href="{% url 'projects:initiative-detail' code=initiative.code %}">{{ initiative.title }}</a>
+          {% with description=initiative.description %}{% if description %}
+           <div class="media">
+              {% with image=initiative.image %}{% if image %}
+              <div class="pull-left">
+                <img width="50px" class="media-object" src="{{ initiative.image.file.url }}" >
+              </div>{% endif %}{% endwith %}
+              <div class="media-body">
+                <p class="readmore" data-max-height="90">
+                  {{ initiative.description|safe }}
+{#                  <a href="#" class="readmore-open">{% trans 'read more' %} {% icon 'caret-down' %}</a>#}
+{#                  <a href="#" class="readmore-close">{% trans 'close' %} {% icon 'caret-up' %}</a>#}
+                </p>
+              </div>
+            </div>
+          {% endif %}{% endwith %}
+        </header>
+        <div class="row">
+            <div class="col-md-6">
+              {% with total_project_costs=initiative.total_project_costs %}{% if total_project_costs %}
+              <div style="color:#f7505a; text-transform: uppercase;"><span style="font-size: 2em; font-weight: bold;">€ {{ total_project_costs|intcomma }}</span></div>
+              {% endif %}{% endwith %}
+            </div>
+            <div class="col-md-6 col-sm-12 col-xs-12">
+                <span class="eleven light-gray block">{% trans 'Aid types' %}</span>
+                {% for aid_type in initiative.aid_types|unique %}
+                <a href="{% url 'codelists:aid_type-detail' code=aid_type.code %}" class="eleven">{{ aid_type.name }}</a>{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+            </div>
+         </div><!-- .row -->
+        <div class="row">
+            <div class="col-md-12">
+                {% for recipient in initiative.recipients|unique %}
+                <a href="{% url 'codelists:recipient-detail' code=recipient.code %}" class="twelve">{{ recipient.name }}</a>
+                {% if not forloop.last %}&middot;{% endif   %}{% endfor %}
+            </div>
+        </div>
+    </article>
+</div>

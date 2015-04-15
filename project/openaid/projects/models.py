@@ -113,6 +113,8 @@ class CodelistsModel(models.Model):
 
 class Project(CodelistsModel, MarkedModel):
 
+    initiative = models.ForeignKey('projects.Initiative', blank=True, null=True, on_delete=models.SET_NULL)
+
     title = models.CharField(max_length=500, blank=True)
     description = models.TextField(_('Abstract'), blank=True)
 
@@ -146,6 +148,12 @@ class Project(CodelistsModel, MarkedModel):
     location = models.TextField(blank=True)
     photo_set = GenericRelation('attachments.Photo')
     document_set = GenericRelation('attachments.Document')
+
+    def get_initiative(self):
+        try:
+            return Initiative.objects.get(code=self.number.split('/')[0])
+        except Initiative.DoesNotExist:
+            return None
 
     @classmethod
     def get_top_projects(cls, qnt=3, order_by=None, year=None, **filters):
@@ -209,7 +217,7 @@ class Project(CodelistsModel, MarkedModel):
         return sum(self._activities_map('commitment', skip_none=True), 0.0)
 
     def disbursements(self, year=None):
-        return self._activities_map('disbursement')
+        return self._activities_map('disbursement', year=year)
 
     def disbursement(self, year=None):
         return sum(self._activities_map('disbursement', year=year or self.end_year, skip_none=True), 0.0)
@@ -279,6 +287,9 @@ class Project(CodelistsModel, MarkedModel):
             activity_updates += self.merge_codelists(activity, False)
             markers_updates += self.merge_markers(activity.markers, False)
 
+            if not self.number or self.number != activity.number:
+                self.number = activity.number
+
         if save:
             markers_updates > 0 and self.markers.save()
             activity_updates > 0 and self.save()
@@ -311,7 +322,7 @@ class Activity(CodelistsModel, MarkedModel):
 
     REPORT_TYPES = Choices(
         # prese da resources/crs/Codelist04042014.osd:Nature of submission
-        (0, _('Unkwnon')),
+        (0, _('Unknown')),
         (1, _('New activity reported')),
         (2, _('Revision')),
         (3, _('Previously reported activity')), # increase/decrease of earlier commitment, disbursement on earlier commitment
@@ -322,7 +333,7 @@ class Activity(CodelistsModel, MarkedModel):
 
     FLOW_TYPES = Choices(
         # prese da resources/crs/dsd.xml:CL_CRS1_FLOW
-        (0, _('Unkwnon')),
+        (0, _('Unknown')),
         (11, _('ODA Grants')),
         (12, _('ODA Grant-Like')),
         (13, _('ODA Loans')),
@@ -393,7 +404,7 @@ class Activity(CodelistsModel, MarkedModel):
                 updates += 1
             elif getattr(activity, field) > 0 and getattr(self, field) > 0:
                 logger.warning('Merge Activity %s in %s: Conflitto sul campo %s (%s o %s?) [update non eseguito]' % (
-                    activity, self, field, activity_value, self_value
+                    repr(activity), repr(self), field, activity_value, self_value
                 ))
 
         for field in ['commitment', 'commitment_usd', 'disbursement', 'disbursement_usd', 'grant_element']:
@@ -402,7 +413,7 @@ class Activity(CodelistsModel, MarkedModel):
             updates += 1
             if self_value == activity_value:
                 logger.warning('Merge Activity %s in %s: Entrambe le Activity hanno lo stesso valore per il campo %s [update eseguito sommandoli]' % (
-                    activity, self, field
+                    repr(activity), repr(self), field
                 ))
 
         markers_updates = self.merge_markers(activity.markers)
@@ -518,3 +529,232 @@ class NewProject(CodelistsModel):
     disbursement = models.FloatField(help_text=_('Migliaia di euro'), blank=True, null=True)
     # document_set = GenericRelation('attachments.Document')
     photo_set = GenericRelation('attachments.Photo')
+
+    def get_absolute_url(self):
+        return reverse('projects:newproject-detail', kwargs={'pk': self.pk})
+
+
+class Initiative(models.Model):
+
+    code = models.CharField(max_length=6, unique=True)
+    title = models.CharField(max_length=1000)
+    country = models.CharField(max_length=1000, blank=True)
+    total_project_costs = models.FloatField(blank=True, null=True)
+    loan_amount_approved = models.FloatField(blank=True, null=True)
+    grant_amount_approved = models.FloatField(blank=True, null=True)
+
+    @property
+    def last_update(self):
+        dates = list(self._project_fields_map('last_update', skip_none=True))
+        if len(dates) == 0:
+            return None
+        return max(dates)
+
+    def locations(self):
+        return list(self._project_fields_map('location', skip_none=True))
+
+    def years_range(self):
+        range = set()
+        for project in self.projects():
+            range.add(project.start_year)
+            range.add(project.end_year)
+
+        return sorted(range)
+
+    def years_stats(self):
+        for year in self.years_range():
+            commitment = disbursement = 0.0
+            for project in self.projects():
+                commitment += sum([x for x in project.commitments(year=year) if x])
+                disbursement += sum([x for x in project.disbursements(year=year) if x])
+
+            yield (year, commitment, disbursement)
+
+    @property
+    def description(self):
+        try:
+            return [p.description for p in self.projects() if p.description][0]
+        except IndexError:
+            return ''
+
+    @property
+    def outcome(self):
+        return self._get_first_project_value('outcome')
+
+    def photos(self):
+        return list(self._projects_map('photo_set', 'all'))
+
+    @property
+    def image(self):
+        try:
+            return self.photos()[0]
+        except IndexError:
+            return ''
+
+    @classmethod
+    def get_top_initiatives(cls, qnt=6, year=None, **filters):
+        if year:
+            filters['project__activity__year__exact'] = year
+        initiatives = Initiative.objects.order_by('-total_project_costs')
+        # initiatives = Initiative.objects.annotate(
+        #     total_commitment=Sum('project__activity__commitment'),
+        #     total_disbursement=Sum('project__activity__disbursement'),
+        # ).order_by('-total_commitment').filter(total_commitment__gt=0)
+        return initiatives.filter(**filters).distinct()[:qnt]
+
+    def projects(self):
+        if not getattr(self, '_projects', False):
+            self._projects = list(self.project_set.all().prefetch_related('recipient'))
+        return self._projects
+
+    def _projects_map(self, field, callback=None, skip_none=False):
+        for project in self.projects():
+            method = getattr(project, field)
+            for value in method() if not callback else getattr(method, callback)():
+                if skip_none and value is None:
+                    continue
+                yield value
+
+    def documents(self):
+        return list(self._projects_map('document_set', 'all'))
+
+    def problems(self):
+        return list(self._projects_map('problem_set', 'all'))
+
+    def reports(self):
+        return list(self._projects_map('report_set', 'all'))
+
+    def recipients(self):
+        return list(set(self._projects_map('recipients')))
+
+    def aid_types(self):
+        aid_types = []
+        for aid_type in list(self._projects_map('aid_types')):
+            aid_types.append(aid_type.get_root())
+        return set(aid_types)
+
+    def sectors(self):
+        sectors = []
+        for sector in list(self._projects_map('sectors')):
+            sectors.append(sector.get_root())
+        return set(sectors)
+
+    def channels(self):
+        channels = []
+        for channel in list(self._projects_map('channels')):
+            channels.append(channel.get_root())
+        return set(channels)
+
+    def finance_type(self):
+        return self._get_first_project_value('finance_types')
+
+    def flow_type(self):
+        return self._get_first_project_value('flow_type')
+
+    def agency(self):
+        return self._get_first_project_value('agencies')
+
+    def _get_first_project_value(self, field, skip_values=None):
+        for project in self.projects():
+            if not hasattr(project, field):
+                continue
+            value = getattr(project, field, None)
+
+            if hasattr(value, '__call__'):
+                value = value()
+            if hasattr(value, '__iter__'):
+                for v in value:
+                    if v:
+                        return v
+                else:
+                    continue
+            if not value:
+                continue
+            elif skip_values and value in skip_values:
+                continue
+            return value
+        return None
+
+    @property
+    def purpose(self):
+        return self._get_first_project_value('purpose')
+
+    @property
+    def expected_start_date(self):
+        return self._get_first_project_value('expected_start_date')
+
+    @property
+    def expected_completion_year(self):
+        return self._get_first_project_value('expected_completion_year')
+
+    @property
+    def is_suspended(self):
+        return self._get_first_project_value('is_suspended')
+
+    @property
+    def beneficiaries(self):
+        return self._get_first_project_value('beneficiaries')
+
+    @property
+    def beneficiaries_female(self):
+        return self._get_first_project_value('beneficiaries_female')
+
+    @property
+    def other_financiers(self):
+        return self._get_first_project_value('other_financiers')
+
+    def _project_fields_map(self, field, skip_none=False):
+        for project in self.projects():
+            value = getattr(project, field)
+            if value is None and skip_none:
+                continue
+            yield value
+
+    @property
+    def counterpart_authority(self):
+        return self._get_first_project_value('counterpart_authority')
+
+    @property
+    def email(self):
+        return self._get_first_project_value('email')
+
+    @property
+    def status(self):
+        return self._get_first_project_value('status', skip_values=['0', '-'])
+
+    @property
+    def crsid(self):
+        return self._get_first_project_value('crsid')
+
+    @property
+    def bi_multi(self):
+        return self._get_first_project_value('bi_multi')
+
+    @property
+    def is_ftc(self):
+        return self._get_first_project_value('is_ftc')
+
+    @property
+    def is_pba(self):
+        return self._get_first_project_value('is_pba')
+
+    @property
+    def is_investment(self):
+        return self._get_first_project_value('is_investment')
+
+
+    def save(self, *args, **kwargs):
+        if len(self.code) != 6:
+            self.code = self.code.zfill(6)
+        return super(Initiative, self).save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse('projects:initiative-detail', kwargs={'code': self.code})
+
+    def __unicode__(self):
+        return '%s:%s "%s"' % (self.code, self.country, self.title)
+
+    def __repr__(self):
+        return u"<Initiative(id=%d, code=%s, title=\"%s\", country=%s)>" % (
+            self.pk, self.code, self.title, self.country
+        )

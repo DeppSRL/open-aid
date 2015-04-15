@@ -26,6 +26,11 @@ class CodeListModel(models.Model):
             '%s_id__in' % self.code_list: self.get_descendants_pks(True)
         })
 
+    def top_initiatives(self, qnt=6, year=None):
+        return get_model('projects', 'Initiative').get_top_initiatives(qnt=qnt, year=year, **{
+            'project__%s_id__in' % self.code_list: self.get_descendants_pks(True)
+        })
+
     def get_descendants_pks(self, include_self=False):
         return [self, ] if include_self else []
 

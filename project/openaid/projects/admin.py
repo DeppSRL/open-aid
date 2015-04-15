@@ -1,12 +1,13 @@
 from django.contrib import admin
 from django.core.urlresolvers import reverse
 from django import forms
+from django.db.models import Count, Max
 from django.utils.html import format_html
 from django_select2 import ModelSelect2Field, Select2Widget
 from modeltranslation.admin import TranslationAdmin, TranslationStackedInline
 from ..attachments.admin import PhotoInlineAdmin, DocumentInlineAdmin
 from .models import Project, Activity, Markers, ChannelReported, Organization, AnnualFunds, Utl, Problem, \
-    Report, NewProject
+    Report, NewProject, Initiative
 from ..codelists import models as codelist_models
 
 
@@ -66,11 +67,11 @@ class ProjectAdminForm(forms.ModelForm):
 
 class ProjectAdmin(TranslationAdmin, BeautyTranslationAdmin):
     form = ProjectAdminForm
-    list_display = ('crsid', 'number', 'recipient', 'title', 'start_year', 'end_year', 'has_focus')
+    list_display = ('crsid', 'number', 'recipient', 'title', 'start_year', 'end_year', 'last_update')
     list_filter = ('has_focus', 'start_year', 'end_year', 'agency')
     list_select_related = ('recipient', )
     search_fields = ('crsid', 'title', 'description', 'recipient__name', 'start_year')
-    ordering = ('-end_year', )
+    ordering = ('-last_update', '-end_year', )
     readonly_fields = ['recipient', 'agency', 'aid_type', 'channel', 'finance_type', 'sector', 'markers', 'crsid']
     fieldsets = (
             (None, {
@@ -243,6 +244,28 @@ class NewProjectAdmin(TranslationAdmin, BeautyTranslationAdmin):
         return queryset.filter(recipient__in=request.user.utl.recipient_set.all())
 
 
+class InitiativeAdmin(TranslationAdmin, BeautyTranslationAdmin):
+    model = Initiative
+
+    list_display = ('code', 'title', 'country', 'total_project_costs', 'loan_amount_approved', 'grant_amount_approved', 'show_projects_count', 'show_last_update')
+
+    def get_queryset(self, request):
+        return super(InitiativeAdmin, self).get_queryset(request).annotate(
+            projects_count=Count('project'),
+            projects_last_update=Max('project__last_update')
+        )
+
+    def show_projects_count(self, inst):
+        return inst.projects_count
+    show_projects_count.admin_order_field = 'projects_count'
+    show_projects_count.short_description = 'Projects'
+
+    def show_last_update(self, inst):
+        return inst.projects_last_update
+    show_last_update.admin_order_field = 'projects_last_update'
+    show_last_update.short_description = 'Last Update'
+
+
 admin.site.register(Project, ProjectAdmin)
 admin.site.register(Activity, ActivityAdmin)
 admin.site.register(Utl, UtlAdmin)
@@ -251,3 +274,4 @@ admin.site.register(ChannelReported)
 admin.site.register(Organization, OrganizationAdmin)
 admin.site.register(AnnualFunds)
 admin.site.register(NewProject, NewProjectAdmin)
+admin.site.register(Initiative, InitiativeAdmin)
