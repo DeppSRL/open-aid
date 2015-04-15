@@ -601,7 +601,7 @@ class Initiative(models.Model):
         #     total_commitment=Sum('project__activity__commitment'),
         #     total_disbursement=Sum('project__activity__disbursement'),
         # ).order_by('-total_commitment').filter(total_commitment__gt=0)
-        return initiatives.filter(**filters)[:qnt]
+        return initiatives.filter(**filters).distinct()[:qnt]
 
     def projects(self):
         if not getattr(self, '_projects', False):
