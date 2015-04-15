@@ -134,7 +134,7 @@
           <div class="col-md-6">
             {% with total_project_costs=initiative.total_project_costs loan_amount_approved=initiative.loan_amount_approved grant_amount_approved=initiative.grant_amount_approved %}{% if total_project_costs or loan_amount_approved or grant_amount_approved %}
               <h3>{% trans 'Total initiative costs' %}</h3>
-              <div style="color:#f7505a; text-transform: uppercase;"><span style="font-size: 2.2em; font-weight: bold;">€ {{ total_project_costs|intcomma }}</span> suddivisi in</div>
+              <div style="color:#f7505a; text-transform: uppercase;"><span style="font-size: 2.1em; font-weight: bold;">€ {{ total_project_costs|intcomma }}</span> suddivisi in</div>
               <div class="row">
                 <div class="col-md-6">
                   <div class="list-group">
