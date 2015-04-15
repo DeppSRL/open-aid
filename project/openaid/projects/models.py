@@ -1,7 +1,6 @@
 from django.contrib.contenttypes.generic import GenericRelation
 from django.core.urlresolvers import reverse
 from django.db import models
-from django.db.models import Sum
 from django.utils.translation import ugettext as _
 from model_utils import Choices
 from openaid import utils
