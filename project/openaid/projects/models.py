@@ -593,13 +593,14 @@ class Initiative(models.Model):
             return ''
 
     @classmethod
-    def get_top_initiatives(cls, qnt=6, order_by=None, year=None, **filters):
+    def get_top_initiatives(cls, qnt=6, year=None, **filters):
         if year:
             filters['project__activity__year__exact'] = year
-        initiatives = Initiative.objects.annotate(
-            total_commitment=Sum('project__activity__commitment'),
-            total_disbursement=Sum('project__activity__disbursement'),
-        ).order_by('-total_commitment').filter(total_commitment__gt=0)
+        initiatives = Initiative.objects.order_by('-total_project_costs')
+        # initiatives = Initiative.objects.annotate(
+        #     total_commitment=Sum('project__activity__commitment'),
+        #     total_disbursement=Sum('project__activity__disbursement'),
+        # ).order_by('-total_commitment').filter(total_commitment__gt=0)
         return initiatives.filter(**filters)[:qnt]
 
     def projects(self):
