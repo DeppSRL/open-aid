@@ -25,6 +25,11 @@ var load_small_map = function(iso_code) {
 
 
 $(document).ready(function(){
+
+    //hides the cookie banner when the button is clicked
+    $('#dismiss-cookie-adv').click(function () {
+        $('#accept-cookies').toggle();
+    });
 	
 	function setPieChart(holder, x, y, radius, data)
 	{
