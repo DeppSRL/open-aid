@@ -1,6 +1,7 @@
 # coding=utf-8
 from collections import OrderedDict
 import csv
+import logging
 from pprint import pprint
 from optparse import make_option
 import time
@@ -13,6 +14,7 @@ class Command(BaseCommand):
     help = 'Esporta i crs zippati'
     encoding = 'utf-8'
     output_filename = 'export.csv'
+    logger = logging.getLogger('openaid')
 
     option_list = BaseCommand.option_list + (
         make_option('-y', '--year', action='store', dest='year', default=None, type=int,
@@ -23,7 +25,6 @@ class Command(BaseCommand):
 
     field_map = {
         'year': 'year',
-        'pk': 'openaid id',
         'project__agency__donor__code': 'donorcode',
         'project__agency__donor__name': 'donorname',
         'project__agency__code': 'agencycode',
@@ -66,6 +67,15 @@ class Command(BaseCommand):
         'project__markers__pd_gg': 'pdgg',
         'is_ftc': 'FTC',
         'is_pba': 'PBA',
+        'is_investment': 'investmentproject',
+        'project__markers__biodiversity': 'biodiversity',
+        'project__markers__climate_mitigation': 'climateMitigation',
+        'project__markers__climate_adaptation': 'climateAdaptation',
+        'project__markers__desertification': 'desertification',
+        'commitment_date': 'commitmentdate',
+        'number_repayment': 'numberrepayment',
+        'grant_element': 'grantelement',
+        'pk': 'openaid id',
 
     }
 
@@ -90,7 +100,7 @@ class Command(BaseCommand):
             activity_set = activity_set.filter(year=int(focus))
 
         activity_set = activity_set.values(*self.csv_fieldset.keys())
-        print(len(activity_set))
+        self.logger.info("Exported {} lines".format(len(activity_set)))
         self.write_file(activity_set)
 
 
@@ -107,6 +117,6 @@ class Command(BaseCommand):
             self.export(focus)
 
         except KeyboardInterrupt:
-            self.stdout.write("\nCommand execution aborted.")
+            self.logger.error("Command execution aborted.")
         finally:
-            self.stdout.write("Execution time: %d seconds" % (time.time() - start_time))
+            self.logger.info("Execution time: %d seconds" % (time.time() - start_time))
