@@ -8,9 +8,21 @@ import time
 from django.core.management.base import BaseCommand
 from openaid.utils import UnicodeDictWriter
 from openaid.projects.models import Activity
+from openaid.codelists.models import Recipient
 
 
 class Command(BaseCommand):
+
+    def write_file(self, activity_set):
+        f = open(self.output_filename, "w")
+
+        udw = UnicodeDictWriter(f, fieldnames=self.csv_fieldset.keys(), encoding=self.encoding)
+
+        udw.writerow(self.csv_fieldset)
+
+        for activity in activity_set:
+            udw.writerow(activity)
+
     help = 'Esporta i crs zippati'
     encoding = 'utf-8'
     output_filename = 'export.csv'
@@ -23,6 +35,7 @@ class Command(BaseCommand):
                     help='Export all activities in one file.'),
     )
 
+    # mapping fields from DB name to CSV name
     field_map = {
         'year': 'year',
         'project__agency__donor__code': 'donorcode',
@@ -37,9 +50,6 @@ class Command(BaseCommand):
         'project__recipient__parent__code': 'regioncode',
         'project__recipient__parent__name': 'regioname',
         'project__recipient__income_group': 'incomegroupcode',
-        # 'project__recipient__income_group__display name': 'incomegroupname', #TODO: use diplay name
-        'flow_type': 'flowcode',
-        #'flow_type__display value': 'flowname', #TODO: use diplay name
         'bi_multi': 'bi_multi',
         'project__finance_type': 'finance_t',
         'project__aid_type': 'aid_t',
@@ -87,19 +97,7 @@ class Command(BaseCommand):
 
     csv_fields = field_map.values()
     csv_fields.extend(addition_field_to_csv)
-
-    csv_fieldset = {k:k for k in csv_fields}
-
-    def write_file(self, activity_set):
-        f = open(self.output_filename, "w")
-
-        udw = UnicodeDictWriter(f, fieldnames=self.csv_fieldset.keys(), encoding=self.encoding)
-
-        udw.writerow(self.csv_fieldset)
-
-        for activity in activity_set:
-            udw.writerow(activity)
-
+    csv_fieldset = {k: k for k in csv_fields}
 
     def manipulate(self, activity_set):
         # maps the field names for export using the field map (example: "pk" -> "openaid id")
@@ -107,22 +105,38 @@ class Command(BaseCommand):
         # substitute "None" values with ""
         # adds "currencycode" field
 
+
         mapped_activities = []
         for activity in activity_set:
-            mapped_act = {}
-            mapped_act['currencycode'] = '918'
-            for key,value in activity.iteritems():
-                if value is None:
-                    value = u''
-                elif value is True:
-                    value = u'1'
-                elif value is False:
-                    value = u'0'
-                    
-                mapped_act[self.field_map[key]]=value
+
+            # get income group displayname and flowname
+            incomegroupname =''
+            flowname=''
+            if activity['project__recipient__income_group'] != None and activity['project__recipient__income_group'] != '':
+                incomegroupname = Recipient.INCOME_GROUPS[activity['project__recipient__income_group']]
+
+            if activity['flow_type'] != None and activity['flow_type'] != '':
+                flowname = Activity.FLOW_TYPES[activity['flow_type']]
+
+            mapped_act = {
+                'currencycode': '918',
+                'incomegroupname': incomegroupname,
+                'flowname': flowname
+
+            }
+
+            for key, value in activity.iteritems():
+                if key in self.field_map:
+                    if value is None:
+                        value = u''
+                    elif value is True:
+                        value = u'1'
+                    elif value is False:
+                        value = u'0'
+
+                    mapped_act[self.field_map[key]] = value
 
             mapped_activities.append(mapped_act)
-
 
         return mapped_activities
 
