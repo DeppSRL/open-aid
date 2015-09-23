@@ -45,7 +45,6 @@ class Command(BaseCommand):
         'project__aid_type': 'aid_t',
         'commitment_usd': 'usd_commitment',
         'disbursement_usd': 'usd_disbursement',
-        # '': 'currencycode', #todo: aggiungerlo al csv
         'commitment': 'commitment_national',
         'disbursement': 'disbursement_national',
         # 'project__description': 'shortdescription', #char problem
@@ -79,7 +78,17 @@ class Command(BaseCommand):
 
     }
 
-    csv_fieldset = {k:k for k in field_map.keys()}
+    # fields needed in the CSV that have no direct mapping
+    addition_field_to_csv = [
+        'currencycode',
+        'incomegroupname',
+        'flowname'
+    ]
+
+    csv_fields = field_map.values()
+    csv_fields.extend(addition_field_to_csv)
+
+    csv_fieldset = {k:k for k in csv_fields}
 
     def write_file(self, activity_set):
         f = open(self.output_filename, "w")
@@ -92,6 +101,30 @@ class Command(BaseCommand):
             udw.writerow(activity)
 
 
+    def manipulate(self, activity_set):
+        # maps the field names for export using the field map (example: "pk" -> "openaid id")
+        # adds "display name to few fields"
+        # substitute "None" values with ""
+        # adds "currencycode" field
+
+        mapped_activities = []
+        for activity in activity_set:
+            mapped_act = {}
+            mapped_act['currencycode'] = '918'
+            for key,value in activity.iteritems():
+                if value is None:
+                    value = u''
+                elif value is True:
+                    value = u'1'
+                elif value is False:
+                    value = u'0'
+                    
+                mapped_act[self.field_map[key]]=value
+
+            mapped_activities.append(mapped_act)
+
+
+        return mapped_activities
 
     def export(self, focus):
 
@@ -99,7 +132,9 @@ class Command(BaseCommand):
         if focus != 'all':
             activity_set = activity_set.filter(year=int(focus))
 
-        activity_set = activity_set.values(*self.csv_fieldset.keys())
+        activity_set = activity_set.values(*self.field_map.keys())
+
+        activity_set = self.manipulate(activity_set)
         self.logger.info("Exported {} lines".format(len(activity_set)))
         self.write_file(activity_set)
 
