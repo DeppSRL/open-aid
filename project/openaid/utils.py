@@ -53,7 +53,12 @@ class UnicodeDictWriter(object):
         self.encoder = codecs.getincrementalencoder(encoding)()
 
     def writerow(self, D):
-        self.writer.writerow(dict([(k, u"{}".format(v)) for k, v in D.items()]))
+        try:
+            self.writer.writerow(dict([(k,v.encode("utf-8")) for k,v in D.items()]))
+        except UnicodeEncodeError:
+            import pprint
+            pprint.pprint(D['geography'])
+            return
         # Fetch UTF-8 output from the queue ...
         data = self.queue.getvalue()
         data = data.decode("utf-8")
