@@ -80,7 +80,7 @@ class Command(BaseCommand):
         ('commitmentdate', 'commitment_date'),
         ('numberrepayment', 'number_repayment'),
         ('grantelement', 'grant_element'),
-        ('openaid id', 'pk'),
+        ('openaid id', 'project__pk'),
     ])
 
     # fields needed in the csv in the correct order
