@@ -18,6 +18,7 @@ nosetests.xml
 
 # Translations
 *.pot
+*.mo
 
 # Pycharm
 .idea
