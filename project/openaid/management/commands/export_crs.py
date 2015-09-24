@@ -203,6 +203,11 @@ class Command(BaseCommand):
                 else:
                     value = activity[db_key]
 
+                    if db_key in ['commitment_usd','disbursement_usd','disbursement','commitment'] and type(value) is float:
+
+                        #use different annotation for money values
+                        value = format(value, '.12f')
+
                 if value is None:
                     value = u''
                 elif value is True:
