@@ -915,3 +915,20 @@ a.btn-aid:hover {
 .highcharts-tooltip svg {
   font-family: 'PT Sans', serif;
 }
+.accept-cookies {
+  padding: 10px;
+}
+.accept-cookies .btn {
+  margin-left: 10px;
+}
+.wrapper-cookies {
+  background-color: #54514a;
+  color: #FFF;
+  font-size: 0.9em;
+  text-align: center;
+}
+#up {
+  height: 5px;
+  background-color: #eaeaea;
+  border-bottom: 1px solid #DCE7FB;
+}

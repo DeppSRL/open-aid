@@ -22,7 +22,7 @@ django-mptt-admin
 django-modeltranslation
 
 # For the persistance stores
-psycopg2
+psycopg2==2.5.3
 
 # Searching
 django-haystack
@@ -43,3 +43,9 @@ djangorestframework==2.4.2
 django-filter==0.8
 Markdown==2.5.1
 Django-Select2==4.2.2
+SQLAlchemy==0.9.6
+argparse==1.2.1
+dbf==0.94.003
+openpyxl==2.0.4
+wsgiref==0.1.2
+xlrd==0.9.3
