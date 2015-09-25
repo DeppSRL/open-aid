@@ -921,6 +921,9 @@ a.btn-aid:hover {
 .accept-cookies .btn {
   margin-left: 10px;
 }
+#accept-cookies {
+  display: none;
+}
 .wrapper-cookies {
   background-color: #54514a;
   color: #FFF;

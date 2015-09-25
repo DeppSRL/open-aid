@@ -25,10 +25,18 @@ var load_small_map = function(iso_code) {
 
 
 $(document).ready(function(){
+    var cookie_consent = $.cookie('cookie_consent');
+    if (cookie_consent != '1') {
+        $('#accept-cookies').css("display", "block");
+        console.log("display banner");
+        console.log(cookie_consent);
+    }
 
     //hides the cookie banner when the button is clicked
     $('#dismiss-cookie-adv').click(function () {
         $('#accept-cookies').toggle();
+        $.cookie('cookie_consent', '1', { expires: 7, path: '/' });
+        console.log("set cookie");
     });
 	
 	function setPieChart(holder, x, y, radius, data)
