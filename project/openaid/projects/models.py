@@ -149,6 +149,12 @@ class Project(CodelistsModel, MarkedModel):
     photo_set = GenericRelation('attachments.Photo')
     document_set = GenericRelation('attachments.Document')
 
+    # start/end date of the project: these values are read from activities values (this should change in the future)
+    # or a mng task
+    # todo: better modellation of start/end dates through 1:N relationship with a "dates" table
+    expected_start_date = models.DateTimeField(blank=True, null=True)
+    completion_date = models.DateTimeField(blank=True, null=True)
+
     def get_initiative(self):
         try:
             return Initiative.objects.get(code=self.number.split('/')[0])
@@ -235,13 +241,15 @@ class Project(CodelistsModel, MarkedModel):
             return a.get_bi_multi_display()
         return None
 
-    def completion_date(self, year=None):
-        dates = self._activities_map('completion_date', year=year, skip_none=True)
-        return dates[0] if dates else None
-
-    def expected_start_date(self, year=None):
-        dates = self._activities_map('expected_start_date', year=year, skip_none=True)
-        return dates[0] if dates else None
+    # def completion_date(self, year=None):
+    #     # dates = self._activities_map('completion_date', year=year, skip_none=True)
+    #     # return dates[0] if dates else None
+    #     return self.completion_date
+    #
+    # def expected_start_date(self, year=None):
+    #     # dates = self._activities_map('expected_start_date', year=year, skip_none=True)
+    #     # return dates[0] if dates else None
+    #     return self.expected_start_date
 
     def is_ftc(self, year=None):
         return any(self._activities_map('is_ftc', year=year))
