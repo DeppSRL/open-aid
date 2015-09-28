@@ -241,16 +241,6 @@ class Project(CodelistsModel, MarkedModel):
             return a.get_bi_multi_display()
         return None
 
-    # def completion_date(self, year=None):
-    #     # dates = self._activities_map('completion_date', year=year, skip_none=True)
-    #     # return dates[0] if dates else None
-    #     return self.completion_date
-    #
-    # def expected_start_date(self, year=None):
-    #     # dates = self._activities_map('expected_start_date', year=year, skip_none=True)
-    #     # return dates[0] if dates else None
-    #     return self.expected_start_date
-
     def is_ftc(self, year=None):
         return any(self._activities_map('is_ftc', year=year))
 
