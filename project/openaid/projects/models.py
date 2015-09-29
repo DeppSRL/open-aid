@@ -152,8 +152,8 @@ class Project(CodelistsModel, MarkedModel):
     # start/end date of the project: these values are read from activities values (this should change in the future)
     # or a mng task
     # todo: better modellation of start/end dates through 1:N relationship with a "dates" table
-    expected_start_date = models.DateTimeField(blank=True, null=True)
-    completion_date = models.DateTimeField(blank=True, null=True)
+    expected_start_date = models.DateField(blank=True, null=True)
+    completion_date = models.DateField(blank=True, null=True)
 
     def get_initiative(self):
         try:
@@ -367,9 +367,9 @@ class Activity(CodelistsModel, MarkedModel):
     # other parameters
     grant_element = models.FloatField(blank=True, null=True)
     number_repayment = models.PositiveIntegerField(blank=True, null=True)
-    expected_start_date = models.DateTimeField(blank=True, null=True)
-    completion_date = models.DateTimeField(blank=True, null=True)
-    commitment_date = models.DateTimeField(blank=True, null=True)
+    expected_start_date = models.DateField(blank=True, null=True)
+    completion_date = models.DateField(blank=True, null=True)
+    commitment_date = models.DateField(blank=True, null=True)
 
     # external relations
     channel_reported = models.ForeignKey(ChannelReported, blank=True, null=True)
