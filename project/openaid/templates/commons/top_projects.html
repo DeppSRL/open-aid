@@ -3,7 +3,7 @@
 {% load search_utils %}
 <div class="progetti">
     <h2><a href="{% if object %}{% search_url object.code_list_facet object.code %}{% else %}{% url 'projects:search' %}{% endif %}"
-            >{% if project %}{% trans "Similar initiatives" %}{% else %}{% trans "Most important acitivities" %}{% endif %}</a></h2>
+            >{% if project %}{% trans "Similar initiatives" %}{% else %}{% trans "Most important activities" %}{% endif %}</a></h2>
     <div class="bordered-radius" style="overflow:hidden;">
         <ul class="list-unstyled">
             {% for result in top_projects|dictsort:'total_commitment' %}

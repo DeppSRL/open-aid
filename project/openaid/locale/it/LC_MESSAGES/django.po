@@ -802,7 +802,7 @@ msgstr ""
 
 #: templates/commons/top_initiatives.html:6
 #: templates/commons/top_projects.html:6
-msgid "Most important acitivities"
+msgid "Most important activities"
 msgstr "Le iniziative più rilevanti"
 
 #: templates/commons/top_initiatives.html:20
