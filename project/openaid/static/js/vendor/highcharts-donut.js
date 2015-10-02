@@ -13,6 +13,7 @@
         "#f05757",
         "#f74f59",
         "#f74f59",
+        "#00ff00"
     ];
 
 
@@ -67,11 +68,11 @@ function SetChartDonutDrilldown(id_donut){
             //ricavo i valori della tabella senza ripetizioni (per la gestione dei colori)
             if(jQuery.inArray(parent_value, array_valori_no_ripetuti) == -1) {
                 array_valori_no_ripetuti.push(parent_value);
-                colore = array_colori[cont_colori];
+//                colore = array_colori[cont_colori];
                 cont_colori++;
             }
 
-            var obj_dict = {y:parent_percent, name:parent_name, color:colore, drilldown:null};
+            var obj_dict = {y:parent_percent, name:parent_name, drilldown:null};
             number_tr2++;
 
             // look for children
@@ -81,7 +82,7 @@ function SetChartDonutDrilldown(id_donut){
                 function(){
                     var child_name = $(this).find("*[data-title]").data('title');
                     var child_value = $(this).find("*[data-value]").data('value');
-                    var child_percent = (parseFloat(child_value) * 100) / parseFloat(parent_value);
+                    var child_percent = (parseFloat(child_value) * 100) / parseFloat(total);
                     child_percent = parseFloat(child_percent.toFixed(2));
                     drill_obj.data.push([child_name, child_percent]);
                 }
@@ -96,6 +97,9 @@ function SetChartDonutDrilldown(id_donut){
     });
 
     // Create the chart
+     Highcharts.setOptions({
+        colors: array_colori
+    });
     chart = new Highcharts.Chart({
         chart: {
             renderTo: id_donut,
@@ -143,9 +147,7 @@ function SetChartDonutDrilldown(id_donut){
             size: '60%',
             innerSize: '30%',
             showInLegend:false,
-            dataLabels: {
-                enabled: false
-            }
+            dataLabels: {enabled: false}
         }],
         drilldown:{
             series: drilldown
