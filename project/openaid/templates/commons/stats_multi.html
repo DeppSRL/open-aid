@@ -9,14 +9,28 @@
         <div id="donut2"></div>
 
         <div class="table-responsive">
-            <table class="table table-condensed table-hover" data-chart="donut" data-container="donut2">
+            <table class="table table-condensed table-hover accordion" data-chart="donut" data-container="donut2">
                 <tbody>
-                {% for fund in multi_stats %}
-                <tr class="dotted">
-                    <td class="col-sm-8" data-title="{{ fund.organization }}">{{ fund.organization }}</td>
-                    <td class="col-sm-4"><span data-value="{{ fund.commitment|stringformat:"f" }}">{{ fund.commitment|currency }}</span></td>
-                </tr>
-                {% endfor %}
+                    {% for fund in multi_stats %}
+                        <tr class="dotted parent">
+                            <td class="col-sm-8" data-title="{{ fund.organization }}">{{ fund.organization }}</td>
+                            <td class="col-sm-4"><span data-value="{{ fund.commitment|stringformat:"f" }}">{{ fund.commitment|currency }}</span></td>
+                        </tr>
+                        {# todo: REMOVE THIS TEST ROW                   #}
+
+                        <tr class="child active dotted ">
+                            <td class="col-sm-7 col-sm-offset-1" data-title="child-row-1">&nbsp;&raquo;&nbsp;CHILD ROW TEST</td>
+                            <td class="col-sm-4"><span data-value="{{ fund.commitment|stringformat:"f" }}">000</span></td>
+                        </tr>
+                        {% if forloop.counter == 1 %}
+                            <tr class="child active dotted">
+                                <td class="col-sm-8" data-title="child-row-2">&nbsp;&raquo;&nbsp;SECOND CHILD ROW TEST</td>
+                                <td class="col-sm-4"><span data-value="{{ fund.commitment|stringformat:"f" }}">000</span></td>
+                            </tr>
+                        {% endif %}
+                        {# /TEST ROW                   #}
+                    {% endfor %}
+
                 </tbody>
             </table>
         </div>
@@ -31,12 +45,12 @@
         <div class="table-responsive">
             <table class="table table-condensed table-hover" data-chart="donut" data-container="donut3">
                 <tbody>
-                {% for fund in multi_stats %}
-                <tr class="dotted">
-                    <td class="col-sm-8" data-title="{{ fund.organization }}">{{ fund.organization }}</td>
-                    <td class="col-sm-4"><span data-value="{{ fund.disbursement|stringformat:"f" }}">{{ fund.disbursement|currency }}</span></td>
-                </tr>
-                {% endfor %}
+                    {% for fund in multi_stats %}
+                        <tr class="dotted">
+                            <td class="col-sm-8" data-title="{{ fund.organization }}">{{ fund.organization }}</td>
+                            <td class="col-sm-4"><span data-value="{{ fund.disbursement|stringformat:"f" }}">{{ fund.disbursement|currency }}</span></td>
+                        </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
@@ -46,9 +60,9 @@
         <h3>{% trans 'Multilateral Official Development Assistance' %}</h3>
 
         <p>
-{% blocktrans %}These funds are classified as multilateral ODA (all other categories fall
-under bilateral ODA). The recipient multilateral institution pools contributions so that they lose their
-identity and become an integral part of its financial assets. {% endblocktrans %}
+            {% blocktrans %}These funds are classified as multilateral ODA (all other categories fall
+            under bilateral ODA). The recipient multilateral institution pools contributions so that they lose their
+            identity and become an integral part of its financial assets. {% endblocktrans %}
         </p>
     </div>
 </div><!-- .row -->

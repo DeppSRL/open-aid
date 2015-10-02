@@ -78,16 +78,23 @@ def crs_stats(context, instance=None, year=None, show_map=True):
             multi_commitments_sum=Sum('commitment'),
             multi_disbursements_sum=Sum('disbursement'),
         )
+        multi_commitments_sum = multi_projects['multi_commitments_sum']
+        multi_disbursements_sum = multi_projects['multi_disbursements_sum']
+
+        multi_stats = projects_models.AnnualFunds.objects.filter(year=year).select_related('organization')
+
+        # adds the % commitment and % disbursement for every organization to display in the template
+
 
         ctx.update(multi_projects)
 
         ctx.update({
-            'total_commitments_sum': (multi_projects['multi_commitments_sum'] or 0.0) + commitment_sum,
-            'total_disbursements_sum': (multi_projects['multi_disbursements_sum'] or 0.0) + disbursements_sum,
+            'total_commitments_sum': (multi_commitments_sum or 0.0) + commitment_sum,
+            'total_disbursements_sum': (multi_disbursements_sum or 0.0) + disbursements_sum,
         })
 
         ctx.update({
-            'multi_stats': projects_models.AnnualFunds.objects.filter(year=year).select_related('organization'),
+            'multi_stats': multi_stats,
         })
 
     return ctx

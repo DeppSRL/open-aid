@@ -9,13 +9,7 @@ var load_small_map = function(iso_code) {
             country.setStyle({fillColor: "#901800"});
         }
     }
-    //country = geojson_layer_from_alpha3(iso_code);
-    //if ( country ) {
-    //    map.fitBounds(country);
-    //    country.setStyle({fillColor: "#901800"});
-    //    //L.marker(country.getBounds().getCenter()).addTo(map);
-    //} // else { if ('console' in window) { console.log("Unable to find iso_code '{{ object.iso_code }}'"); }}
-    //map.removeControl(map.zoomControl);
+
     map.removeControl(map.attributionControl);
     info.removeFrom(map);
     legend.removeFrom(map);
@@ -25,19 +19,32 @@ var load_small_map = function(iso_code) {
 
 
 $(document).ready(function(){
+
+    //accordion table test
+    var accordion_parents =$(".accordion tr.parent");
+    var accordion_children =$(".accordion tr.child");
+
+    accordion_parents.show();
+    accordion_parents.click(function(){
+        $(this).nextUntil(".accordion tr.parent").fadeToggle(500);
+    }).eq(0).trigger('click');
+    accordion_children.hide();
+    //END accordion table test
+
+
+    /*cookies consent start*/
     var cookie_consent = $.cookie('cookie_consent');
     if (cookie_consent != '1') {
         $('#accept-cookies').css("display", "block");
         console.log("display banner");
-        console.log(cookie_consent);
     }
 
     //hides the cookie banner when the button is clicked
     $('#dismiss-cookie-adv').click(function () {
         $('#accept-cookies').toggle();
         $.cookie('cookie_consent', '1', { expires: 7, path: '/' });
-        console.log("set cookie");
     });
+    /*cookies consent end*/
 	
 	function setPieChart(holder, x, y, radius, data)
 	{
@@ -75,9 +82,6 @@ $(document).ready(function(){
         SetChartDonut($(el).data('container'));
     });
 
-    $('*[data-chart=bubble]').each(function(i, el){
-        SetChartBubble($(el).data('container'));
-    });
 
     $('.readmore').each(function(){
         var opener = $(this).find('.readmore-open').remove();
