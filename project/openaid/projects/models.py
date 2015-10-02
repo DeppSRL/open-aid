@@ -484,7 +484,6 @@ class AnnualFunds(models.Model):
     @staticmethod
     def get_type_distribution(year, type=None):
         type_data = []
-        organization_data = []
 
         if type == 'commitment':
             sum_aggregate = {'sum': Sum('commitment') }
@@ -495,21 +494,24 @@ class AnnualFunds(models.Model):
 
         for tipologia_id in range(1, len(Organization.ORGANIZATION_TYPES)+1):
             tipologia_name = Organization.ORGANIZATION_TYPES[tipologia_id]
-            type_data.append({
+            type_dict = {
                 'name': tipologia_name,
                 'tipologia': tipologia_id,
-                'sum': AnnualFunds.objects.filter(year=year, organization__type=tipologia_id).aggregate(**sum_aggregate)['sum']
-                })
+                'sum': AnnualFunds.objects.filter(year=year, organization__type=tipologia_id).aggregate(**sum_aggregate)['sum'],
+                'organizations': []
+                }
 
             organizations = Organization.objects.filter(type=tipologia_id).order_by('name')
             for org in organizations:
-                organization_data.append({
+                type_dict['organizations'].append({
                     'name': org.name,
                     'tipologia': tipologia_id,
                     'sum':AnnualFunds.objects.filter(year=year,organization=org).aggregate(**sum_aggregate)['sum']
                 })
 
-        return type_data, organization_data
+            type_data.append(type_dict)
+
+        return type_data
 
 
 class Utl(models.Model):

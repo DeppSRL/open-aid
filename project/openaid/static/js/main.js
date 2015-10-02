@@ -20,7 +20,7 @@ var load_small_map = function(iso_code) {
 
 $(document).ready(function(){
 
-    //accordion table test
+    //activates accordion table where needed
     var accordion_parents =$(".accordion tr.parent");
     var accordion_children =$(".accordion tr.child");
 
@@ -29,7 +29,7 @@ $(document).ready(function(){
         $(this).nextUntil(".accordion tr.parent").fadeToggle(500);
     }).eq(0).trigger('click');
     accordion_children.hide();
-    //END accordion table test
+    //END accordion
 
 
     /*cookies consent start*/
@@ -52,7 +52,7 @@ $(document).ready(function(){
 		y = y || 0;
 		radius = radius || 0;
 		data = data || [];
-	
+
 		var r = Raphael(holder),
 			pie = r.piechart(x, y, radius, data, {init: true, colors:['#f74f59', '#2b6a7c'], stroke: 'none'});
 		pie.rotate(225);
@@ -80,6 +80,10 @@ $(document).ready(function(){
 
     $('*[data-chart=donut]').each(function(i, el){
         SetChartDonut($(el).data('container'));
+    });
+
+    $('*[data-chart=donut-drilldown]').each(function(i, el){
+        SetChartDonutDrilldown($(el).data('container'));
     });
 
 
@@ -148,7 +152,7 @@ $(document).ready(function(){
 
     });
 
-    //new code
+    //new code TODO: does what???
     $(document).on('click', 'a.controls', function(){
         var index = $(this).attr('href');
         var src = $('ul.gallery li:nth-child('+ index +') img').attr('src');

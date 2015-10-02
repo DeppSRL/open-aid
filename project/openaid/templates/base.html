@@ -76,14 +76,14 @@
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 {% block javascript %}
-<!-- Latest JQuery -->
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script src="{% static 'js/jquery.cookie.js' %}"></script>
+    <!-- Latest JQuery -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="{% static 'js/jquery.cookie.js' %}"></script>
 
-<!-- Latest compiled and minified JavaScript -->
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 
-<!-- Your stuff: Third-party javascript libraries go here -->
+    <!-- Your stuff: Third-party javascript libraries go here -->
     <!-- Custom scripts -->
     <script src="http://code.highcharts.com/highcharts.js"></script>
     <script src="http://code.highcharts.com/highcharts-more.js"></script>
@@ -91,6 +91,7 @@
 
     <script src="{% static 'js/readmore.min.js' %}"></script>
     <script src="{% static 'js/vendor/highcharts-donut.js' %}"></script>
+    <script src="http://code.highcharts.com/modules/drilldown.js"></script>
     <script src="{% static 'js/vendor/raphael/raphael.js' %}"></script>
     <script src="{% static 'js/vendor/g.raphael/g.raphael.js' %}"></script>
     <script src="{% static 'js/vendor/g.raphael/g.pie.js' %}"></script>
@@ -98,7 +99,9 @@
 
     <!-- place project specific Javascript in this file -->
     <script src="{% static 'js/main.js' %}"></script>
+
 {% endblock javascript %}
+
     {% verbatim %}<script type="text/javascript">
         var addthis_share =
         {

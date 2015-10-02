@@ -11,22 +11,115 @@
         "#f43030",
         "#f24949",
         "#f05757",
-        "#f74f59"];
+        "#f74f59",
+        "#f74f59",
+    ];
 
-var default_donut = {
+
+function SetChartDonutDrilldown(id_donut){
+    var objs=[];
+    var drilldown=[];
+    var total = 0;
+    var number_tr = 0;
+    var number_tr2 = 0;
+    var chart;
+    var array_valori_no_ripetuti = [];
+    var cont_colori=0;
+
+    var table_parent_tr = $("table[data-container='"+id_donut+"'] tr.parent");
+
+    table_parent_tr.each(function() {
+
+        function getTooltip(element, x)
+        {
+            element.hover(
+                function () {
+                    chart.series[0].data[x].setState('hover');
+                    chart.tooltip.refresh(chart.series[0].data[x]);
+                },
+                function () {
+                    chart.series[0].data[x].setState("");
+                    chart.tooltip.hide();
+                }
+            );
+        }
+
+        //calcolo somma totale
+        var valore = $(this).find("*[data-value]").data('value');
+
+        if (valore != "") {
+            //gestione tooltip
+            getTooltip($(this), number_tr);
+
+            total = total + parseFloat(valore);
+            number_tr++;
+        }
+    });
+
+    //prelevo i dati dalla tabella e creo l'array
+    table_parent_tr.each(function() {
+        var parent_name = $(this).find("*[data-title]").data('title');
+        var parent_value = $(this).find("*[data-value]").data('value');
+        var parent_percent = (parseFloat(parent_value) * 100) / total;
+        parent_percent = parseFloat(parent_percent.toFixed(2));
+
+        if (parent_value != "") {
+            //ricavo i valori della tabella senza ripetizioni (per la gestione dei colori)
+            if(jQuery.inArray(parent_value, array_valori_no_ripetuti) == -1) {
+                array_valori_no_ripetuti.push(parent_value);
+                colore = array_colori[cont_colori];
+                cont_colori++;
+            }
+
+            var obj_dict = {y:parent_percent, name:parent_name, color:colore, drilldown:null};
+            number_tr2++;
+
+            // look for children
+            var drill_obj = {name: parent_name, id:parent_name+"dd", data:[]};
+
+            $(this).nextUntil('tr.parent').each(
+                function(){
+                    var child_name = $(this).find("*[data-title]").data('title');
+                    var child_value = $(this).find("*[data-value]").data('value');
+                    var child_percent = (parseFloat(child_value) * 100) / parseFloat(parent_value);
+                    child_percent = parseFloat(child_percent.toFixed(2));
+                    drill_obj.data.push([child_name, child_percent]);
+                }
+            );
+            if(drill_obj.data.length > 0 ){
+                drilldown.push(drill_obj);
+                obj_dict.drilldown = parent_name+"dd";
+            }
+            objs.push(obj_dict);
+
+        }
+    });
+
+    // Create the chart
+    chart = new Highcharts.Chart({
         chart: {
-            renderTo: null,
+            renderTo: id_donut,
             type: 'pie',
             width: 300,
             height: 300,
             margin: [0, 0, 0, 0]
         },
-        title: { text: '' },
-        legend: { enabled: false },
-        credits: { enabled: false },
-        exporting: { enabled: false },
+        title: {
+            text: ''
+        },
+        legend: {
+            enabled: false
+        },
+        credits: {
+            enabled: false
+        },
+        exporting: {
+            enabled: false
+        },
         plotOptions: {
-            pie: { shadow: false }
+            pie: {
+                shadow: false
+            }
         },
         tooltip: {
             useHTML: true,
@@ -46,31 +139,18 @@ var default_donut = {
         },
         series: [{
             name: 'Tipologie',
-            data: null,
+            data: objs,
             size: '60%',
             innerSize: '30%',
             showInLegend:false,
             dataLabels: {
                 enabled: false
             }
-        }]
-    };
-
-function getTooltip(element, x)
-    {
-        element.hover(
-            function () {
-                chart.series[0].data[x].setState('hover');
-                chart.tooltip.refresh(chart.series[0].data[x]);
-            },
-            function () {
-                chart.series[0].data[x].setState("");
-                chart.tooltip.hide();
-            }
-        );
-    }
-
-function SetChartDonutNew(id_donut, title, data){
+        }],
+        drilldown:{
+            series: drilldown
+        }
+    });
 
 }
 
@@ -86,6 +166,22 @@ function SetChartDonut(id_donut) {
     var table_tr = $("table[data-container='"+id_donut+"'] tr");
 
     table_tr.each(function() {
+
+        function getTooltip(element, x)
+        {
+            element.hover(
+                function () {
+                    chart.series[0].data[x].setState('hover');
+                    chart.tooltip.refresh(chart.series[0].data[x]);
+                },
+                function () {
+                    chart.series[0].data[x].setState("");
+                    chart.tooltip.hide();
+                }
+            );
+        }
+
+
         //calcolo somma totale
         var valore = $(this).find("*[data-value]").data('value');
 
@@ -123,12 +219,7 @@ function SetChartDonut(id_donut) {
     });
 
     // Create the chart
-//
-//    var my_donut = default_donut;
-//    my_donut['chart']['renderTo'] = id_donut;
-//    my_donut['series']['data'] = objs;
 
-//    chart = new Highcharts.Chart(my_donut);
     chart = new Highcharts.Chart({
         chart: {
             renderTo: id_donut,
