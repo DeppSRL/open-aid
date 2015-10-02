@@ -1,6 +1,7 @@
 from django.contrib.contenttypes.generic import GenericRelation
 from django.core.urlresolvers import reverse
 from django.db import models
+from django.db.models import Sum
 from django.utils.translation import ugettext as _
 from model_utils import Choices
 from openaid import utils
@@ -447,14 +448,14 @@ class Organization(models.Model):
     I Projects sono relativi ai fondi bilaterali.
     """
     ORGANIZATION_TYPES = Choices(
-        (1, _('EU institutions')),
-        (2, _('Global Environment Facility (96%)')),
+        (1, _('UN agencies')),
+        (2, _('EU institutions')),
         (3, _('IDA')),
-        (4, _('Montreal Protocol')),
-        (5, _('Other agencies')),
-        (6, _('Other World Bank (IBRD,IFC,MIGA)')),
-        (7, _('Regional development banks')),
-        (8, _('UN agencies')),
+        (4, _('Other World Bank (IBRD,IFC,MIGA)')),
+        (5, _('Regional development banks')),
+        (6, _('Other agencies')),
+        (7, _('Global Environment Facility (96%)')),
+        (8, _('Montreal Protocol')),
     )
 
     code = models.CharField(max_length=24, unique=True)
@@ -469,8 +470,6 @@ class AnnualFunds(models.Model):
     """
     Rappresenta i fondi multilaterali anno per anno delle Organization.
     """
-
-
     year = models.PositiveSmallIntegerField()
     organization = models.ForeignKey(Organization)
     commitment = models.FloatField(blank=True, default=0.0)
@@ -481,6 +480,36 @@ class AnnualFunds(models.Model):
 
     class Meta:
         unique_together = ("year", "organization")
+
+    @staticmethod
+    def get_type_distribution(year, type=None):
+        type_data = []
+        organization_data = []
+
+        if type == 'commitment':
+            sum_aggregate = {'sum': Sum('commitment') }
+        elif type == 'disbursement':
+            sum_aggregate = {'sum': Sum('disbursement') }
+        else:
+            raise Exception
+
+        for tipologia_id in range(1, len(Organization.ORGANIZATION_TYPES)+1):
+            tipologia_name = Organization.ORGANIZATION_TYPES[tipologia_id]
+            type_data.append({
+                'name': tipologia_name,
+                'tipologia': tipologia_id,
+                'sum': AnnualFunds.objects.filter(year=year, organization__type=tipologia_id).aggregate(**sum_aggregate)['sum']
+                })
+
+            organizations = Organization.objects.filter(type=tipologia_id).order_by('name')
+            for org in organizations:
+                organization_data.append({
+                    'name': org.name,
+                    'tipologia': tipologia_id,
+                    'sum':AnnualFunds.objects.filter(year=year,organization=org).aggregate(**sum_aggregate)['sum']
+                })
+
+        return type_data, organization_data
 
 
 class Utl(models.Model):
