@@ -446,8 +446,20 @@ class Organization(models.Model):
     Organizzazioni a cui vanno i fondi multilaterali.
     I Projects sono relativi ai fondi bilaterali.
     """
+    ORGANIZATION_TYPES = Choices(
+        (1, _('EU institutions')),
+        (2, _('Global Environment Facility (96%)')),
+        (3, _('IDA')),
+        (4, _('Montreal Protocol')),
+        (5, _('Other agencies')),
+        (6, _('Other World Bank (IBRD,IFC,MIGA)')),
+        (7, _('Regional development banks')),
+        (8, _('UN agencies')),
+    )
+
     code = models.CharField(max_length=24, unique=True)
     name = models.CharField(max_length=255)
+    type = models.IntegerField(choices=ORGANIZATION_TYPES, default=None, null=True)
 
     def __unicode__(self):
         return self.name
@@ -457,9 +469,10 @@ class AnnualFunds(models.Model):
     """
     Rappresenta i fondi multilaterali anno per anno delle Organization.
     """
+
+
     year = models.PositiveSmallIntegerField()
     organization = models.ForeignKey(Organization)
-
     commitment = models.FloatField(blank=True, default=0.0)
     disbursement = models.FloatField(blank=True, default=0.0)
 
