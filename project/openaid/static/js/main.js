@@ -17,6 +17,14 @@ var load_small_map = function(iso_code) {
     map.dragging.disable();
 };
 
+var slug = function(str) {
+    var $slug = '';
+    var trimmed = $.trim(str);
+    $slug = trimmed.replace(/[^a-z0-9-]/gi, '-').
+    replace(/-+/g, '-').
+    replace(/^-|-$/g, '');
+    return $slug.toLowerCase();
+}
 
 $(document).ready(function(){
 
@@ -46,6 +54,31 @@ $(document).ready(function(){
         }).fadeToggle(500);
 
         $(".accordion tr."+element_triggered).fadeToggle(500);
+        var id_donut = "donut2";
+        var string_to_replace = "accordion-parent-"+id_donut +"-";
+        var index=$("#"+id_donut).data('highchartsChart');
+        var chart=Highcharts.charts[index];
+        var nome_serie_drillata = null;
+        if(chart.hasOwnProperty('drilldownLevels')){
+            if(typeof chart.drilldownLevels[0]!= 'undefined'){
+                nome_serie_drillata = chart.ddDupes[0];
+                chart.drillUp();
+            }
+        }
+
+
+        var series_name_to_open = element_triggered.replace(string_to_replace,"")+"-dd";
+        console.log("ho chiuso:"+nome_serie_drillata+",devo aprire:"+series_name_to_open);
+        if(nome_serie_drillata != series_name_to_open){
+            for(var i=0; i < chart.series[0].data.length; i++){
+                if(chart.series[0].data[i].drilldown == series_name_to_open){
+                    chart.series[0].data[i].firePointEvent('click', event);
+                }
+            }
+
+        }
+
+
     });
 
     // ACCORDION LOGIC END

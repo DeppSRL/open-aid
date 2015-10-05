@@ -1,5 +1,14 @@
 // JavaScript Document
 
+var slug = function(str) {
+    var $slug = '';
+    var trimmed = $.trim(str);
+    $slug = trimmed.replace(/[^a-z0-9-]/gi, '-').
+    replace(/-+/g, '-').
+    replace(/^-|-$/g, '');
+    return $slug.toLowerCase();
+};
+
 //colori del pie chart, dal più scuro al più chiaro
     var array_colori = [
         "#82040c",
@@ -34,12 +43,17 @@ function SetChartDonutDrilldown(id_donut){
         {
             element.hover(
                 function () {
-                    chart.series[0].data[x].setState('hover');
-                    chart.tooltip.refresh(chart.series[0].data[x]);
+                    if(typeof chart.series[0].data[x]!= 'undefined' ){
+                        chart.series[0].data[x].setState('hover');
+                        chart.tooltip.refresh(chart.series[0].data[x]);
+                    }
+
                 },
                 function () {
-                    chart.series[0].data[x].setState("");
-                    chart.tooltip.hide();
+                    if(typeof chart.series[0].data[x]!= 'undefined' ){
+                        chart.series[0].data[x].setState("");
+                        chart.tooltip.hide();
+                    }
                 }
             );
         }
@@ -74,7 +88,8 @@ function SetChartDonutDrilldown(id_donut){
             number_tr2++;
 
             // look for children
-            var drill_obj = {name: parent_name, id:parent_name+"dd", data:[]};
+            var drilldown_name = slug(parent_name+"-dd");
+            var drill_obj = {name: parent_name, id:drilldown_name, data:[]};
 
             $(this).nextUntil('tr.parent').each(
                 function(){
@@ -87,7 +102,7 @@ function SetChartDonutDrilldown(id_donut){
             );
             if(drill_obj.data.length > 0 ){
                 drilldown.push(drill_obj);
-                obj_dict.drilldown = parent_name+"dd";
+                obj_dict.drilldown = drilldown_name;
             }
             objs.push(obj_dict);
 

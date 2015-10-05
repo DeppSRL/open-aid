@@ -23,11 +23,11 @@
         {% else %}
         <!-- Tab panes -->
         <div class="tab-content panel-body">
-            {#  TODO : rimettere come attivo il primo pannello!!!!           #}
             <div class="tab-pane " id="bi-multi-tab">
                 {% include 'commons/stats.html' %}
             </div>
-            <div class="tab-pane active" id="multi-tab">
+            {#            todo: remove this, first panel must be active!!! #}
+            <div class="tab-pane active " id="multi-tab">
                 {% include 'commons/stats_multi.html' %}
             </div>
             <div class="tab-pane" id="total-aid-tab">
