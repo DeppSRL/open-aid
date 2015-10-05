@@ -129,7 +129,7 @@ function SetChartDonutDrilldown(id_donut){
             },
             series: {
                 dataLabels: {
-                    enabled: true,
+                    enabled: false,
                     format: '{point.name}: {point.y:.1f}%'
                 }
             }
@@ -156,7 +156,7 @@ function SetChartDonutDrilldown(id_donut){
             data: objs,
             size: '60%',
             innerSize: '30%',
-            showInLegend:false,
+            showInLegend:false
         }],
         drilldown:{
             series: drilldown
