@@ -124,20 +124,21 @@ function SetChartDonutDrilldown(id_donut){
             type: 'pie',
             width: 300,
             height: 300,
-            margin: [0, 0, 0, 0]
+            margin: [0, 0, 0, 0],
+            events:{
+                drillup: function(){
+                     //hides child elements of legend if they are opened
+                     $("#legend-"+id_donut+" tr.child").hide(500);
+                },
+                drilldown:function(){
+                     console.log("expand accordion");
+                }
+            }
         },
-        title: {
-            text: ''
-        },
-        legend: {
-            enabled: false
-        },
-        credits: {
-            enabled: false
-        },
-        exporting: {
-            enabled: false
-        },
+        title: {text: ''},
+        legend: {enabled: false},
+        credits: { enabled: false},
+        exporting: {enabled: false},
         plotOptions: {
             pie: {
                 shadow: false
@@ -148,7 +149,6 @@ function SetChartDonutDrilldown(id_donut){
                     format: '{point.name}: {point.y:.1f}%'
                 }
             }
-
         },
         tooltip: {
             useHTML: true,
@@ -164,7 +164,6 @@ function SetChartDonutDrilldown(id_donut){
                 shadow:false
             },
             shared: true
-
         },
         series: [{
             name: 'Tipologie',
@@ -176,6 +175,7 @@ function SetChartDonutDrilldown(id_donut){
         drilldown:{
             series: drilldown
         }
+
     });
 
 }
