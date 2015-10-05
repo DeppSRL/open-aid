@@ -25,10 +25,28 @@ $(document).ready(function(){
     var accordion_children =$(".accordion tr.child");
 
     accordion_parents.show();
-    accordion_parents.click(function(){
-        $(this).nextUntil(".accordion tr.parent").fadeToggle(500);
-    }).eq(0).trigger('click');
     accordion_children.hide();
+
+    accordion_parents.click(function(event){
+        // when an element is clicked
+        // 1) hides children row not from the row clicked: hides open rows if there are any, but doesnt' hide the rows relative to the row that has just been clicked
+        // 2) toggles the child rows relative to this click
+
+        var element_triggered = event.target.parentElement.id;
+        if(element_triggered == ""){
+            element_triggered = event.target.parentElement.parentElement.id;
+        }
+
+        if(element_triggered=="")
+            return null;
+
+        accordion_children.not( "tr."+element_triggered ).filter(function() {
+             return $(this).css('display') == 'table-row';
+        }).fadeToggle(500);
+
+        $(".accordion tr."+element_triggered).fadeToggle(500);
+    });
+
     //END accordion
 
 

@@ -214,7 +214,7 @@ function SetChartDonut(id_donut) {
             //ricavo i valori della tabella senza ripetizioni (per la gestione dei colori)
             if(jQuery.inArray(valore, array_valori_no_ripetuti) == -1) {
                 array_valori_no_ripetuti.push(valore);
-                colore = array_colori[cont_colori];
+                var colore = array_colori[cont_colori];
                 cont_colori++;
             }
 
