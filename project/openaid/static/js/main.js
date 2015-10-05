@@ -37,27 +37,30 @@ $(document).ready(function(){
     accordion_children.hide();
 
     accordion_parents.click(function(event){
-        // when an element is clicked
-        // 1) hides children row not from the row clicked: hides open rows if there are any, but doesnt' hide the rows relative to the row that has just been clicked
-        // 2) toggles the child rows relative to this click
+        //identifies the chart
+        var id_donut = event.target.parentElement.id.replace("accordion-parent-","").substring(0, 6);
+        var index=$("#"+id_donut).data('highchartsChart');
+        var chart=Highcharts.charts[index];
 
+        // identifies the element that triggered the event
         var element_triggered = event.target.parentElement.id;
         if(element_triggered == ""){
             element_triggered = event.target.parentElement.parentElement.id;
         }
-
         if(element_triggered=="")
             return;
 
+        // when an element is clicked
+        // 1) hides children row not from the row clicked: hides open rows if there are any, but doesnt' hide the rows relative to the row that has just been clicked
         accordion_children.not( "tr."+element_triggered ).filter(function() {
              return $(this).css('display') == 'table-row';
         }).fadeToggle(500);
 
+        // 2) toggles the child rows relative to this click
         $(".accordion tr."+element_triggered).fadeToggle(500);
-        var id_donut = "donut2";
+
         var string_to_replace = "accordion-parent-"+id_donut +"-";
-        var index=$("#"+id_donut).data('highchartsChart');
-        var chart=Highcharts.charts[index];
+        var nome_serie_da_attivare = element_triggered.replace(string_to_replace,"")+"-dd";
 
         // se il grafico e' gia' in drilldown prende il nome della serie attiva e fa drillup
         var nome_serie_attiva = null;
@@ -68,8 +71,6 @@ $(document).ready(function(){
             }
         }
 
-
-        var nome_serie_da_attivare = element_triggered.replace(string_to_replace,"")+"-dd";
 //        console.log("ho chiuso:"+nome_serie_attiva+",devo aprire:"+nome_serie_da_attivare);
         if(nome_serie_attiva != nome_serie_da_attivare){
             for(var i=0; i < chart.series[0].data.length; i++){

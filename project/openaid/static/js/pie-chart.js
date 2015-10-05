@@ -131,7 +131,13 @@ function SetChartDonutDrilldown(id_donut){
                      $("#legend-"+id_donut+" tr.child").hide(500);
                 },
                 drilldown:function(){
-                     console.log("expand accordion");
+                    // expands the correct rows of the legend
+                    if(typeof event.point == 'undefined')
+                        return;
+                    var legend_class_to_expand = event.point.drilldown.replace("-dd","");
+                    legend_class_to_expand = ".accordion-parent-"+id_donut+"-"+legend_class_to_expand;
+                    $(legend_class_to_expand).show(500);
+
                 }
             }
         },
