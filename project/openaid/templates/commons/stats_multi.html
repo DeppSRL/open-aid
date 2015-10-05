@@ -5,56 +5,13 @@
 
     <div class="col-md-4">
         <h3>{% trans 'Committed funds' %}</h3>
-
-        <div id="donut2"></div>
-
-        <div class="table-responsive">
-            <table class="table table-condensed table-hover accordion" data-chart="donut-drilldown" data-container="donut2">
-                <tbody>
-                    {% for tipology in multi_stats_commitment %}
-
-                        {% if tipology.sum > 0 %}
-                            <tr class="dotted parent" id="accordion-parent-{{ tipology|slugify }}">
-                                <td class="col-sm-8" data-title="{{ tipology.name }}">{{ tipology.name}}</td>
-                                <td class="col-sm-4"><span data-value="{{ tipology.sum|stringformat:"f" }}">{{ tipology.sum|currency }}</span></td>
-                            </tr>
-
-
-                            {% if tipology.organizations|length > 0 %}
-                                {% for organization in tipology.organizations %}
-                                    <tr class="child active dotted accordion-parent-{{ tipology|slugify }} ">
-                                        <td class="col-sm-7 col-sm-offset-1" data-title="{{ organization.name }}">&nbsp;&raquo;&nbsp;{{ organization.name }}</td>
-                                        <td class="col-sm-4"><span data-value="{{ organization.sum|stringformat:"f" }}">{{ organization.sum|currency }}</span></td>
-                                    </tr>
-                                {% endfor %}
-                            {% endif %}
-                        {% endif %}
-
-                    {% endfor %}
-
-                </tbody>
-            </table>
-        </div>
+        {% include 'commons/pie_chart_drilldown.html' with tipologies=multi_stats_commitment id='donut2' %}
     </div>
 
 
     <div class="col-md-4">
         <h3>{% trans 'Used funds' %}</h3>
-
-        <div id="donut3"></div>
-{# TODO: activate this pie chat #}
-{#        <div class="table-responsive">#}
-{#            <table class="table table-condensed table-hover" data-chart="donut-drilldown" data-container="donut3">#}
-{#                <tbody>#}
-{#                    {% for fund in multi_stats %}#}
-{#                        <tr class="dotted">#}
-{#                            <td class="col-sm-8" data-title="{{ fund.organization }}">{{ fund.organization }}</td>#}
-{#                            <td class="col-sm-4"><span data-value="{{ fund.disbursement|stringformat:"f" }}">{{ fund.disbursement|currency }}</span></td>#}
-{#                        </tr>#}
-{#                    {% endfor %}#}
-{#                </tbody>#}
-{#            </table>#}
-{#        </div>#}
+        {% include 'commons/pie_chart_drilldown.html' with tipologies=multi_stats_disbursement id='donut3' %}
     </div>
 
     <div class="col-md-4">

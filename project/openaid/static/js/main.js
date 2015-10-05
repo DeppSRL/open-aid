@@ -20,6 +20,7 @@ var load_small_map = function(iso_code) {
 
 $(document).ready(function(){
 
+    // ACCORDION LOGIC START
     //activates accordion table where needed
     var accordion_parents =$(".accordion tr.parent");
     var accordion_children =$(".accordion tr.child");
@@ -38,7 +39,7 @@ $(document).ready(function(){
         }
 
         if(element_triggered=="")
-            return null;
+            return;
 
         accordion_children.not( "tr."+element_triggered ).filter(function() {
              return $(this).css('display') == 'table-row';
@@ -47,7 +48,7 @@ $(document).ready(function(){
         $(".accordion tr."+element_triggered).fadeToggle(500);
     });
 
-    //END accordion
+    // ACCORDION LOGIC END
 
 
     /*cookies consent start*/

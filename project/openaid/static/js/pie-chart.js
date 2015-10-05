@@ -99,6 +99,11 @@ function SetChartDonutDrilldown(id_donut){
      Highcharts.setOptions({
         colors: array_colori
     });
+    Highcharts.setOptions({
+        lang: {
+            drillUpText: '◁'
+        }
+    });
     chart = new Highcharts.Chart({
         chart: {
             renderTo: id_donut,

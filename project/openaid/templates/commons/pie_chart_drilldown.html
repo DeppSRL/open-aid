@@ -1,0 +1,31 @@
+{#draws the legend and the drill down pie chart #}
+{% load crs %}
+<div id="{{id}}"></div>
+
+<div class="table-responsive">
+    <table class="table table-condensed table-hover accordion" data-chart="donut-drilldown" data-container="{{id}}">
+        <tbody>
+            {% for tipology in tipologies %}
+
+                {% if tipology.sum > 0 %}
+                    <tr class="dotted parent" id="accordion-parent-{{ id }}-{{ tipology|slugify }}">
+                        <td class="col-sm-8" data-title="{{ tipology.name }}">{{ tipology.name}}</td>
+                        <td class="col-sm-4"><span data-value="{{ tipology.sum|stringformat:"f" }}">{{ tipology.sum|currency }}</span></td>
+                    </tr>
+
+
+                    {% if tipology.organizations|length > 0 %}
+                        {% for organization in tipology.organizations %}
+                            <tr class="child active dotted accordion-parent-{{ id }}-{{ tipology|slugify }} ">
+                                <td class="col-sm-7 col-sm-offset-1" data-title="{{ organization.name }}">&nbsp;&raquo;&nbsp;{{ organization.name }}</td>
+                                <td class="col-sm-4"><span data-value="{{ organization.sum|stringformat:"f" }}">{{ organization.sum|currency }}</span></td>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+                {% endif %}
+
+            {% endfor %}
+
+        </tbody>
+    </table>
+</div>
