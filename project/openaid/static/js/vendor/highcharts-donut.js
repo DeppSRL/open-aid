@@ -13,7 +13,6 @@
         "#f05757",
         "#f74f59",
         "#f74f59",
-        "#00ff00"
     ];
 
 
@@ -123,7 +122,14 @@ function SetChartDonutDrilldown(id_donut){
         plotOptions: {
             pie: {
                 shadow: false
+            },
+            series: {
+                dataLabels: {
+                    enabled: false,
+                    format: '{point.name}: {point.y:.1f}%'
+                }
             }
+
         },
         tooltip: {
             useHTML: true,
@@ -147,7 +153,6 @@ function SetChartDonutDrilldown(id_donut){
             size: '60%',
             innerSize: '30%',
             showInLegend:false,
-            dataLabels: {enabled: false}
         }],
         drilldown:{
             series: drilldown
