@@ -55,7 +55,6 @@ $(document).ready(function(){
     var cookie_consent = $.cookie('cookie_consent');
     if (cookie_consent != '1') {
         $('#accept-cookies').css("display", "block");
-        console.log("display banner");
     }
 
     //hides the cookie banner when the button is clicked
