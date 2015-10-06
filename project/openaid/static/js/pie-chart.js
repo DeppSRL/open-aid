@@ -89,7 +89,13 @@ function SetChartDonutDrilldown(id_donut){
             number_tr2++;
 
             // look for children
-            var drilldown_name = slug(parent_name+"-dd");
+            var drilldown_name;
+            if (parent_name.match("^Other World Bank")) {
+                drilldown_name = "other-world-bank-ibrdifcmiga";
+            }
+            else
+                drilldown_name = slug(parent_name+"-dd");
+            
             var drill_obj = {name: parent_name, id:drilldown_name, data:[]};
 
             $(this).nextUntil('tr.parent').each(
