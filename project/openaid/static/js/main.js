@@ -73,7 +73,6 @@ $(document).ready(function(){
             }
         }
 
-//        console.log("ho chiuso:"+nome_serie_attiva+",devo aprire:"+nome_serie_da_attivare);
         if(nome_serie_attiva != nome_serie_da_attivare){
             for(var i=0; i < chart.series[0].data.length; i++){
                 if(chart.series[0].data[i].drilldown == nome_serie_da_attivare){
