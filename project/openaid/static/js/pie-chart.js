@@ -91,11 +91,12 @@ function SetChartDonutDrilldown(id_donut){
             // look for children
             var drilldown_name;
             if (parent_name.match("^Other World Bank")) {
-                drilldown_name = "other-world-bank-ibrdifcmiga";
+                //this is a fix for "Other World Bank (IBRD,IFC,MIGA)" needed because django and JS slugify strings differently
+                drilldown_name = "other-world-bank-ibrdifcmiga-dd";
             }
             else
                 drilldown_name = slug(parent_name+"-dd");
-            
+
             var drill_obj = {name: parent_name, id:drilldown_name, data:[]};
 
             $(this).nextUntil('tr.parent').each(
