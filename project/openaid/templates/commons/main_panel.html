@@ -23,11 +23,10 @@
         {% else %}
         <!-- Tab panes -->
         <div class="tab-content panel-body">
-            <div class="tab-pane " id="bi-multi-tab">
+            <div class="tab-pane active" id="bi-multi-tab">
                 {% include 'commons/stats.html' %}
             </div>
-            {#            todo: remove this, first panel must be active!!! #}
-            <div class="tab-pane active " id="multi-tab">
+            <div class="tab-pane" id="multi-tab">
                 {% include 'commons/stats_multi.html' %}
             </div>
             <div class="tab-pane" id="total-aid-tab">
