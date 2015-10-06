@@ -1,5 +1,5 @@
 # coding=utf-8
-from datetime import datetime
+from datetime import datetime, date
 import logging
 from django.core.management.base import BaseCommand
 from openaid.projects.models import Activity
@@ -11,16 +11,15 @@ class Command(BaseCommand):
     logger = logging.getLogger('openaid')
 
 
-    def check_invalid_date(self, date):
-        if date is None:
-            return date
+    def check_invalid_date(self, date_obj):
+        if date_obj is None:
+            return date_obj
 
-        import pytz
-        treshold_date = datetime(1970, 1, 1).replace(tzinfo = pytz.utc)
-        if date <= treshold_date:
+        treshold_date = date(1970, 1, 1)
+        if date_obj <= treshold_date:
             return None
         else:
-            return date
+            return date_obj
 
 
     def handle(self, *args, **options):
