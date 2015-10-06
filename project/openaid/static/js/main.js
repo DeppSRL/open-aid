@@ -30,11 +30,12 @@ $(document).ready(function(){
 
     // ACCORDION LOGIC START
     //activates accordion table where needed
+    // show parents row, hides child rows
     var accordion_parents =$(".accordion tr.parent");
-    var accordion_children =$(".accordion tr.child");
 
+    $(".accordion tr.child").hide();
     accordion_parents.show();
-    accordion_children.hide();
+
 
     accordion_parents.click(function(event){
         //identifies the chart
@@ -50,14 +51,15 @@ $(document).ready(function(){
         if(element_triggered=="")
             return;
 
+        var class_to_toggle = "#legend-"+id_donut+" tr."+element_triggered;
         // when an element is clicked
         // 1) hides children row not from the row clicked: hides open rows if there are any, but doesnt' hide the rows relative to the row that has just been clicked
-        accordion_children.not( "tr."+element_triggered ).filter(function() {
+        $("#legend-"+id_donut+" tr.child").not( class_to_toggle ).filter(function() {
              return $(this).css('display') == 'table-row';
         }).fadeToggle(500);
 
         // 2) toggles the child rows relative to this click
-        $(".accordion tr."+element_triggered).fadeToggle(500);
+        $(class_to_toggle).fadeToggle(500);
 
         var string_to_replace = "accordion-parent-"+id_donut +"-";
         var nome_serie_da_attivare = element_triggered.replace(string_to_replace,"")+"-dd";
