@@ -39,17 +39,28 @@ $(document).ready(function(){
 
     accordion_parents.click(function(event){
         //identifies the chart
-        var id_donut = event.target.parentElement.id.replace("accordion-parent-","").substring(0, 6);
+        var element_triggered=null;
+        if(event.target.tagName = "SPAN"){
+            element_triggered = event.target.parentElement.parentElement.id;
+        }
+        else if(event.target.tagName = "TD"){
+            element_triggered = event.target.parentElement.id;
+        }
+        if(element_triggered == null || element_triggered == '')
+            return;
+
+
+        var id_donut = element_triggered.replace("accordion-parent-","").substring(0, 6);
         var index=$("#"+id_donut).data('highchartsChart');
         var chart=Highcharts.charts[index];
 
-        // identifies the element that triggered the event
-        var element_triggered = event.target.parentElement.id;
-        if(element_triggered == ""){
-            element_triggered = event.target.parentElement.parentElement.id;
-        }
-        if(element_triggered=="")
-            return;
+//        // identifies the element that triggered the event
+//        var element_triggered = event.target.parentElement.id;
+//        if(element_triggered == ""){
+//            element_triggered = event.target.parentElement.parentElement.id;
+//        }
+//        if(element_triggered=="")
+//            return;
 
         var class_to_toggle = "#legend-"+id_donut+" tr."+element_triggered;
         // when an element is clicked
