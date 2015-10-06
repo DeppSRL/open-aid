@@ -40,14 +40,17 @@ $(document).ready(function(){
     accordion_parents.click(function(event){
         //identifies the chart
         var element_triggered=null;
-        if(event.target.tagName = "SPAN"){
+        if(event.target.tagName == "SPAN"){
             element_triggered = event.target.parentElement.parentElement.id;
         }
-        else if(event.target.tagName = "TD"){
+        else if(event.target.tagName == "TD"){
             element_triggered = event.target.parentElement.id;
         }
-        if(element_triggered == null || element_triggered == '')
+        if(element_triggered == null || element_triggered == ''){
+            console.log("element is null, tag is:"+event.target.tagName);
             return;
+        }
+
 
 
         var id_donut = element_triggered.replace("accordion-parent-","").substring(0, 6);
