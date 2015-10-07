@@ -1,3 +1,4 @@
+__author__ = 'stefano'
 # coding=utf-8
 from datetime import datetime, date
 import logging
