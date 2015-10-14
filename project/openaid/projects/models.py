@@ -585,6 +585,30 @@ class Initiative(models.Model):
     loan_amount_approved = models.FloatField(blank=True, null=True)
     grant_amount_approved = models.FloatField(blank=True, null=True)
 
+
+    # new fields
+    description = models.TextField(_('Abstract'), blank=True)
+    outcome = models.TextField(_('Main Outcome'), blank=True)
+    beneficiaries = models.TextField(_('Beneficiaries'), blank=True)
+    beneficiaries_female = models.FloatField(verbose_name=_('of which females (%)'), help_text=_('Beneficiaries of which females (%)'), blank=True, null=True)
+    STATUS_CHOICES = Choices(
+        ('-', 'Not available'),
+        ('0', '0%'),
+        ('25', '25%'),
+        ('50', '50%'),
+        ('75', '75%'),
+        ('90', 'Almost completed'),
+        ('100', 'Completed'),
+    )
+    status = models.CharField(_('Status'), max_length=3, help_text=_('Progress based on Approved vs Disbursed'), choices=STATUS_CHOICES, default='-')
+    is_suspended = models.BooleanField(verbose_name=_('suspended'), default=False)
+    start_year = models.PositiveSmallIntegerField(null=True, blank=True, default=None)
+    end_year = models.PositiveSmallIntegerField(null=True, blank=True, default=None)
+    other_financiers = models.TextField(blank=True, verbose_name=_('Other funders'))
+    counterpart_authority = models.CharField(max_length=500, blank=True)
+    email = models.EmailField(_('Officer in charge (email)'), blank=True)
+    location = models.TextField(blank=True)
+
     @property
     def last_update(self):
         dates = list(self._project_fields_map('last_update', skip_none=True))
