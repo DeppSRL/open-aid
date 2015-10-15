@@ -55,13 +55,35 @@ class ProblemInlineAdmin(TranslationStackedInline):
 
 
 class InitiativeAdmin(TranslationAdmin, BeautyTranslationAdmin):
-    model=Initiative
+    model = Initiative
     inlines = [
         ReportInlineAdmin,
         ProblemInlineAdmin,
         DocumentInlineAdmin,
         PhotoInlineAdmin,
     ]
+
+    list_display = ('code', 'title', 'country', 'total_project_costs', 'loan_amount_approved', 'grant_amount_approved',
+                    'show_projects_count', 'show_last_update')
+
+    def get_queryset(self, request):
+        return super(InitiativeAdmin, self).get_queryset(request).annotate(
+            projects_count=Count('project'),
+            projects_last_update=Max('project__last_update')
+        )
+
+    def show_projects_count(self, inst):
+        return inst.projects_count
+
+    show_projects_count.admin_order_field = 'projects_count'
+    show_projects_count.short_description = 'Projects'
+
+    def show_last_update(self, inst):
+        return inst.projects_last_update
+
+    show_last_update.admin_order_field = 'projects_last_update'
+    show_last_update.short_description = 'Last Update'
+
 
 class ProjectAdminForm(forms.ModelForm):
     class Meta:
@@ -139,7 +161,8 @@ class ActivityAdmin(TranslationAdmin, BeautyTranslationAdmin):
     fieldsets = (
         (None, {
             'fields': (
-                'project_link', 'year', 'title', 'number', 'description', 'commitment', 'commitment_usd', 'disbursement',
+                'project_link', 'year', 'title', 'number', 'description', 'commitment', 'commitment_usd',
+                'disbursement',
                 'disbursement_usd')
         }),
         ('Taxonomies', {
