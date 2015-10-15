@@ -596,13 +596,13 @@ class Initiative(models.Model):
 
     # new fields
     # last update field is an imported /insered field about the last update of the record
-    last_update = models.DateField(_('Last update'), blank=True, null=True, default=None)
-    description = models.TextField(_('Abstract'), blank=True)
-    recipient = models.ForeignKey('codelists.Recipient', verbose_name=_('Country'), blank=True, null=True)
-    outcome = models.TextField(_('Main Outcome'), blank=True)
+    last_update_temp = models.DateField(_('Last update'), blank=True, null=True, default=None)
+    description_temp = models.TextField(_('Abstract'), blank=True)
+    recipient_temp = models.ForeignKey('codelists.Recipient', verbose_name=_('Country'), blank=True, null=True)
+    outcome_temp = models.TextField(_('Main Outcome'), blank=True)
     sector = models.ForeignKey('codelists.Sector', verbose_name=_('Main Sector'), null=True, blank=True)
-    beneficiaries = models.TextField(_('Beneficiaries'), blank=True)
-    beneficiaries_female = models.FloatField(verbose_name=_('of which females (%)'), help_text=_('Beneficiaries of which females (%)'), blank=True, null=True)
+    beneficiaries_temp = models.TextField(_('Beneficiaries'), blank=True)
+    beneficiaries_female_temp = models.FloatField(verbose_name=_('of which females (%)'), help_text=_('Beneficiaries of which females (%)'), blank=True, null=True)
     STATUS_CHOICES = Choices(
         ('-', 'Not available'),
         ('0', '0%'),
@@ -612,14 +612,14 @@ class Initiative(models.Model):
         ('90', 'Almost completed'),
         ('100', 'Completed'),
     )
-    status = models.CharField(_('Status'), max_length=3, help_text=_('Progress based on Approved vs Disbursed'), choices=STATUS_CHOICES, default='-')
-    is_suspended = models.BooleanField(verbose_name=_('suspended'), default=False)
+    status_temp = models.CharField(_('Status'), max_length=3, help_text=_('Progress based on Approved vs Disbursed'), choices=STATUS_CHOICES, default='-')
+    is_suspended_temp = models.BooleanField(verbose_name=_('suspended'), default=False)
     start_year = models.PositiveSmallIntegerField(null=True, blank=True, default=None)
     end_year = models.PositiveSmallIntegerField(null=True, blank=True, default=None)
-    other_financiers = models.TextField(blank=True, verbose_name=_('Other funders'))
-    counterpart_authority = models.CharField(max_length=500, blank=True)
-    email = models.EmailField(_('Officer in charge (email)'), blank=True)
-    location = models.TextField(blank=True)
+    other_financiers_temp = models.TextField(blank=True, verbose_name=_('Other funders'))
+    counterpart_authority_temp = models.CharField(max_length=500, blank=True)
+    email_temp = models.EmailField(_('Officer in charge (email)'), blank=True)
+    location_temp = models.TextField(blank=True)
     # ATTACHMENTS
     photo_set = GenericRelation('attachments.Photo')
     document_set = GenericRelation('attachments.Document')
@@ -681,10 +681,6 @@ class Initiative(models.Model):
         if year:
             filters['project__activity__year__exact'] = year
         initiatives = Initiative.objects.order_by('-total_project_costs')
-        # initiatives = Initiative.objects.annotate(
-        #     total_commitment=Sum('project__activity__commitment'),
-        #     total_disbursement=Sum('project__activity__disbursement'),
-        # ).order_by('-total_commitment').filter(total_commitment__gt=0)
         return initiatives.filter(**filters).distinct()[:qnt]
 
     def projects(self):

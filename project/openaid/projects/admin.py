@@ -19,7 +19,6 @@ def make_admin_link(instance, name_field=None):
 
 
 class BeautyTranslationAdmin(object):
-
     class Media:
         js = (
             'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js',
@@ -49,10 +48,20 @@ class ReportInlineAdmin(TranslationStackedInline):
     extra = 0
     model = Report
 
+
 class ProblemInlineAdmin(TranslationStackedInline):
     extra = 0
     model = Problem
 
+
+class InitiativeAdmin(TranslationAdmin, BeautyTranslationAdmin):
+    model=Initiative
+    inlines = [
+        ReportInlineAdmin,
+        ProblemInlineAdmin,
+        DocumentInlineAdmin,
+        PhotoInlineAdmin,
+    ]
 
 class ProjectAdminForm(forms.ModelForm):
     class Meta:
@@ -73,17 +82,24 @@ class ProjectAdmin(TranslationAdmin, BeautyTranslationAdmin):
     search_fields = ('crsid', 'title', 'description', 'recipient__name', 'start_year')
     ordering = ('-last_update', '-end_year', )
     readonly_fields = ['recipient', 'agency', 'aid_type', 'channel', 'finance_type', 'sector', 'markers', 'crsid']
+    inlines = [
+        ReportInlineAdmin,
+        ProblemInlineAdmin,
+        DocumentInlineAdmin,
+        PhotoInlineAdmin,
+    ]
     fieldsets = (
-            (None, {
-                'fields': ('crsid', 'number', 'title', 'description', )
-            }),
-            (None, {
-                'fields': ('recipient', 'aid_type', 'outcome', 'sector', 'beneficiaries', 'beneficiaries_female',
-                           'status', 'is_suspended', 'start_year', 'end_year', 'expected_start_year', 'expected_completion_year',
-                           'total_project_costs', 'other_financiers', 'loan_amount_approved', 'grant_amount_approved',
-                           'agency', 'counterpart_authority', 'email', 'location', )
-            }),
-        )
+        (None, {
+            'fields': ('crsid', 'number', 'title', 'description', )
+        }),
+        (None, {
+            'fields': ('recipient', 'aid_type', 'outcome', 'sector', 'beneficiaries', 'beneficiaries_female',
+                       'status', 'is_suspended', 'start_year', 'end_year', 'expected_start_year',
+                       'expected_completion_year',
+                       'total_project_costs', 'other_financiers', 'loan_amount_approved', 'grant_amount_approved',
+                       'agency', 'counterpart_authority', 'email', 'location', )
+        }),
+    )
 
     def get_readonly_fields(self, request, obj=None):
         fields = super(ProjectAdmin, self).get_readonly_fields(request, obj)
@@ -105,14 +121,6 @@ class ProjectAdmin(TranslationAdmin, BeautyTranslationAdmin):
             return list_filter
         return [x for x in list_filter if x != 'has_focus']
 
-
-    inlines = [
-        ReportInlineAdmin,
-        ProblemInlineAdmin,
-        DocumentInlineAdmin,
-        PhotoInlineAdmin,
-    ]
-
     def get_queryset(self, request):
         queryset = super(ProjectAdmin, self).get_queryset(request)
         if request.user.is_superuser:
@@ -130,11 +138,15 @@ class ActivityAdmin(TranslationAdmin, BeautyTranslationAdmin):
 
     fieldsets = (
         (None, {
-            'fields': ('project_link', 'year', 'title', 'number', 'description', 'commitment','commitment_usd','disbursement','disbursement_usd')
+            'fields': (
+                'project_link', 'year', 'title', 'number', 'description', 'commitment', 'commitment_usd', 'disbursement',
+                'disbursement_usd')
         }),
         ('Taxonomies', {
             'classes': ('collapse',),
-            'fields': ('geography', 'report_type', 'flow_type', 'bi_multi', 'is_ftc', 'is_pba', 'is_investment', 'markers', 'channel_reported')
+            'fields': (
+                'geography', 'report_type', 'flow_type', 'bi_multi', 'is_ftc', 'is_pba', 'is_investment', 'markers',
+                'channel_reported')
         }),
         ('Codelists', {
             'classes': ('collapse',),
@@ -151,17 +163,21 @@ class ActivityAdmin(TranslationAdmin, BeautyTranslationAdmin):
 def _codelist_link(codelist):
     def wrap(self, obj):
         return make_admin_link(getattr(obj, codelist), name_field=getattr(obj, codelist).name)
+
     wrap.short_description = codelist
     wrap.allow_tags = True
     return wrap
+
 
 for cl in ActivityAdmin.codelists:
     fieldname = '%s_link' % cl
     setattr(ActivityAdmin, fieldname, _codelist_link(cl))
 
+
 class AnnualFundsInlineAdmin(admin.TabularInline):
     model = AnnualFunds
     extra = 1
+
 
 class OrganizationAdmin(admin.ModelAdmin):
     inlines = [
@@ -186,10 +202,10 @@ class UtlAdmin(admin.ModelAdmin):
 
 class CodelistSelect2Widget(Select2Widget):
     options = {
-        'minimumResultsForSearch': 6,  # Only applicable for single value select.
-        'placeholder': '',  # Empty text label
-        'allowClear': True,  # Not allowed when field is multiple since there each value has a clear button.
-        'multiple': False,  # Not allowed when attached to <select>
+        'minimumResultsForSearch': 6, # Only applicable for single value select.
+        'placeholder': '', # Empty text label
+        'allowClear': True, # Not allowed when field is multiple since there each value has a clear button.
+        'multiple': False, # Not allowed when attached to <select>
         'closeOnSelect': False,
         'width': '350px',
     }
@@ -200,7 +216,6 @@ class CodelistSelect2Field(ModelSelect2Field):
 
 
 class NewProjectAdminForm(forms.ModelForm):
-
     recipient = CodelistSelect2Field(queryset=codelist_models.Recipient.objects, required=True)
     agency = CodelistSelect2Field(queryset=codelist_models.Agency.objects, required=False)
     channel = CodelistSelect2Field(queryset=codelist_models.Channel.objects, required=False)
@@ -222,7 +237,6 @@ class NewProjectAdmin(TranslationAdmin, BeautyTranslationAdmin):
     list_filter = ('year', 'agency')
     list_display = ('title', 'year', 'number', 'recipient', 'agency')
     inlines = [
-        # DocumentInlineAdmin,
         PhotoInlineAdmin,
     ]
 
@@ -244,40 +258,6 @@ class NewProjectAdmin(TranslationAdmin, BeautyTranslationAdmin):
         elif request.user.utl is None:
             return queryset.none()
         return queryset.filter(recipient__in=request.user.utl.recipient_set.all())
-
-
-class InitiativeAdmin(TranslationAdmin, BeautyTranslationAdmin):
-    model = Initiative
-    inlines = [
-        DocumentInlineAdmin,
-        PhotoInlineAdmin,
-    ]
-
-    list_display = (
-        'code',
-        'title',
-        'country',
-        'total_project_costs',
-        'loan_amount_approved',
-        'grant_amount_approved',
-        'show_projects_count',
-        'show_last_update')
-
-    def get_queryset(self, request):
-        return super(InitiativeAdmin, self).get_queryset(request).annotate(
-            projects_count=Count('project'),
-            projects_last_update=Max('project__last_update')
-        )
-
-    def show_projects_count(self, inst):
-        return inst.projects_count
-    show_projects_count.admin_order_field = 'projects_count'
-    show_projects_count.short_description = 'Projects'
-
-    def show_last_update(self, inst):
-        return inst.projects_last_update
-    show_last_update.admin_order_field = 'projects_last_update'
-    show_last_update.short_description = 'Last Update'
 
 
 admin.site.register(Project, ProjectAdmin)
