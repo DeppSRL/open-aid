@@ -530,6 +530,7 @@ class Problem(models.Model):
     impact = models.TextField(blank=True)
     actions = models.TextField(_('Actions carried out'), blank=True)
     project = models.ForeignKey(Project)
+    initiative = models.ForeignKey('projects.Initiative', default=None, null=True, blank=True)
 
 
 class Report(models.Model):
@@ -540,21 +541,30 @@ class Report(models.Model):
         (3, _('Contributions')),
         (4, _('Scholarships')),
     )
-    type = models.IntegerField(choices=REPORT_TYPES, default=None, null=True)
 
     PROCEDURE_TYPES = Choices(
         (1, _('Call for Proposal')),
         (2, _('Direct Contracting/Direct Assignment')),
         (3, _('Competitive Bidding')),
         (4, _('Call for Grant')),
-        # ...
     )
+
+    PROCUREMENT_NOTICE = Choices(
+        (1, _('Tender preparation')),
+        (2, _('Tender launched')),
+        (3, _('Selection procedure')),
+        (4, _('Contract awarded')),
+    )
+
+    type = models.IntegerField(choices=REPORT_TYPES, default=None, null=True)
     procurement_procedure = models.IntegerField(choices=PROCEDURE_TYPES, default=None, null=True)
+    procurement_notice = models.IntegerField(choices=PROCEDURE_TYPES, default=None, null=True)
     status = models.CharField(max_length=200, blank=True)
     number = models.CharField(verbose_name=_('N. ID DGCS'), max_length=128, blank=True)
     awarding_entity = models.CharField(max_length=1000, blank=True)
     description = models.TextField(blank=True, verbose_name=_('Observation'))
     project = models.ForeignKey(Project)
+    initiative = models.ForeignKey('projects.Initiative', default=None, null=True, blank=True)
 
     class Meta:
         verbose_name = _('Procurement')
@@ -569,7 +579,6 @@ class NewProject(CodelistsModel):
     year = models.PositiveSmallIntegerField(null=True, blank=True)
     commitment = models.FloatField(help_text=_('Migliaia di euro'), blank=True, null=True)
     disbursement = models.FloatField(help_text=_('Migliaia di euro'), blank=True, null=True)
-    # document_set = GenericRelation('attachments.Document')
     photo_set = GenericRelation('attachments.Photo')
 
     def get_absolute_url(self):
@@ -585,10 +594,13 @@ class Initiative(models.Model):
     loan_amount_approved = models.FloatField(blank=True, null=True)
     grant_amount_approved = models.FloatField(blank=True, null=True)
 
-
     # new fields
+    # last update field is an imported /insered field about the last update of the record
+    last_update = models.DateField(_('Last update'), blank=True, null=True, default=None)
     description = models.TextField(_('Abstract'), blank=True)
+    recipient = models.ForeignKey('codelists.Recipient', verbose_name=_('Country'), blank=True, null=True)
     outcome = models.TextField(_('Main Outcome'), blank=True)
+    sector = models.ForeignKey('codelists.Sector', verbose_name=_('Main Sector'), null=True, blank=True)
     beneficiaries = models.TextField(_('Beneficiaries'), blank=True)
     beneficiaries_female = models.FloatField(verbose_name=_('of which females (%)'), help_text=_('Beneficiaries of which females (%)'), blank=True, null=True)
     STATUS_CHOICES = Choices(
@@ -608,6 +620,13 @@ class Initiative(models.Model):
     counterpart_authority = models.CharField(max_length=500, blank=True)
     email = models.EmailField(_('Officer in charge (email)'), blank=True)
     location = models.TextField(blank=True)
+    # ATTACHMENTS
+    photo_set = GenericRelation('attachments.Photo')
+    document_set = GenericRelation('attachments.Document')
+    # created at / updated at: automatical fields for create/update time. not shown in backend
+    updated_at = models.DateTimeField(auto_now=True, blank=True, null=True, default=None)
+    created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True, default=None)
+
 
     @property
     def last_update(self):
