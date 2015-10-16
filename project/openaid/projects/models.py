@@ -13,17 +13,16 @@ logger = logging.getLogger(__name__)
 
 
 class ChannelReported(models.Model):
-
     name = models.CharField(max_length=1000)
 
     def __unicode__(self):
         return self.name
+
     class Meta:
         verbose_name_plural = "Channel reported"
 
 
 class Markers(models.Model):
-
     biodiversity = fields.MarkerField()
     climate_adaptation = fields.MarkerField()
     climate_mitigation = fields.MarkerField()
@@ -35,7 +34,8 @@ class Markers(models.Model):
 
     @property
     def names(self):
-        return ['biodiversity', 'climate_adaptation', 'climate_mitigation', 'desertification', 'environment', 'gender', 'pd_gg', 'trade']
+        return ['biodiversity', 'climate_adaptation', 'climate_mitigation', 'desertification', 'environment', 'gender',
+                'pd_gg', 'trade']
 
     def merge(self, markers, save=False):
         updates = 0
@@ -51,14 +51,13 @@ class Markers(models.Model):
         return updates
 
     def __unicode__(self):
-        return ("{}"*8).format(*[getattr(self, name) or '-' for name in self.names])
+        return ("{}" * 8).format(*[getattr(self, name) or '-' for name in self.names])
 
     class Meta:
         verbose_name_plural = "Markers"
 
 
 class MarkedModel(models.Model):
-
     markers = models.ForeignKey(Markers, null=True, blank=True)
 
     def merge_markers(self, markers, save=False):
@@ -79,7 +78,6 @@ class MarkedModel(models.Model):
 
 
 class CodelistsModel(models.Model):
-
     recipient = models.ForeignKey('codelists.Recipient', verbose_name=_('Country'), blank=True, null=True)
     agency = models.ForeignKey('codelists.Agency', null=True, blank=True)
     aid_type = models.ForeignKey('codelists.AidType', null=True, blank=True)
@@ -99,12 +97,13 @@ class CodelistsModel(models.Model):
                 continue
 
             if codelist == 'recipient':
-                logger.warning('Merge Activity %s in %s: Cambiamento di recipient non previsto (%s o %s?) [update ignorato del recipient]' % (
-                    activity,
-                    self,
-                    value,
-                    getattr(self, codelist)
-                ))
+                logger.warning(
+                    'Merge Activity %s in %s: Cambiamento di recipient non previsto (%s o %s?) [update ignorato del recipient]' % (
+                        activity,
+                        self,
+                        value,
+                        getattr(self, codelist)
+                    ))
                 continue
 
             setattr(self, codelist, value)
@@ -119,7 +118,6 @@ class CodelistsModel(models.Model):
 
 
 class Project(CodelistsModel, MarkedModel):
-
     initiative = models.ForeignKey('projects.Initiative', blank=True, null=True, on_delete=models.SET_NULL)
 
     title = models.CharField(max_length=500, blank=True)
@@ -135,7 +133,8 @@ class Project(CodelistsModel, MarkedModel):
     last_update = models.DateField(_('Last update'), null=True, auto_now=True)
     outcome = models.TextField(_('Main Outcome'), blank=True)
     beneficiaries = models.TextField(_('Beneficiaries'), blank=True)
-    beneficiaries_female = models.FloatField(verbose_name=_('of which females (%)'), help_text=_('Beneficiaries of which females (%)'), blank=True, null=True)
+    beneficiaries_female = models.FloatField(verbose_name=_('of which females (%)'),
+                                             help_text=_('Beneficiaries of which females (%)'), blank=True, null=True)
     STATUS_CHOICES = Choices(
         ('-', 'Not available'),
         ('0', '0%'),
@@ -144,7 +143,8 @@ class Project(CodelistsModel, MarkedModel):
         ('75', '75%'),
         ('100', 'Almost completed'),
     )
-    status = models.CharField(_('Status'), max_length=3, help_text=_('Progress based on Approved vs Disbursed'), choices=STATUS_CHOICES, default='-')
+    status = models.CharField(_('Status'), max_length=3, help_text=_('Progress based on Approved vs Disbursed'),
+                              choices=STATUS_CHOICES, default='-')
     is_suspended = models.BooleanField(verbose_name=_('suspended'), default=False)
     total_project_costs = models.FloatField(blank=True, null=True)
     other_financiers = models.TextField(blank=True, verbose_name=_('Other funders'))
@@ -172,9 +172,12 @@ class Project(CodelistsModel, MarkedModel):
     def get_top_projects(cls, qnt=3, order_by=None, year=None, **filters):
         if year:
             filters['year'] = year
-        projects = Activity.objects.filter(**filters).order_by('project').distinct('project').values('project', 'commitment')
+        projects = Activity.objects.filter(**filters).order_by('project').distinct('project').values('project',
+                                                                                                     'commitment')
+
         def order_by_commitment(project):
             return -1 * ( project.get('commitment') or 0)
+
         projects = sorted(projects, key=order_by or order_by_commitment)[:qnt]
         return cls.objects.filter(pk__in=map(lambda p: p.get('project'), projects))
 
@@ -183,7 +186,9 @@ class Project(CodelistsModel, MarkedModel):
 
     def activities(self, year=None):
         if not getattr(self, '_activities', False):
-            self._activities = list(self.activity_set.all().prefetch_related('recipient', 'agency', 'aid_type', 'channel', 'finance_type', 'sector'))
+            self._activities = list(
+                self.activity_set.all().prefetch_related('recipient', 'agency', 'aid_type', 'channel', 'finance_type',
+                                                         'sector'))
         return filter(lambda a: a.year == year, self._activities) if year else self._activities
 
     def _activities_map(self, field, activities=None, year=None, skip_none=False):
@@ -314,7 +319,6 @@ class Project(CodelistsModel, MarkedModel):
 
 
 class Activity(CodelistsModel, MarkedModel):
-
     project = models.ForeignKey(Project, null=True, blank=True)
 
     crsid = models.CharField(max_length=128, blank=True)
@@ -330,7 +334,8 @@ class Activity(CodelistsModel, MarkedModel):
         (0, _('Unknown')),
         (1, _('New activity reported')),
         (2, _('Revision')),
-        (3, _('Previously reported activity')), # increase/decrease of earlier commitment, disbursement on earlier commitment
+        (3, _('Previously reported activity')),
+        # increase/decrease of earlier commitment, disbursement on earlier commitment
         (5, _('Provisional data')),
         (8, _('Commitment = Disbursement')),
     )
@@ -417,9 +422,10 @@ class Activity(CodelistsModel, MarkedModel):
             setattr(self, field, self_value + activity_value)
             updates += 1
             if self_value == activity_value:
-                logger.warning('Merge Activity %s in %s: Entrambe le Activity hanno lo stesso valore per il campo %s [update eseguito sommandoli]' % (
-                    repr(activity), repr(self), field
-                ))
+                logger.warning(
+                    'Merge Activity %s in %s: Entrambe le Activity hanno lo stesso valore per il campo %s [update eseguito sommandoli]' % (
+                        repr(activity), repr(self), field
+                    ))
 
         markers_updates = self.merge_markers(activity.markers)
         updates += self.merge_codelists(activity, False)
@@ -494,27 +500,29 @@ class AnnualFunds(models.Model):
         type_data = []
 
         if type == 'commitment':
-            sum_aggregate = {'sum': Sum('commitment') }
+            sum_aggregate = {'sum': Sum('commitment')}
         elif type == 'disbursement':
-            sum_aggregate = {'sum': Sum('disbursement') }
+            sum_aggregate = {'sum': Sum('disbursement')}
         else:
             raise Exception
 
-        for tipologia_id in range(1, len(Organization.ORGANIZATION_TYPES)+1):
+        for tipologia_id in range(1, len(Organization.ORGANIZATION_TYPES) + 1):
             tipologia_name = Organization.ORGANIZATION_TYPES[tipologia_id]
             type_dict = {
                 'name': tipologia_name,
                 'tipologia': tipologia_id,
-                'sum': AnnualFunds.objects.filter(year=year, organization__type=tipologia_id).aggregate(**sum_aggregate)['sum'],
+                'sum':
+                    AnnualFunds.objects.filter(year=year, organization__type=tipologia_id).aggregate(**sum_aggregate)[
+                        'sum'],
                 'organizations': []
-                }
+            }
 
             organizations = Organization.objects.filter(type=tipologia_id).order_by('name')
             for org in organizations:
                 type_dict['organizations'].append({
                     'name': org.name,
                     'tipologia': tipologia_id,
-                    'sum':AnnualFunds.objects.filter(year=year,organization=org).aggregate(**sum_aggregate)['sum']
+                    'sum': AnnualFunds.objects.filter(year=year, organization=org).aggregate(**sum_aggregate)['sum']
                 })
 
             type_data.append(type_dict)
@@ -523,7 +531,6 @@ class AnnualFunds(models.Model):
 
 
 class Utl(models.Model):
-
     name = models.CharField(max_length=200)
     city = models.CharField(max_length=200)
 
@@ -537,13 +544,12 @@ class Utl(models.Model):
 
 # todo: this has to be removed when the transition to the new Initiative is finished
 class TemporaryCheck(models.Model):
-
     class Meta:
         abstract = True
 
     def clean(self, *args, **kwargs):
         if self.project is not None and self.initiative is not None:
-            raise ValidationError('You have not met a constraint!')
+            raise ValidationError('Object cannot have foreign key to Project AND Initiative. Choose one.')
         super(TemporaryCheck, self).clean(*args, **kwargs)
 
     def full_clean(self, *args, **kwargs):
@@ -555,16 +561,14 @@ class TemporaryCheck(models.Model):
 
 
 class Problem(TemporaryCheck):
-
     event = models.TextField(_('Unforeseen event'), blank=True)
     impact = models.TextField(blank=True)
     actions = models.TextField(_('Actions carried out'), blank=True)
-    project = models.ForeignKey(Project)
+    project = models.ForeignKey(Project, default=None, null=True, blank=True)
     initiative = models.ForeignKey('projects.Initiative', default=None, null=True, blank=True)
 
 
-class Report( TemporaryCheck):
-
+class Report(TemporaryCheck):
     REPORT_TYPES = Choices(
         (1, _('Technical Assistance/Consultancy and related expenses')),
         (2, _('Works, Supply, Services')),
@@ -593,10 +597,8 @@ class Report( TemporaryCheck):
     number = models.CharField(verbose_name=_('N. ID DGCS'), max_length=128, blank=True)
     awarding_entity = models.CharField(max_length=1000, blank=True)
     description = models.TextField(blank=True, verbose_name=_('Observation'))
-    project = models.ForeignKey(Project)
+    project = models.ForeignKey(Project, default=None, null=True, blank=True)
     initiative = models.ForeignKey('projects.Initiative', default=None, null=True, blank=True)
-
-
 
 
     class Meta:
@@ -604,9 +606,7 @@ class Report( TemporaryCheck):
         verbose_name_plural = _('Procurements')
 
 
-
 class NewProject(CodelistsModel):
-
     title = models.CharField(max_length=500, blank=True)
     number = models.CharField(verbose_name=_('N. ID DGCS'), blank=True, max_length=100)
     description = models.TextField(verbose_name=_('Abstract'), blank=True)
@@ -620,7 +620,6 @@ class NewProject(CodelistsModel):
 
 
 class Initiative(models.Model):
-
     code = models.CharField(max_length=6, unique=True)
     title = models.CharField(max_length=1000)
     country = models.CharField(max_length=1000, blank=True)
@@ -636,7 +635,9 @@ class Initiative(models.Model):
     outcome_temp = models.TextField(_('Main Outcome'), blank=True)
     sector = models.ForeignKey('codelists.Sector', verbose_name=_('Main Sector'), null=True, blank=True)
     beneficiaries_temp = models.TextField(_('Beneficiaries'), blank=True)
-    beneficiaries_female_temp = models.FloatField(verbose_name=_('of which females (%)'), help_text=_('Beneficiaries of which females (%)'), blank=True, null=True)
+    beneficiaries_female_temp = models.FloatField(verbose_name=_('of which females (%)'),
+                                                  help_text=_('Beneficiaries of which females (%)'), blank=True,
+                                                  null=True)
     STATUS_CHOICES = Choices(
         ('-', 'Not available'),
         ('0', '0%'),
@@ -646,14 +647,15 @@ class Initiative(models.Model):
         ('90', 'Almost completed'),
         ('100', 'Completed'),
     )
-    status_temp = models.CharField(_('Status'), max_length=3, help_text=_('Progress based on Approved vs Disbursed'), choices=STATUS_CHOICES, default='-')
+    status_temp = models.CharField(_('Status'), max_length=3, help_text=_('Progress based on Approved vs Disbursed'),
+                                   choices=STATUS_CHOICES, default='-')
     is_suspended_temp = models.BooleanField(verbose_name=_('suspended'), default=False)
     start_year = models.PositiveSmallIntegerField(null=True, blank=True, default=None)
     end_year = models.PositiveSmallIntegerField(null=True, blank=True, default=None)
     other_financiers_temp = models.TextField(blank=True, verbose_name=_('Other funders'))
-    counterpart_authority_temp = models.CharField(max_length=500, blank=True)
+    counterpart_authority_temp = models.CharField(_('Counterpart authority'),max_length=500, blank=True)
     email_temp = models.EmailField(_('Officer in charge (email)'), blank=True)
-    location_temp = models.TextField(blank=True)
+    location_temp = models.TextField(_('Location'),blank=True)
     # ATTACHMENTS
     photo_set = GenericRelation('attachments.Photo')
     document_set = GenericRelation('attachments.Document')
