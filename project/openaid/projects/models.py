@@ -547,16 +547,9 @@ class TemporaryCheck(models.Model):
     class Meta:
         abstract = True
 
-    def clean(self, *args, **kwargs):
+    def save(self, *args, **kwargs):
         if self.project is not None and self.initiative is not None:
             raise ValidationError('Object cannot have foreign key to Project AND Initiative. Choose one.')
-        super(TemporaryCheck, self).clean(*args, **kwargs)
-
-    def full_clean(self, *args, **kwargs):
-        return self.clean(*args, **kwargs)
-
-    def save(self, *args, **kwargs):
-        self.full_clean()
         super(TemporaryCheck, self).save(*args, **kwargs)
 
 
