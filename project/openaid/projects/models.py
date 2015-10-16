@@ -537,6 +537,10 @@ class Utl(models.Model):
 
 # todo: this has to be removed when the transition to the new Initiative is finished
 class TemporaryCheck(models.Model):
+
+    class Meta:
+        abstract = True
+
     def clean(self, *args, **kwargs):
         if self.project is not None and self.initiative is not None:
             raise ValidationError('You have not met a constraint!')

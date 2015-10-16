@@ -77,8 +77,11 @@ class InitiativeAdmin(TranslationAdmin, BeautyTranslationAdmin):
         DocumentInlineAdmin,
         PhotoInlineAdmin,
     ]
+
     list_display = ('code', 'title', 'country', 'total_project_costs', 'loan_amount_approved', 'grant_amount_approved',
                     'show_projects_count', 'show_last_update')
+
+    search_fields = ('code', 'title', 'description_temp', 'recipient_temp__name', 'start_year')
 
     def get_queryset(self, request):
         return super(InitiativeAdmin, self).get_queryset(request).select_related('report','problem').annotate(
@@ -115,7 +118,7 @@ class ProjectAdmin(TranslationAdmin, BeautyTranslationAdmin):
     list_display = ('crsid', 'number', 'recipient', 'title', 'start_year', 'end_year', 'last_update')
     list_filter = ('has_focus', 'start_year', 'end_year', 'agency')
     list_select_related = ('recipient', )
-    search_fields = ('crsid', 'title', 'description', 'recipient__name', 'start_year')
+    search_fields = ('crsid', 'title', 'description', 'recipient__name', 'start_year','number')
     ordering = ('-last_update', '-end_year', )
     readonly_fields = ['recipient', 'agency', 'aid_type', 'channel', 'finance_type', 'sector', 'markers', 'crsid']
     inlines = [
