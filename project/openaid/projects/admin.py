@@ -69,8 +69,10 @@ class ProblemInlineInitiativeAdmin(TranslationStackedInline):
 
 
 
+
 class InitiativeAdmin(TranslationAdmin, BeautyTranslationAdmin):
     model = Initiative
+    # form = InitiativeAdminForm
     inlines = [
         ReportInlineInitiativeAdmin,
         ProblemInlineInitiativeAdmin,
@@ -82,6 +84,17 @@ class InitiativeAdmin(TranslationAdmin, BeautyTranslationAdmin):
                     'show_projects_count', 'show_last_update')
 
     search_fields = ('code', 'title', 'description_temp', 'recipient_temp__name', 'start_year')
+
+    # se l'utente e' una UTL mostra i recipient a lui associati
+    # ed inoltre limita i sectors alle sole foglie ovvero esclude i sector "padre"
+    def render_change_form(self, request, context, *args, **kwargs):
+        if not request.user.is_superuser and request.user.utl:
+            context['adminform'].form.fields['recipient_temp'].queryset = request.user.utl.recipient_set.all()
+        else:
+            context['adminform'].form.fields['recipient_temp'].queryset = codelist_models.Recipient.objects.all()
+
+        context['adminform'].form.fields['sector'].queryset = codelist_models.Sector.objects.filter(children__isnull=True).order_by('code')
+        return super(InitiativeAdmin, self).render_change_form(request, context, args, kwargs)
 
     def get_queryset(self, request):
         return super(InitiativeAdmin, self).get_queryset(request).select_related('report','problem').annotate(
