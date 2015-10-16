@@ -1,4 +1,5 @@
 from django.contrib.contenttypes.generic import GenericRelation
+from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.db.models import Sum
@@ -17,6 +18,8 @@ class ChannelReported(models.Model):
 
     def __unicode__(self):
         return self.name
+    class Meta:
+        verbose_name_plural = "Channel reported"
 
 
 class Markers(models.Model):
@@ -49,6 +52,9 @@ class Markers(models.Model):
 
     def __unicode__(self):
         return ("{}"*8).format(*[getattr(self, name) or '-' for name in self.names])
+
+    class Meta:
+        verbose_name_plural = "Markers"
 
 
 class MarkedModel(models.Model):
@@ -440,6 +446,7 @@ class Activity(CodelistsModel, MarkedModel):
 
     class Meta:
         ordering = ('-year', 'number', 'title')
+        verbose_name_plural = "Activities"
 
 
 class Organization(models.Model):
@@ -480,6 +487,7 @@ class AnnualFunds(models.Model):
 
     class Meta:
         unique_together = ("year", "organization")
+        verbose_name_plural = "Annual funds"
 
     @staticmethod
     def get_type_distribution(year, type=None):
@@ -523,8 +531,26 @@ class Utl(models.Model):
     nation = models.OneToOneField('codelists.Recipient', related_name='+')
     recipient_set = models.ManyToManyField('codelists.Recipient', related_name='utl_set')
 
+    class Meta:
+        verbose_name_plural = "UTL"
 
-class Problem(models.Model):
+
+# todo: this has to be removed when the transition to the new Initiative is finished
+class TemporaryCheck(models.Model):
+    def clean(self, *args, **kwargs):
+        if self.project is not None and self.initiative is not None:
+            raise ValidationError('You have not met a constraint!')
+        super(TemporaryCheck, self).clean(*args, **kwargs)
+
+    def full_clean(self, *args, **kwargs):
+        return self.clean(*args, **kwargs)
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        super(TemporaryCheck, self).save(*args, **kwargs)
+
+
+class Problem(TemporaryCheck):
 
     event = models.TextField(_('Unforeseen event'), blank=True)
     impact = models.TextField(blank=True)
@@ -533,7 +559,7 @@ class Problem(models.Model):
     initiative = models.ForeignKey('projects.Initiative', default=None, null=True, blank=True)
 
 
-class Report(models.Model):
+class Report( TemporaryCheck):
 
     REPORT_TYPES = Choices(
         (1, _('Technical Assistance/Consultancy and related expenses')),
@@ -566,9 +592,13 @@ class Report(models.Model):
     project = models.ForeignKey(Project)
     initiative = models.ForeignKey('projects.Initiative', default=None, null=True, blank=True)
 
+
+
+
     class Meta:
         verbose_name = _('Procurement')
         verbose_name_plural = _('Procurements')
+
 
 
 class NewProject(CodelistsModel):

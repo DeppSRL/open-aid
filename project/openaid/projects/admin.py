@@ -44,30 +44,44 @@ class ActivityInlineAdmin(admin.TabularInline):
         return False
 
 
-class ReportInlineAdmin(TranslationStackedInline):
+class ReportInlineProjectAdmin(TranslationStackedInline):
     extra = 0
     model = Report
+    exclude = ['initiative',]
 
 
-class ProblemInlineAdmin(TranslationStackedInline):
+class ProblemInlineProjectAdmin(TranslationStackedInline):
     extra = 0
     model = Problem
+    exclude = ['initiative',]
+
+
+class ReportInlineInitiativeAdmin(TranslationStackedInline):
+    extra = 0
+    model = Report
+    exclude = ['project',]
+
+
+class ProblemInlineInitiativeAdmin(TranslationStackedInline):
+    extra = 0
+    model = Problem
+    exclude = ['project',]
+
 
 
 class InitiativeAdmin(TranslationAdmin, BeautyTranslationAdmin):
     model = Initiative
     inlines = [
-        ReportInlineAdmin,
-        ProblemInlineAdmin,
+        ReportInlineInitiativeAdmin,
+        ProblemInlineInitiativeAdmin,
         DocumentInlineAdmin,
         PhotoInlineAdmin,
     ]
-
     list_display = ('code', 'title', 'country', 'total_project_costs', 'loan_amount_approved', 'grant_amount_approved',
                     'show_projects_count', 'show_last_update')
 
     def get_queryset(self, request):
-        return super(InitiativeAdmin, self).get_queryset(request).annotate(
+        return super(InitiativeAdmin, self).get_queryset(request).select_related('report','problem').annotate(
             projects_count=Count('project'),
             projects_last_update=Max('project__last_update')
         )
@@ -105,8 +119,8 @@ class ProjectAdmin(TranslationAdmin, BeautyTranslationAdmin):
     ordering = ('-last_update', '-end_year', )
     readonly_fields = ['recipient', 'agency', 'aid_type', 'channel', 'finance_type', 'sector', 'markers', 'crsid']
     inlines = [
-        ReportInlineAdmin,
-        ProblemInlineAdmin,
+        ReportInlineProjectAdmin,
+        ProblemInlineProjectAdmin,
         DocumentInlineAdmin,
         PhotoInlineAdmin,
     ]
