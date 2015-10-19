@@ -613,16 +613,16 @@ class NewProject(CodelistsModel):
 
 
 class Initiative(models.Model):
-    code = models.CharField(max_length=6, unique=True)
+    code = models.CharField(_('N.ID Iniziativa DGCS'),max_length=6, unique=True)
     title = models.CharField(max_length=1000)
     country = models.CharField(max_length=1000, blank=True)
-    total_project_costs = models.FloatField(blank=True, null=True)
+    total_project_costs = models.FloatField(_('Total project costs for Italian Entities'),blank=True, null=True)
     loan_amount_approved = models.FloatField(blank=True, null=True)
     grant_amount_approved = models.FloatField(blank=True, null=True)
 
     # new fields
     # last update field is an imported /insered field about the last update of the record
-    last_update_temp = models.DateField(_('Last update'), blank=True, null=True, default=None)
+    last_update_temp = models.DateField(_('Data aggiornamento scheda'), blank=True, null=True, default=None)
     description_temp = models.TextField(_('Abstract'), blank=True)
     recipient_temp = models.ForeignKey('codelists.Recipient', verbose_name=_('Country'), blank=True, null=True)
     outcome_temp = models.TextField(_('Main Outcome'), blank=True)
