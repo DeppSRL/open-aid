@@ -44,35 +44,36 @@ class ActivityInlineAdmin(admin.TabularInline):
         return False
 
 
-class ReportInlineProjectAdmin(TranslationStackedInline):
+class BaseReportInlineAdmin(TranslationStackedInline):
     extra = 0
     model = Report
-    exclude = ['initiative',]
+    fields = ('procurement_procedure', 'procurement_notice', 'type', 'awarding_entity', 'description')
 
 
-class ProblemInlineProjectAdmin(TranslationStackedInline):
+class ReportInlineInitiativeAdmin(BaseReportInlineAdmin):
+    exclude = ['project', ]
+
+
+class ReportInlineProjectAdmin(BaseReportInlineAdmin):
+    exclude = ['initiative', ]
+
+
+class BaseProblemInlineAdmin(TranslationStackedInline):
     extra = 0
     model = Problem
-    exclude = ['initiative',]
+    fields = ('event','impact','actions')
 
 
-class ReportInlineInitiativeAdmin(TranslationStackedInline):
-    extra = 0
-    model = Report
-    exclude = ['project',]
+class ProblemInlineProjectAdmin(BaseProblemInlineAdmin):
+    exclude = ['initiative', ]
 
 
-class ProblemInlineInitiativeAdmin(TranslationStackedInline):
-    extra = 0
-    model = Problem
-    exclude = ['project',]
-
-
+class ProblemInlineInitiativeAdmin(BaseProblemInlineAdmin):
+    exclude = ['project', ]
 
 
 class InitiativeAdmin(TranslationAdmin, BeautyTranslationAdmin):
     model = Initiative
-    # form = InitiativeAdminForm
     inlines = [
         ReportInlineInitiativeAdmin,
         ProblemInlineInitiativeAdmin,
@@ -81,9 +82,16 @@ class InitiativeAdmin(TranslationAdmin, BeautyTranslationAdmin):
     ]
 
     list_display = ('code', 'title', 'country', 'total_project_costs', 'loan_amount_approved', 'grant_amount_approved',
-                    'show_projects_count', 'show_last_update')
+                    'show_projects_count', 'last_update_temp')
 
     search_fields = ('code', 'title', 'description_temp', 'recipient_temp__name', 'start_year')
+
+    fields = ('last_update_temp', 'code', 'title', 'description_temp',
+              'recipient_temp', 'outcome_temp', 'sector', 'beneficiaries_temp', 'beneficiaries_female_temp',
+              'status_temp', 'is_suspended_temp', 'start_year', 'end_year',
+              'total_project_costs', 'other_financiers_temp',
+              'loan_amount_approved', 'grant_amount_approved', 'counterpart_authority_temp',
+              'email_temp', 'location_temp')
 
     # se l'utente e' una UTL mostra i recipient a lui associati
     # ed inoltre limita i sectors alle sole foglie ovvero esclude i sector "padre"
@@ -93,11 +101,12 @@ class InitiativeAdmin(TranslationAdmin, BeautyTranslationAdmin):
         else:
             context['adminform'].form.fields['recipient_temp'].queryset = codelist_models.Recipient.objects.all()
 
-        context['adminform'].form.fields['sector'].queryset = codelist_models.Sector.objects.filter(children__isnull=True).order_by('code')
+        context['adminform'].form.fields['sector'].queryset = codelist_models.Sector.objects.filter(
+            children__isnull=True).order_by('code')
         return super(InitiativeAdmin, self).render_change_form(request, context, args, kwargs)
 
     def get_queryset(self, request):
-        return super(InitiativeAdmin, self).get_queryset(request).select_related('report','problem').annotate(
+        return super(InitiativeAdmin, self).get_queryset(request).select_related('report', 'problem').annotate(
             projects_count=Count('project'),
             projects_last_update=Max('project__last_update')
         )
@@ -107,12 +116,6 @@ class InitiativeAdmin(TranslationAdmin, BeautyTranslationAdmin):
 
     show_projects_count.admin_order_field = 'projects_count'
     show_projects_count.short_description = 'Projects'
-
-    def show_last_update(self, inst):
-        return inst.projects_last_update
-
-    show_last_update.admin_order_field = 'projects_last_update'
-    show_last_update.short_description = 'Last Update'
 
 
 class ProjectAdminForm(forms.ModelForm):
@@ -131,7 +134,7 @@ class ProjectAdmin(TranslationAdmin, BeautyTranslationAdmin):
     list_display = ('crsid', 'number', 'recipient', 'title', 'start_year', 'end_year', 'last_update')
     list_filter = ('has_focus', 'start_year', 'end_year', 'agency')
     list_select_related = ('recipient', )
-    search_fields = ('crsid', 'title', 'description', 'recipient__name', 'start_year','number')
+    search_fields = ('crsid', 'title', 'description', 'recipient__name', 'start_year', 'number')
     ordering = ('-last_update', '-end_year', )
     readonly_fields = ['recipient', 'agency', 'aid_type', 'channel', 'finance_type', 'sector', 'markers', 'crsid']
     inlines = [
