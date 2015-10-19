@@ -562,14 +562,14 @@ class Problem(TemporaryCheck):
 
 
 class Report(TemporaryCheck):
-    REPORT_TYPES = Choices(
+    TYPES = Choices(
         (1, _('Technical Assistance/Consultancy and related expenses')),
         (2, _('Works, Supply, Services')),
         (3, _('Contributions')),
         (4, _('Scholarships')),
     )
 
-    PROCEDURE_TYPES = Choices(
+    PROCUREMENT_PROCEDURES = Choices(
         (1, _('Call for Proposal')),
         (2, _('Direct Contracting/Direct Assignment')),
         (3, _('Competitive Bidding')),
@@ -583,9 +583,9 @@ class Report(TemporaryCheck):
         (4, _('Contract awarded')),
     )
 
-    type = models.IntegerField(choices=REPORT_TYPES, default=None, null=True)
-    procurement_procedure = models.IntegerField(choices=PROCEDURE_TYPES, default=None, null=True)
-    procurement_notice = models.IntegerField(choices=PROCEDURE_TYPES, default=None, null=True)
+    type = models.IntegerField(choices=TYPES, default=None, null=True)
+    procurement_procedure = models.IntegerField(choices=PROCUREMENT_PROCEDURES, default=None, null=True)
+    procurement_notice = models.IntegerField(choices=PROCUREMENT_NOTICE, default=None, null=True)
     status = models.CharField(max_length=200, blank=True)
     number = models.CharField(verbose_name=_('N. ID DGCS'), max_length=128, blank=True)
     awarding_entity = models.CharField(max_length=1000, blank=True)
