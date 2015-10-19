@@ -108,12 +108,6 @@ class InitiativeAdmin(TranslationAdmin, BeautyTranslationAdmin):
             codelist_models.Sector.objects.filter(children__isnull=True).order_by('code')
         return super(InitiativeAdmin, self).render_change_form(request, context, args, kwargs)
 
-    # def get_queryset(self, request):
-    #     return super(InitiativeAdmin, self).get_queryset(request).select_related('report', 'problem').annotate(
-    #         projects_count=Count('project'),
-    #         projects_last_update=Max('project__last_update')
-    #     )
-
     def get_queryset(self, request):
         queryset = super(InitiativeAdmin, self).get_queryset(request)
         if request.user.is_superuser:
@@ -144,7 +138,7 @@ class InitiativeAdmin(TranslationAdmin, BeautyTranslationAdmin):
         else:
             return '-'
 
-
+    show_country.short_description = 'Country'
     show_projects_count.admin_order_field = 'projects_count'
     show_projects_count.short_description = 'Projects'
 
