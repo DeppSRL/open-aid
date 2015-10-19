@@ -87,11 +87,14 @@ class InitiativeAdmin(TranslationAdmin, BeautyTranslationAdmin):
     search_fields = ('code', 'title', 'description_temp', 'recipient_temp__name', 'start_year')
 
     fields = ('last_update_temp', 'code', 'title', 'description_temp',
-              'recipient_temp', 'outcome_temp', 'sector', 'beneficiaries_temp', 'beneficiaries_female_temp',
+              'recipient_temp', 'outcome_temp','sector_code', 'purpose_temp', 'beneficiaries_temp', 'beneficiaries_female_temp',
               'status_temp', 'is_suspended_temp', 'start_year', 'end_year',
               'total_project_costs', 'other_financiers_temp',
               'loan_amount_approved', 'grant_amount_approved', 'counterpart_authority_temp',
               'email_temp', 'location_temp')
+
+    readonly_fields = ('sector_code',)
+
 
     # se l'utente e' una UTL mostra i recipient a lui associati
     # ed inoltre limita i sectors alle sole foglie ovvero esclude i sector "padre"
@@ -101,8 +104,8 @@ class InitiativeAdmin(TranslationAdmin, BeautyTranslationAdmin):
         else:
             context['adminform'].form.fields['recipient_temp'].queryset = codelist_models.Recipient.objects.all()
 
-        context['adminform'].form.fields['sector'].queryset = codelist_models.Sector.objects.filter(
-            children__isnull=True).order_by('code')
+        context['adminform'].form.fields['purpose_temp'].queryset = \
+            codelist_models.Sector.objects.filter(children__isnull=True).order_by('code')
         return super(InitiativeAdmin, self).render_change_form(request, context, args, kwargs)
 
     def get_queryset(self, request):
@@ -113,6 +116,13 @@ class InitiativeAdmin(TranslationAdmin, BeautyTranslationAdmin):
 
     def show_projects_count(self, inst):
         return inst.projects_count
+
+    def sector_code(self, inst):
+        if inst.purpose_temp:
+            return inst.purpose_temp.parent
+        else:
+            return '-'
+
 
     show_projects_count.admin_order_field = 'projects_count'
     show_projects_count.short_description = 'Projects'

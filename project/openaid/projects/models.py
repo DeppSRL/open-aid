@@ -626,7 +626,7 @@ class Initiative(models.Model):
     description_temp = models.TextField(_('Abstract'), blank=True)
     recipient_temp = models.ForeignKey('codelists.Recipient', verbose_name=_('Country'), blank=True, null=True)
     outcome_temp = models.TextField(_('Main Outcome'), blank=True)
-    sector = models.ForeignKey('codelists.Sector', verbose_name=_('Main Sector'), null=True, blank=True)
+    purpose_temp = models.ForeignKey('codelists.Sector', verbose_name=_('Purpose code'), null=True, blank=True)
     beneficiaries_temp = models.TextField(_('Beneficiaries'), blank=True)
     beneficiaries_female_temp = models.FloatField(verbose_name=_('of which females (%)'),
                                                   help_text=_('Beneficiaries of which females (%)'), blank=True,
