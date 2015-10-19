@@ -81,7 +81,7 @@ class InitiativeAdmin(TranslationAdmin, BeautyTranslationAdmin):
         PhotoInlineAdmin,
     ]
 
-    list_display = ('code', 'title', 'country', 'total_project_costs', 'loan_amount_approved', 'grant_amount_approved',
+    list_display = ('code', 'title', 'show_country', 'total_project_costs', 'loan_amount_approved', 'grant_amount_approved',
                     'show_projects_count', 'last_update_temp')
 
     search_fields = ('code', 'title', 'description_temp', 'recipient_temp__name', 'start_year')
@@ -113,6 +113,12 @@ class InitiativeAdmin(TranslationAdmin, BeautyTranslationAdmin):
             projects_count=Count('project'),
             projects_last_update=Max('project__last_update')
         )
+
+    def show_country(self, inst):
+        if inst.recipient_temp is not None:
+            return inst.recipient_temp.name
+        else:
+            return ""
 
     def show_projects_count(self, inst):
         return inst.projects_count

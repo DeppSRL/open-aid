@@ -615,7 +615,6 @@ class NewProject(CodelistsModel):
 class Initiative(models.Model):
     code = models.CharField(_('N.ID Iniziativa DGCS'),max_length=6, unique=True)
     title = models.CharField(max_length=1000)
-    country = models.CharField(max_length=1000, blank=True)
     total_project_costs = models.FloatField(_('Total project costs for Italian Entities'),blank=True, null=True)
     loan_amount_approved = models.FloatField(blank=True, null=True)
     grant_amount_approved = models.FloatField(blank=True, null=True)
@@ -862,7 +861,7 @@ class Initiative(models.Model):
         return reverse('projects:initiative-detail', kwargs={'code': self.code})
 
     def __unicode__(self):
-        return '%s:%s "%s"' % (self.code, self.country, self.title)
+        return '%s:%s "%s"' % (self.code, self.recipient_temp.name, self.title)
 
     def __repr__(self):
         return u"<Initiative(id=%d, code=%s, title=\"%s\", country=%s)>" % (
