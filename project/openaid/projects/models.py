@@ -861,7 +861,11 @@ class Initiative(models.Model):
         return reverse('projects:initiative-detail', kwargs={'code': self.code})
 
     def __unicode__(self):
-        return '%s:%s "%s"' % (self.code, self.recipient_temp.name, self.title)
+        country = ""
+        if self.recipient_temp:
+            country = self.recipient_temp.name
+
+        return '%s:%s "%s"' % (self.code, country, self.title)
 
     def __repr__(self):
         return u"<Initiative(id=%d, code=%s, title=\"%s\", country=%s)>" % (
