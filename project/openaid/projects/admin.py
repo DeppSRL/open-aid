@@ -10,7 +10,6 @@ from .models import Project, Activity, Markers, ChannelReported, Organization, A
     Report, NewProject, Initiative
 from ..codelists import models as codelist_models
 
-
 def make_admin_link(instance, name_field=None):
     url = reverse('admin:%s_%s_change' % (instance._meta.app_label,
                                           instance._meta.module_name),
@@ -61,7 +60,7 @@ class ReportInlineProjectAdmin(BaseReportInlineAdmin):
 class BaseProblemInlineAdmin(TranslationStackedInline):
     extra = 0
     model = Problem
-    fields = ('event','impact','actions')
+    fields = ('event', 'impact', 'actions')
 
 
 class ProblemInlineProjectAdmin(BaseProblemInlineAdmin):
@@ -80,14 +79,16 @@ class InitiativeAdmin(TranslationAdmin, BeautyTranslationAdmin):
         DocumentInlineAdmin,
         PhotoInlineAdmin,
     ]
-
-    list_display = ('code', 'title', 'show_country', 'total_project_costs', 'loan_amount_approved', 'grant_amount_approved',
-                    'show_projects_count', 'last_update_temp')
+    list_filter = ('start_year', 'end_year', )
+    list_display = (
+        'code', 'title', 'show_country', 'total_project_costs', 'loan_amount_approved', 'grant_amount_approved',
+        'show_projects_count', 'last_update_temp')
 
     search_fields = ('code', 'title', 'description_temp', 'recipient_temp__name', 'start_year')
 
     fields = ('last_update_temp', 'code', 'title', 'description_temp',
-              'recipient_temp', 'outcome_temp','sector_code', 'purpose_temp', 'beneficiaries_temp', 'beneficiaries_female_temp',
+              'recipient_temp', 'outcome_temp', 'sector_code', 'purpose_temp', 'beneficiaries_temp',
+              'beneficiaries_female_temp',
               'status_temp', 'is_suspended_temp', 'start_year', 'end_year',
               'total_project_costs', 'other_financiers_temp',
               'loan_amount_approved', 'grant_amount_approved', 'counterpart_authority_temp',
@@ -121,7 +122,6 @@ class InitiativeAdmin(TranslationAdmin, BeautyTranslationAdmin):
             projects_count=Count('project'),
             projects_last_update=Max('project__last_update')
         )
-
 
     def show_country(self, inst):
         if inst.recipient_temp is not None:
