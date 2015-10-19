@@ -867,3 +867,7 @@ class Initiative(models.Model):
         return u"<Initiative(id=%d, code=%s, title=\"%s\", country=%s)>" % (
             self.pk, self.code, self.title, self.country
         )
+
+    class Meta:
+        verbose_name = _('Initiative')
+        verbose_name_plural = _('Initiatives')
