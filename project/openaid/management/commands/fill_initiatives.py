@@ -2,6 +2,7 @@
 __author__ = 'stefano'
 import logging
 from django.core.management.base import BaseCommand
+from django.db.transaction import set_autocommit, commit
 from openaid.projects.models import Initiative, Project
 
 
@@ -9,7 +10,6 @@ class Command(BaseCommand):
     help = 'Fills Initiative selected fields with data from the most recent Project.' \
            ' Plus links Reports, Problems, Doc, Photos objs to Initiative'
     logger = logging.getLogger('openaid')
-
 
     def handle(self, *args, **options):
         verbosity = options['verbosity']
@@ -39,29 +39,41 @@ class Command(BaseCommand):
             'location': 'location_temp',
         }
 
-        for initiative in Initiative.objects.all().order_by('code'):
-            self.logger.info(u"Update Initiative:'{}'".format(initiative))
+        set_autocommit(False)
+        self.logger.info(u"Start procedure")
+        for index, initiative in enumerate(Initiative.objects.all().order_by('code')):
+            self.logger.debug(u"Update Initiative:'{}'".format(initiative))
 
+            # loops on every field that has to be updated and updates if the conditions apply
             for project_fieldname, initiative_fieldname in field_map.iteritems():
 
                 # when dealing with loan and grant amount get the project values only if the initiative
                 # values for loan/grant are not present
                 if project_fieldname == 'loan_amount_approved' or project_fieldname == 'grant_amount_approved':
-                    if getattr(initiative, initiative_fieldname) is not None:
+                    if getattr(initiative, initiative_fieldname) is not None and getattr(initiative,
+                                                                                         initiative_fieldname) != 0:
                         self.logger.debug(u"Not going to update {} field because it is NOT NULL in Initiative".format(
                             initiative_fieldname))
                         continue
 
                 field_value = initiative._get_first_project_value(project_fieldname)
-                
+
                 # STATUS: if the proj.status is == 100 => Almost completed
                 # translates the value to 90 for Almost completed in Initiative
                 # because in Initiative there is a status for "COMPLETED' which has value=100
-                if project_fieldname == 'status' and field_value == '100' :
+                if project_fieldname == 'status' and field_value == '100':
                     field_value = '90'
 
                 if field_value is not None:
                     initiative.__setattr__(initiative_fieldname, field_value)
 
-                initiative.save()
+            initiative.save()
+            #         commits every 50 initiatives
+            if index % 50 == 0:
+                self.logger.info(u"Reached Initiative:'{}'".format(initiative))
+                commit()
+
+        #             final commit
+        commit()
+        set_autocommit(True)
         self.logger.info(u"Finished updating {} initiatives".format(Initiative.objects.all().count()))
