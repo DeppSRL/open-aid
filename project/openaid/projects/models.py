@@ -550,7 +550,8 @@ class TemporaryCheck(models.Model):
 
     def save(self, *args, **kwargs):
         if self.project is not None and self.initiative is not None:
-            raise ValidationError('Object cannot have foreign key to Project AND Initiative. Choose one.')
+            if self.project.initiative != self.initiative:
+                raise ValidationError('Object cannot have foreign key to Project AND Initiative which are not connected. Choose one.')
         super(TemporaryCheck, self).save(*args, **kwargs)
 
 
