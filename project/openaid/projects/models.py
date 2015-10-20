@@ -118,11 +118,19 @@ class CodelistsModel(models.Model):
 
 
 class Project(CodelistsModel, MarkedModel):
-    initiative = models.ForeignKey('projects.Initiative', blank=True, null=True, on_delete=models.SET_NULL)
 
+    STATUS_CHOICES = Choices(
+        ('-', 'Not available'),
+        ('0', '0%'),
+        ('25', '25%'),
+        ('50', '50%'),
+        ('75', '75%'),
+        ('100', 'Almost completed'),
+    )
+
+    initiative = models.ForeignKey('projects.Initiative', blank=True, null=True, on_delete=models.SET_NULL)
     title = models.CharField(max_length=500, blank=True)
     description = models.TextField(_('Abstract'), blank=True)
-
     crsid = models.CharField(max_length=128, blank=True)
     number = models.CharField(max_length=128, blank=True, verbose_name=_('N. ID DGCS'))
     start_year = models.PositiveSmallIntegerField()
@@ -135,14 +143,7 @@ class Project(CodelistsModel, MarkedModel):
     beneficiaries = models.TextField(_('Beneficiaries'), blank=True)
     beneficiaries_female = models.FloatField(verbose_name=_('of which females (%)'),
                                              help_text=_('Beneficiaries of which females (%)'), blank=True, null=True)
-    STATUS_CHOICES = Choices(
-        ('-', 'Not available'),
-        ('0', '0%'),
-        ('25', '25%'),
-        ('50', '50%'),
-        ('75', '75%'),
-        ('100', 'Almost completed'),
-    )
+
     status = models.CharField(_('Status'), max_length=3, help_text=_('Progress based on Approved vs Disbursed'),
                               choices=STATUS_CHOICES, default='-')
     is_suspended = models.BooleanField(verbose_name=_('suspended'), default=False)
@@ -613,6 +614,15 @@ class NewProject(CodelistsModel):
 
 
 class Initiative(models.Model):
+    STATUS_CHOICES = Choices(
+        ('-', 'Not available'),
+        ('0', '0%'),
+        ('25', '25%'),
+        ('50', '50%'),
+        ('75', '75%'),
+        ('90', 'Almost completed'),
+        ('100', 'Completed'),
+    )
     code = models.CharField(_('N.ID Iniziativa DGCS'),max_length=6, unique=True)
     title = models.CharField(max_length=1000)
     total_project_costs = models.FloatField(_('Total project costs for Italian Entities'),blank=True, null=True)
@@ -630,15 +640,7 @@ class Initiative(models.Model):
     beneficiaries_female_temp = models.FloatField(verbose_name=_('of which females (%)'),
                                                   help_text=_('Beneficiaries of which females (%)'), blank=True,
                                                   null=True)
-    STATUS_CHOICES = Choices(
-        ('-', 'Not available'),
-        ('0', '0%'),
-        ('25', '25%'),
-        ('50', '50%'),
-        ('75', '75%'),
-        ('90', 'Almost completed'),
-        ('100', 'Completed'),
-    )
+
     status_temp = models.CharField(_('Status'), max_length=3, help_text=_('Progress based on Approved vs Disbursed'),
                                    choices=STATUS_CHOICES, default='-')
     is_suspended_temp = models.BooleanField(verbose_name=_('suspended'), default=False)
