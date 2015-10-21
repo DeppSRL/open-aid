@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.core.urlresolvers import reverse
 from django import forms
-from django.db.models import Count, Max
+from django.db.models import Count
 from django.utils.html import format_html
 from django_select2 import ModelSelect2Field, Select2Widget
 from modeltranslation.admin import TranslationAdmin, TranslationStackedInline
@@ -9,6 +9,7 @@ from ..attachments.admin import PhotoInlineAdmin, DocumentInlineAdmin
 from .models import Project, Activity, Markers, ChannelReported, Organization, AnnualFunds, Utl, Problem, \
     Report, NewProject, Initiative
 from ..codelists import models as codelist_models
+from filters import RecipientListFilter, PurposeListFilter
 
 def make_admin_link(instance, name_field=None):
     url = reverse('admin:%s_%s_change' % (instance._meta.app_label,
@@ -79,7 +80,7 @@ class InitiativeAdmin(TranslationAdmin, BeautyTranslationAdmin):
         DocumentInlineAdmin,
         PhotoInlineAdmin,
     ]
-    list_filter = ('start_year', 'end_year', )
+    list_filter = ('status_temp','start_year', 'end_year',PurposeListFilter, RecipientListFilter)
     list_display = (
         'code', 'title', 'show_country', 'total_project_costs', 'loan_amount_approved', 'grant_amount_approved',
         'show_projects_count', 'show_last_update')

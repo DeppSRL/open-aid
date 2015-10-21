@@ -1,7 +1,9 @@
 __author__ = 'stefano'
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
-from openaid.codelists.models import Agency
+from openaid.codelists.models import Agency, Recipient
+from openaid.codelists.models import Sector
+
 
 class AgencyListFilter(admin.SimpleListFilter):
 
@@ -29,3 +31,39 @@ class AgencyListFilter(admin.SimpleListFilter):
         if self.value():
             agency_code = self.value()
             return queryset.filter(project__agency__code=str(agency_code))
+
+
+class RecipientListFilter(admin.SimpleListFilter):
+
+    title = _('Country')
+
+    # Parameter for the filter that will be used in the URL query.
+    parameter_name = 'recipient_temp'
+
+    def lookups(self, request, model_admin):
+        recipients = Recipient.objects.filter(initiative__isnull=False).distinct().order_by('name')
+        return ((x.code, u"[{}] {}".format(x.code, x.name)) for x in recipients)
+
+    def queryset(self, request, queryset):
+        if self.value():
+            recipient_code = self.value()
+            return queryset.filter(recipient_temp__code=str(recipient_code))
+
+
+class PurposeListFilter(admin.SimpleListFilter):
+
+    title = _('Purpose')
+
+    # Parameter for the filter that will be used in the URL query.
+    parameter_name = 'purpose_temp'
+
+    def lookups(self, request, model_admin):
+        # get only leaf nodes of sector that have at least 1 initiative associated
+        recipients = Sector.objects.filter(children__isnull=True, initiative__isnull=False).distinct().order_by('name')
+        return ((x.code, u"[{}] {}".format(x.code, x.name)) for x in recipients)
+
+    def queryset(self, request, queryset):
+        if self.value():
+            recipient_code = self.value()
+            return queryset.filter(recipient_temp__code=str(recipient_code))
+
