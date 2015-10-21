@@ -82,7 +82,7 @@ class InitiativeAdmin(TranslationAdmin, BeautyTranslationAdmin):
     list_filter = ('start_year', 'end_year', )
     list_display = (
         'code', 'title', 'show_country', 'total_project_costs', 'loan_amount_approved', 'grant_amount_approved',
-        'show_projects_count', 'last_update_temp')
+        'show_projects_count', 'show_last_update')
 
     search_fields = ('code', 'title', 'description_temp', 'recipient_temp__name', 'start_year')
 
@@ -120,8 +120,13 @@ class InitiativeAdmin(TranslationAdmin, BeautyTranslationAdmin):
 
         return qs.select_related('report', 'problem').annotate(
             projects_count=Count('project'),
-            projects_last_update=Max('project__last_update')
         )
+
+    def show_last_update(self, inst):
+        if inst.last_update_temp is not None:
+            return inst.last_update_temp
+        else:
+            return "-"
 
     def show_country(self, inst):
         if inst.recipient_temp is not None:
@@ -141,6 +146,7 @@ class InitiativeAdmin(TranslationAdmin, BeautyTranslationAdmin):
     show_country.short_description = 'Country'
     show_projects_count.admin_order_field = 'projects_count'
     show_projects_count.short_description = 'Projects'
+    show_last_update.short_description = "Data aggiornamento"
 
 
 class ProjectAdminForm(forms.ModelForm):
