@@ -83,6 +83,7 @@ class InitiativeAdmin(TranslationAdmin, BeautyTranslationAdmin):
     list_display = (
         'code', 'title', 'show_country', 'total_project_costs', 'loan_amount_approved', 'grant_amount_approved',
         'show_projects_count', 'show_last_update')
+    list_display_links = ('code', 'title',)
 
     search_fields = ('code', 'title', 'description_temp', 'recipient_temp__name', 'start_year')
 
