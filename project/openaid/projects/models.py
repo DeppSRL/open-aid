@@ -626,9 +626,9 @@ class Initiative(models.Model):
     )
     code = models.CharField(_('N.ID Iniziativa DGCS'),max_length=6, unique=True)
     title = models.CharField(max_length=1000)
-    total_project_costs = models.FloatField(_('Total project costs for Italian Entities'),blank=True, null=True)
-    loan_amount_approved = models.FloatField(blank=True, null=True)
-    grant_amount_approved = models.FloatField(blank=True, null=True)
+    total_project_costs = models.FloatField(_('Total project costs for Italian Entities'),help_text=_('Thousands of Euro. Example: for 10.000 Euro insert 10.00'), blank=True, null=True)
+    loan_amount_approved = models.FloatField(help_text=_('Thousands of Euro. Example: for 10.000 Euro insert 10.00'), blank=True, null=True)
+    grant_amount_approved = models.FloatField(help_text=_('Thousands of Euro. Example: for 10.000 Euro insert 10.00'), blank=True, null=True)
 
     # new fields
     # last update field is an imported /insered field about the last update of the record
