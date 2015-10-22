@@ -27,6 +27,7 @@ class Command(BaseCommand):
         'counterpart_authority': 'counterpart_authority_temp',
         'email': 'email_temp',
         'location': 'location_temp',
+        'sector': 'purpose_temp',
     }
 
     def update_fields(self, initiative):
@@ -43,6 +44,11 @@ class Command(BaseCommand):
                     continue
 
             field_value = initiative._get_first_project_value(project_fieldname)
+
+            if project_fieldname == 'sector' and field_value is not None:
+                if field_value.get_children().count() != 0:
+                    self.logger.error("Initiative:{}. Cannot copy SECTOR VALUE: {} from Project, this Sector is not a leaf node! SKIP".format(initiative,field_value))
+                    continue
 
             # STATUS: if the proj.status is == 100 => Almost completed
             # translates the value to 90 for Almost completed in Initiative
