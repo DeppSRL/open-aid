@@ -80,7 +80,7 @@ class InitiativeAdmin(TranslationAdmin, BeautyTranslationAdmin):
         DocumentInlineAdmin,
         PhotoInlineAdmin,
     ]
-    list_filter = ('status_temp','start_year', 'end_year',PurposeListFilter, RecipientListFilter)
+    list_filter = ('status_temp','start_year', 'end_year',PurposeListFilter, RecipientListFilter,'has_focus')
     list_display = (
         'code', 'title', 'show_country', 'total_project_costs', 'loan_amount_approved', 'grant_amount_approved',
         'show_projects_count', 'show_last_update')
@@ -94,7 +94,7 @@ class InitiativeAdmin(TranslationAdmin, BeautyTranslationAdmin):
               'status_temp', 'is_suspended_temp', 'start_year', 'end_year',
               'total_project_costs', 'other_financiers_temp',
               'loan_amount_approved', 'grant_amount_approved', 'counterpart_authority_temp',
-              'email_temp', 'location_temp')
+              'email_temp', 'location_temp', 'has_focus')
 
     readonly_fields = ('sector_code',)
 
