@@ -657,6 +657,7 @@ class Initiative(models.Model):
     # created at / updated at: automatical fields for create/update time. not shown in backend
     updated_at = models.DateTimeField(auto_now=True, blank=True, null=True, default=None)
     created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True, default=None)
+    has_focus = models.BooleanField(_('Focus'), default=False)
 
 
     @property
