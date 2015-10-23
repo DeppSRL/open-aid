@@ -14,19 +14,34 @@ class Command(BaseCommand):
 
     # maps the field name between project (keys) and initiative (value)
     field_map = {
-        'description': 'description_temp',
+        'description_it': 'description_temp_it',
+        'description_en': 'description_temp_en',
         'recipient': 'recipient_temp',
-        'outcome': 'outcome_temp',
-        'beneficiaries': 'beneficiaries_temp',
+
+        'outcome_it': 'outcome_temp_it',
+        'outcome_en': 'outcome_temp_en',
+
+        'beneficiaries_it': 'beneficiaries_temp_it',
+        'beneficiaries_en': 'beneficiaries_temp_en',
+
         'beneficiaries_female': 'beneficiaries_female_temp',
         'status': 'status_temp',
         'is_suspended': 'is_suspended_temp',
-        'other_financiers': 'other_financiers_temp',
+
+        'other_financiers_it': 'other_financiers_temp_it',
+        'other_financiers_en': 'other_financiers_temp_en',
+
         'loan_amount_approved': 'loan_amount_approved',
         'grant_amount_approved': 'grant_amount_approved',
-        'counterpart_authority': 'counterpart_authority_temp',
+
+        'counterpart_authority_it': 'counterpart_authority_temp_it',
+        'counterpart_authority_en': 'counterpart_authority_temp_en',
+
         'email': 'email_temp',
-        'location': 'location_temp',
+
+        'location_it': 'location_temp_it',
+        'location_en': 'location_temp_en',
+
         'sector': 'purpose_temp',
     }
 
