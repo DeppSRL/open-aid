@@ -16,8 +16,10 @@ class Command(BaseCommand):
 
     # maps the field name between new project (keys) and initiative (value)
     field_map = {
-        'title': 'title',
-        'description': 'description_temp',
+        'title_it': 'title_it',
+        'title_en': 'title_en',
+        'description_it': 'description_temp_it',
+        'description_en': 'description_temp_en',
         'code': 'code',
         'recipient': 'recipient_temp',
     }
