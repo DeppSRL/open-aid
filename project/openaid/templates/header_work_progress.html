@@ -1,0 +1,39 @@
+{% load staticfiles %}
+{% load i18n %}
+<header id="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="navbar navbar-default navbar-main" role="navigation">
+                    <div class="navbar-header">
+                        <div class="navbar-brand">
+                            <a href="http://www.esteri.it/" target="_blank">
+                                <img src="{% static 'img/layout/logo_farnesina.png' %}" alt="Ministero degli Esteri" />
+                            </a>
+                            <a href="http://www.cooperazioneallosviluppo.esteri.it/" target="_blank">
+                                <img src="{% static 'img/layout/logo_dgcs.png' %}" alt="DGCS"/>
+                            </a>
+                        </div>
+                        <a class="navbar-brand" "><img src="{% static 'img/layout/logo_openaid.png' %}" class="img-responsive"></a>
+                    </div>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href=""><span class="icon sprite-confronti"></span> {% trans 'Italian Development Cooperation' %}</a></li>
+                        <li><a href=""><span class="icon sprite-classifiche"></span> {% trans 'News' %}</a></li>
+                    </ul>
+
+                    <div class="language">
+                        {% get_current_language as LANGUAGE_CODE %}
+                        {% get_language_info_list for LANGUAGES as languages %}
+                        {% with full_path=request.get_full_path lang_prefix='/'|add:LANGUAGE_CODE|add:'/' %}
+                        {% for language in languages %}{% if language.code != LANGUAGE_CODE %}
+                            <a href="{% if full_path|slice:':4' == lang_prefix %}/{{ language.code }}{{ full_path|slice:'3:' }}{% else %}/{{ language.code }}{{ full_path }}{% endif %}">{{ language.name_local }}</a>
+                        {% endif %}{% endfor %}
+                        {% endwith %}
+
+                    </div>
+                </div><!-- /.navbar -->
+            </div>
+        </div><!-- .row -->
+    </div><!-- .container -->
+</header><!-- #header -->

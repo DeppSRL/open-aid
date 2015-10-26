@@ -42,8 +42,13 @@
 
 <body>
 
-{% include 'cookies.html' %}
-{% include 'header.html' %}
+{% block cookies %}
+    {% include 'cookies.html' %}
+{% endblock %}
+
+{% block header %}
+    {% include 'header.html' %}
+{% endblock %}
 
 {% if messages %}
 {% for message in messages %}
@@ -52,14 +57,18 @@
 {% endif %}
 
 <div id="main-content">
-{% include 'navbar.html' %}
+    {% block navbar %}
+        {% include 'navbar.html' %}
+    {% endblock %}
     <div class="container">
-    <div class="row"><div class="col-md-12">{% include 'commons/share_buttons.html' %}</div></div>
-    {% block content %}{% endblock content %}
+        <div class="row"><div class="col-md-12">{% include 'commons/share_buttons.html' %}</div></div>
+        {% block content %}{% endblock content %}
     </div>
 </div><!-- /#main-content -->
 
-{% include 'footer.html' %}
+{% block footer %}
+    {% include 'footer.html' %}
+{% endblock %}
 
 {% block modal %}
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

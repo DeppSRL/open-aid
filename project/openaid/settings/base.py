@@ -36,6 +36,9 @@ env = Env()
 ########## OPENAID CONFIGURATION
 EARLYBIRD_ENABLE = env.bool('EARLYBIRD_ENABLE', True)
 
+########## MAINTENANCE : maked the WORK IN PROGRESS PAGE appear on every page of the site
+MAINTENANCE = env.bool('MAINTENANCE', False)
+
 OPENAID_CRS_DONOR = 6 # Italy
 OPENAID_DSD_FILE = join(RESOURCES_PATH, 'crs', 'dsd.xml')
 OPENAID_MULTIPLIER = 1000000.0
