@@ -2,12 +2,17 @@
 {% block cookies %}{% endblock %}
 
 {% block header %}
-    {% include 'header_work_progress.html' %}
+    {% include 'header.html' with work_in_progress=True %}
 {% endblock %}
 
-{% block navbar %}{% endblock %}
+{% block navbar %}
+    {% include 'navbar.html' with work_in_progress=True %}
+{% endblock %}
+{% block social_buttons %}{% endblock %}
 
-{% block footer %}{% endblock %}
+{% block footer %}
+    {% include 'footer.html' with work_in_progress=True %}
+{% endblock %}
 
 {% block content %}
     <div class="row">

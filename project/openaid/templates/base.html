@@ -20,12 +20,12 @@
     <![endif]-->
 
     {% block css %}
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="{% static 'js/vendor/bootstrap/css/bootstrap.css' %}">
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="{% static 'js/vendor/bootstrap/css/bootstrap.css' %}">
 
-    <!-- This file store project specific CSS -->
-    <link href="{% static 'css/project.css' %}" rel="stylesheet">
-    <link href="{% static 'css/main.css' %}" rel="stylesheet">
+        <!-- This file store project specific CSS -->
+        <link href="{% static 'css/project.css' %}" rel="stylesheet">
+        <link href="{% static 'css/main.css' %}" rel="stylesheet">
     {% endblock css %}
 
     <link rel="icon" type="image/png" href="{% static 'img/favicon.png' %}"><!-- Major Browsers -->
@@ -51,9 +51,9 @@
 {% endblock %}
 
 {% if messages %}
-{% for message in messages %}
-    <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}</div>
-{% endfor %}
+    {% for message in messages %}
+        <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}</div>
+    {% endfor %}
 {% endif %}
 
 <div id="main-content">
@@ -61,7 +61,15 @@
         {% include 'navbar.html' %}
     {% endblock %}
     <div class="container">
-        <div class="row"><div class="col-md-12">{% include 'commons/share_buttons.html' %}</div></div>
+        {# social buttons       #}
+        {% block social_buttons %}
+            <div class="row">
+                <div class="col-md-12">
+                    {% include 'commons/share_buttons.html' %}
+                </div>
+            </div>
+        {% endblock %}
+
         {% block content %}{% endblock content %}
     </div>
 </div><!-- /#main-content -->
