@@ -320,5 +320,7 @@ function SetChartDonut(id_donut) {
             }
         }]
     });
+    console.log(id_donut);
+    console.log(chart);
 
 }
