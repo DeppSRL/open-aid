@@ -9,7 +9,7 @@ class Command(BaseCommand):
     help = 'Prints out project belonging to the same initiative that have different not-null values for certain fields.'
     logger = logging.getLogger('openaid')
     # fields to check arranged in a way to be used as a filter
-    fields = [{'description_it__isnull':False},{'description_en__isnull':False},{'recipient__isnull':False},{'outcome_it__isnull':False},{'outcome_en__isnull':False},{'beneficiaries_it__isnull':False},{'beneficiaries_en__isnull':False},{'beneficiaries_female__isnull':False},{'status__isnull':False},{'is_suspended__isnull':False},{'other_financiers_it__isnull':False},{'other_financiers_en__isnull':False},{'loan_amount_approved__isnull':False},{'grant_amount_approved__isnull':False},{'counterpart_authority_it__isnull':False},{'counterpart_authority_en__isnull':False},{'email__isnull':False},{'location_en__isnull':False},{'location_it__isnull':False},{'sector__isnull':False}]
+    filters = [{'description_it__isnull':False},{'description_en__isnull':False},{'recipient__isnull':False},{'outcome_it__isnull':False},{'outcome_en__isnull':False},{'beneficiaries_it__isnull':False},{'beneficiaries_en__isnull':False},{'beneficiaries_female__isnull':False},{'status__isnull':False},{'is_suspended__isnull':False},{'other_financiers_it__isnull':False},{'other_financiers_en__isnull':False},{'loan_amount_approved__isnull':False},{'grant_amount_approved__isnull':False},{'counterpart_authority_it__isnull':False},{'counterpart_authority_en__isnull':False},{'email__isnull':False},{'location_en__isnull':False},{'location_it__isnull':False},{'sector__isnull':False}]
 
     def handle(self, *args, **options):
         verbosity = options['verbosity']
@@ -24,12 +24,29 @@ class Command(BaseCommand):
 
 
         self.logger.info(u"Start procedure")
-        for field in self.fields:
+        import datetime
+        thresold_date = datetime.datetime.strptime('13042015', '%d%m%Y').date()
+        for filt in self.filters:
             for init in Initiative.objects.all().order_by('code'):
-                project_set = Project.objects.filter(initiative=init).filter(**field)
+                project_set = Project.objects.filter(initiative=init, last_update__gte=thresold_date).filter(**filt).order_by('pk')
                 count = project_set.count()
                 if count > 1:
-                    proj_pks = ",".join(project_set.values('pk',flat=True))
-                    self.logger.error(u"Field:{}, count:{}, Initiative:{}, Projects:{}".format(field, count, init, proj_pks))
+                    # get the different values
+                    key = filt.keys()[0]
+                    fieldname = key.replace("__isnull","")
+                    field_values = project_set.values_list(fieldname,flat=True)
+                    first_value = None
+                    different_flag = False
+                    for idx,fv in enumerate(field_values):
+                        if idx == 0:
+                            first_value = fv
+                            continue
+                        if fv != first_value:
+                            different_flag = True
+                            break
+
+                    if different_flag is True:
+                        proj_pks = ",".join([str(x) for x in project_set.values_list('pk',flat=True)])
+                        self.logger.error(u"Field:{}, count:{}, Initiative.code:{}, Projects.pk:{}".format(fieldname, count, init.code, proj_pks))
 
         self.logger.info(u"Finished")
