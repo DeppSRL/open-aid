@@ -3,8 +3,10 @@ __author__ = 'stefano'
 import logging
 from django.core.management.base import BaseCommand
 from django.db.transaction import set_autocommit, commit
-from openaid.projects.models import Initiative, Project
+from openaid.projects.models import Initiative, Project, Activity
 
+# This one-time procedure get data from projects and transfer it to Initiative.
+# for the logic of this mapping look for "Mappatura Project - initiative" on Google drive
 
 class Command(BaseCommand):
     help = 'Fills Initiative selected fields with data from the most recent Project.' \
@@ -17,59 +19,79 @@ class Command(BaseCommand):
         'description_it': 'description_temp_it',
         'description_en': 'description_temp_en',
         'recipient': 'recipient_temp',
-
         'outcome_it': 'outcome_temp_it',
         'outcome_en': 'outcome_temp_en',
-
         'beneficiaries_it': 'beneficiaries_temp_it',
         'beneficiaries_en': 'beneficiaries_temp_en',
-
         'beneficiaries_female': 'beneficiaries_female_temp',
         'status': 'status_temp',
         'is_suspended': 'is_suspended_temp',
-
         'other_financiers_it': 'other_financiers_temp_it',
         'other_financiers_en': 'other_financiers_temp_en',
-
         'loan_amount_approved': 'loan_amount_approved',
         'grant_amount_approved': 'grant_amount_approved',
-
         'counterpart_authority_it': 'counterpart_authority_temp_it',
         'counterpart_authority_en': 'counterpart_authority_temp_en',
-
         'email': 'email_temp',
-
         'location_it': 'location_temp_it',
         'location_en': 'location_temp_en',
-
         'sector': 'purpose_temp',
     }
 
+    status_order = ['100','75','50','25','0','-']
+
+    def get_most_advanced_status(self, project_set):
+        # gets more advanced status in the project set
+        for status in self.status_order:
+            if project_set.filter(status=status).count() > 0:
+                return status
+        return '-'
+
     def update_fields(self, initiative):
+
+        project_set = Project.objects.filter(initiative=initiative).order_by('-last_update')
+        if project_set.count() == 0:
+            return initiative
+
+        # gets the project with last update most recent
+        project_last_update = project_set[0]
+        project_last_activity = project_set[0]
+        activity_set = Activity.objects.filter(project__initiative=initiative).order_by('-year')
+        #gets project with most recent activity connected
+        if activity_set.count() > 0:
+            project_last_activity_pk = Activity.objects.filter(project__initiative=initiative).order_by('-year').values_list('project',flat=True)[0]
+            project_last_activity = Project.objects.get(pk=project_last_activity_pk)
+
         # loops on every field that has to be updated and updates if the conditions apply
         for project_fieldname, initiative_fieldname in self.field_map.iteritems():
 
             # when dealing with loan and grant amount get the project values only if the initiative
             # values for loan/grant are not present
             if project_fieldname == 'loan_amount_approved' or project_fieldname == 'grant_amount_approved':
-                if getattr(initiative, initiative_fieldname) is not None and getattr(initiative,
-                                                                                     initiative_fieldname) != 0:
-                    self.logger.debug(u"Not going to update {} field because it is NOT NULL in Initiative".format(
-                        initiative_fieldname))
+                amount = getattr(initiative, initiative_fieldname)
+                if amount is not None and amount != 0:
+                    self.logger.debug(u"Not going to update {} field because it is NOT NULL in Initiative".format(initiative_fieldname))
                     continue
 
-            field_value = initiative._get_first_project_value(project_fieldname)
+            if project_fieldname == 'sector':
+                field_value = getattr(project_last_activity, project_fieldname)
+                if field_value is not None:
+                    # only consider sector value that are LEAF nodes, no children
+                    if field_value.get_children().count() != 0:
+                        self.logger.error("Initiative:{}. Cannot copy SECTOR VALUE: {} from Project, this Sector is not a leaf node! SKIP".format(initiative,field_value))
+                        continue
 
-            if project_fieldname == 'sector' and field_value is not None:
-                if field_value.get_children().count() != 0:
-                    self.logger.error("Initiative:{}. Cannot copy SECTOR VALUE: {} from Project, this Sector is not a leaf node! SKIP".format(initiative,field_value))
-                    continue
-
-            # STATUS: if the proj.status is == 100 => Almost completed
-            # translates the value to 90 for Almost completed in Initiative
-            # because in Initiative there is a status for "COMPLETED' which has value=100
-            if project_fieldname == 'status' and field_value == '100':
-                field_value = '90'
+            if project_fieldname == 'recipient':
+                field_value = getattr(project_last_activity, project_fieldname)
+            elif project_fieldname == 'status':
+                field_value = self.get_most_advanced_status(project_set)
+                # STATUS: if the proj.status is == 100 => Almost completed
+                # translates the value to 90 for Almost completed in Initiative
+                # because in Initiative there is a status for "COMPLETED' which has value=100
+                if field_value == '100':
+                    field_value = '90'
+            else:
+                field_value = getattr(project_last_update, project_fieldname)
 
             if field_value is not None:
                 initiative.__setattr__(initiative_fieldname, field_value)
