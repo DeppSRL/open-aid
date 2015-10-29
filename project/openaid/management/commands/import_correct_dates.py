@@ -1,4 +1,5 @@
 # coding=utf-8
+__author__ = 'stefano'
 import logging
 from pprint import pprint
 from optparse import make_option
@@ -7,6 +8,9 @@ from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 from openpyxl import load_workbook, Workbook
 from django.core.management.base import BaseCommand
 from openaid.projects.models import Project, Activity, Initiative
+
+#import projects start/end dates from xlsx file
+#at the moment just outputs xls file with error dates
 
 class Command(BaseCommand):
 
