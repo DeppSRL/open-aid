@@ -119,7 +119,6 @@ class CodelistsModel(models.Model):
 
 
 class Project(CodelistsModel, MarkedModel):
-
     STATUS_CHOICES = Choices(
         ('-', 'Not available'),
         ('0', '0%'),
@@ -134,10 +133,12 @@ class Project(CodelistsModel, MarkedModel):
     description = models.TextField(_('Abstract'), blank=True)
     crsid = models.CharField(max_length=128, blank=True)
     number = models.CharField(max_length=128, blank=True, verbose_name=_('N. ID DGCS'))
-    start_year = models.PositiveSmallIntegerField()
-    end_year = models.PositiveSmallIntegerField()
-    expected_start_year = models.IntegerField(blank=True, null=True)
-    expected_completion_year = models.IntegerField(blank=True, null=True)
+    start_year = models.PositiveSmallIntegerField(validators=[MinValueValidator(1900.0), MaxValueValidator(2100.0)])
+    end_year = models.PositiveSmallIntegerField(validators=[MinValueValidator(1900.0), MaxValueValidator(2100.0)])
+    expected_start_year = models.IntegerField(blank=True, null=True,
+                                              validators=[MinValueValidator(1900.0), MaxValueValidator(2100.0)])
+    expected_completion_year = models.IntegerField(blank=True, null=True,
+                                                   validators=[MinValueValidator(1900.0), MaxValueValidator(2100.0)])
     has_focus = models.BooleanField(_('Focus'), default=False)
     last_update = models.DateField(_('Last update'), null=True, auto_now=True)
     outcome = models.TextField(_('Main Outcome'), blank=True)
@@ -148,10 +149,10 @@ class Project(CodelistsModel, MarkedModel):
     status = models.CharField(_('Status'), max_length=3, help_text=_('Progress based on Approved vs Disbursed'),
                               choices=STATUS_CHOICES, default='-')
     is_suspended = models.BooleanField(verbose_name=_('suspended'), default=False)
-    total_project_costs = models.FloatField(blank=True, null=True)
+    total_project_costs = models.FloatField(blank=True, null=True, validators=[MinValueValidator(0.0)])
     other_financiers = models.TextField(blank=True, verbose_name=_('Other funders'))
-    loan_amount_approved = models.FloatField(blank=True, null=True)
-    grant_amount_approved = models.FloatField(blank=True, null=True)
+    loan_amount_approved = models.FloatField(blank=True, null=True, validators=[MinValueValidator(0.0)])
+    grant_amount_approved = models.FloatField(blank=True, null=True, validators=[MinValueValidator(0.0)])
     counterpart_authority = models.CharField(max_length=500, blank=True)
     email = models.EmailField(_('Officer in charge (email)'), blank=True)
     location = models.TextField(blank=True)
@@ -321,16 +322,6 @@ class Project(CodelistsModel, MarkedModel):
 
 
 class Activity(CodelistsModel, MarkedModel):
-    project = models.ForeignKey(Project, null=True, blank=True)
-
-    crsid = models.CharField(max_length=128, blank=True)
-    year = models.IntegerField()
-    number = models.CharField(max_length=128, blank=True)
-    title = models.CharField(max_length=500, blank=True)
-    description = models.TextField(blank=True)
-    long_description = models.TextField(blank=True)
-    geography = models.CharField(max_length=500, blank=True)
-
     REPORT_TYPES = Choices(
         # prese da resources/crs/Codelist04042014.osd:Nature of submission
         (0, _('Unknown')),
@@ -341,7 +332,6 @@ class Activity(CodelistsModel, MarkedModel):
         (5, _('Provisional data')),
         (8, _('Commitment = Disbursement')),
     )
-    report_type = models.PositiveSmallIntegerField(_('Nature of submission'), choices=REPORT_TYPES)
 
     FLOW_TYPES = Choices(
         # prese da resources/crs/dsd.xml:CL_CRS1_FLOW
@@ -354,7 +344,6 @@ class Activity(CodelistsModel, MarkedModel):
         (30, _('Private Grants')),
         (100, _('Official Development Assistance')),
     )
-    flow_type = models.PositiveSmallIntegerField(_('Flow type'), choices=FLOW_TYPES)
 
     BI_MULTI_TYPES = Choices(
         # prese da resources/crs/Codelist04042014.osd:Bi_Multi
@@ -366,6 +355,17 @@ class Activity(CodelistsModel, MarkedModel):
         (4, _('Multilateral outflows')),
         (6, _('Private sector outflows')),
     )
+
+    project = models.ForeignKey(Project, null=True, blank=True)
+    crsid = models.CharField(max_length=128, blank=True)
+    year = models.IntegerField(validators=[MinValueValidator(1900.0), MaxValueValidator(2100.0)])
+    number = models.CharField(max_length=128, blank=True)
+    title = models.CharField(max_length=500, blank=True)
+    description = models.TextField(blank=True)
+    long_description = models.TextField(blank=True)
+    geography = models.CharField(max_length=500, blank=True)
+    report_type = models.PositiveSmallIntegerField(_('Nature of submission'), choices=REPORT_TYPES)
+    flow_type = models.PositiveSmallIntegerField(_('Flow type'), choices=FLOW_TYPES)
     bi_multi = models.IntegerField(_('Bi/Multilateral'), choices=BI_MULTI_TYPES)
 
     is_ftc = models.BooleanField(_('Free Standing Technical Cooperation'), default=False)
@@ -373,13 +373,13 @@ class Activity(CodelistsModel, MarkedModel):
     is_investment = models.BooleanField(_('Investment Project'), default=False)
 
     # money parameters
-    commitment = models.FloatField(blank=True, null=True)
-    commitment_usd = models.FloatField(blank=True, null=True)
-    disbursement = models.FloatField(blank=True, null=True)
-    disbursement_usd = models.FloatField(blank=True, null=True)
+    commitment = models.FloatField(blank=True, null=True, validators=[MinValueValidator(0.0)])
+    commitment_usd = models.FloatField(blank=True, null=True,validators=[MinValueValidator(0.0)])
+    disbursement = models.FloatField(blank=True, null=True,validators=[MinValueValidator(0.0)])
+    disbursement_usd = models.FloatField(blank=True, null=True,validators=[MinValueValidator(0.0)])
 
     # other parameters
-    grant_element = models.FloatField(blank=True, null=True)
+    grant_element = models.FloatField(blank=True, null=True,validators=[MinValueValidator(0.0)])
     number_repayment = models.PositiveIntegerField(blank=True, null=True)
     expected_start_date = models.DateField(blank=True, null=True)
     completion_date = models.DateField(blank=True, null=True)
@@ -552,7 +552,8 @@ class TemporaryCheck(models.Model):
     def save(self, *args, **kwargs):
         if self.project is not None and self.initiative is not None:
             if self.project.initiative != self.initiative:
-                raise ValidationError('Object cannot have foreign key to Project AND Initiative which are not connected. Choose one.')
+                raise ValidationError(
+                    'Object cannot have foreign key to Project AND Initiative which are not connected. Choose one.')
         super(TemporaryCheck, self).save(*args, **kwargs)
 
 
@@ -625,11 +626,15 @@ class Initiative(models.Model):
         ('90', 'Almost completed'),
         ('100', 'Completed'),
     )
-    code = models.CharField(_('N.ID Iniziativa DGCS'),max_length=6, unique=True)
+    code = models.CharField(_('N.ID Iniziativa DGCS'), max_length=6, unique=True)
     title = models.CharField(max_length=1000)
-    total_project_costs = models.FloatField(_('Total project costs for Italian Entities'),help_text=_('Thousands of Euro. Example: for 10.000 Euro insert 10.00'), blank=True, null=True, validators=[MinValueValidator(0.0),])
-    loan_amount_approved = models.FloatField(help_text=_('Thousands of Euro. Example: for 10.000 Euro insert 10.00'), blank=True, null=True, validators=[MinValueValidator(0.0),])
-    grant_amount_approved = models.FloatField(help_text=_('Thousands of Euro. Example: for 10.000 Euro insert 10.00'), blank=True, null=True, validators=[MinValueValidator(0.0),])
+    total_project_costs = models.FloatField(_('Total project costs for Italian Entities'),
+                                            help_text=_('Thousands of Euro. Example: for 10.000 Euro insert 10.00'),
+                                            blank=True, null=True, validators=[MinValueValidator(0.0), ])
+    loan_amount_approved = models.FloatField(help_text=_('Thousands of Euro. Example: for 10.000 Euro insert 10.00'),
+                                             blank=True, null=True, validators=[MinValueValidator(0.0), ])
+    grant_amount_approved = models.FloatField(help_text=_('Thousands of Euro. Example: for 10.000 Euro insert 10.00'),
+                                              blank=True, null=True, validators=[MinValueValidator(0.0), ])
 
     # new fields
     # last update field is an imported /insered field about the last update of the record
@@ -641,17 +646,20 @@ class Initiative(models.Model):
     beneficiaries_temp = models.TextField(_('Beneficiaries'), blank=True)
     beneficiaries_female_temp = models.FloatField(verbose_name=_('of which females (%)'),
                                                   help_text=_('Beneficiaries of which females (%)'), blank=True,
-                                                  null=True, validators=[MinValueValidator(0.0), MaxValueValidator(100.0)])
+                                                  null=True,
+                                                  validators=[MinValueValidator(0.0), MaxValueValidator(100.0)])
 
     status_temp = models.CharField(_('Status'), max_length=3, help_text=_('Progress based on Approved vs Disbursed'),
                                    choices=STATUS_CHOICES, default='-')
     is_suspended_temp = models.BooleanField(verbose_name=_('suspended'), default=False)
-    start_year = models.PositiveSmallIntegerField(null=True, blank=True, default=None, validators=[MinValueValidator(1900.0), MaxValueValidator(2050.0)])
-    end_year = models.PositiveSmallIntegerField(null=True, blank=True, default=None, validators=[MinValueValidator(1900.0), MaxValueValidator(2050.0)])
+    start_year = models.PositiveSmallIntegerField(null=True, blank=True, default=None,
+                                                  validators=[MinValueValidator(1900.0), MaxValueValidator(2100.0)])
+    end_year = models.PositiveSmallIntegerField(null=True, blank=True, default=None,
+                                                validators=[MinValueValidator(1900.0), MaxValueValidator(2100.0)])
     other_financiers_temp = models.TextField(blank=True, verbose_name=_('Other funders'))
-    counterpart_authority_temp = models.CharField(_('Counterpart authority'),max_length=500, blank=True)
+    counterpart_authority_temp = models.CharField(_('Counterpart authority'), max_length=500, blank=True)
     email_temp = models.EmailField(_('Officer in charge (email)'), blank=True)
-    location_temp = models.TextField(_('Location'),blank=True)
+    location_temp = models.TextField(_('Location'), blank=True)
     # ATTACHMENTS
     photo_set = GenericRelation('attachments.Photo')
     document_set = GenericRelation('attachments.Document')
