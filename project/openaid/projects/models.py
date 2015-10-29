@@ -1,4 +1,5 @@
 from django.contrib.contenttypes.generic import GenericRelation
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
 from django.db import models
@@ -626,9 +627,9 @@ class Initiative(models.Model):
     )
     code = models.CharField(_('N.ID Iniziativa DGCS'),max_length=6, unique=True)
     title = models.CharField(max_length=1000)
-    total_project_costs = models.FloatField(_('Total project costs for Italian Entities'),help_text=_('Thousands of Euro. Example: for 10.000 Euro insert 10.00'), blank=True, null=True)
-    loan_amount_approved = models.FloatField(help_text=_('Thousands of Euro. Example: for 10.000 Euro insert 10.00'), blank=True, null=True)
-    grant_amount_approved = models.FloatField(help_text=_('Thousands of Euro. Example: for 10.000 Euro insert 10.00'), blank=True, null=True)
+    total_project_costs = models.FloatField(_('Total project costs for Italian Entities'),help_text=_('Thousands of Euro. Example: for 10.000 Euro insert 10.00'), blank=True, null=True, validators=[MinValueValidator(0.0),])
+    loan_amount_approved = models.FloatField(help_text=_('Thousands of Euro. Example: for 10.000 Euro insert 10.00'), blank=True, null=True, validators=[MinValueValidator(0.0),])
+    grant_amount_approved = models.FloatField(help_text=_('Thousands of Euro. Example: for 10.000 Euro insert 10.00'), blank=True, null=True, validators=[MinValueValidator(0.0),])
 
     # new fields
     # last update field is an imported /insered field about the last update of the record
@@ -640,13 +641,13 @@ class Initiative(models.Model):
     beneficiaries_temp = models.TextField(_('Beneficiaries'), blank=True)
     beneficiaries_female_temp = models.FloatField(verbose_name=_('of which females (%)'),
                                                   help_text=_('Beneficiaries of which females (%)'), blank=True,
-                                                  null=True)
+                                                  null=True, validators=[MinValueValidator(0.0), MaxValueValidator(100.0)])
 
     status_temp = models.CharField(_('Status'), max_length=3, help_text=_('Progress based on Approved vs Disbursed'),
                                    choices=STATUS_CHOICES, default='-')
     is_suspended_temp = models.BooleanField(verbose_name=_('suspended'), default=False)
-    start_year = models.PositiveSmallIntegerField(null=True, blank=True, default=None)
-    end_year = models.PositiveSmallIntegerField(null=True, blank=True, default=None)
+    start_year = models.PositiveSmallIntegerField(null=True, blank=True, default=None, validators=[MinValueValidator(1900.0), MaxValueValidator(2050.0)])
+    end_year = models.PositiveSmallIntegerField(null=True, blank=True, default=None, validators=[MinValueValidator(1900.0), MaxValueValidator(2050.0)])
     other_financiers_temp = models.TextField(blank=True, verbose_name=_('Other funders'))
     counterpart_authority_temp = models.CharField(_('Counterpart authority'),max_length=500, blank=True)
     email_temp = models.EmailField(_('Officer in charge (email)'), blank=True)
