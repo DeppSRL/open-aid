@@ -59,7 +59,7 @@ class PurposeListFilter(admin.SimpleListFilter):
 
     def lookups(self, request, model_admin):
         # get only leaf nodes of sector that have at least 1 initiative associated
-        recipients = Sector.objects.filter(children__isnull=True, initiative__isnull=False).distinct().order_by('name')
+        recipients = Sector.objects.filter(children__isnull=True, initiative__isnull=False).distinct().order_by('code')
         return ((x.code, u"[{}] {}".format(x.code, x.name)) for x in recipients)
 
     def queryset(self, request, queryset):
