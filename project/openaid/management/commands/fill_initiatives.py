@@ -28,9 +28,6 @@ class Command(BaseCommand):
         'is_suspended': 'is_suspended_temp',
         'other_financiers_it': 'other_financiers_temp_it',
         'other_financiers_en': 'other_financiers_temp_en',
-        'loan_amount_approved': 'loan_amount_approved',
-        'grant_amount_approved': 'grant_amount_approved',
-        'total_project_costs': 'total_project_costs',
         'counterpart_authority_it': 'counterpart_authority_temp_it',
         'counterpart_authority_en': 'counterpart_authority_temp_en',
         'email': 'email_temp',
@@ -65,14 +62,6 @@ class Command(BaseCommand):
 
         # loops on every field that has to be updated and updates if the conditions apply
         for project_fieldname, initiative_fieldname in self.field_map.iteritems():
-
-            # when dealing with loan and grant amount get the project values only if the initiative
-            # values for loan/grant are not present
-            if project_fieldname == 'loan_amount_approved' or project_fieldname == 'grant_amount_approved':
-                amount = getattr(initiative, initiative_fieldname)
-                if amount is not None and amount != 0:
-                    self.logger.debug(u"Not going to update {} field because it is NOT NULL in Initiative".format(initiative_fieldname))
-                    continue
 
             if project_fieldname == 'sector':
                 field_value = getattr(project_last_activity, project_fieldname)
