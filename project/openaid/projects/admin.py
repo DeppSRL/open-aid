@@ -103,10 +103,11 @@ class InitiativeAdmin(TranslationAdmin, BeautyTranslationAdmin):
     # se l'utente e' una UTL mostra i recipient a lui associati
     # ed inoltre limita i sectors alle sole foglie ovvero esclude i sector "padre"
     def render_change_form(self, request, context, *args, **kwargs):
-        if not request.user.is_superuser and request.user.utl:
-            context['adminform'].form.fields['recipient_temp'].queryset = request.user.utl.recipient_set.all()
-        else:
+        
+        if request.user.is_superuser:
             context['adminform'].form.fields['recipient_temp'].queryset = codelist_models.Recipient.objects.all()
+        elif request.user.utl:
+            context['adminform'].form.fields['recipient_temp'].queryset = request.user.utl.recipient_set.all()
 
         context['adminform'].form.fields['purpose_temp'].queryset = \
             codelist_models.Sector.objects.filter(children__isnull=True).order_by('code')
