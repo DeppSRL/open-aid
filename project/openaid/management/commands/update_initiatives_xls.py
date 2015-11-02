@@ -135,7 +135,7 @@ class Command(BaseCommand):
 
             else:
                 #     update initiative existing initiative only over writing total,grant,loan
-                self.logger.info(u"Updated initiative:{} with total,loan and grant".format(initiative_code))
+                self.logger.debug(u"Updated initiative:{} with total,loan and grant".format(initiative_code))
 
             # for the new initiatives fill in loan, grant, total and save the obj
             # for the initiative already present: update these 3 fields and save the obj
@@ -145,8 +145,8 @@ class Command(BaseCommand):
             initiative.save()
 
         self.logger.info("Analyzed {} rows".format(row_counter, ))
-        # todo: settare tt le altre iniziative status=completed
 
+        # setta tt le altre iniziative status=completed
         initiatives_not_listed = Initiative.objects.exclude(code__in=initiative_codes_found)
         initiatives_not_listed.update(status_temp ='100')
         self.logger.info("Updated {} initiatives not listed as COMPLETED".format(initiatives_not_listed.count()))
