@@ -30,6 +30,7 @@ class Command(BaseCommand):
         'other_financiers_en': 'other_financiers_temp_en',
         'loan_amount_approved': 'loan_amount_approved',
         'grant_amount_approved': 'grant_amount_approved',
+        'total_project_costs': 'total_project_costs',
         'counterpart_authority_it': 'counterpart_authority_temp_it',
         'counterpart_authority_en': 'counterpart_authority_temp_en',
         'email': 'email_temp',
