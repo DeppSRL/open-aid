@@ -90,9 +90,9 @@ class Command(BaseCommand):
             title_it = row[3].value.strip()
             recipient_name = row[2].value
             # gets values for total, grant and loan
-            total = float(row[5].value/1000.0)
-            grant = float(row[6].value/1000.0)
-            loan = float(row[7].value/1000.0)
+            total = float(row[5].value)
+            grant = float(row[6].value)
+            loan = float(row[7].value)
 
             try:
                 initiative = Initiative.objects.get(code=initiative_code)
