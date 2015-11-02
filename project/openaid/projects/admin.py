@@ -72,6 +72,7 @@ class ProblemInlineInitiativeAdmin(BaseProblemInlineAdmin):
     exclude = ['project', ]
 
 
+
 class InitiativeAdmin(TranslationAdmin, BeautyTranslationAdmin):
     model = Initiative
     inlines = [
@@ -80,7 +81,7 @@ class InitiativeAdmin(TranslationAdmin, BeautyTranslationAdmin):
         DocumentInlineAdmin,
         PhotoInlineAdmin,
     ]
-    list_filter = ('status_temp','start_year', 'end_year', PurposeListFilter, RecipientListFilter ,'has_focus')
+    list_filter = ('status_temp', 'start_year', 'end_year', PurposeListFilter, RecipientListFilter, 'has_focus')
     list_display = (
         'code', 'title', 'show_country', 'total_project_costs', 'loan_amount_approved', 'grant_amount_approved',
         'show_projects_count', 'show_last_update')

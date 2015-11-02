@@ -626,8 +626,8 @@ class Initiative(models.Model):
         ('90', 'Almost completed'),
         ('100', 'Completed'),
     )
-    code = models.CharField(_('N.ID Iniziativa DGCS'), max_length=6, unique=True)
-    title = models.CharField(max_length=1000)
+    code = models.CharField(_('N.ID Iniziativa DGCS'), max_length=6, unique=True, null=False, blank=False)
+    title = models.CharField(max_length=1000, null=False, blank=False)
     total_project_costs = models.FloatField(_('Total project costs for Italian Entities'),
                                             help_text=_('Thousands of Euro. Example: for 10.000 Euro insert 10.00'),
                                             blank=True, null=True, validators=[MinValueValidator(0.0), ])
@@ -863,7 +863,6 @@ class Initiative(models.Model):
     @property
     def is_investment(self):
         return self._get_first_project_value('is_investment')
-
 
     def save(self, *args, **kwargs):
         if len(self.code) != 6:
