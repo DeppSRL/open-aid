@@ -84,6 +84,9 @@ class Command(BaseCommand):
         elif verbosity == '3':
             self.logger.setLevel(logging.DEBUG)
 
+        self.logger.critical("This script is not ready to run. Quit")
+        exit()
+
         counters = {'null':0, 'existing':0, 'malformed':0, 'processed':0}
 
         self.logger.info(u"Start procedure")
