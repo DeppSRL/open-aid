@@ -3,7 +3,7 @@
 *.pyc
 __pycache__
 migrations/
-
+dumps/
 # Env file
 .env
 
