@@ -119,11 +119,9 @@ class InitiativeAdmin(TranslationAdmin, BeautyTranslationAdmin):
         elif request.user.utl is None:
             qs = queryset.none()
         else:
-            qs = queryset.filter(recipient_temp__in=request.user.utl.recipient_set.all())
+            qs = queryset.filter(recipient_temp__in=request.user.utl.recipient_set.all()).exclude(status_temp='100')
 
-        return qs.select_related('report', 'problem').annotate(
-            projects_count=Count('project'),
-        )
+        return qs.select_related('report', 'problem').annotate(projects_count=Count('project'),)
 
     def show_last_update(self, inst):
         if inst.last_update_temp is not None:
