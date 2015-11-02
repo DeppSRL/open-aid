@@ -40,6 +40,7 @@ class Command(BaseCommand):
             'Sahel': '289',
             'Territori Palestines': '550',
             'Yugoslavia': '88',
+            'Italia': '998',
         }
         if name in special_cases.keys():
             return Recipient.objects.get(code=special_cases[name])
