@@ -12,10 +12,12 @@
             <table class="table table-condensed table-hover" data-chart="donut" data-container="donut2">
                 <tbody>
                 {% for fund in multi_stats %}
-                    <tr class="dotted">
-                        <td class="col-sm-8" data-title="{{ fund.organization }}">{{ fund.organization }}</td>
-                        <td class="col-sm-4"><span data-value="{{ fund.commitment|stringformat:"f" }}">{{ fund.commitment|currency }}</span></td>
-                    </tr>
+                    {% if fund.commitment > 0 %}
+                        <tr class="dotted">
+                            <td class="col-sm-8" data-title="{{ fund.organization }}">{{ fund.organization }}</td>
+                            <td class="col-sm-4"><span data-value="{{ fund.commitment|stringformat:"f" }}">{{ fund.commitment|currency }}</span></td>
+                        </tr>
+                    {% endif %}
                 {% endfor %}
                 </tbody>
             </table>
@@ -32,10 +34,12 @@
             <table class="table table-condensed table-hover" data-chart="donut" data-container="donut3">
                 <tbody>
                 {% for fund in multi_stats %}
-                    <tr class="dotted">
-                        <td class="col-sm-8" data-title="{{ fund.organization }}">{{ fund.organization }}</td>
-                        <td class="col-sm-4"><span data-value="{{ fund.disbursement|stringformat:"f" }}">{{ fund.disbursement|currency }}</span></td>
-                    </tr>
+                    {% if fund.disbursement > 0 %}
+                        <tr class="dotted">
+                            <td class="col-sm-8" data-title="{{ fund.organization }}">{{ fund.organization }}</td>
+                            <td class="col-sm-4"><span data-value="{{ fund.disbursement|stringformat:"f" }}">{{ fund.disbursement|currency }}</span></td>
+                        </tr>
+                    {% endif %}
                 {% endfor %}
                 </tbody>
             </table>
