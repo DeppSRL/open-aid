@@ -72,9 +72,22 @@ class ProblemInlineInitiativeAdmin(BaseProblemInlineAdmin):
     exclude = ['project', ]
 
 
+class InitiativeAdminForm(forms.ModelForm):
+
+    def clean(self):
+        cleaned_data = super(InitiativeAdminForm, self).clean()
+        title_it = cleaned_data.get("title_it")
+        title_en = cleaned_data.get("title_en")
+
+        # makes sure that at least one title is not null otherwise shows error
+        if (title_it is None or title_it == '' )and (title_en is None or title_en == '' ):
+            raise forms.ValidationError("Initiative must have Italian or English title, fill at least one")
+        return cleaned_data
+    class Meta:
+        model = Initiative
 
 class InitiativeAdmin(TranslationAdmin, BeautyTranslationAdmin):
-    model = Initiative
+    form = InitiativeAdminForm
     inlines = [
         ReportInlineInitiativeAdmin,
         ProblemInlineInitiativeAdmin,

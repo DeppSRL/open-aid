@@ -2,7 +2,7 @@ from django.contrib.contenttypes.generic import GenericRelation
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
-from django.db import models
+from django.db import models, IntegrityError
 from django.db.models import Sum
 from django.utils.translation import ugettext as _
 from model_utils import Choices
@@ -627,7 +627,7 @@ class Initiative(models.Model):
         ('100', 'Completed'),
     )
     code = models.CharField(_('N.ID Iniziativa DGCS'), max_length=6, unique=True, null=False, blank=False)
-    title = models.CharField(max_length=1000, null=False, blank=False)
+    title = models.CharField(max_length=1000, null=True, blank=True, default='')
     total_project_costs = models.FloatField(_('Total project costs for Italian Entities'),
                                             help_text=_('Value in Euro. Example: for 10.000 Euro insert 10000. Do not insert dots or commas for decimals or thousands'),
                                             blank=True, null=True, validators=[MinValueValidator(0.0), ])
@@ -867,6 +867,10 @@ class Initiative(models.Model):
     def save(self, *args, **kwargs):
         if len(self.code) != 6:
             self.code = self.code.zfill(6)
+
+        if (self.title_it is None or self.title_it == '') and (self.title_en is None or self.title_en == '') :
+            raise ValidationError("Initiative must have Italian or English title, fill at least one")
+
         return super(Initiative, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
