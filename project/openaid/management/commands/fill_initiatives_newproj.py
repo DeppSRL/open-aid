@@ -19,9 +19,22 @@ class Command(BaseCommand):
         'title_en': 'title_en',
         'description_it': 'description_temp_it',
         'description_en': 'description_temp_en',
-        'code': 'code',
-        'recipient': 'recipient_temp',
     }
+
+    special_cases = {
+        "9377 (Fondo Esperti e Fondo in Loco) - F.ROT/AID 99/009/01":"009377",
+        "0010521":"010521",
+    }
+
+    # the followings initiatives code only need to copy photos, not overwrite fields
+    only_copy_photos = [
+        '009331',
+        '010074',
+        '010214',
+        '010311',
+        '010345',
+        '010232',
+    ]
 
     def update_fields(self, new_project, initiative):
         # loops on every field that has to be updated and updates if the conditions apply
@@ -34,7 +47,7 @@ class Command(BaseCommand):
 
         return initiative
 
-    def update_related_objects(self, new_project, initiative):
+    def copy_photos(self, new_project, initiative):
 
         # updates photo set getting the photos from the new projects
         initiative.photo_set.add()
@@ -45,6 +58,11 @@ class Command(BaseCommand):
     def get_code(self,new_project):
         # gets correct 6 chars code from np.number
         code = new_project.number.strip()
+
+        # deals with hand picked special cases
+        if code in self.special_cases.keys():
+            return self.special_cases[code]
+
         code = code.replace("AID ","")
         if code is None or code == '':
             return code
@@ -83,9 +101,6 @@ class Command(BaseCommand):
         elif verbosity == '3':
             self.logger.setLevel(logging.DEBUG)
 
-        self.logger.critical("This script is not ready to run. Quit")
-        exit()
-
         counters = {'null':0, 'existing':0, 'malformed':0, 'processed':0}
 
         self.logger.info(u"Start procedure")
@@ -114,9 +129,10 @@ class Command(BaseCommand):
                 self.logger.critical("Initiative cannot be None here. ERROR")
                 exit()
 
-            new_project.code = code
-            initiative = self.update_fields(new_project, initiative)
-            initiative = self.update_related_objects(new_project, initiative)
+            if initiative.code not in self.only_copy_photos:
+                initiative = self.update_fields(new_project, initiative)
+
+            initiative = self.copy_photos(new_project, initiative)
             initiative.save()
             counters['processed'] += 1
 
