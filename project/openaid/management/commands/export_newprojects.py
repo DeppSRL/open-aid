@@ -143,7 +143,7 @@ class Command(BaseCommand):
         pprint(counters)
         # save output file
         workbook.save(output_filename)
-        if len(np_to_fix)>0:
+        if len(np_to_fix) > 0:
             self.logger.error("The following NewProject PK have code malformed or null")
             pprint(np_to_fix)
         self.logger.info(u"finish")
