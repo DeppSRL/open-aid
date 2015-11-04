@@ -70,7 +70,7 @@ class Command(BaseCommand):
         counters={'null':0, 'malformed':0,'existing':0, 'not_existing':0}
         newproject_fields = ['number', 'title_it', 'title_en','description_it','description_en', 'recipient']
         initiative_fields = ['code', 'title_it', 'title_en','description_temp_it','description_temp_en', 'recipient_temp']
-
+        np_to_fix = []
         workbook = Workbook()
         ws_output = workbook.create_sheet(index=0, title='sheet')
         self.logger.info(u"start")
@@ -92,6 +92,7 @@ class Command(BaseCommand):
                 except ObjectDoesNotExist:
                     self.logger.info(u"Initiative with code:'{}' does NOT exist".format(code))
                     counters['not_existing'] += 1
+                    np_to_fix.append(new_project.pk)
                     continue
                 else:
                     self.logger.debug(u"Initiative with code:'{}' exist".format(code))
@@ -101,9 +102,11 @@ class Command(BaseCommand):
                 if code == None or code == '':
                     self.logger.error(u"NewProj:{} has code None or ''. Skip".format(new_project.pk))
                     counters['null'] += 1
+                    np_to_fix.append(new_project.pk)
                 elif code == -1:
                     self.logger.error(u"NewProj:{} - Code '{}' is malformed, cannot process. Skip".format(new_project.pk, new_project.number))
                     counters['malformed'] += 1
+                    np_to_fix.append(new_project.pk)
                 continue
 
             row = []
@@ -140,4 +143,7 @@ class Command(BaseCommand):
         pprint(counters)
         # save output file
         workbook.save(output_filename)
+        if len(np_to_fix)>0:
+            self.logger.error("The following NewProject PK have code malformed or null")
+            pprint(np_to_fix)
         self.logger.info(u"finish")
