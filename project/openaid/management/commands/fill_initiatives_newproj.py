@@ -5,8 +5,7 @@ __author__ = 'stefano'
 import logging
 from pprint import pprint
 from django.core.management.base import BaseCommand
-from django.db.transaction import set_autocommit, commit
-from openaid.projects.models import Initiative, Project, NewProject
+from openaid.projects.models import Initiative, NewProject
 
 
 class Command(BaseCommand):
