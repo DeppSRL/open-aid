@@ -34,6 +34,3 @@ node_modules/
 
 # Campass
 .sass-cache
-
-#backup script
-backup.sh
