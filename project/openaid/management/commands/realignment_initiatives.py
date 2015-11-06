@@ -31,6 +31,22 @@ class Command(BaseCommand):
     corso_in_xls = []
     dryrun = True
 
+    def get_code(self, row):
+        code = None
+        zfill_code = None
+        value = row[0].value
+        if type(value) == int:
+            code = value
+        if type(value) == float:
+            try:
+                code = int(value)
+            except TypeError:
+                return None, None
+
+        zfill_code = str(code).zfill(6)
+        return code, zfill_code
+
+
     def convert_list_to_string(self, list):
         return ",".join(list)
 
@@ -39,11 +55,10 @@ class Command(BaseCommand):
         for row_counter, row in enumerate(ws.rows):
             if row_counter == 0:
                 continue
-
-            code = int(row[0].value)
-            zfill_code = str(code).zfill(6)
-            if code is None :
+            code, zfill_code = self.get_code(row)
+            if code is None:
                 continue
+
             if zfill_code in self.stash_codici:
                 self.logger.error("Row:{} - Codice '{}' non univoco!".format(row_counter,code))
                 ret = True
@@ -56,17 +71,16 @@ class Command(BaseCommand):
             if row_counter == 0:
                 continue
 
-            code = str(int(row[0].value))
+            code, zfill_code = self.get_code(row)
             if code is None:
                 continue
-            code = code.zfill(6)
 
-            if code not in self.completed_in_xls:
-                self.completed_in_xls.append(code)
+            if zfill_code not in self.completed_in_xls:
+                self.completed_in_xls.append(zfill_code)
             try:
-                initiative = Initiative.objects.get(code=code)
+                initiative = Initiative.objects.get(code=zfill_code)
             except ObjectDoesNotExist:
-                self.completed_only_xls.append(code)
+                self.completed_only_xls.append(zfill_code)
                 continue
             else:
                 total = row[3].value
@@ -85,22 +99,20 @@ class Command(BaseCommand):
             if row_counter == 0:
                 continue
 
-            code = int(row[0].value)
-
+            code, zfill_code = self.get_code(row)
             if code is None:
                 continue
-            code = str(code).zfill(6)
-            if code not in self.corso_in_xls:
-                self.corso_in_xls.append(code)
+            if zfill_code not in self.corso_in_xls:
+                self.corso_in_xls.append(zfill_code)
 
             try:
-                initiative = Initiative.objects.get(code=code)
+                initiative = Initiative.objects.get(code=zfill_code)
             except ObjectDoesNotExist:
-                self.corso_only_xls.append(code)
+                self.corso_only_xls.append(zfill_code)
                 continue
             else:
                 if initiative.status_temp == '100':
-                    self.logger.info("IN CORSO: update status iniziativa:{} to Not available".format(code))
+                    self.logger.info("IN CORSO: update status iniziativa:{} to Not available".format(zfill_code))
                     initiative.status_temp = '-'
                     if self.dryrun is False:
                         initiative.save()

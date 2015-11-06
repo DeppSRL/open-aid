@@ -336,7 +336,7 @@ class NewProjectAdmin(TranslationAdmin, BeautyTranslationAdmin):
     form = NewProjectAdminForm
     fields = ('title', 'number', 'description', 'year', 'commitment', 'disbursement',
               'recipient', 'agency', 'aid_type', 'channel', 'finance_type', 'sector')
-    list_filter = ('year', 'agency')
+    list_filter = ('year', 'agency', 'recipient')
     list_display = ('title', 'year', 'number', 'recipient', 'agency')
     inlines = [
         PhotoInlineAdmin,
