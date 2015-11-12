@@ -1,10 +1,13 @@
 # coding=utf-8
+from django.db.transaction import set_autocommit, commit
+
 __author__ = 'stefano'
 from optparse import make_option
 import time
 import logging
 import csvkit
 from django.core.management.base import LabelCommand, CommandError
+
 from openaid.codelists import models as codelist_models
 from openaid.projects import models
 from openaid.projects import forms
@@ -58,7 +61,7 @@ class Command(LabelCommand):
         ])
 
         rows = projects = activities = 0
-
+        set_autocommit(False)
         try:
             with open(crs_filename, 'r') as crs_file:
                 for rows, activity in enumerate(csvkit.DictReader(crs_file), start=1):
@@ -68,13 +71,17 @@ class Command(LabelCommand):
                         self.logger.debug("Imported row: %d" % (activities))
                         if new_project:
                             projects += 1
+                    if rows % 50 == 0:
+                        commit()
         except KeyboardInterrupt:
+            commit()
             self.logger.critical("Command execution aborted.")
         finally:
             self.logger.info("Total projects: %d" % projects)
             self.logger.info("Total activities: %d" % activities)
             self.logger.info("Total rows: %d" % rows)
             self.logger.info("Execution time: %d seconds" % (time.time() - start_time))
+            commit()
 
     def load_activity(self, row, i):
         # fix report_type
@@ -125,22 +132,21 @@ class Command(LabelCommand):
             self.logger.error('Error on row %s:\n%s' % (i, activity_form.errors.as_text()))
             return 0, 0
 
+        # get recipient
+        recipient = codelist_models.Recipient.objects.get(code=row['recipient_code'])
         # la associo ad un project
         project, project_created = models.Project.objects.get_or_create(**{
             'crsid': row['crsid'],
-            'recipient__code': row['recipient_code'],
+            'recipient': recipient,
             'defaults': {
                 'start_year': row['year'],
                 'end_year': row['year'],
             }
         })
 
-        if project_created is False:
-
-            if models.Activity.objects.filter(project=project, year=activity_form.cleaned_data['year'], recipient__code=row['recipient_code']).count() != 0:
-                recipient = codelist_models.Recipient.objects.get(code=row['recipient_code'])
-                self.logger.warning('Row:%s, Activity already exists for crsid:"%s" recipient:"%s" year:"%s"' % (i, project.crsid, recipient,row['year']))
-
+        if models.Activity.objects.filter(project=project, year=activity_form.cleaned_data['year'], recipient=recipient).count() != 0:
+            self.logger.debug('Row:%s, Activity already exists for crsid:"%s" recipient:"%s" year:"%s"' % (i, project.crsid, recipient,row['year']))
+            return None,None
 
         activity = activity_form.save()
         activity.project = project
