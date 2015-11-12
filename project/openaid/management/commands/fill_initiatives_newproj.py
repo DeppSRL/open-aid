@@ -1,8 +1,7 @@
 # coding=utf-8
-from django.core.exceptions import ObjectDoesNotExist
-
 __author__ = 'stefano'
 import logging
+from django.core.exceptions import ObjectDoesNotExist
 from pprint import pprint
 from django.core.management.base import BaseCommand
 from openaid.projects.models import Initiative, NewProject

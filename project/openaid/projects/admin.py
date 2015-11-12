@@ -235,7 +235,7 @@ class ActivityAdmin(TranslationAdmin, BeautyTranslationAdmin):
     codelists = ['recipient', 'agency', 'aid_type', 'channel', 'finance_type', 'sector']
     codelists_links = ['%s_link' % cl for cl in codelists]
     list_filter = ['year']
-    search_fields = ['project__pk', 'project__title', 'project__crsid']
+    search_fields = ['project__pk', 'project__title', 'project__crsid','number']
 
     fieldsets = (
         (None, {
