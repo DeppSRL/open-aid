@@ -29,6 +29,9 @@ nosetests.xml
 *.swp
 *.swo
 
+#temmp
+.~*
+
 # npm
 node_modules/
 
