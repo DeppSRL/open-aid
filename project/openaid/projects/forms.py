@@ -35,10 +35,6 @@ class ActivityForm(forms.ModelForm):
             if data['long_description'] and slugify(data['description']) == slugify(data['long_description']):
                 data['long_description'] = ''
 
-        if data['title']:
-            if data['description'] and slugify(data['title']) == slugify(data['description']):
-                data['description'] = ''
-
         return data
 
     class Meta:

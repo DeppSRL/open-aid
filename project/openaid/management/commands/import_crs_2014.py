@@ -146,10 +146,13 @@ class Command(LabelCommand):
 
         if models.Activity.objects.filter(project=project, year=activity_form.cleaned_data['year'], recipient=recipient).count() != 0:
             self.logger.debug('Row:%s, Activity already exists for crsid:"%s" recipient:"%s" year:"%s"' % (i, project.crsid, recipient,row['year']))
-            return None,None
+            return 0,0
 
         activity = activity_form.save()
         activity.project = project
+        if activity.description == '':
+            self.logger.critical("row description:'{}',act.description:'{}'".format(row['description'], activity.description))
+            exit()
 
          # 2. creo i markers
         markers_form = mapping.create_mapped_form(forms.MarkersForm, row, {
