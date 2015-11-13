@@ -107,6 +107,7 @@ class Command(LabelCommand):
                 row[field] = field_value.strip().replace('.', '').replace(',', '.')
                 if row[field] == '-':
                     row[field] = 0.0
+                row[field] = float(row[field]) / 1000
 
         # 1. creo l'Activity
         activity_form = mapping.create_mapped_form(forms.ActivityForm, row, mapping.OrderedDict([

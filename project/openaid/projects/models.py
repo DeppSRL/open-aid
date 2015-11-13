@@ -373,6 +373,7 @@ class Activity(CodelistsModel, MarkedModel):
     is_investment = models.BooleanField(_('Investment Project'), default=False)
 
     # money parameters
+    # NOTA BENE: QUI SONO MILIONI DI EURO / DI USD!!!
     commitment = models.FloatField(blank=True, null=True, validators=[MinValueValidator(0.0)])
     commitment_usd = models.FloatField(blank=True, null=True,validators=[MinValueValidator(0.0)])
     disbursement = models.FloatField(blank=True, null=True,validators=[MinValueValidator(0.0)])

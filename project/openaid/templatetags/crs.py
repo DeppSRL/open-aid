@@ -51,8 +51,8 @@ def crs_stats(context, instance=None, year=None, show_map=True):
 
     selected_facet = instance.code_list_facet if instance else None
 
-    commitment_sum = activities.aggregate(Sum('commitment'))['commitment__sum']
-    disbursements_sum = activities.aggregate(Sum('disbursement'))['disbursement__sum']
+    commitment_sum = 0 if activities.aggregate(Sum('commitment'))['commitment__sum'] is None else activities.aggregate(Sum('commitment'))['commitment__sum']
+    disbursements_sum = 0 if activities.aggregate(Sum('disbursement'))['disbursement__sum'] is None else activities.aggregate(Sum('disbursement'))['disbursement__sum']
 
     ctx = {
         'selected_year': year,
