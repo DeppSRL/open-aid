@@ -102,12 +102,14 @@ class Command(LabelCommand):
         for field, field_value in row.items():
             if field.endswith('_date'):
                 row[field] = '-'.join(reversed(field_value.replace('/', '-').split('-')))
-            elif field in ['commitment', 'disbursement']:
+            elif field in ['commitment', 'disbursement', 'usd_commitment', 'usd_disbursement']:
                 # in this case the money value is already in thousands of Euro, so no division by 1000 is needed
                 row[field] = field_value.strip().replace('.', '').replace(',', '.')
                 if row[field] == '-':
                     row[field] = 0.0
-                row[field] = float(row[field]) / 1000
+                row[field] = float(row[field])
+                if field in ['commitment', 'disbursement']:
+                    row[field] /= 1000
 
         # 1. creo l'Activity
         activity_form = mapping.create_mapped_form(forms.ActivityForm, row, mapping.OrderedDict([
@@ -128,6 +130,8 @@ class Command(LabelCommand):
             ('commitment_date', 'commitment_date'),
             ('commitment', 'commitment'),
             ('disbursement', 'disbursement'),
+            ('usd_commitment', 'commitment_usd'),
+            ('usd_disbursement', 'disbursement_usd'),
         ]))
         if not activity_form.is_valid():
             self.logger.error('Error on row %s:\n%s' % (i, activity_form.errors.as_text()))
