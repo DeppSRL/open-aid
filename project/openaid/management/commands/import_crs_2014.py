@@ -195,7 +195,7 @@ class Command(LabelCommand):
                     self.logger.error('Cannot find %s with code "%s" (row: %s)' % (codelist.code_list, code_value, i))
 
         activity.save()
-        # todo: farlo o meno????
-        # activity.project.update_from_activities(save=True)
+        # updates project data based on the activities
+        activity.project.update_from_activities(save=True)
 
         return activity, project_created

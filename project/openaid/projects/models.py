@@ -273,22 +273,6 @@ class Project(CodelistsModel, MarkedModel):
         markers_updates = 0
         for activity in self.activity_set.all().order_by('year'):
 
-            if not self.title_it and activity.title_it:
-                self.title_it = activity.title_it
-                activity_updates += 1
-
-            if not self.title_en and activity.title_en:
-                self.title_en = activity.title_en
-                activity_updates += 1
-
-            if not self.description_it and activity.long_description_it:
-                self.description_it = activity.long_description_it
-                activity_updates += 1
-
-            if not self.description_en and activity.long_description_en:
-                self.description_en = activity.long_description_en
-                activity_updates += 1
-
             if activity.year < self.start_year:
                 self.start_year = activity.year
                 activity_updates += 1
