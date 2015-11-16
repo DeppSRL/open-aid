@@ -33,7 +33,7 @@ class Command(BaseCommand):
         nk.iso_code = 'PRK'
         nk.iso_alpha2 = 'KP'
         nk.popolazione = 24895705
-        nk.crescita_popolazione = None
+        nk.crescita_popolazione = 0.5
         nk.pil = None
         nk.pil_procapite= None
         nk.save()
