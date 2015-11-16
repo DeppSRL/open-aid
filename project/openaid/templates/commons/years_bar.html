@@ -7,23 +7,14 @@
 <div class="col-md-9">
     <div class="years-navigation">
         <nav class="navbar navbar-default" role="navigation">
-{#            <div class="navbar-header">#}
-{#                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#years">#}
-{#                    <span class="sr-only">Toggle navigation</span>#}
-{#                    <span class="icon-bar"></span>#}
-{#                    <span class="icon-bar"></span>#}
-{#                    <span class="icon-bar"></span>#}
-{#                </button>#}
-{#            </div>#}
-
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div id="years">
                 <ul class="nav navbar-nav">
                     {% for year in years %}
-                    <li class="{% spaceless %}
-                    {% if year == selected_year %}selected {% endif %}
-                    {% if forloop.first %}first{% elif forloop.last %}last{% endif %}">
-                        <a href="?year={{ year }}" class=""><span class="point hidden-xs hidden-sm"> </span> {{ year }}</a></li>{% endspaceless %}
+                        <li class="{% spaceless %}
+                        {% if year == selected_year %}selected {% endif %}
+                        {% if forloop.first %}first{% elif forloop.last %}last{% endif %}">
+                            <a href="?year={{ year }}" class=""><span class="point hidden-xs hidden-sm"> </span> {{ year }}</a></li>{% endspaceless %}
                     {% endfor %}
                 </ul>
             </div><!-- /.navbar-collapse -->
