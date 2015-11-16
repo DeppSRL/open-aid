@@ -55,7 +55,7 @@ class ProjectIndex(indexes.ModelSearchIndex, indexes.Indexable):
 
     class Meta:
         model = Project
-        excludes = ['is_suspended', 'status', 'expected_start_year', 'expected_completion_year',
+        excludes = ['is_suspended', 'status', 'expected_start_year', 'expected_completion_year','expected_start_date', 'completion_date',
                     'last_update', 'outcome', 'beneficiaries', 'beneficiaries_female',
                     'total_project_costs', 'other_financiers', 'loan_amount_approved',
                     'grant_amount_approved', 'counterpart_authority', 'email', 'location',
