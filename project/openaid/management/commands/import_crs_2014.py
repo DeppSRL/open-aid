@@ -48,7 +48,7 @@ class Command(LabelCommand):
             self.logger.setLevel(logging.DEBUG)
 
         # Gli argomenti forniti sono i nomi dei file CRS da lavorare
-
+        self.logger.info(u"Start import 2014")
         start_time = time.time()
         i = 0
 
@@ -82,6 +82,7 @@ class Command(LabelCommand):
             self.logger.info("Total rows: %d" % rows)
             self.logger.info("Execution time: %d seconds" % (time.time() - start_time))
             commit()
+        self.logger.info(u"Finish import 2014")
 
     def load_activity(self, row, i):
         # fix report_type
