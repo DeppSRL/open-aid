@@ -24,7 +24,7 @@ var slug = function(str) {
     replace(/-+/g, '-').
     replace(/^-|-$/g, '');
     return $slug.toLowerCase();
-}
+};
 
 $(document).ready(function(){
 
@@ -112,7 +112,6 @@ $(document).ready(function(){
 
 		var r = Raphael(holder),
 			pie = r.piechart(x, y, radius, data, {init: true, colors:['#f74f59', '#2b6a7c'], stroke: 'none'});
-		pie.rotate(225);
 	}
 
     $('*[data-chart=map]').each(function(i, el){
