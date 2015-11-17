@@ -12,16 +12,17 @@ var slug = function(str) {
 //colori del pie chart, dal più scuro al più chiaro
     var array_colori = [
         "#82040c",
-        "#b40b15",
-        "#ac0808",
-        "#bb0a0a",
         "#d00909",
         "#ff0000",
-        "#f43030",
-        "#f24949",
-        "#f05757",
-        "#f74f59",
-        "#f74f59",
+        "#f35858",
+        "#a22222",
+        "#de4646",
+        "#f9858c",
+        "#922842",
+        "#b19597",
+        "#936c6f",
+        "#584143"
+
     ];
 
 
