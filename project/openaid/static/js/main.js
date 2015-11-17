@@ -112,6 +112,8 @@ $(document).ready(function(){
 
 		var r = Raphael(holder),
 			pie = r.piechart(x, y, radius, data, {init: true, colors:['#f74f59', '#2b6a7c'], stroke: 'none'});
+		pie.rotate(90);
+        console.log(data);
 	}
 
     $('*[data-chart=map]').each(function(i, el){
