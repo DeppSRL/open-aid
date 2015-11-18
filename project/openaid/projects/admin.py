@@ -88,6 +88,7 @@ class InitiativeAdminForm(forms.ModelForm):
 
 class InitiativeAdmin(TranslationAdmin, BeautyTranslationAdmin):
     form = InitiativeAdminForm
+    list_per_page = 200
     inlines = [
         ReportInlineInitiativeAdmin,
         ProblemInlineInitiativeAdmin,
@@ -112,12 +113,11 @@ class InitiativeAdmin(TranslationAdmin, BeautyTranslationAdmin):
 
     readonly_fields = ('sector_code',)
 
-
     # se l'utente e' una UTL mostra i recipient a lui associati
     # ed inoltre limita i sectors alle sole foglie ovvero esclude i sector "padre"
     def render_change_form(self, request, context, *args, **kwargs):
-        
-        if request.user.is_superuser:
+
+        if request.user.is_superuser or request.user.username == "dgcs":
             context['adminform'].form.fields['recipient_temp'].queryset = codelist_models.Recipient.objects.all()
         elif request.user.utl:
             context['adminform'].form.fields['recipient_temp'].queryset = request.user.utl.recipient_set.all()
@@ -128,7 +128,7 @@ class InitiativeAdmin(TranslationAdmin, BeautyTranslationAdmin):
 
     def get_queryset(self, request):
         queryset = super(InitiativeAdmin, self).get_queryset(request)
-        if request.user.is_superuser:
+        if request.user.is_superuser or request.user.username == "dgcs":
             qs = queryset
         elif request.user.utl is None:
             qs = queryset.none()

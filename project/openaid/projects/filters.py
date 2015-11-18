@@ -39,14 +39,21 @@ class RecipientListFilter(admin.SimpleListFilter):
 
     # Parameter for the filter that will be used in the URL query.
     parameter_name = 'recipient_temp'
+    missing_recipient_string = "None"
 
     def lookups(self, request, model_admin):
         recipients = Recipient.objects.filter(initiative__isnull=False).distinct().order_by('name')
-        return ((x.code, u"[{}] {}".format(x.code, x.name)) for x in recipients)
+        recipient_list=[(self.missing_recipient_string,"(None)"),]
+        recipient_list.extend([(x.code, u"[{}] {}".format(x.code, x.name)) for x in recipients])
+        return recipient_list
 
     def queryset(self, request, queryset):
         if self.value():
             recipient_code = self.value()
+            # this allows to see initiatives with missing recipient
+            if recipient_code == self.missing_recipient_string:
+                return queryset.filter(recipient_temp__isnull=True)
+            # else filter by recipient
             return queryset.filter(recipient_temp__code=str(recipient_code))
 
 
