@@ -137,9 +137,10 @@ class Command(BaseCommand):
                 self.logger.info("Working on proj:{}, initiative:{}".format(pk, initiative.pk))
 
                 initiative = self.update_fields(initiative, project)
-                initiative = self.update_related_objects(initiative, project)
                 initiative.save()
                 project.initiative=initiative
                 project.save()
-
+                initiative = self.update_related_objects(initiative, project)
+                initiative.save()
+                
         self.logger.info(u"Finish")
