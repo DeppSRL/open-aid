@@ -109,10 +109,21 @@ $(document).ready(function(){
 		y = y || 0;
 		radius = radius || 0;
 		data = data || [];
+		var r = Raphael(holder);
 
-		var r = Raphael(holder),
-			pie = r.piechart(x, y, radius, data, {init: true, colors:['#f74f59', '#2b6a7c'], stroke: 'none'});
+        var pie = r.piechart(x, y, // center
+                     radius,      // radius
+                     data,
+                     {  init: true,
+                         matchColors : true,
+                         colors       : [
+                                            "#f74f59",
+                                            "#2b6a7c",
+                                        ],
 
+                         stroke: 'none'
+                     });
+        pie.rotate(-90);
 	}
 
     $('*[data-chart=map]').each(function(i, el){
@@ -129,6 +140,9 @@ $(document).ready(function(){
         values = $.map(values, function(v){
             if (v == 0.0) {
                 return 1.0;
+            }
+            if (v==tot){
+                return 359.0;
             }
             return tot > 0.0 ? (v / tot) * 360.0 : 0.0
         });
