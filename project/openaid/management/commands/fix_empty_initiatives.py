@@ -86,11 +86,11 @@ class Command(BaseCommand):
 
 
         # updates reports and problems with initiative link (project link will later be removed by migrations)
-        for r in initiative.reports():
+        for r in project.report_set.all():
             r.initiative = initiative
             r.save()
 
-        for prob in initiative.problems():
+        for prob in project.problem_set.all():
             prob.initiative = initiative
             prob.save()
 
