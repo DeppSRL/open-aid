@@ -25,11 +25,11 @@ django-modeltranslation
 psycopg2==2.5.3
 
 # Searching
-django-haystack
-requests
-lxml
-cssselect
-pysolr
+django-haystack==2.1.0
+requests==2.3.0
+lxml==3.3.5
+cssselect==0.9.1
+pysolr==3.2.0
 django-bootstrap-pagination==1.5.0
 
 # OpenAID specific

@@ -382,9 +382,10 @@ INSTALLED_APPS += (
     'haystack',
 )
 SOLR_BASE_URL = env.str('SOLR_BASE_URL', default='http://127.0.0.1:8080/solr/open-aid-{lang}')
+
+
 def solr_url(lang):
     return {
-        # 'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
         'ENGINE': 'openaid.backends.MultilingualSolrEngine',
         'URL': SOLR_BASE_URL.format(lang=lang),
     }
