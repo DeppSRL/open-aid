@@ -26,20 +26,8 @@ class Home(MapFiltersContextMixin, TemplateView):
 
         top_initiatives = Initiative.get_top_initiatives(6, year=self.request.GET.get('year', contexts.END_YEAR))
 
-        # focus = Project.get_top_projects(year=self.request.GET.get('year', contexts.END_YEAR), qnt=1, project__has_focus=True)
-        # top_projects = Project.get_top_projects(qnt=3 if len(focus) else 4, year=self.request.GET.get('year', contexts.END_YEAR))
-
-        # se non ci sono focus, prendo uno dei progetti piu importanti.
-        # if not len(focus) and top_projects:
-        #     focus = top_projects[0]
-        #     top_projects = top_projects[1:]
-        # else:
-        #     focus = focus[0]
-
         return super(Home, self).get_context_data(
-            # project_focus=focus,
             entries_list=Entry.objects.all().order_by('-published_at')[:1],
-            # top_projects=top_projects,
             top_initiatives=top_initiatives,
             **kwargs
         )

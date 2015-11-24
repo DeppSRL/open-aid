@@ -659,11 +659,29 @@ class Initiative(models.Model):
     def get_top_initiatives(cls, qnt=6, year=None, **filters):
         # excludes from top initiatives those sectors that are for staff wages and other
         excluded_sectors = settings.OPENAID_INITIATIVE_PURPOSE_EXCLUDED
-
         if year:
             filters['project__activity__year__exact'] = year
-        initiatives = Initiative.objects.exclude(status_temp='100').exclude(purpose_temp__code__in=excluded_sectors).order_by('-total_project_costs')
-        return initiatives.filter(**filters).distinct()[:qnt]
+
+        # selects the base set of Initiatives for this case, applying various filters
+        base_set = Initiative.objects.\
+            exclude(status_temp='100').\
+            exclude(purpose_temp__code__in=excluded_sectors).\
+            filter(**filters).\
+            distinct()
+
+        top_initiatives_not_null = base_set.exclude(total_project_costs__isnull=True).order_by('-total_project_costs')
+        not_null_count = top_initiatives_not_null.count()
+
+        # if there is not enough initiatives with total proj.cost NOT NULL, adds up initiatives with NULL cost
+        # at the end of the list
+        if not_null_count >= qnt:
+            return top_initiatives_not_null[:qnt]
+        else:
+            difference = qnt - not_null_count
+            top_initiatives_null = base_set.exclude(total_project_costs__isnull=False).order_by('title')
+            top_initiatives = list(top_initiatives_not_null[:])
+            top_initiatives.extend(list(top_initiatives_null[:difference]))
+            return top_initiatives
 
     @property
     def last_update(self):
