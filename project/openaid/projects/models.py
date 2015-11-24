@@ -5,6 +5,7 @@ from django.core.urlresolvers import reverse
 from django.db import models, IntegrityError
 from django.db.models import Sum
 from django.utils.translation import ugettext as _
+from django.conf import settings
 from model_utils import Choices
 from openaid import utils
 from openaid.projects import fields
@@ -613,6 +614,7 @@ class Initiative(models.Model):
     )
     code = models.CharField(_('N.ID Iniziativa DGCS'), max_length=6, unique=True, null=False, blank=False)
     title = models.CharField(max_length=1000, null=True, blank=True, default='')
+    # NOTA: VALORI IN EURO
     total_project_costs = models.FloatField(_('Total project costs for Italian Entities'),
                                             help_text=_('Value in Euro. Example: for 10.000 Euro insert 10000. Do not insert dots or commas for decimals or thousands'),
                                             blank=True, null=True, validators=[MinValueValidator(0.0), ])
@@ -653,6 +655,15 @@ class Initiative(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True, default=None)
     has_focus = models.BooleanField(_('Focus'), default=False)
 
+    @classmethod
+    def get_top_initiatives(cls, qnt=6, year=None, **filters):
+        # excludes from top initiatives those sectors that are for staff wages and other
+        excluded_sectors = settings.OPENAID_INITIATIVE_PURPOSE_EXCLUDED
+
+        if year:
+            filters['project__activity__year__exact'] = year
+        initiatives = Initiative.objects.exclude(status_temp='100').exclude(purpose_temp__code__in=excluded_sectors).order_by('-total_project_costs')
+        return initiatives.filter(**filters).distinct()[:qnt]
 
     @property
     def last_update(self):
@@ -701,13 +712,6 @@ class Initiative(models.Model):
             return self.photos()[0]
         except IndexError:
             return ''
-
-    @classmethod
-    def get_top_initiatives(cls, qnt=6, year=None, **filters):
-        if year:
-            filters['project__activity__year__exact'] = year
-        initiatives = Initiative.objects.order_by('-total_project_costs')
-        return initiatives.filter(**filters).distinct()[:qnt]
 
     def projects(self):
         if not getattr(self, '_projects', False):

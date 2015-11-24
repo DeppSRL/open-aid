@@ -21,7 +21,6 @@ class CodeListView(views.MapFiltersContextMixin, DetailView):
         context = super(CodeListView, self).get_context_data(**kwargs)
         context = DetailView.get_context_data(self, **context)
         context.update({
-            # 'top_projects': self.object.top_projects(year=self.request.GET.get('year', contexts.END_YEAR)),
             'top_initiatives': self.object.top_initiatives(year=self.request.GET.get('year', contexts.END_YEAR))
         })
         if len(context['top_initiatives']) == 0:
@@ -40,10 +39,6 @@ class SectorView(CodeListView):
 
 class RecipientView(CodeListView):
     model = models.Recipient
-
-    # def get_context_data(self, **kwargs):
-    #     # bypass totale_territori loader
-    #     return DetailView.get_context_data(self, top_projects=self.object.top_projects(year=self.request.GET.get('year', contexts.END_YEAR)), **kwargs)
 
 
 class ChannelView(CodeListView):

@@ -56,6 +56,10 @@ OPENAID_CURRENCY_CONVERSIONS = {
     2012: 0.778,
 }
 
+# purpose codes to be excluded when querying for Most important initiatives in DB (recipient page, etc)
+OPENAID_INITIATIVE_PURPOSE_EXCLUDED = ['91010','93010']
+
+
 ADDTHIS_PROFILE = 'ra-53be8c5b31fee67d'
 ########## END OPENAID CONFIGURATION
 
