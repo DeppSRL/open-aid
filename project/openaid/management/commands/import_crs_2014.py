@@ -12,6 +12,7 @@ from openaid.codelists import models as codelist_models
 from openaid.projects import models
 from openaid.projects import forms
 from openaid.projects import mapping
+from openaid import utils
 
 
 class Command(LabelCommand):
@@ -110,7 +111,11 @@ class Command(LabelCommand):
                     row[field] = 0.0
                 row[field] = float(row[field])
                 if field in ['commitment', 'disbursement']:
+                    # commit/disburs are expressed in thousands of EURO (code 918) or USD (code 302)
                     row[field] /= 1000
+                    # if commitment is expressed in USD (code 302), apply conversion
+                    if row['currency_code'] == '302':
+                        row[field] = utils.currency_converter(row[field], 2014)
 
         # 1. creo l'Activity
         activity_form = mapping.create_mapped_form(forms.ActivityForm, row, mapping.OrderedDict([

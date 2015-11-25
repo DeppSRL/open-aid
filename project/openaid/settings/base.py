@@ -54,6 +54,7 @@ OPENAID_CURRENCY_CONVERSIONS = {
     2010: 0.755,
     2011: 0.7192,
     2012: 0.778,
+    2014: 0.7537,
 }
 
 # purpose codes to be excluded when querying for Most important initiatives in DB (recipient page, etc)
