@@ -112,7 +112,7 @@
             <div class="col-md-8 col-sm-12 col-xs-12 col-md-pull-4">
                 <ul id="tabs" class="nav nav-tabs nav-tabs-special nav-tabs-equal-lg-5" data-tabs="tabs">
                     <li class="active"><a href="#tab-descrizione" data-toggle="tab">DESCRIZIONE</a></li>
-                    <li class="nav-tab-2-lines"><a href="#tab-progetti" data-toggle="tab">I PROGETTI<br/>DI QUESTA INIZIATIVA</a></li>
+                    <li><a href="#tab-progetti" data-toggle="tab">PROGETTI</a></li>
                     <li><a href="#tab-documenti" data-toggle="tab">DOCUMENTI</a></li>
                     <li><a href="#tab-problemi" data-toggle="tab">{% trans "Problems" %}</a></li>
                     <li><a href="#tab-procurements" data-toggle="tab">{% trans "Procurements" %}</a></li>
@@ -139,12 +139,14 @@
 
                                 <div class="row">
                                     <div class="col-md-5">
-                                        {#  todo: obiettivo??           #}
-                                        <h3>Obiettivo principale</h3>
-                                        <p>Sostegno alle finanze pubbliche ;
-                                            Buon funzionamento dei servizi pubblici essenziali, quali ad esempio la Health, l’Education ed i trasporti;
-                                            Pagamento di stipendi e pensioni.</p>
-
+                                        <h3>{% trans 'Main outcome' %}</h3>
+                                        <p>
+                                            {% if initiative.outcome %}
+                                                {{ initiative.outcome|safe }}
+                                            {% else %}
+                                                -
+                                            {% endif %}
+                                        </p>
                                     </div>
                                     <div class="col-md-7">
 
@@ -206,20 +208,6 @@
                                 {% with beneficiaries=initiative.beneficiaries beneficiaries_female=initiative.beneficiaries_female %}
                                     {% if beneficiaries or beneficiaries_female %}
                                         <h3>{% trans 'Beneficiaries' %}</h3>
-                                        <div class="table-responsive table-special">
-                                            <table class="table">
-                                                <tbody>
-                                                    <tr>
-                                                        <th>Beneficiari diretti</th>
-                                                        <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>Beneficiari indiretti</th>
-                                                        <td><small class="text-muted">-</small></td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
                                         {% if beneficiaries %}
                                             <p>{{ beneficiaries }}</p>
                                         {% endif %}
@@ -230,7 +218,6 @@
                                 {% endwith %}
                             </div>
 
-                            {#   todo: progetti  #}
                             <!--PROGETTI-->
 
                             <div class="tab-pane" id="tab-progetti">
@@ -238,9 +225,9 @@
                                     <div class="table-responsive table-special">
                                         <table class="table">
                                             <thead>
-                                                <th scope="col">Titolo</th>
-                                                <th scope="col">€&nbsp;impegnati</th>
-                                                <th scope="col">€&nbsp;erogati</th>
+                                                <th scope="col">{% trans 'Title' %}</th>
+                                                <th scope="col">{% trans 'Committed' %}</th>
+                                                <th scope="col">{% trans 'Used' %}</th>
                                             </thead>
                                             <tbody>
                                             {% for project in projects %}
@@ -250,6 +237,7 @@
                                                             {{ project.title }}
                                                         </a>
                                                     </th>
+{#                                                    todo: importi #}
                                                     <td>€&nbsp;??????</td>
                                                     <td><small class="text-muted">????</small></td>
                                                 </tr>
