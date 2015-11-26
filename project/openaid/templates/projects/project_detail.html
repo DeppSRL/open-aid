@@ -16,7 +16,7 @@
 {#                <a href="#" class="btn btn-aid">{% trans 'Download XML' %} <span class="fa fa-download"> </span></a>#}
             </div>
         <br>
-            <h2 class="pull-left">{{ project.title }}</h2>
+            <h2 class="pull-left">{{ project.title|default:"-" }}</h2>
             <h3 class="sub-title">
                 {% for recipient in project.recipients|unique %}
                     <a href="{% url 'codelists:recipient-detail' code=recipient.code %}">{{ recipient.name }}</a>
