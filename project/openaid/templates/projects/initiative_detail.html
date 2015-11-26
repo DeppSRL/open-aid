@@ -11,19 +11,416 @@
 
 {% block content %}
 
-  <div class="row">
-    <header class="col-md-9">
-      <h2 class="pull-left" id="initiative-{{ initiative.pk }}">{{ initiative.title }}</h2>
-      <h3 class="sub-title">
-        {% for recipient in initiative.recipients %}
-          <a href="{% url 'codelists:recipient-detail' code=recipient.code %}">{{ recipient.name }}</a>
-          {% if not forloop.last %}&middot;{% endif %}
-        {% endfor %}
-      </h3>
-    </header>
-  </div>
+    <div class="row">
+        <header class="col-md-12">
+            <h2 class="page-title" id="initiative-{{ initiative.pk }}">{{ initiative.title }}</h2>
+            <h3 class="sub-title">
+                {% for recipient in initiative.recipients %}
+                  <a href="{% url 'codelists:recipient-detail' code=recipient.code %}">{{ recipient.name }}</a>
+                  {% if not forloop.last %}&middot;{% endif %}
+                {% endfor %}
+            </h3>
+        </header>
+    </div>
 
   <div class="spacer"> </div>
+
+    <div class="row">
+
+        <!-- SIDEBAR -->
+        <div class="col-md-4 col-sm-12 col-xs-12 col-md-push-8">
+            {% with years=initiative.years_range %}
+                {% if years %}
+                    <h4>Durata dell'iniziativa: <strong>{{ years|first }}/{% if years|length > 1 %}{{ years|last }}{% endif %}</strong></h4>
+                {% endif %}
+            {% endwith %}
+            {% with total_project_costs=initiative.total_project_costs loan_amount_approved=initiative.loan_amount_approved grant_amount_approved=initiative.grant_amount_approved %}
+                {% if total_project_costs or loan_amount_approved or grant_amount_approved %}
+                    <h3>{% trans 'Total initiative costs' %}</h3>
+                    <div class="total-prj-cost">€&nbsp;{{ total_project_costs|intcomma }}</div>
+                    <div class="plain-list-special">
+                        Suddivisi in
+                        <ul>
+                            <li><i class="fa fa-circle"></i> {% trans 'Loans' %} <strong>{% if initiative.loan_amount_approved %}€&nbsp;{{ initiative.loan_amount_approved|intcomma }}{% else %}-{% endif %}</strong></li>
+                            <li><i class="fa fa-circle"></i> {% trans 'Grants' %} <strong>{% if initiative.grant_amount_approved %}€&nbsp;{{ initiative.grant_amount_approved|intcomma }}{% else %}-{% endif %}</strong></li>
+                        </ul>
+                    </div>
+                {% endif %}
+            {% endwith %}
+            {#     todo:  aggiungere dati finanziari aggiornati #}
+            <p class="text-muted small">Dati finanziari aggiornati il 24.10.2015</p>
+
+            <div class="small-spacer"></div>
+
+            {# status box #}
+            {% with is_suspended=initiative.is_suspended status=initiative.status %}
+                {% if is_suspended or status %}
+                    <div class="progress-special">
+                        <h3>
+                            {# todo: tradurre "A che punto siamo?" #}
+                            STATUS
+                        </h3>
+                        {% if is_suspended %}
+                            <div class="pull-right">{% icon 'exclamation-circle' %} {% trans 'Suspended intervention' %}</div>
+                        {% endif %}
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="{{ status }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ status }}%;">
+                                <span class="sr-only">{{ status }} {% trans 'Complete' %}</span>
+                            </div>
+                        </div>
+                        <strong>{{ status }}%</strong>
+
+                    </div>
+                {% endif %}
+            {% endwith %}
+
+            <div class="small-spacer"> </div>
+            {#   map box #}
+            {% for recipient in initiative.recipients %}
+                <h3>{{ recipient.name }}</h3><br/>
+            {% endfor %}
+            <div class="row">
+                <div class="col-md-12 col-sm-6 col-xs-12">
+                    <div id="map" data-chart="map" style="height: 160px;" data-iso-code="{% for recipient in initiative.recipients|unique %}{{ recipient.iso_code }}{% if not forloop.last %},{% endif %}{% endfor %}"></div>
+                </div>
+                {% with locations=initiative.locations %}
+                    {% if locations|length > 0 %}
+                        <div class="col-md-12 col-sm-6 col-xs-12">
+                            <h5>{% trans 'Location' %}</h5>
+                            <p>
+                                {% for loc in locations|unique %}{{ loc }} {% if not forloop.last %}, {% endif %}{% endfor %}
+                            </p>
+                        </div>
+                    {% endif %}
+                {% endwith %}
+            </div>
+
+            <div class="small-spacer"></div>
+
+            <h3>Foto</h3>
+            <img src="/static/img/contents/dummy-pict1.jpg" alt="Dummy pict 1" width="82" height="84">
+            <img src="/static/img/contents/dummy-pict2.jpg" alt="Dummy pict 2" width="82" height="84">
+            <img src="/static/img/contents/dummy-pict3.jpg" alt="Dummy pict 3" width="82" height="84">
+
+            <div class="spacer"></div>
+
+        </div> <!-- /sidebar -->
+
+
+            <!--
+
+            MAIN
+
+            -->
+
+
+            <div class="col-md-8 col-sm-12 col-xs-12 col-md-pull-4">
+                <ul id="tabs" class="nav nav-tabs nav-tabs-special nav-tabs-equal-lg-5" data-tabs="tabs">
+                    <li class="active"><a href="#tab-descrizione" data-toggle="tab">DESCRIZIONE</a></li>
+                    <li class="nav-tab-2-lines"><a href="#tab-progetti" data-toggle="tab">I PROGETTI<br/>DI QUESTA INIZIATIVA</a></li>
+                    <li><a href="#tab-documenti" data-toggle="tab">DOCUMENTI</a></li>
+                    <li><a href="#tab-problemi" data-toggle="tab">PROBLEMI</a></li>
+                    <li><a href="#tab-procurements" data-toggle="tab">PROCUREMENTS</a></li>
+                </ul>
+                <div class="panel with-nav-tabs panel-special">
+                    <div class="panel-body">
+                        <div class="tab-content">
+
+                            <!--
+
+                            DESCRIZIONE
+
+                            -->
+
+                            <div class="tab-pane active" id="tab-descrizione">
+
+                                <div class="project-description">
+                                    <p class="readmore" data-max-height="90">
+                                        Nell’ambito del Palestinian Reform & Development Plan (PRDP) 2008-10 e dell’attuale Palestinian National Development Plan (PNDP) 2011-13, la Commissione Europea ha recentemente lanciato PEGASE, Meccanismo Palestino-Europeo di Gestione ed Aiuto Socio-Economico. PEGASE costituisce un prevedibile e stabile flusso finanziario di supporto al budget dell'Autorità Nazionale Palestinese (ANP), e si caratterizza quale potente strumento per mobilitare il finanziamento e l'assistenza da parte degli altri donatori internazionali, compresi gli Stati Membri dell'Unione Europea. Gli obiettivi del Programma sono i seguenti:
+
+                                        Contribuire al rafforzamento istituzionale dell'ANP, promuovendo il Buon Governo attraverso il sostegno alle finanze pubbliche;
+                                        Contribuire a garantire la fruizione di servizi pubblici essenziali, quali ad esempio la Health, l’Education ed i trasporti;
+                                        Supportare l’ANP nell’ottemperamento dei propri obblighi finanziari nei confronti di funzionari pubblici e pensionati della funzione pubblica.
+                                        PEGASE si articola in quattro componenti principali:
+
+                                        CSP: Supporting Civil Servants and Pensioners: Pagamento degli stipendi e delle pensioni ai dipendenti pubblici;
+                                        VPF: Supporting Vulnerable Palestinian Families: Pagamento dei sussidi alle famiglie palestinesi più vulnerabili;
+                                        Arrears to the private sector: Supporto al settore privato;
+                                        PSRG: Private Sector Reconstruction in Gaza: Rivitalizzazione del settore privato nella Striscia di Gaza.
+                                        <a href="#" class="readmore-open">leggi tutto <i class="fa fa-caret-down"></i></a>
+                                        <a href="#" class="readmore-close">chiudi <i class="fa fa-caret-up"></i></a>
+                                    </p>
+                                </div>
+
+                                <div class="small-spacer"></div>
+
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <h3>Obiettivo principale</h3>
+                                        <p>Sostegno alle finanze pubbliche ;
+                                            Buon funzionamento dei servizi pubblici essenziali, quali ad esempio la Health, l’Education ed i trasporti;
+                                            Pagamento di stipendi e pensioni.</p>
+
+                                    </div>
+                                    <div class="col-md-7">
+
+                                        <h3>Dati dell'iniziativa</h3>
+
+                                        <div class="table-responsive table-special">
+                                            <table class="table table-condensed">
+                                                <tbody>
+                                                <tr>
+                                                    <th scope="row">CRSID</th>
+                                                    <td>2013000050</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Scopo</th>
+                                                    <td>Democratic participation and civil society</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Tipo di finanziamento</th>
+                                                    <td>Dono esclusi interventi sul debito</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Flow type</th>
+                                                    <td>Official Development Assistance</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Bi/Multilaterale</th>
+                                                    <td>Bilateral</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="small-spacer"></div>
+
+                                <h3>Soggetti</h3>
+                                <div class="table-responsive table-special">
+                                    <table class="table">
+                                        <tbody>
+                                            <tr>
+                                                <th scope="row">Finanziatore</th>
+                                                <td>MAE - Direzione Generale per la Cooperazione allo Sviluppo</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Autorità locale</th>
+                                                <td>UE</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Responsabile in loco</th>
+                                                <td><small class="text-muted">-</small></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div class="small-spacer"></div>
+
+                                <h3>Beneficiari</h3>
+                                <div class="table-responsive table-special">
+                                    <table class="table">
+                                        <tbody>
+                                            <tr>
+                                                <th>Beneficiari diretti</th>
+                                                <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Beneficiari indiretti</th>
+                                                <td><small class="text-muted">-</small></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <p>I beneficiari del programma sono circa 75.000 funzionari pubblici palestinesi, i quali a loro volta forniscono servizi pubblici essenziali all’intera popolazione palestinese, più all&#39;incirca 9.000 pensionati della funzione pubblica palestinese, ai quali l&#39;ANP versa una pensione mensile.
+
+                                    Nel 2012, il contributo totale dell&#39;Unione Europea al pagamento degli stipendi e delle pensioni dei funzionari pubblici palestinesi ha raggiunto i 145 milioni di euro, di cui 130 sono stati erogati direttamente dalla Commissione Europea. Con riguardo ai dati più recenti, i salari e le pensioni del mese di Aprile 2013 sono stati versati ai funzionari pubblici palestinesi grazie ad un contributo PEGASE pari a 20 milioni di Euro (19.3 milioni erogati dalla Commissione Europea, più 0.7 milioni versati dal Lussemburgo).
+
+                                    Il contributo italiano, pari a 1 milione di Euro, si inserirà dunque in questo contesto, con l&#39;obiettivo di formare una base finanziaria dalla quale attingere per il pagamento di salari e pensioni, in modo proporzionato ed uniforme, evitando squilibri e discriminazioni tra i diversi beneficiari.
+                                </p>
+                                <strong>Il <b>50,0%</b> dei beneficiari sono donne.</strong>
+
+                            </div>
+
+                            <!--
+
+                            PROGETTI
+
+                            -->
+
+                            <div class="tab-pane" id="tab-progetti">
+                                <div class="table-responsive table-special">
+                                    <table class="table">
+                                        <thead>
+                                            <th scope="col">Titolo</th>
+                                            <th scope="col">€&nbsp;impegnati</th>
+                                            <th scope="col">€&nbsp;erogati</th>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <th scope="row"><a href="/it/projects/project/28797/">CONTRIBUTO AL BILANCIO DELL&#39;&#39;AUTORITA&#39;&#39; PALESTINESE TRAMITE IL PEGASE</a></th>
+                                            <td>€&nbsp;999.999,99</td>
+                                            <td><small class="text-muted">-</small></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"><a href="/it/projects/project/12621/">TAP - CONTRIBUTO AL BILANCIO DELL&#39;AUTORITA&#39; PALESTINESE TRAMITE IL PEGASE</a></th>
+                                            <td><small class="text-muted">-</small></td>
+                                            <td><small class="text-muted">-</small></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"><a href="/it/projects/project/20025/">CONTRIBUTO FINANZIARIO AL BILANCIO DELL&#39;AUTORITA&#39; PALESTINESE TRAMITE IL PEGASE - ART. 15</a></th>
+                                            <td><small class="text-muted">-</small></td>
+                                            <td><small class="text-muted">-</small></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!--
+
+                            DOCUMENTI
+
+                            -->
+
+                            <div class="tab-pane" id="tab-documenti">
+                                <div class="focus">
+                                    <h4><a href="#" title="Lorem ipsum dolor sit amet">Lorem ipsum dolor sit amet <strong>(Download)</strong></a></h4>
+                                    <div class="small-spacer"></div>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci amet, architecto asperiores aspernatur dolores doloribus eos eum expedita explicabo, fugit magnam maxime mollitia nemo quas quia quod repudiandae! Ab, quo.</p>
+                                    <div class="table-responsive table-special">
+                                        <table class="table table-condensed table-no-borders">
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row"><strong>Date</strong></th>
+                                                    <td>17.11.2015</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="focus">
+                                    <h4><a href="#" title="Lorem ipsum dolor sit amet">Lorem ipsum dolor sit amet <strong>(Download)</strong></a></h4>
+                                    <div class="small-spacer"></div>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci amet, architecto asperiores aspernatur dolores doloribus eos eum expedita explicabo, fugit magnam maxime mollitia nemo quas quia quod repudiandae! Ab, quo.</p>
+                                    <div class="table-responsive table-special">
+                                        <table class="table table-condensed table-no-borders">
+                                            <tbody>
+                                            <tr>
+                                                <th scope="row"><strong>Date</strong></th>
+                                                <td>17.11.2015</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--
+                                PROBLEMI
+                            -->
+
+                            <div class="tab-pane" id="tab-problemi">
+                                <div class="focus">
+                                    <h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet, aspernatur consequatur deleniti doloremque dolores eaque est impedit in incidunt laboriosam libero magnam modi, nostrum quo sequi soluta tempora voluptas. Amet.</h4>
+
+                                    <div class="small-spacer"></div>
+
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem impedit incidunt nam natus nostrum optio quas, qui veniam veritatis voluptates? Est expedita fuga in, omnis perferendis praesentium sequi tempora ut.</p>
+
+                                    <div class="small-spacer"></div>
+
+                                    <h5>Azioni svolte</h5>
+
+                                    <p><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus beatae dolorum eligendi fuga illum ipsum itaque nostrum placeat quisquam quos? At cupiditate eveniet repellendus sunt! Adipisci esse itaque necessitatibus repellendus?</span><span>Blanditiis commodi cum debitis distinctio esse facilis fuga ipsum iure laborum mollitia neque officiis, optio perspiciatis placeat, possimus provident quaerat quia reprehenderit rerum sequi sint tenetur velit. Minima, perspiciatis sequi!</span></p>
+                                </div>
+
+                                <div class="small-spacer"></div>
+
+                                <div class="focus">
+                                    <h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet, aspernatur consequatur deleniti doloremque dolores eaque est impedit in incidunt laboriosam libero magnam modi, nostrum quo sequi soluta tempora voluptas. Amet.</h4>
+
+                                    <div class="small-spacer"></div>
+
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem impedit incidunt nam natus nostrum optio quas, qui veniam veritatis voluptates? Est expedita fuga in, omnis perferendis praesentium sequi tempora ut.</p>
+
+                                    <div class="small-spacer"></div>
+
+                                    <h5>Azioni svolte</h5>
+
+                                    <p><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus beatae dolorum eligendi fuga illum ipsum itaque nostrum placeat quisquam quos? At cupiditate eveniet repellendus sunt! Adipisci esse itaque necessitatibus repellendus?</span><span>Blanditiis commodi cum debitis distinctio esse facilis fuga ipsum iure laborum mollitia neque officiis, optio perspiciatis placeat, possimus provident quaerat quia reprehenderit rerum sequi sint tenetur velit. Minima, perspiciatis sequi!</span></p>
+                                </div>
+                            </div>
+
+                            <!--
+                                PROCUREMENTS
+                            -->
+
+                            <div class="tab-pane" id="tab-procurements">
+                                <div class="focus">
+                                    <h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</h4>
+                                    <div class="small-spacer"> </div>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab, aspernatur beatae cum debitis deleniti dolor doloribus enim et expedita fuga fugit, laudantium nam nihil non quasi repellendus repudiandae sed tempora.</p>
+
+                                    <div class="table-responsive table-special">
+                                        <table class="table table-condensed table-no-borders">
+                                            <tbody>
+                                            <tr>
+                                                <th scope="row"><strong>Type</strong></th>
+                                                <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row"><strong>Procurement procedure</strong></th>
+                                                <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row"><strong>Procurement notice</strong></th>
+                                                <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="focus">
+                                    <h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</h4>
+                                    <div class="small-spacer"> </div>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab, aspernatur beatae cum debitis deleniti dolor doloribus enim et expedita fuga fugit, laudantium nam nihil non quasi repellendus repudiandae sed tempora.</p>
+
+                                    <div class="table-responsive table-special">
+                                        <table class="table table-condensed table-no-borders">
+                                            <tbody>
+                                            <tr>
+                                                <th scope="row"><strong>Type</strong></th>
+                                                <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row"><strong>Procurement procedure</strong></th>
+                                                <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row"><strong>Procurement notice</strong></th>
+                                                <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div> <!-- /tab-content -->
+
+                    </div> <!-- /panel-body -->
+
+                </div> <!-- /panel -->
+
+            </div> <!-- /main -->
+
+    </div>
 
   <div class="row">
     <div class="col-md-4 col-sm-6 col-xs-6">
@@ -84,7 +481,8 @@
       {% with is_suspended=initiative.is_suspended status=initiative.status %}{% if is_suspended or status %}
       <div class="focus">
         {% if is_suspended %}
-        <div class="pull-right">{% icon 'exclamation-circle' %} {% trans 'Suspended intervention' %}</div>{% endif %}
+            <div class="pull-right">{% icon 'exclamation-circle' %} {% trans 'Suspended intervention' %}</div>
+        {% endif %}
         <div>STATUS
           <div class="progress" style="width: 200px; display: inline-block; margin-bottom: 0; height: 14px; margin-top:4px; ">
             <div class="progress-bar" role="progressbar" aria-valuenow="{{ status }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ status }}%;">

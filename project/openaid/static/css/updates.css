@@ -1,0 +1,195 @@
+@import url(http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css);
+
+@import url(http://fonts.googleapis.com/css?family=PT+Sans:400,700);
+/**
+ * Main LESS variables
+ * @author alegiangy
+ * @version 1.0
+ **/
+/*
+ * Mix-in
+ ------------------------------*/
+.page-title {
+  border-bottom: 2px dotted #8A8274;
+}
+/*
+ * Nav Tabs
+ ------------------------------*/
+.nav-tabs-special {
+  text-align: center;
+  margin-bottom: -1px;
+}
+.nav-tabs-special > li > a {
+  background-color: #f7505a;
+  color: #ffffff;
+  font-size: 12px;
+  line-height: 2;
+}
+.nav-tabs-special > li > a:hover {
+  background-color: #ffffff;
+  color: #f7505a;
+}
+.nav-tabs-special > li.active > a {
+  color: #2B6A7C;
+}
+.nav-tabs-special > li:last-child > a {
+  margin-right: 0;
+}
+.nav-tabs-special > li.nav-tab-2-lines a {
+  line-height: 1;
+}
+#main-content {
+  /*
+   * Additional Typography
+   ------------------------------*/
+
+  /*
+   * Panel
+   ------------------------------*/
+
+  /*
+   * Focus
+   ------------------------------*/
+
+  /*
+   * Map
+   ------------------------------*/
+
+  /*
+   * Tables
+   ------------------------------*/
+
+  /*
+   * Plain list special
+   ------------------------------*/
+
+  /*
+   * Progress special
+   ------------------------------*/
+
+}
+#main-content h1 strong,
+#main-content h2 strong,
+#main-content h3 strong,
+#main-content h4 strong,
+#main-content h5 strong,
+#main-content h6 strong {
+  color: #f7505a;
+}
+#main-content strong b {
+  color: #f7505a;
+  font-size: 1.2em;
+}
+#main-content .total-prj-cost {
+  color: #f7505a;
+  font-size: 32px;
+  font-weight: 700;
+}
+#main-content .panel-special {
+  border-color: #DDD;
+  -webkit-border-top-right-radius: 0;
+  -webkit-border-bottom-right-radius: 4px;
+  -webkit-border-bottom-left-radius: 4px;
+  -webkit-border-top-left-radius: 0;
+  -moz-border-radius-topright: 0;
+  -moz-border-radius-bottomright: 4px;
+  -moz-border-radius-bottomleft: 4px;
+  -moz-border-radius-topleft: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 4px;
+  border-bottom-left-radius: 4px;
+  border-top-left-radius: 0;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+}
+#main-content .panel-special .panel-body {
+  padding: 50px 30px;
+}
+#main-content div:last-child.focus {
+  border-bottom: none;
+}
+#main-content .very-small-map {
+  width: 280px;
+  font-size: 13px;
+}
+#main-content .very-small-map #map {
+  border: 1px solid #8a8274;
+}
+#main-content .table-special .table > thead > tr > th {
+  border-bottom: none;
+  text-align: center;
+}
+#main-content .table-special .table > tbody > tr > th {
+  padding-left: 2px;
+  vertical-align: top;
+}
+#main-content .table-special .table > tbody > tr > td {
+  color: #f7505a;
+  vertical-align: top;
+}
+#main-content .table-special .table > tbody > tr > th,
+#main-content .table-special .table > tbody > tr > td {
+  border-top: 2px dotted #8A8274;
+}
+#main-content .table-special .table > tbody > tr:hover > td,
+#main-content .table-special .table > tbody > tr:hover > th {
+  cursor: default;
+  color: #ffffff;
+}
+#main-content .table-special .table > tbody > tr:first-child > th,
+#main-content .table-special .table > tbody > tr:first-child > td {
+  border-top: none;
+}
+#main-content .table-special .table.table-no-borders > tbody > tr > th,
+#main-content .table-special .table.table-no-borders > tbody > tr > td {
+  border-top: none;
+}
+#main-content .table-special .table-condensed th {
+  font-weight: normal;
+}
+#main-content .table-special .table-condensed td {
+  font-size: 12px;
+}
+#main-content .plain-list-special {
+  font-size: 15px;
+  padding: 0 80px 0 15px;
+}
+#main-content .plain-list-special ul {
+  list-style-type: none;
+  padding-left: 0;
+  font-size: 17px;
+}
+#main-content .plain-list-special .fa {
+  color: #f7505a;
+  font-size: 10px;
+  position: relative;
+  top: -3px;
+}
+#main-content .plain-list-special strong {
+  color: #f7505a;
+}
+#main-content .plain-list-special li {
+  border-top: 2px dotted #8A8274;
+}
+#main-content .plain-list-special li:first-child {
+  border-top: none;
+}
+#main-content .progress-special .progress {
+  width: 222px;
+  display: inline-block;
+  margin-bottom: 0;
+  height: 14px;
+}
+#main-content .progress-special .progress-bar {
+  background-color: #f7505a;
+}
+#main-content .progress-special strong {
+  color: #f7505a;
+  font-size: 22px;
+}
+@media screen and (min-width: 1200px) {
+  .nav-tabs-equal-lg-5 li {
+    width: 20%;
+  }
+}
