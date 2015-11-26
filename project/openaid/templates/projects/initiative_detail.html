@@ -30,7 +30,7 @@
         <div class="col-md-4 col-sm-12 col-xs-12 col-md-push-8">
             {% with years=initiative.years_range %}
                 {% if years %}
-                    <h4>Durata dell'iniziativa: <strong>{{ years|first }}/{% if years|length > 1 %}{{ years|last }}{% endif %}</strong></h4>
+                    <h4>{% trans 'Initiative timeframe' %}: <strong>{{ years|first }}/{% if years|length > 1 %}{{ years|last }}{% endif %}</strong></h4>
                 {% endif %}
             {% endwith %}
             {% with total_project_costs=initiative.total_project_costs loan_amount_approved=initiative.loan_amount_approved grant_amount_approved=initiative.grant_amount_approved %}
@@ -39,7 +39,7 @@
                     <div class="total-prj-cost">€&nbsp;{{ total_project_costs|intcomma }}</div>
                     <div class="plain-list-special">
                         {#     todo: tradurre suddivisi in #}
-                        Suddivisi in
+                        {% trans 'Reparted as' %}
                         <ul>
                             <li><i class="fa fa-circle"></i> {% trans 'Loans' %} <strong>{% if initiative.loan_amount_approved %}€&nbsp;{{ initiative.loan_amount_approved|intcomma }}{% else %}-{% endif %}</strong></li>
                             <li><i class="fa fa-circle"></i> {% trans 'Grants' %} <strong>{% if initiative.grant_amount_approved %}€&nbsp;{{ initiative.grant_amount_approved|intcomma }}{% else %}-{% endif %}</strong></li>
@@ -183,7 +183,7 @@
                             </div>
 
                             <div class="small-spacer"></div>
-                            <h3>Soggetti</h3>
+                            <h3>{% trans 'Subjects' %}</h3>
                             <div class="table-responsive table-special">
                                 <table class="table">
                                     <tbody>
@@ -208,6 +208,7 @@
                                                     {{ initiative.email|default:'-' }}
                                                 {% else %}
                                                     <small class="text-muted">-</small>
+                                                {% endif %}
                                             </td>
                                         </tr>
                                         <tr>
