@@ -265,14 +265,14 @@
 
                         <!--DOCUMENTI-->
                         <div class="tab-pane" id="tab-documenti">
-                            {% if initiative.documents|length > 0 %}
-                                {% for document in initiative.documents %}
+                            {% if initiative.document_set.all|length > 0 %}
+                                {% for document in initiative.document_set.all %}
                                     <div class="focus">
                                         <h4>
-                                            <a href="#" title="Lorem ipsum dolor sit amet">
+                                            <a href="{% if document.file %}{{ document.file.url }}{% else %}{{ document.source_url }}{% endif %}" title="{{ document.name }}">
                                                 {{ document.name|default:"No name" }} <strong>(Download)</strong>
-                                            </a><
-                                        /h4>
+                                            </a>
+                                        </h4>
                                         <div class="small-spacer"></div>
                                         <p>{{ document.description|default:"-" }}</p>
                                         <div class="table-responsive table-special">
