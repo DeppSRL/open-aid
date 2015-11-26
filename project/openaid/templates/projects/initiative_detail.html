@@ -247,8 +247,8 @@
                                     <table class="table">
                                         <thead>
                                             <th scope="col">{% trans 'Title' %}</th>
-                                            <th scope="col">{% trans 'Committed' %}</th>
-                                            <th scope="col">{% trans 'Used' %}</th>
+                                            <th scope="col">€&nbsp;{% trans 'Committed' %}</th>
+                                            <th scope="col">€&nbsp;{% trans 'Used' %}</th>
                                         </thead>
                                         <tbody>
                                         {% for project in projects %}
@@ -258,8 +258,8 @@
                                                         {{ project.title|default:"Project without name" }}
                                                     </a>
                                                 </th>
-                                                <td>{% if project.total_commitment %}€ {{ project.total_commitment|currency }}{% else %}<small class="text-muted">-</small>{% endif %}</td>
-                                                <td>{% if project.total_disbursement %}€ {{ project.total_disbursement|currency }}{% else %}<small class="text-muted">-</small>{% endif %}</td>
+                                                <td>{% if project.total_commitment %}{{ project.total_commitment|currency }}{% else %}<small class="text-muted">-</small>{% endif %}</td>
+                                                <td>{% if project.total_disbursement %}{{ project.total_disbursement|currency }}{% else %}<small class="text-muted">-</small>{% endif %}</td>
                                             </tr>
                                         {% endfor %}
 
