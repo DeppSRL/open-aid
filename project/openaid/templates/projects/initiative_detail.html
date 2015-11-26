@@ -193,13 +193,24 @@
                                             <td>MAE - Direzione Generale per la Cooperazione allo Sviluppo</td>
                                         </tr>
                                         <tr>
-                                            <th scope="row">Autorità locale</th>
-                                            <td>UE</td>
+                                            <th scope="row">{% trans 'Counterpart authority' %}</th>
+                                            <td>{{ initiative.counterpart_authority|default:'-' }}</td>
                                         </tr>
                                         <tr>
-                                            <th scope="row">Responsabile in loco</th>
-                                            <td><small class="text-muted">-</small></td>
+                                            <th scope="row">{% trans 'Representative' %}</th>
+                                            <td><small class="text-muted">{{ initiative.email|default:'-' }}</small></td>
                                         </tr>
+                                        <tr>
+                                            <th scope="row">{% trans 'Other financiers' %}</th>
+                                            <td>
+                                                {% if initiative.other_financiers %}
+                                                    {{ initiative.other_financiers }}
+                                                {% else %}
+                                                    <small class="text-muted">-</small>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+
                                     </tbody>
                                 </table>
                             </div>
