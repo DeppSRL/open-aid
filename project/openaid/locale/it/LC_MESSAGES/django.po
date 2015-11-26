@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-26 19:17+0100\n"
+"POT-Creation-Date: 2015-11-26 19:37+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -66,87 +66,87 @@ msgstr ""
 
 #: pages/pages.py:13
 msgid "The project"
-msgstr ""
+msgstr "Il progetto"
 
 #: pages/pages.py:15
 msgid "Contacts"
-msgstr ""
+msgstr "Contatti"
 
 #: pages/pages.py:16
 msgid "Privacy and user's rights"
-msgstr ""
+msgstr "La privacy e i diritti degli utenti"
 
 #: pages/pages.py:17
 msgid "License of use"
-msgstr ""
+msgstr "Licenza d'utilizzo"
 
 #: pages/pages.py:18
 msgid "Links"
-msgstr ""
+msgstr "Collegamenti"
 
 #: pages/pages.py:23
 msgid "Search a project"
-msgstr ""
+msgstr "Cerca un progetto"
 
 #: pages/pages.py:24
 msgid "Register as an APS recipient"
-msgstr ""
+msgstr "Accreditarsi come soggetto APS"
 
 #: pages/pages.py:25
 msgid "Voting and commenting a project"
-msgstr ""
+msgstr "Votare e commentare un progetto"
 
 #: pages/pages.py:26
 msgid "Write a post on a project's blog"
-msgstr ""
+msgstr "Scrivere sul diario di un progetto"
 
 #: pages/pages.py:31
 msgid "Download the data"
-msgstr ""
+msgstr "Scarica i dati"
 
 #: pages/pages.py:32
 msgid "API"
-msgstr ""
+msgstr "API"
 
 #: pages/pages.py:33
 msgid "Data fair use"
-msgstr ""
+msgstr "Utilizzo per informazione e ricerca"
 
 #: pages/pages.py:34
 msgid "PA's open data"
-msgstr ""
+msgstr "I dati aperti della PA"
 
 #: pages/pages.py:47
 msgid "The Italian Development Cooperation"
-msgstr ""
+msgstr "La Cooperazione allo Sviluppo italiana"
 
 #: pages/pages.py:48
 msgid "Objectives and Priorities"
-msgstr ""
+msgstr "Obiettivi e priorità"
 
 #: pages/pages.py:49
 msgid "Emergency and humanitarian aid"
-msgstr ""
+msgstr "Interventi d’emergenza"
 
 #: pages/pages.py:50
 msgid "Sistema Italia"
-msgstr ""
+msgstr "SIstema Italia"
 
 #: pages/pages.py:51
 msgid "Best practices"
-msgstr ""
+msgstr "Buone pratiche"
 
 #: pages/pages.py:52
 msgid "The international context"
-msgstr ""
+msgstr "Il contesto internazionale"
 
 #: pages/pages.py:53
 msgid "The Millennium Development Goals (MDGs)"
-msgstr ""
+msgstr "Millennium goals"
 
 #: pages/pages.py:54
 msgid "The Post 2015 Development Agenda"
-msgstr ""
+msgstr "Nuova Agenda di sviluppo post 2015"
 
 #: projects/fields.py:16
 msgid "Not screened"
@@ -168,34 +168,34 @@ msgstr ""
 msgid "Principal objectives and in support of an action programme"
 msgstr ""
 
-#: projects/filters.py:10 templates/projects/initiative_detail.html:192
+#: projects/filters.py:10 templates/projects/initiative_detail.html:191
 #: templates/projects/newproject_detail.html:43
 #: templates/projects/project_detail.html:59
 #: templates/search/search_results.html:96
 msgid "Agency"
-msgstr ""
+msgstr "Finanziatore"
 
 #: projects/filters.py:38 projects/models.py:83 projects/models.py:630
 msgid "Country"
 msgstr ""
 
-#: projects/filters.py:62 templates/projects/initiative_detail.html:164
+#: projects/filters.py:62 templates/projects/initiative_detail.html:163
 #: templates/projects/newproject_detail.html:100
 #: templates/projects/project_detail.html:142
 msgid "Purpose"
-msgstr ""
+msgstr "Scopo"
 
 #: projects/forms.py:63
 msgid "Start year"
-msgstr ""
+msgstr "Anno d'inizio"
 
 #: projects/forms.py:64
 msgid "End year"
-msgstr ""
+msgstr "Anno di fine"
 
 #: projects/models.py:88
 msgid "Main Sector"
-msgstr ""
+msgstr "Settore principale"
 
 #: projects/models.py:134 projects/models.py:595 projects/models.py:629
 msgid "Abstract"
@@ -207,7 +207,7 @@ msgstr ""
 
 #: projects/models.py:143 projects/models.py:656
 msgid "Focus"
-msgstr ""
+msgstr "Focus on"
 
 #: projects/models.py:144
 msgid "Last update"
@@ -215,12 +215,12 @@ msgstr ""
 
 #: projects/models.py:145 projects/models.py:631
 msgid "Main Outcome"
-msgstr ""
+msgstr "Obiettivo principale"
 
 #: projects/models.py:146 projects/models.py:633
-#: templates/projects/initiative_detail.html:233
+#: templates/projects/initiative_detail.html:232
 msgid "Beneficiaries"
-msgstr ""
+msgstr "Beneficiari"
 
 #: projects/models.py:147 projects/models.py:634
 msgid "of which females (%)"
@@ -240,11 +240,11 @@ msgstr ""
 
 #: projects/models.py:152 projects/models.py:641
 msgid "suspended"
-msgstr ""
+msgstr "sospeso"
 
 #: projects/models.py:154 projects/models.py:646
 msgid "Other funders"
-msgstr ""
+msgstr "Altri finanziatori"
 
 #: projects/models.py:158 projects/models.py:648
 msgid "Officer in charge (email)"
@@ -304,13 +304,13 @@ msgstr ""
 
 #: projects/models.py:336
 msgid "Bilateral"
-msgstr ""
+msgstr "Bilaterale"
 
 #: projects/models.py:337 templates/commons/stats_totals.html:19
 #: templates/commons/stats_totals.html:20
 #: templates/commons/stats_totals.html:41
 msgid "Multilateral"
-msgstr ""
+msgstr "Multilaterale"
 
 #: projects/models.py:338
 msgid "Bilateral, core contributions to NGOs and other private bodies / PPPs"
@@ -334,17 +334,17 @@ msgstr ""
 msgid "Nature of submission"
 msgstr ""
 
-#: projects/models.py:353 templates/projects/initiative_detail.html:172
+#: projects/models.py:353 templates/projects/initiative_detail.html:171
 #: templates/projects/newproject_detail.html:107
 #: templates/projects/project_detail.html:150
 msgid "Flow type"
 msgstr ""
 
-#: projects/models.py:354 templates/projects/initiative_detail.html:176
+#: projects/models.py:354 templates/projects/initiative_detail.html:175
 #: templates/projects/newproject_detail.html:110
 #: templates/projects/project_detail.html:154
 msgid "Bi/Multilateral"
-msgstr ""
+msgstr "Bi/Multilaterale"
 
 #: projects/models.py:356 templates/projects/newproject_detail.html:112
 #: templates/projects/project_detail.html:157
@@ -359,7 +359,7 @@ msgstr ""
 #: projects/models.py:358 templates/projects/newproject_detail.html:114
 #: templates/projects/project_detail.html:159
 msgid "Investment Project"
-msgstr ""
+msgstr "Progetto di investimento"
 
 #: projects/models.py:452
 msgid "UN agencies"
@@ -378,12 +378,14 @@ msgid "Other World Bank (IBRD,IFC,MIGA)"
 msgstr ""
 
 #: projects/models.py:456
+#, fuzzy
 msgid "Regional development banks"
-msgstr ""
+msgstr "Le iniziative della cooperazione italiana nel mondo"
 
 #: projects/models.py:457
+#, fuzzy
 msgid "Other agencies"
-msgstr ""
+msgstr "Altri finanziatori"
 
 #: projects/models.py:458
 msgid "Global Environment Facility (96%)"
@@ -457,13 +459,13 @@ msgstr ""
 msgid "Procurement"
 msgstr ""
 
-#: projects/models.py:589 templates/projects/initiative_detail.html:119
+#: projects/models.py:589 templates/projects/initiative_detail.html:118
 msgid "Procurements"
 msgstr ""
 
 #: projects/models.py:597 projects/models.py:598
 msgid "Migliaia di euro"
-msgstr ""
+msgstr "Thousand of euro"
 
 #: projects/models.py:615
 msgid "N.ID Iniziativa DGCS"
@@ -484,60 +486,63 @@ msgid "Data aggiornamento scheda"
 msgstr ""
 
 #: projects/models.py:632
+#, fuzzy
 msgid "Purpose code"
-msgstr ""
+msgstr "Scopo"
 
-#: projects/models.py:647 templates/projects/initiative_detail.html:196
+#: projects/models.py:647 templates/projects/initiative_detail.html:195
 msgid "Counterpart authority"
-msgstr ""
+msgstr "Autorità locale"
 
-#: projects/models.py:649 templates/projects/initiative_detail.html:92
+#: projects/models.py:649 templates/projects/initiative_detail.html:91
 msgid "Location"
-msgstr ""
+msgstr "Luogo"
 
 #: projects/models.py:904
+#, fuzzy
 msgid "Initiative"
-msgstr ""
+msgstr "Dati dell'iniziativa"
 
 #: projects/models.py:905
+#, fuzzy
 msgid "Initiatives"
-msgstr ""
+msgstr "Dati dell'iniziativa"
 
 #: settings/base.py:374
 msgid "English"
-msgstr ""
+msgstr "Inglese"
 
 #: settings/base.py:375
 msgid "Italian"
-msgstr ""
+msgstr "Italiano"
 
 #: templates/footer.html:7
 msgid "Open Aid Italia"
-msgstr ""
+msgstr "Open Aid Italia"
 
 #: templates/footer.html:19
 msgid "FAQ"
-msgstr ""
+msgstr "FAQ"
 
 #: templates/footer.html:27
 msgid "More questions and answers"
-msgstr ""
+msgstr "Altre domande e risposte"
 
 #: templates/footer.html:33
 msgid "Open data"
-msgstr ""
+msgstr "Open data"
 
 #: templates/footer.html:61
 msgid "Open Aid is a project by"
-msgstr ""
+msgstr "Open Aid è un progetto di"
 
 #: templates/header.html:21 templates/home.html:13
 msgid "Italian Development Cooperation"
-msgstr ""
+msgstr "La Cooperazione Italiana allo Sviluppo"
 
 #: templates/header.html:22 templates/home.html:31
 msgid "News"
-msgstr ""
+msgstr "Notizie"
 
 #: templates/home.html:16
 msgid ""
@@ -553,37 +558,47 @@ msgid ""
 "defining Italian foreign policy,\n"
 "aimed at maintaining peace and managing migration flows."
 msgstr ""
+"Nella sua esperienza storica la Cooperazione italiana si è sviluppata a "
+"partire dagli anni Cinquanta con una serie di interventi di assistenza messi "
+"in atto in paesi legati all'Italia da precedenti vincoli coloniali. "
+"Successivamente l'Italia ha avviato un'attività di cooperazione più "
+"sistematica intesa a contribuire agli sforzi internazionali volti ad "
+"alleviare la povertà nel mondo e aiutare i Paesi in via di sviluppo a "
+"rafforzare le rispettive istituzioni. Più di recente le nuove emergenze "
+"hanno conferito alla cooperazione un ruolo sempre più fondamentale nelle "
+"scelte di politica estera italiana, in armonia con gli interventi per il "
+"mantenimento della pace e la gestione dei flussi migratori."
 
 #: templates/home.html:25 templates/codelists/recipient_detail.html:49
 #: templates/commons/stats.html:27 templates/commons/stats.html.py:64
 #: templates/commons/stats.html:104
-#: templates/projects/initiative_detail.html:132
+#: templates/projects/initiative_detail.html:131
 #: templates/projects/newproject_detail.html:58
 #: templates/projects/project_detail.html:74
 #: templates/search/search_results.html:119
 msgid "read more"
-msgstr ""
+msgstr "leggi tutto"
 
 #: templates/navbar.html:8
 msgid "Where does the aid go?"
-msgstr ""
+msgstr "A chi vanno gli aiuti?"
 
 #: templates/navbar.html:28 templates/commons/stats.html:20
 msgid "What is it spent for?"
-msgstr ""
+msgstr "Per cosa vengono utilizzati?"
 
 #: templates/navbar.html:37 templates/commons/stats.html:98
 msgid "Who funds?"
-msgstr ""
+msgstr "Chi finanzia?"
 
 #: templates/navbar.html:46 templates/commons/stats.html:60
 msgid "By means of?"
-msgstr ""
+msgstr "Con quali strumenti?"
 
 #: templates/navbar.html:66 templates/search/search_results.html:9
 #: templates/search/search_results.html:10
 msgid "Search"
-msgstr ""
+msgstr "Cerca"
 
 #: templates/admin/change_form.html:18
 msgid "Home"
@@ -612,75 +627,75 @@ msgstr ""
 #: templates/codelists/base_codelist.html:22
 #: templates/projects/project_detail.html:15
 msgid "Download JSON"
-msgstr ""
+msgstr "Scarica i dati in JSON"
 
 #: templates/codelists/base_codelist.html:28
 msgid "Show all activities"
-msgstr ""
+msgstr "Mostra tutte le iniziative"
 
 #: templates/codelists/recipient_detail.html:33
 #: templates/codelists/recipient_detail.html:53
 msgid "Info"
-msgstr ""
+msgstr "Info"
 
 #: templates/codelists/recipient_detail.html:35
 #: templates/codelists/recipient_detail.html:55
 msgid "Population"
-msgstr ""
+msgstr "Popolazione"
 
 #: templates/codelists/recipient_detail.html:36
 #: templates/codelists/recipient_detail.html:56
 msgid "Population growth"
-msgstr ""
+msgstr "Crescita demografica"
 
 #: templates/codelists/recipient_detail.html:37
 #: templates/codelists/recipient_detail.html:57
 msgid "GDP"
-msgstr ""
+msgstr "PIL"
 
 #: templates/codelists/recipient_detail.html:38
 #: templates/codelists/recipient_detail.html:58
 msgid "GDP per capita"
-msgstr ""
+msgstr "PIL pro capite"
 
 #: templates/codelists/recipient_detail.html:40
 #: templates/codelists/recipient_detail.html:60
 msgid "OECD data"
-msgstr ""
+msgstr "Fonte: OCSE"
 
 #: templates/codelists/recipient_detail.html:46
 msgid "Italian development aid in brief"
-msgstr ""
+msgstr "Le politiche di cooperazione nel Paese"
 
 #: templates/codelists/recipient_detail.html:50
 #: templates/commons/stats.html:28 templates/commons/stats.html.py:65
 #: templates/commons/stats.html:105
-#: templates/projects/initiative_detail.html:133
+#: templates/projects/initiative_detail.html:132
 #: templates/projects/newproject_detail.html:59
 #: templates/projects/project_detail.html:75
 #: templates/search/search_results.html:120
 msgid "close"
-msgstr ""
+msgstr "chiudi"
 
 #: templates/commons/aid_tabs.html:10
 msgid "Show activities list"
-msgstr ""
+msgstr "Mostra la lista delle iniziative"
 
 #: templates/commons/aid_tabs.html:12
 msgid "Italian development activities"
-msgstr ""
+msgstr "Le iniziative della cooperazione italiana nel mondo"
 
 #: templates/commons/aid_tabs.html:16
 msgid "Total funding committed"
-msgstr ""
+msgstr "I fondi complessivi impegnati"
 
 #: templates/commons/aid_tabs.html:20
 msgid "Total funding used"
-msgstr ""
+msgstr "I fondi complessivi erogati"
 
 #: templates/commons/aid_tabs.html:27 templates/commons/aid_tabs.html.py:30
 msgid "Bilateral and Multi-bilateral Official Development Assistance"
-msgstr ""
+msgstr "Aiuto pubblico Bilaterale e Multi-Bilaterale"
 
 #: templates/commons/aid_tabs.html:31
 msgid ""
@@ -691,65 +706,72 @@ msgid ""
 "subsidies, spending on promotion of development\n"
 "awareness, debt reorganization and administrative costs."
 msgstr ""
+"Flusso finanziario da un paese donatore destinato, direttamente o "
+"indirettamente (ONG/Organismi internazionali), ad un paese in via di "
+"sviluppo. Sono compresi in questa categoria i fondi utilizzati per coprire "
+"costi interni nel paese donatore relativi ad attività di sviluppo, quali "
+"quelle per la formazione e l’educazione allo sviluppo, alla ristrutturazione/"
+"cancellazione del debito, alle spese amministrative del donatore correlate "
+"agli aiuti e alle spese per rifugiati."
 
 #: templates/commons/aid_tabs.html:43 templates/commons/aid_tabs.html.py:63
 #: templates/commons/aid_tabs.html:76 templates/commons/stats_multi.html:7
 #: templates/commons/stats_totals.html:7
 msgid "Committed funds"
-msgstr ""
+msgstr "Fondi Impegnati"
 
 #: templates/commons/aid_tabs.html:47 templates/commons/aid_tabs.html.py:67
 #: templates/commons/aid_tabs.html:80 templates/commons/stats_multi.html:29
 #: templates/commons/stats_totals.html:29
 msgid "Used funds"
-msgstr ""
+msgstr "Fondi erogati"
 
 #: templates/commons/aid_tabs.html:53
 msgid "Activities"
-msgstr ""
+msgstr "Iniziative"
 
 #: templates/commons/aid_tabs.html:59 templates/commons/stats_multi.html:64
 msgid "Multilateral Official Development Assistance"
-msgstr ""
+msgstr "Aiuto pubblico Multilaterale"
 
 #: templates/commons/aid_tabs.html:72 templates/commons/stats_totals.html:50
 msgid "Official Development Assistance (ODA) - total"
-msgstr ""
+msgstr "Totale dell'aiuto pubblico allo sviluppo (APS)"
 
 #: templates/commons/initiative_element.html:40
 #: templates/commons/project_element.html:29
 msgid "Aid types"
-msgstr ""
+msgstr "Tipologie di aiuti"
 
 #: templates/commons/main_panel.html:38
 msgid "Committed funds, amounts in euros."
-msgstr ""
+msgstr "Fondi impegnati, valori in euro"
 
 #: templates/commons/project_element.html:16
 msgid "No title"
-msgstr ""
+msgstr "Nessun titolo"
 
 #: templates/commons/project_element.html:22
-#: templates/projects/initiative_detail.html:251
+#: templates/projects/initiative_detail.html:250
 #: templates/projects/newproject_detail.html:37
 #: templates/projects/project_detail.html:53
 #: templates/projects/project_detail.html:113
 msgid "Committed"
-msgstr ""
+msgstr "Impegnati"
 
 #: templates/commons/project_element.html:25
-#: templates/projects/initiative_detail.html:252
+#: templates/projects/initiative_detail.html:251
 #: templates/projects/newproject_detail.html:38
 #: templates/projects/project_detail.html:54
 #: templates/projects/project_detail.html:114
 msgid "Used"
-msgstr ""
+msgstr "Erogati"
 
 #: templates/commons/project_element.html:35
 #: templates/projects/newproject_detail.html:79
 #: templates/projects/project_detail.html:97
 msgid "Channels"
-msgstr ""
+msgstr "Canali"
 
 #: templates/commons/stats.html:22
 msgid ""
@@ -764,6 +786,15 @@ msgid ""
 "should be reported under the sector to which they are directed, not under "
 "education, construction, etc."
 msgstr ""
+"Lo scopo / settore di destinazione di un contributo bilaterale viene "
+"identificato rispondendo alla domanda \"quale settore specifico della "
+"struttura economica e sociale del destinatario il trasferimento è destinato "
+"a promuovere\". La classificazione per settore non fa riferimento al tipo di "
+"beni o servizi forniti dal donatore ma al settore a cui sono diretti: ad "
+"esempio la formazione in agricoltura non viene riportata nel settore "
+"Educazione ma Agricoltura, la costruzione di infrastrutture per lo "
+"stoccaggio agricolo non viene riportata nel settore Costruzione ma "
+"Agricoltura, ecc"
 
 #: templates/commons/stats.html:62
 msgid ""
@@ -774,6 +805,10 @@ msgid ""
 "uses of the funds, which is addressed in the sector classification and to "
 "some extent through the policy objective markers."
 msgstr ""
+"Identifica le modalità utilizzate nell’erogazione dell’aiuto e prende a "
+"riferimento il primo destinatario (ad esempio, il paese beneficiario, un "
+"organismo multilaterale, o un fondo comune) che riceve i fondi direttamente "
+"dal donatore."
 
 #: templates/commons/stats.html:100
 msgid ""
@@ -786,6 +821,9 @@ msgid ""
 "entities should not be reported as extending agencies but as channels of "
 "delivery."
 msgstr ""
+"Enti governativi (a livello centrale, statale o locale) che finanziano le "
+"iniziative di Aiuto Pubblico allo Sviluppo con fondi attinti direttamente "
+"dal proprio bilancio.<br/>&nbsp;"
 
 #: templates/commons/stats_multi.html:67
 msgid ""
@@ -794,12 +832,18 @@ msgid ""
 "contributions so that they lose their\n"
 "identity and become an integral part of its financial assets. "
 msgstr ""
+"Fondi trasferiti dai paesi donatori alle organizzazioni internazionali di "
+"cui fanno parte per permettere lo svolgimento delle attività proprie di "
+"queste organizzazioni a favore dei paesi in via di sviluppo. Sul sito OCSE-"
+"Core Funds è disponibile un elenco completo degli organismi internazionali "
+"che ricevono tali contributi obbligatori (core funds) e la percentuale di "
+"tali contributi che può essere considerata APS."
 
 #: templates/commons/stats_totals.html:15
 #: templates/commons/stats_totals.html:16
 #: templates/commons/stats_totals.html:37 templates/commons/years_bar.html:4
 msgid "Bilateral and Multi-bilateral"
-msgstr ""
+msgstr "Bilaterale e Multi-Bilaterale"
 
 #: templates/commons/stats_totals.html:53
 msgid ""
@@ -813,183 +857,334 @@ msgid ""
 "main objective; and ii) it is concessional in character and conveys a grant "
 "element of at least 25 per cent."
 msgstr ""
+"Fondi di organismi pubblici, devoluti anche attraverso organismi "
+"internazionali, finalizzati al raggiungimento degli obiettivi di crescita "
+"economica e di benessere sociale decisi dai paesi in via di sviluppo e "
+"coerenti con gli obiettivi concordati in sede Nazioni Unite (es. Obiettivi "
+"del Millennio). Secondo un accordo tra i membri dell’OCSE, questi Fondi sono "
+"considerati aiuto pubblico allo sviluppo se sono a fondo perduto (grant) o "
+"se sono concessi sotto forma di crediti a condizioni finanziarie molto "
+"agevolate (soft loan). "
 
 #: templates/commons/top_initiatives.html:6
 #: templates/commons/top_projects.html:6
 msgid "Most important activities"
-msgstr ""
+msgstr "Le iniziative più rilevanti"
 
 #: templates/commons/top_initiatives.html:20
 #: templates/commons/top_projects.html:16
 msgid "see all"
-msgstr ""
+msgstr "vedi tutte"
 
 #: templates/commons/top_projects.html:6
 msgid "Similar initiatives"
-msgstr ""
+msgstr "Iniziative correlate"
 
 #: templates/commons/years_bar.html:3
 msgid "Aid in numbers"
-msgstr ""
+msgstr "L'Aiuto in numeri"
 
 #: templates/projects/initiative_detail.html:33
+#, fuzzy
 msgid "Initiative timeframe"
-msgstr ""
+msgstr "Dati dell'iniziativa"
 
 #: templates/projects/initiative_detail.html:38
 msgid "Total initiative costs"
-msgstr ""
+msgstr "Costo totale dell'iniziativa"
 
 #: templates/projects/initiative_detail.html:42
-#: templates/projects/initiative_detail.html:43
 msgid "Reparted as"
-msgstr ""
+msgstr "Suddivisi in"
+
+#: templates/projects/initiative_detail.html:44
+msgid "Loans"
+msgstr "Prestiti"
 
 #: templates/projects/initiative_detail.html:45
-msgid "Loans"
-msgstr ""
-
-#: templates/projects/initiative_detail.html:46
 msgid "Grants"
-msgstr ""
+msgstr "Donazioni"
 
-#: templates/projects/initiative_detail.html:65
+#: templates/projects/initiative_detail.html:64
 msgid "Suspended intervention"
-msgstr ""
+msgstr "Intervento sospeso"
 
-#: templates/projects/initiative_detail.html:69
+#: templates/projects/initiative_detail.html:68
 msgid "Complete"
-msgstr ""
+msgstr "Completato"
 
-#: templates/projects/initiative_detail.html:103
+#: templates/projects/initiative_detail.html:102
 #: templates/projects/newproject_detail.html:143
 #: templates/projects/project_detail.html:188
 msgid "Photo gallery"
-msgstr ""
+msgstr "Galleria foto"
 
-#: templates/projects/initiative_detail.html:115
+#: templates/projects/initiative_detail.html:114
 #: templates/projects/newproject_detail.html:55
 #: templates/projects/project_detail.html:71
 msgid "Description"
-msgstr ""
+msgstr "Descrizione"
 
-#: templates/projects/initiative_detail.html:116
+#: templates/projects/initiative_detail.html:115
 #: templates/search/search_results.html:16
 msgid "Projects"
-msgstr ""
+msgstr "Progetti"
+
+#: templates/projects/initiative_detail.html:116
+msgid "Documents"
+msgstr "Documenti"
 
 #: templates/projects/initiative_detail.html:117
-msgid "Documents"
-msgstr ""
-
-#: templates/projects/initiative_detail.html:118
 msgid "Problems"
-msgstr ""
+msgstr "Problemi"
 
-#: templates/projects/initiative_detail.html:143
+#: templates/projects/initiative_detail.html:142
 msgid "Main outcome"
-msgstr ""
+msgstr "Obiettivo principale"
 
-#: templates/projects/initiative_detail.html:154
+#: templates/projects/initiative_detail.html:153
 msgid "Initiative data"
-msgstr ""
+msgstr "Dati dell'iniziativa"
 
-#: templates/projects/initiative_detail.html:160
+#: templates/projects/initiative_detail.html:159
 #: templates/projects/project_detail.html:141
 msgid "CRSID"
-msgstr ""
+msgstr "CRSID"
 
-#: templates/projects/initiative_detail.html:168
+#: templates/projects/initiative_detail.html:167
 #: templates/projects/newproject_detail.html:104
 #: templates/projects/project_detail.html:146
 #: templates/search/search_results.html:108
 msgid "Finance type"
-msgstr ""
+msgstr "Tipo di finanziamento"
 
-#: templates/projects/initiative_detail.html:187
+#: templates/projects/initiative_detail.html:186
+#, fuzzy
 msgid "Subjects"
-msgstr ""
+msgstr "Soggetti"
 
-#: templates/projects/initiative_detail.html:206
+#: templates/projects/initiative_detail.html:205
 msgid "Representative"
-msgstr ""
+msgstr "Responsabile in loco"
 
-#: templates/projects/initiative_detail.html:216
+#: templates/projects/initiative_detail.html:215
 msgid "Other financiers"
-msgstr ""
+msgstr "Altri finanziatori"
 
-#: templates/projects/initiative_detail.html:238
+#: templates/projects/initiative_detail.html:237
 #, python-format
 msgid "Beneficiaries of which females %(beneficiaries_female)s%%"
-msgstr ""
+msgstr "Il %(beneficiaries_female)s%% dei beneficiari sono donne."
 
-#: templates/projects/initiative_detail.html:250
+#: templates/projects/initiative_detail.html:249
+#, fuzzy
 msgid "Title"
-msgstr ""
+msgstr "Nessun titolo"
 
-#: templates/projects/initiative_detail.html:314
+#: templates/projects/initiative_detail.html:313
 msgid "Actions taken"
-msgstr ""
+msgstr "Azioni svolte"
 
-#: templates/projects/initiative_detail.html:345
+#: templates/projects/initiative_detail.html:344
 msgid "Type"
-msgstr ""
+msgstr "Tipo"
 
-#: templates/projects/initiative_detail.html:349
+#: templates/projects/initiative_detail.html:348
 msgid "Procedure"
-msgstr ""
+msgstr "Procedura"
 
 #: templates/projects/newproject_detail.html:47
 #: templates/projects/project_detail.html:63
 msgid "Channel reported"
-msgstr ""
+msgstr "Esecutore"
 
 #: templates/projects/newproject_detail.html:73
 #: templates/projects/project_detail.html:91
 #: templates/search/search_results.html:104
 msgid "Aid type"
-msgstr ""
+msgstr "Tipologia di aiuto"
 
 #: templates/projects/newproject_detail.html:90
 #: templates/projects/project_detail.html:128
 msgid "Project data"
-msgstr ""
+msgstr "Dati del progetto"
 
 #: templates/projects/newproject_detail.html:93
 #: templates/projects/project_detail.html:132
 msgid "Expected start date"
-msgstr ""
+msgstr "Data inizio prevista"
 
 #: templates/projects/newproject_detail.html:96
 #: templates/projects/project_detail.html:137
 msgid "Completion date"
-msgstr ""
+msgstr "Data di completamento"
 
 #: templates/projects/project_detail.html:41
 msgid "Is part of the initiative"
-msgstr ""
+msgstr "Fa parte dell'iniziativa"
 
 #: templates/projects/project_detail.html:112
 #: templates/search/search_results.html:100
 msgid "Year"
-msgstr ""
+msgstr "Anno"
 
 #: templates/search/search_results.html:78
 msgid "Search result"
-msgstr ""
+msgstr "Risultati della ricerca"
 
 #: templates/search/search_results.html:81
 msgid "Remove filters"
-msgstr ""
+msgstr "Rimuovi filtri"
 
 #: templates/search/search_results.html:92
 msgid "Sector"
-msgstr ""
+msgstr "Settore"
 
 #: templates/search/search_results.html:112
 msgid "Channel"
-msgstr ""
+msgstr "Canale"
 
 #: templates/search/search_results.html:116
 msgid "Recipient"
-msgstr ""
+msgstr "Destinatario"
+
+#~ msgid "WELCOME TO OPEN AID ITALIA"
+#~ msgstr "BENVENUTO SU OPEN AID ITALIA"
+
+#~ msgid ""
+#~ "<p class=\"text-center\">Welcome to the website that publishes all the "
+#~ "data regarding Italy's Development AID</p>\n"
+#~ "<p class=\"text-center\">NEWS</p>\n"
+#~ "<p>The 2013 data has been updated, and communicated to the OECD that is "
+#~ "undergoing its usual certification process.</p>\n"
+#~ "<p>The Api (Application Programming Interface) has been published, for "
+#~ "the free reuse of the data</p>\n"
+#~ "<p>The website is continuously updating with more content, also "
+#~ "multimedia, on single initiatives and more information on individual "
+#~ "actors involved</p>\n"
+#~ "<p>The website is evolving: do not hesitate in contacting us with your "
+#~ "comments and complaints</p>\n"
+#~ "<p>In the next phases of the project the website will be open to the "
+#~ "contributions of different actors, that will be able to publish content "
+#~ "on the activities in which they are involved</p>\n"
+#~ "<p>The platform will then be able to give detailed information about "
+#~ "other types of development aid, to paint a more complete pictures of "
+#~ "Italy's effort</p>\n"
+#~ "<p>Keep on following us!</p>"
+#~ msgstr ""
+#~ "<p class=\"text-center\">Benvenuti sul sito che mette a disposizione di "
+#~ "tutti  i dati sull’Aiuto allo Sviluppo Italiano.</p>\n"
+#~ "<p class=\"text-center\">NOVITA’</p>\n"
+#~ "<p>Sono stati aggiornati i dati relativi all’anno 2013, già comunicati "
+#~ "all’OCSE che sta provvedendo alla consueta verifica di congruenza.</p>\n"
+#~ "<p>Sono state pubblicate le Api (Application Programming Interface), per "
+#~ "il riuso applicativo dei dati.</p>\n"
+#~ "<p>È in corso l’integrazione del sito con ulteriori contenuti, anche "
+#~ "multimediali, sulle singole iniziative e con maggiori informazioni sui "
+#~ "diversi soggetti attuatori.</p><br>\n"
+#~ "<p>Il sito è in evoluzione: non esitate a contribuire con vostri commenti "
+#~ "e segnalazioni.</p>\n"
+#~ "<p>Nelle succesive fasi di sviluppo il sito sarà aperto ai contributi dei "
+#~ "diversi attori, che potranno pubblicare contenuti sulle iniziative in cui "
+#~ "sono coinvolti.</p>\n"
+#~ "<p>Il portale potrà poi fornire informazioni dettagliate anche su altre "
+#~ "fonti di finanziamento dello sviluppo, per dare un quadro completo "
+#~ "dell’impegno italiano.</p>\n"
+#~ "<p>Continuate a seguirci!</p>"
+
+#~ msgid "Start date"
+#~ msgstr "Anno d'inizio"
+
+#~ msgid "End date"
+#~ msgstr "Anno di fine"
+
+#~ msgid "Initiative projects"
+#~ msgstr "I progetti di questa iniziativa"
+
+#~ msgid "Focus on"
+#~ msgstr "Focus on"
+
+#~ msgid "Unkwnon"
+#~ msgstr "Sconosciuto"
+
+#~ msgid "Why isn't the data updated to 2013?"
+#~ msgstr "Perché i dati non sono aggiornati al 2013?"
+
+#~ msgid "Where does the data come from?"
+#~ msgstr "Quali sono le fonti dei dati?"
+
+#~ msgid "To which extent is the data reliable?"
+#~ msgstr "Qual è il grado di affidabilità dei dati?"
+
+#~ msgid "What do we mean by Bilateral and Multi-bilateral ODA?"
+#~ msgstr "Che cos'è l'Aiuto Pubblico Bilaterale e Multi-Bilaterale?"
+
+#~ msgid ""
+#~ "<p>This website aims at making data on Italian Development Aid available "
+#~ "for all.</p>\n"
+#~ "<p>The website is in its first development phase, involving the on-line "
+#~ "publication of all data on Italian ODA since 2004.</p>\n"
+#~ "<p>In the second phase, the website will be integrated with additional "
+#~ "contents on individual initiatives and with further information on "
+#~ "different development actors.</p>\n"
+#~ "<p>In the third phase different actors will be enabled to contribute to "
+#~ "the website by publishing contents on the initiatives they are involved "
+#~ "in.</p>\n"
+#~ "<p>In the fourth phase, the website will provide detailed information "
+#~ "also on other sources of financing for development, in order to provide a "
+#~ "comprehensive picture of the Italian commitment to development.</p>\n"
+#~ "<p>We are at the beginning of a challenging project: keep following us!</"
+#~ "p>"
+#~ msgstr ""
+#~ "<p>Questo sito intende mettere a disposizione di tutti i dati sull’Aiuto "
+#~ "allo Sviluppo Italiano.</p>\n"
+#~ "<p>Il sito è nella sua prima fase di sviluppo, che prevede la "
+#~ "pubblicazione di tutti i dati sull’Aiuto Pubblico allo Sviluppo italiano "
+#~ "a partire dal 2004.</p>\n"
+#~ "<p>Nella seconda fase il sito sarà integrato da ulteriori contenuti, "
+#~ "anche multimediali, sulle singole iniziative e da maggiori informazioni "
+#~ "sui diversi soggetti attuatori.</p>\n"
+#~ "<p>Nella terza fase il sito sarà aperto ai contributi dei diversi attori, "
+#~ "che potranno pubblicare contenuti sulle iniziative in cui sono coinvolti."
+#~ "</p>\n"
+#~ "<p>Nella quarta fase il portale potrà fornire informazioni dettagliate "
+#~ "anche su altre fonti di finanziamento dello sviluppo, per fornire un "
+#~ "quadro completo dell’impegno italiano.</p>\n"
+#~ "<p>Siamo all’inizio di un grande progetto: continuate a seguirci!</p>"
+
+#~ msgid "show/hide navigation"
+#~ msgstr "mostra/nascondi navigazione"
+
+#~ msgid "Download XML"
+#~ msgstr "Scarica i dati in XML"
+
+#~ msgid ""
+#~ "The channel of delivery is the first implementing partner. It is the "
+#~ "entity that has implementing responsibility\n"
+#~ "over the funds and is normally linked to the extending agency by a "
+#~ "contract or other binding agreement,\n"
+#~ "and is directly accountable to it. Where several levels of implementation "
+#~ "are involved (e.g. when the extending\n"
+#~ "agency hires a national implementer which in turn may hire a local "
+#~ "implementer), report the first level of\n"
+#~ "implementation as the channel of delivery.  Where activities have several "
+#~ "implementers, the principal implementer\n"
+#~ "should be reported (e.g. the entity receiving the most funding). In the "
+#~ "case of loans,\n"
+#~ "report the borrower (i.e. the first entity outside the donor country that "
+#~ "receives the funds)."
+#~ msgstr ""
+#~ "Il canale di finanziamento è il primo partner che riceve il finanziamento "
+#~ "da parte dell’ente finanziatore, è direttamente responsabile nei suoi "
+#~ "confronti ed ha la responsabilità di esecuzione del progetto. Nel caso "
+#~ "dei prestiti, ci si riferisce al mutuatario (cioè la prima entità al di "
+#~ "fuori del paese donatore che riceve i fondi)."
+
+#~ msgid "CC Licenses"
+#~ msgstr "Licenze CC"
+
+#~ msgid "How to ..."
+#~ msgstr "Come fare per ..."
+
+#~ msgid "Frequently Asked Questions"
+#~ msgstr "Domande frequenti"
