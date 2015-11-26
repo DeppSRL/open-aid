@@ -351,7 +351,10 @@ class InitiativeDetail(DetailView):
             if p.total_disbursement:
                 obj.total_disbursement += p.total_disbursement
 
+        # aggregate to the obj the docs and the photos
         obj.documents = obj.document_set.all()
+        obj.photos = obj.photo_set.all()
+
         return super(InitiativeDetail, self).get_context_data(
             projects=projects,
             **kwargs)
