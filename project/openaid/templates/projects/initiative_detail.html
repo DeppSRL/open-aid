@@ -11,7 +11,7 @@
 
 {% block content %}
 
-    <div class="row">
+    <div class="row" id="main-content">
         <header class="col-md-12">
             <h2 class="page-title" id="initiative-{{ initiative.pk }}">{{ initiative.title }}</h2>
             <h3 class="sub-title">
@@ -96,66 +96,50 @@
             </div>
 
             <div class="small-spacer"></div>
-
-            <h3>Foto</h3>
-            <img src="/static/img/contents/dummy-pict1.jpg" alt="Dummy pict 1" width="82" height="84">
-            <img src="/static/img/contents/dummy-pict2.jpg" alt="Dummy pict 2" width="82" height="84">
-            <img src="/static/img/contents/dummy-pict3.jpg" alt="Dummy pict 3" width="82" height="84">
-
-            <div class="spacer"></div>
+            {% if photo_set|length > 0 %}
+                <h3>{% trans 'Photo gallery' %}</h3>
+                {% for photo in initiative.photos %}
+                    <img src="{{ photo.file.url }}" alt="" width="82" height="84">
+                {% endfor %}
+                <div class="spacer"></div>
+            {% endif %}
 
         </div> <!-- /sidebar -->
 
 
-            <!--
-
-            MAIN
-
-            -->
-
-
+            <!-- MAIN-->
+            {# todo: tradurre nomi schede       #}
             <div class="col-md-8 col-sm-12 col-xs-12 col-md-pull-4">
                 <ul id="tabs" class="nav nav-tabs nav-tabs-special nav-tabs-equal-lg-5" data-tabs="tabs">
                     <li class="active"><a href="#tab-descrizione" data-toggle="tab">DESCRIZIONE</a></li>
                     <li class="nav-tab-2-lines"><a href="#tab-progetti" data-toggle="tab">I PROGETTI<br/>DI QUESTA INIZIATIVA</a></li>
                     <li><a href="#tab-documenti" data-toggle="tab">DOCUMENTI</a></li>
-                    <li><a href="#tab-problemi" data-toggle="tab">PROBLEMI</a></li>
-                    <li><a href="#tab-procurements" data-toggle="tab">PROCUREMENTS</a></li>
+                    <li><a href="#tab-problemi" data-toggle="tab">{% trans "Problems" %}</a></li>
+                    <li><a href="#tab-procurements" data-toggle="tab">{% trans "Procurements" %}</a></li>
                 </ul>
                 <div class="panel with-nav-tabs panel-special">
                     <div class="panel-body">
                         <div class="tab-content">
 
-                            <!--
-
-                            DESCRIZIONE
-
-                            -->
-
+                            <!--DESCRIZIONE-->
                             <div class="tab-pane active" id="tab-descrizione">
-
-                                <div class="project-description">
-                                    <p class="readmore" data-max-height="90">
-                                        Nell’ambito del Palestinian Reform & Development Plan (PRDP) 2008-10 e dell’attuale Palestinian National Development Plan (PNDP) 2011-13, la Commissione Europea ha recentemente lanciato PEGASE, Meccanismo Palestino-Europeo di Gestione ed Aiuto Socio-Economico. PEGASE costituisce un prevedibile e stabile flusso finanziario di supporto al budget dell'Autorità Nazionale Palestinese (ANP), e si caratterizza quale potente strumento per mobilitare il finanziamento e l'assistenza da parte degli altri donatori internazionali, compresi gli Stati Membri dell'Unione Europea. Gli obiettivi del Programma sono i seguenti:
-
-                                        Contribuire al rafforzamento istituzionale dell'ANP, promuovendo il Buon Governo attraverso il sostegno alle finanze pubbliche;
-                                        Contribuire a garantire la fruizione di servizi pubblici essenziali, quali ad esempio la Health, l’Education ed i trasporti;
-                                        Supportare l’ANP nell’ottemperamento dei propri obblighi finanziari nei confronti di funzionari pubblici e pensionati della funzione pubblica.
-                                        PEGASE si articola in quattro componenti principali:
-
-                                        CSP: Supporting Civil Servants and Pensioners: Pagamento degli stipendi e delle pensioni ai dipendenti pubblici;
-                                        VPF: Supporting Vulnerable Palestinian Families: Pagamento dei sussidi alle famiglie palestinesi più vulnerabili;
-                                        Arrears to the private sector: Supporto al settore privato;
-                                        PSRG: Private Sector Reconstruction in Gaza: Rivitalizzazione del settore privato nella Striscia di Gaza.
-                                        <a href="#" class="readmore-open">leggi tutto <i class="fa fa-caret-down"></i></a>
-                                        <a href="#" class="readmore-close">chiudi <i class="fa fa-caret-up"></i></a>
-                                    </p>
-                                </div>
+                                {% with description=initiative.description %}
+                                    {% if description %}
+                                        <div class="project-description">
+                                            <p class="readmore" data-max-height="90">
+                                                {{ initiative.description|safe }}
+                                                <a href="#" class="readmore-open">{% trans 'read more' %} <i class="fa fa-caret-down"></i></a>
+                                                <a href="#" class="readmore-close">{% trans 'close' %} <i class="fa fa-caret-up"></i></a>
+                                            </p>
+                                        </div>
+                                    {% endif %}
+                                {% endwith %}
 
                                 <div class="small-spacer"></div>
 
                                 <div class="row">
                                     <div class="col-md-5">
+                                        {#  todo: obiettivo??           #}
                                         <h3>Obiettivo principale</h3>
                                         <p>Sostegno alle finanze pubbliche ;
                                             Buon funzionamento dei servizi pubblici essenziali, quali ad esempio la Health, l’Education ed i trasporti;
@@ -164,30 +148,30 @@
                                     </div>
                                     <div class="col-md-7">
 
-                                        <h3>Dati dell'iniziativa</h3>
+                                        <h3>{% trans 'Initiative data' %}</h3>
 
                                         <div class="table-responsive table-special">
                                             <table class="table table-condensed">
                                                 <tbody>
                                                 <tr>
-                                                    <th scope="row">CRSID</th>
-                                                    <td>2013000050</td>
+                                                    <th scope="row">{% trans 'CRSID' %}</th>
+                                                    <td>{{ initiative.crsid }}</td>
                                                 </tr>
                                                 <tr>
-                                                    <th scope="row">Scopo</th>
-                                                    <td>Democratic participation and civil society</td>
+                                                    <th scope="row">{% trans 'Purpose' %}</th>
+                                                    <td>{{ initiative.purpose.name }}</td>
                                                 </tr>
                                                 <tr>
-                                                    <th scope="row">Tipo di finanziamento</th>
-                                                    <td>Dono esclusi interventi sul debito</td>
+                                                    <th scope="row">{% trans 'Finance type' %}</th>
+                                                    <td>{{ initiative.finance_type.name }}</td>
                                                 </tr>
                                                 <tr>
-                                                    <th scope="row">Flow type</th>
-                                                    <td>Official Development Assistance</td>
+                                                    <th scope="row">{% trans 'Flow type' %}</th>
+                                                    <td>{{ initiative.flow_type }}</td>
                                                 </tr>
                                                 <tr>
-                                                    <th scope="row">Bi/Multilaterale</th>
-                                                    <td>Bilateral</td>
+                                                    <th scope="row">{% trans 'Bi/Multilateral' %}</th>
+                                                    <td>{{ initiative.bi_multi }}</td>
                                                 </tr>
                                                 </tbody>
                                             </table>
@@ -197,7 +181,7 @@
                                 </div>
 
                                 <div class="small-spacer"></div>
-
+                                {# todo: soggetti?? #}
                                 <h3>Soggetti</h3>
                                 <div class="table-responsive table-special">
                                     <table class="table">
@@ -219,73 +203,66 @@
                                 </div>
 
                                 <div class="small-spacer"></div>
-
-                                <h3>Beneficiari</h3>
-                                <div class="table-responsive table-special">
-                                    <table class="table">
-                                        <tbody>
-                                            <tr>
-                                                <th>Beneficiari diretti</th>
-                                                <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Beneficiari indiretti</th>
-                                                <td><small class="text-muted">-</small></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <p>I beneficiari del programma sono circa 75.000 funzionari pubblici palestinesi, i quali a loro volta forniscono servizi pubblici essenziali all’intera popolazione palestinese, più all&#39;incirca 9.000 pensionati della funzione pubblica palestinese, ai quali l&#39;ANP versa una pensione mensile.
-
-                                    Nel 2012, il contributo totale dell&#39;Unione Europea al pagamento degli stipendi e delle pensioni dei funzionari pubblici palestinesi ha raggiunto i 145 milioni di euro, di cui 130 sono stati erogati direttamente dalla Commissione Europea. Con riguardo ai dati più recenti, i salari e le pensioni del mese di Aprile 2013 sono stati versati ai funzionari pubblici palestinesi grazie ad un contributo PEGASE pari a 20 milioni di Euro (19.3 milioni erogati dalla Commissione Europea, più 0.7 milioni versati dal Lussemburgo).
-
-                                    Il contributo italiano, pari a 1 milione di Euro, si inserirà dunque in questo contesto, con l&#39;obiettivo di formare una base finanziaria dalla quale attingere per il pagamento di salari e pensioni, in modo proporzionato ed uniforme, evitando squilibri e discriminazioni tra i diversi beneficiari.
-                                </p>
-                                <strong>Il <b>50,0%</b> dei beneficiari sono donne.</strong>
-
+                                {% with beneficiaries=initiative.beneficiaries beneficiaries_female=initiative.beneficiaries_female %}
+                                    {% if beneficiaries or beneficiaries_female %}
+                                        <h3>{% trans 'Beneficiaries' %}</h3>
+                                        <div class="table-responsive table-special">
+                                            <table class="table">
+                                                <tbody>
+                                                    <tr>
+                                                        <th>Beneficiari diretti</th>
+                                                        <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Beneficiari indiretti</th>
+                                                        <td><small class="text-muted">-</small></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        {% if beneficiaries %}
+                                            <p>{{ beneficiaries }}</p>
+                                        {% endif %}
+                                        {% if beneficiaries_female %}
+                                            {% blocktrans %}Beneficiaries of which females {{ beneficiaries_female }}%{% endblocktrans %}
+                                        {% endif %}
+                                    {% endif %}
+                                {% endwith %}
                             </div>
 
-                            <!--
-
-                            PROGETTI
-
-                            -->
+                            {#   todo: progetti  #}
+                            <!--PROGETTI-->
 
                             <div class="tab-pane" id="tab-progetti">
-                                <div class="table-responsive table-special">
-                                    <table class="table">
-                                        <thead>
-                                            <th scope="col">Titolo</th>
-                                            <th scope="col">€&nbsp;impegnati</th>
-                                            <th scope="col">€&nbsp;erogati</th>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <th scope="row"><a href="/it/projects/project/28797/">CONTRIBUTO AL BILANCIO DELL&#39;&#39;AUTORITA&#39;&#39; PALESTINESE TRAMITE IL PEGASE</a></th>
-                                            <td>€&nbsp;999.999,99</td>
-                                            <td><small class="text-muted">-</small></td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row"><a href="/it/projects/project/12621/">TAP - CONTRIBUTO AL BILANCIO DELL&#39;AUTORITA&#39; PALESTINESE TRAMITE IL PEGASE</a></th>
-                                            <td><small class="text-muted">-</small></td>
-                                            <td><small class="text-muted">-</small></td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row"><a href="/it/projects/project/20025/">CONTRIBUTO FINANZIARIO AL BILANCIO DELL&#39;AUTORITA&#39; PALESTINESE TRAMITE IL PEGASE - ART. 15</a></th>
-                                            <td><small class="text-muted">-</small></td>
-                                            <td><small class="text-muted">-</small></td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+                                {% if projects|length > 0 %}
+                                    <div class="table-responsive table-special">
+                                        <table class="table">
+                                            <thead>
+                                                <th scope="col">Titolo</th>
+                                                <th scope="col">€&nbsp;impegnati</th>
+                                                <th scope="col">€&nbsp;erogati</th>
+                                            </thead>
+                                            <tbody>
+                                            {% for project in projects %}
+                                                <tr>
+                                                    <th scope="row">
+                                                        <a href="{{ project.get_absolute_url }}">
+                                                            {{ project.title }}
+                                                        </a>
+                                                    </th>
+                                                    <td>€&nbsp;??????</td>
+                                                    <td><small class="text-muted">????</small></td>
+                                                </tr>
+                                            {% endfor %}
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                {% endif %}
                             </div>
 
-                            <!--
-
-                            DOCUMENTI
-
-                            -->
-
+                            <!--DOCUMENTI-->
+                            {# todo: DOCUMENTI      #}
                             <div class="tab-pane" id="tab-documenti">
                                 <div class="focus">
                                     <h4><a href="#" title="Lorem ipsum dolor sit amet">Lorem ipsum dolor sit amet <strong>(Download)</strong></a></h4>
@@ -319,97 +296,64 @@
                                 </div>
                             </div>
 
-                            <!--
-                                PROBLEMI
-                            -->
-
+                            <!--PROBLEMI-->
                             <div class="tab-pane" id="tab-problemi">
-                                <div class="focus">
-                                    <h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet, aspernatur consequatur deleniti doloremque dolores eaque est impedit in incidunt laboriosam libero magnam modi, nostrum quo sequi soluta tempora voluptas. Amet.</h4>
+                                {% if initiative.problems|length > 0 %}
+                                    {% for problem in initiative.problems %}
+                                        <div class="focus">
+                                            <h4>{{ problem.event }}</h4>
+                                            <div class="small-spacer"></div>
+                                            <p>{{ problem.impact }}</p>
+                                            <div class="small-spacer"></div>
+                                            {% if problem.actions %}
+                                                <h5>{% trans 'Actions taken' %}</h5>
+                                                <p><span>{{ problem.actions }}</span></p>
+                                            {% endif %}
+                                        </div>
 
-                                    <div class="small-spacer"></div>
-
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem impedit incidunt nam natus nostrum optio quas, qui veniam veritatis voluptates? Est expedita fuga in, omnis perferendis praesentium sequi tempora ut.</p>
-
-                                    <div class="small-spacer"></div>
-
-                                    <h5>Azioni svolte</h5>
-
-                                    <p><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus beatae dolorum eligendi fuga illum ipsum itaque nostrum placeat quisquam quos? At cupiditate eveniet repellendus sunt! Adipisci esse itaque necessitatibus repellendus?</span><span>Blanditiis commodi cum debitis distinctio esse facilis fuga ipsum iure laborum mollitia neque officiis, optio perspiciatis placeat, possimus provident quaerat quia reprehenderit rerum sequi sint tenetur velit. Minima, perspiciatis sequi!</span></p>
-                                </div>
-
-                                <div class="small-spacer"></div>
-
-                                <div class="focus">
-                                    <h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet, aspernatur consequatur deleniti doloremque dolores eaque est impedit in incidunt laboriosam libero magnam modi, nostrum quo sequi soluta tempora voluptas. Amet.</h4>
-
-                                    <div class="small-spacer"></div>
-
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem impedit incidunt nam natus nostrum optio quas, qui veniam veritatis voluptates? Est expedita fuga in, omnis perferendis praesentium sequi tempora ut.</p>
-
-                                    <div class="small-spacer"></div>
-
-                                    <h5>Azioni svolte</h5>
-
-                                    <p><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus beatae dolorum eligendi fuga illum ipsum itaque nostrum placeat quisquam quos? At cupiditate eveniet repellendus sunt! Adipisci esse itaque necessitatibus repellendus?</span><span>Blanditiis commodi cum debitis distinctio esse facilis fuga ipsum iure laborum mollitia neque officiis, optio perspiciatis placeat, possimus provident quaerat quia reprehenderit rerum sequi sint tenetur velit. Minima, perspiciatis sequi!</span></p>
-                                </div>
+                                        <div class="small-spacer"></div>
+                                    {% endfor %}
+                                {% else %}
+                                    -
+                                {% endif %}
                             </div>
 
-                            <!--
-                                PROCUREMENTS
-                            -->
-
+                            <!--PROCUREMENTS-->
                             <div class="tab-pane" id="tab-procurements">
-                                <div class="focus">
-                                    <h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</h4>
-                                    <div class="small-spacer"> </div>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab, aspernatur beatae cum debitis deleniti dolor doloribus enim et expedita fuga fugit, laudantium nam nihil non quasi repellendus repudiandae sed tempora.</p>
+                                {% if initiative.reports|length > 0 %}
+                                    {% for report in initiative.reports %}
+                                        <div class="focus">
+                                            <h4>{{ report.awarding_entity|default:"-" }}</h4>
+                                            <div class="small-spacer"> </div>
+                                            <p>{{ report.description }}</p>
 
-                                    <div class="table-responsive table-special">
-                                        <table class="table table-condensed table-no-borders">
-                                            <tbody>
-                                            <tr>
-                                                <th scope="row"><strong>Type</strong></th>
-                                                <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row"><strong>Procurement procedure</strong></th>
-                                                <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row"><strong>Procurement notice</strong></th>
-                                                <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-
-                                <div class="focus">
-                                    <h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</h4>
-                                    <div class="small-spacer"> </div>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab, aspernatur beatae cum debitis deleniti dolor doloribus enim et expedita fuga fugit, laudantium nam nihil non quasi repellendus repudiandae sed tempora.</p>
-
-                                    <div class="table-responsive table-special">
-                                        <table class="table table-condensed table-no-borders">
-                                            <tbody>
-                                            <tr>
-                                                <th scope="row"><strong>Type</strong></th>
-                                                <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row"><strong>Procurement procedure</strong></th>
-                                                <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row"><strong>Procurement notice</strong></th>
-                                                <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-
+                                            <div class="table-responsive table-special">
+                                                <table class="table table-condensed table-no-borders">
+                                                    <tbody>
+                                                    <tr>
+                                                        <th scope="row"><strong>Status</strong></th>
+                                                        <td>{{ report.status|title }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row"><strong>{% trans 'Type' %}</strong></th>
+                                                        <td>{{ report.get_type_display }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row"><strong>{% trans 'Procedure' %}</strong></th>
+                                                        <td>{{ report.get_procurement_procedure_display }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row"><strong>Procurement notice</strong></th>
+                                                        <td>{{ report.get_procurement_notice_display }}</td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                {% else %}
+                                    -
+                                {% endif %}
                             </div>
 
                         </div> <!-- /tab-content -->
@@ -422,242 +366,242 @@
 
     </div>
 
-  <div class="row">
-    <div class="col-md-4 col-sm-6 col-xs-6">
-      <div class="small-map"><div id="map" data-chart="map" style="height: 260px;" data-iso-code="{% for recipient in initiative.recipients|unique %}{{ recipient.iso_code }}{% if not forloop.last %},{% endif %}{% endfor %}"></div></div>
-      <br/>
-      {% with locations=initiative.locations %}{% if locations|length > 0 %}
-      <p><strong>{% trans 'Location' %}:</strong>
-      {% for loc in locations|unique %}{{ loc }} {% if not forloop.last %}, {% endif %}{% endfor %}
-      </p>
-      {% endif %}{% endwith %}
-
-      <h4>{% trans 'Initiative data' %}</h4>
-      <dl class="dl-horizontal">
-        <dt>{% trans 'CRSID' %}</dt><dd>{{ initiative.crsid }}</dd>
-      </dl><dl class="dl-horizontal">
-        <dt>{% trans 'Purpose' %}</dt><dd>{{ initiative.purpose.name }}</dd>
-      </dl><dl class="dl-horizontal">
-        <dt>{% trans 'Finance type' %}</dt><dd>{{ initiative.finance_type.name }}</dd>
-      </dl><dl class="dl-horizontal">
-        <dt>{% trans 'Flow type' %}</dt><dd>{{ initiative.flow_type }}</dd>
-      </dl><dl class="dl-horizontal">
-        <dt>{% trans 'Bi/Multilateral' %}</dt><dd>{{ initiative.bi_multi }}</dd>
-      </dl>
-      <ul class="list-unstyled simple-menu">
-        {% if initiative.is_ftc %}<li>{% trans 'Free Standing Technical Cooperation' %}</li>{% endif %}
-        {% if initiative.is_pba %}<li>{% trans 'Programme Based Approaches' %}</li>{% endif %}
-        {% if initiative.is_investment %}<li>{% trans 'Investment Project' %}</li>{% endif %}
-      </ul>
-
-      {% with documents=initiative.documents %}{% if documents|length > 0 %}
-      <h2>{% trans 'Documents' %}</h2>
-      <ul class="list-unstyled simple-menu" style="height: auto;">
-        {% for document in documents %}
-          <li><a href="{% if document.file %}{{ document.file.url }}{% else %}{{ document.source_url|default:'#' }}{% endif %}">{% icon 'download' %} {{ document.name }}</a>
-          <p class="small-paragraph">{{ document.description }}</p>
-          <h5>{{ document.date|date:"r" }}</h5>
-          </li>
-        {% endfor %}
-      </ul>
-      {% endif %}{% endwith %}
-    </div>
-
-    <div class="col-md-8 col-sm-6 col-xs-6">
-      <div class="spacer"></div>
-      <div class="focus">
-        {% with description=initiative.description %}{% if description %}
-        <div class="project-description">
-          <p class="readmore" data-max-height="90">
-            {{ initiative.description|safe }}
-            <a href="#" class="readmore-open">{% trans 'read more' %} {% icon 'caret-down' %}</a>
-            <a href="#" class="readmore-close">{% trans 'close' %} {% icon 'caret-up' %}</a>
-          </p>
-        </div>
-        {% endif %}{% endwith %}
-
-      </div>
-
-      {% with is_suspended=initiative.is_suspended status=initiative.status %}{% if is_suspended or status %}
-      <div class="focus">
-        {% if is_suspended %}
-            <div class="pull-right">{% icon 'exclamation-circle' %} {% trans 'Suspended intervention' %}</div>
-        {% endif %}
-        <div>STATUS
-          <div class="progress" style="width: 200px; display: inline-block; margin-bottom: 0; height: 14px; margin-top:4px; ">
-            <div class="progress-bar" role="progressbar" aria-valuenow="{{ status }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ status }}%;">
-              <span class="sr-only">{{ status }} {% trans 'Complete' %}</span>
-            </div>
-          </div>
-          {{ initiative.status }}%
-        </div>
-      </div>
-      {% endif %}{% endwith %}
-
-      <div class="focus">
-        <div class="row">
-          <div class="col-md-4">
-            <h4>{% trans 'Agency' %}</h4>{{ initiative.agency.name }}
-          </div>
-          <div class="col-md-4">
-            <h4>{% trans 'Representative' %}</h4><small class="text-muted">{{ initiative.email|default:'-' }}</small>
-          </div>
-          <div class="col-md-4">
-            <h4>{% trans 'Counterpart authority' %}</h4>{{ initiative.counterpart_authority|default:'-' }}
-          </div>{% if initiative.other_financiers %}
-          <div class="col-md-12">
-            <h4>{% trans 'Other financiers' %}</h4>
-            {{ initiative.other_financiers|default:'-' }}
-          </div>{% endif %}
-        </div>
-      </div>
-
-       {% with years=initiative.years_range %}{% if years %}
-      <div class="focus">
-        <h4>{% trans 'Start date' %}: {{ years|first }}{% if years|length > 1 %}
-          {% trans 'End date' %}: {{ years|last }}{% endif %}</h4>
-      </div>
-      {% endif %}{% endwith %}
-
-      {% if initiative.outcome %}
-      <div class="focus">
-        <h4>{% trans 'Main outcome' %}</h4>
-        <p>{{ initiative.outcome|safe }}</p>
-      </div>
-      {% endif %}
-
-      <div class="focus">
-
-        <div class="row">
-          <div class="col-md-6">
-            {% with total_project_costs=initiative.total_project_costs loan_amount_approved=initiative.loan_amount_approved grant_amount_approved=initiative.grant_amount_approved %}{% if total_project_costs or loan_amount_approved or grant_amount_approved %}
-              <h3>{% trans 'Total initiative costs' %}</h3>
-              <div style="color:#f7505a; text-transform: uppercase;"><span style="font-size: 2.1em; font-weight: bold;">€ {{ total_project_costs|intcomma }}</span> suddivisi in</div>
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="list-group">
-                    <p class="list-group-item" style="color:#2b6a7c; border-color:#2b6a7c; padding: 4px 8px;">
-                      {% if initiative.loan_amount_approved %}
-                      <strong>€ {{ initiative.loan_amount_approved|intcomma }}</strong>{% else %}-{% endif %}
-                      <br/><span style="font-size: 0.8em">{% trans 'Loans' %}</span>
-                    </p>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="list-group">
-                    <p class="list-group-item" style="color:#2b6a7c; border-color:#2b6a7c; padding: 4px 8px;">
-                      {% if initiative.grant_amount_approved %}
-                      <strong>€ {{ initiative.grant_amount_approved|intcomma }}</strong>{% else %}-{% endif %}
-                      <br/><span style="font-size: 0.8em">{% trans 'Grants' %}</span>
-                    </p>
-                  </div>
-                </div>
-              </div>
-              {% endif %}{% endwith %}
-          </div>
-          <div class="col-md-6">
-            <h3>{% trans 'Initiative projects' %}</h3>
-            <ul class="list-unstyled simple-menu">
-              {% for project in projects %}
-              <li><a href="{{ project.get_absolute_url }}">{{ project.title }}</a></li>
-              {% endfor %}
-            </ul>
-          </div>
-        </div>
-      </div><!-- .focus -->
-
-      {% with beneficiaries=initiative.beneficiaries beneficiaries_female=initiative.beneficiaries_female %}{% if beneficiaries or beneficiaries_female %}
-      <div class="focus">
-        <h4>{% trans 'Beneficiaries' %}</h4>
-        {% if beneficiaries %}<p>{{ beneficiaries }}</p>{% endif %}
-        {% if beneficiaries_female %}<strong>
-          {% blocktrans %}Beneficiaries of which females {{ beneficiaries_female }}%{% endblocktrans %}</strong>{% endif %}
-      </div>{% endif %}{% endwith %}
-
-      <div class="focus">
-        <div class="row">
-          <div class="col-md-5">
-            <ul class="nav nav-pills" style="border: 0;">
-                {% for sector in initiative.sectors|unique %}
-                <li>
-                    <a href="{% url 'codelists:sector-detail' code=sector.get_root.code %}">{% icon 'chevron-right' %}{{ sector.get_root.name }}</a>
-                </li>
-                {% endfor %}
-            </ul>
-          </div>
-          <div class="col-md-4">
-            <span class="eleven light-gray block">{% trans 'Aid type' %}</span>
-                        {% for aid_type in initiative.aid_types|unique %}{% if aid_type %}
-                        <a href="{% url 'codelists:aid_type-detail' code=aid_type.code %}" class="eleven">{{ aid_type.name }}</a>{% if not forloop.last %}, {% endif %}
-                        {% endif %}{% endfor %}
-          </div>
-          <div class="col-md-3">
-            <span class="eleven light-gray block">{% trans 'Channels' %}</span>
-                        {% for channel in initiative.channels|unique %}{% if channel %}
-                        <a href="{% url 'codelists:channel-detail' code=channel.code %}" class="eleven">{{ channel.name }}</a>{% if not forloop.last %}, {% endif %}
-                        {% endif %}{% endfor %}
-          </div>
-        </div>
-      </div>
-
-      {% with problems=initiative.problems reports=initiative.reports %}{% if problems|length > 0 or reports|length > 0 %}
-      <div class="row">
-        {% if problems|length > 0 %}
-        <div class="{% if reports|length > 0 %}col-md-6{% else %}col-md-12{% endif %}">
-          <h3>{% trans "Problems" %}</h3>
-          <ul class="list-unstyled simple-menu">
-            {% for problem in initiative.problems %}
-            <li>
-              <h4>{{ problem.event }}</h4>
-              <p>{{ problem.impact }}</p>
-              {% if problem.actions %}
-              <h4 class="light-gray">{% trans 'Actions taken' %}</h4>
-              <strong>{{ problem.actions }}</strong>
-              {% endif %}
-            </li>
-            {% endfor %}
-          </ul>
-        </div>
-        {% endif %}
-        {% if reports|length > 0 %}
-        <div class="{% if problems|length > 0 %}col-md-6{% else %}col-md-12{% endif %}">
-          <h3>{% trans "Procurements" %}</h3>
-          <ul class="list-unstyled simple-menu">
-            {% for report in initiative.reports %}
-            <li>
-              <div class="pull-right"><span class="label" style="background-color: #2b6a7c;">{{ report.status }}</span></div>
-              <h4>{{ report.awarding_entity }}</h4>
-              <p>{{ report.description }}</p>
-
-              <div class="row">
-                <div class="col-md-6">
-                  <h5 class="light-gray">{% trans 'Type' %}</h5>
-                  <strong>{{ report.get_type_display }}</strong>
-                </div>
-                <div class="col-md-6">
-                  <h5 class="light-gray">{% trans 'Procedure' %}</h5>
-                  <strong>{{ report.get_procurement_procedure_display }}</strong>
-                </div>
-              </div>
-            </li>
-            {% endfor %}
-          </ul>
-        </div>
-        {% endif %}
-      </div>
-    {% endif %}{% endwith %}
-
-
-      {% with photo_set=initiative.photos %}{% if photo_set|length > 0 %}
-        <h2>{% trans 'Photo gallery' %}</h2>
-        <ul class="gallery">
-          {% for photo in photo_set %}
-            <li><img src="{{ photo.file.url }}"></li>
-          {% endfor %}
-        </ul>
-      {% endif %}{% endwith %}
-
-    </div>
-  </div><!-- .row -->
+{#  <div class="row">#}
+{#    <div class="col-md-4 col-sm-6 col-xs-6">#}
+{#      <div class="small-map"><div id="map" data-chart="map" style="height: 260px;" data-iso-code="{% for recipient in initiative.recipients|unique %}{{ recipient.iso_code }}{% if not forloop.last %},{% endif %}{% endfor %}"></div></div>#}
+{#      <br/>#}
+{#      {% with locations=initiative.locations %}{% if locations|length > 0 %}#}
+{#      <p><strong>{% trans 'Location' %}:</strong>#}
+{#      {% for loc in locations|unique %}{{ loc }} {% if not forloop.last %}, {% endif %}{% endfor %}#}
+{#      </p>#}
+{#      {% endif %}{% endwith %}#}
+{##}
+{#      <h4>{% trans 'Initiative data' %}</h4>#}
+{#      <dl class="dl-horizontal">#}
+{#        <dt>{% trans 'CRSID' %}</dt><dd>{{ initiative.crsid }}</dd>#}
+{#      </dl><dl class="dl-horizontal">#}
+{#        <dt>{% trans 'Purpose' %}</dt><dd>{{ initiative.purpose.name }}</dd>#}
+{#      </dl><dl class="dl-horizontal">#}
+{#        <dt>{% trans 'Finance type' %}</dt><dd>{{ initiative.finance_type.name }}</dd>#}
+{#      </dl><dl class="dl-horizontal">#}
+{#        <dt>{% trans 'Flow type' %}</dt><dd>{{ initiative.flow_type }}</dd>#}
+{#      </dl><dl class="dl-horizontal">#}
+{#        <dt>{% trans 'Bi/Multilateral' %}</dt><dd>{{ initiative.bi_multi }}</dd>#}
+{#      </dl>#}
+{#      <ul class="list-unstyled simple-menu">#}
+{#        {% if initiative.is_ftc %}<li>{% trans 'Free Standing Technical Cooperation' %}</li>{% endif %}#}
+{#        {% if initiative.is_pba %}<li>{% trans 'Programme Based Approaches' %}</li>{% endif %}#}
+{#        {% if initiative.is_investment %}<li>{% trans 'Investment Project' %}</li>{% endif %}#}
+{#      </ul>#}
+{##}
+{#      {% with documents=initiative.documents %}{% if documents|length > 0 %}#}
+{#      <h2>{% trans 'Documents' %}</h2>#}
+{#      <ul class="list-unstyled simple-menu" style="height: auto;">#}
+{#        {% for document in documents %}#}
+{#          <li><a href="{% if document.file %}{{ document.file.url }}{% else %}{{ document.source_url|default:'#' }}{% endif %}">{% icon 'download' %} {{ document.name }}</a>#}
+{#          <p class="small-paragraph">{{ document.description }}</p>#}
+{#          <h5>{{ document.date|date:"r" }}</h5>#}
+{#          </li>#}
+{#        {% endfor %}#}
+{#      </ul>#}
+{#      {% endif %}{% endwith %}#}
+{#    </div>#}
+{##}
+{#    <div class="col-md-8 col-sm-6 col-xs-6">#}
+{#      <div class="spacer"></div>#}
+{#      <div class="focus">#}
+{#        {% with description=initiative.description %}{% if description %}#}
+{#        <div class="project-description">#}
+{#          <p class="readmore" data-max-height="90">#}
+{#            {{ initiative.description|safe }}#}
+{#            <a href="#" class="readmore-open">{% trans 'read more' %} {% icon 'caret-down' %}</a>#}
+{#            <a href="#" class="readmore-close">{% trans 'close' %} {% icon 'caret-up' %}</a>#}
+{#          </p>#}
+{#        </div>#}
+{#        {% endif %}{% endwith %}#}
+{##}
+{#      </div>#}
+{##}
+{#      {% with is_suspended=initiative.is_suspended status=initiative.status %}{% if is_suspended or status %}#}
+{#      <div class="focus">#}
+{#        {% if is_suspended %}#}
+{#            <div class="pull-right">{% icon 'exclamation-circle' %} {% trans 'Suspended intervention' %}</div>#}
+{#        {% endif %}#}
+{#        <div>STATUS#}
+{#          <div class="progress" style="width: 200px; display: inline-block; margin-bottom: 0; height: 14px; margin-top:4px; ">#}
+{#            <div class="progress-bar" role="progressbar" aria-valuenow="{{ status }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ status }}%;">#}
+{#              <span class="sr-only">{{ status }} {% trans 'Complete' %}</span>#}
+{#            </div>#}
+{#          </div>#}
+{#          {{ initiative.status }}%#}
+{#        </div>#}
+{#      </div>#}
+{#      {% endif %}{% endwith %}#}
+{##}
+{#      <div class="focus">#}
+{#        <div class="row">#}
+{#          <div class="col-md-4">#}
+{#            <h4>{% trans 'Agency' %}</h4>{{ initiative.agency.name }}#}
+{#          </div>#}
+{#          <div class="col-md-4">#}
+{#            <h4>{% trans 'Representative' %}</h4><small class="text-muted">{{ initiative.email|default:'-' }}</small>#}
+{#          </div>#}
+{#          <div class="col-md-4">#}
+{#            <h4>{% trans 'Counterpart authority' %}</h4>{{ initiative.counterpart_authority|default:'-' }}#}
+{#          </div>{% if initiative.other_financiers %}#}
+{#          <div class="col-md-12">#}
+{#            <h4>{% trans 'Other financiers' %}</h4>#}
+{#            {{ initiative.other_financiers|default:'-' }}#}
+{#          </div>{% endif %}#}
+{#        </div>#}
+{#      </div>#}
+{##}
+{#       {% with years=initiative.years_range %}{% if years %}#}
+{#      <div class="focus">#}
+{#        <h4>{% trans 'Start date' %}: {{ years|first }}{% if years|length > 1 %}#}
+{#          {% trans 'End date' %}: {{ years|last }}{% endif %}</h4>#}
+{#      </div>#}
+{#      {% endif %}{% endwith %}#}
+{##}
+{#      {% if initiative.outcome %}#}
+{#      <div class="focus">#}
+{#        <h4>{% trans 'Main outcome' %}</h4>#}
+{#        <p>{{ initiative.outcome|safe }}</p>#}
+{#      </div>#}
+{#      {% endif %}#}
+{##}
+{#      <div class="focus">#}
+{##}
+{#        <div class="row">#}
+{#          <div class="col-md-6">#}
+{#            {% with total_project_costs=initiative.total_project_costs loan_amount_approved=initiative.loan_amount_approved grant_amount_approved=initiative.grant_amount_approved %}{% if total_project_costs or loan_amount_approved or grant_amount_approved %}#}
+{#              <h3>{% trans 'Total initiative costs' %}</h3>#}
+{#              <div style="color:#f7505a; text-transform: uppercase;"><span style="font-size: 2.1em; font-weight: bold;">€ {{ total_project_costs|intcomma }}</span> suddivisi in</div>#}
+{#              <div class="row">#}
+{#                <div class="col-md-6">#}
+{#                  <div class="list-group">#}
+{#                    <p class="list-group-item" style="color:#2b6a7c; border-color:#2b6a7c; padding: 4px 8px;">#}
+{#                      {% if initiative.loan_amount_approved %}#}
+{#                      <strong>€ {{ initiative.loan_amount_approved|intcomma }}</strong>{% else %}-{% endif %}#}
+{#                      <br/><span style="font-size: 0.8em">{% trans 'Loans' %}</span>#}
+{#                    </p>#}
+{#                  </div>#}
+{#                </div>#}
+{#                <div class="col-md-6">#}
+{#                  <div class="list-group">#}
+{#                    <p class="list-group-item" style="color:#2b6a7c; border-color:#2b6a7c; padding: 4px 8px;">#}
+{#                      {% if initiative.grant_amount_approved %}#}
+{#                      <strong>€ {{ initiative.grant_amount_approved|intcomma }}</strong>{% else %}-{% endif %}#}
+{#                      <br/><span style="font-size: 0.8em">{% trans 'Grants' %}</span>#}
+{#                    </p>#}
+{#                  </div>#}
+{#                </div>#}
+{#              </div>#}
+{#              {% endif %}{% endwith %}#}
+{#          </div>#}
+{#          <div class="col-md-6">#}
+{#            <h3>{% trans 'Initiative projects' %}</h3>#}
+{#            <ul class="list-unstyled simple-menu">#}
+{#              {% for project in projects %}#}
+{#              <li><a href="{{ project.get_absolute_url }}">{{ project.title }}</a></li>#}
+{#              {% endfor %}#}
+{#            </ul>#}
+{#          </div>#}
+{#        </div>#}
+{#      </div><!-- .focus -->#}
+{##}
+{#      {% with beneficiaries=initiative.beneficiaries beneficiaries_female=initiative.beneficiaries_female %}{% if beneficiaries or beneficiaries_female %}#}
+{#      <div class="focus">#}
+{#        <h4>{% trans 'Beneficiaries' %}</h4>#}
+{#        {% if beneficiaries %}<p>{{ beneficiaries }}</p>{% endif %}#}
+{#        {% if beneficiaries_female %}<strong>#}
+{#          {% blocktrans %}Beneficiaries of which females {{ beneficiaries_female }}%{% endblocktrans %}</strong>{% endif %}#}
+{#      </div>{% endif %}{% endwith %}#}
+{##}
+{#      <div class="focus">#}
+{#        <div class="row">#}
+{#          <div class="col-md-5">#}
+{#            <ul class="nav nav-pills" style="border: 0;">#}
+{#                {% for sector in initiative.sectors|unique %}#}
+{#                <li>#}
+{#                    <a href="{% url 'codelists:sector-detail' code=sector.get_root.code %}">{% icon 'chevron-right' %}{{ sector.get_root.name }}</a>#}
+{#                </li>#}
+{#                {% endfor %}#}
+{#            </ul>#}
+{#          </div>#}
+{#          <div class="col-md-4">#}
+{#            <span class="eleven light-gray block">{% trans 'Aid type' %}</span>#}
+{#                        {% for aid_type in initiative.aid_types|unique %}{% if aid_type %}#}
+{#                        <a href="{% url 'codelists:aid_type-detail' code=aid_type.code %}" class="eleven">{{ aid_type.name }}</a>{% if not forloop.last %}, {% endif %}#}
+{#                        {% endif %}{% endfor %}#}
+{#          </div>#}
+{#          <div class="col-md-3">#}
+{#            <span class="eleven light-gray block">{% trans 'Channels' %}</span>#}
+{#                        {% for channel in initiative.channels|unique %}{% if channel %}#}
+{#                        <a href="{% url 'codelists:channel-detail' code=channel.code %}" class="eleven">{{ channel.name }}</a>{% if not forloop.last %}, {% endif %}#}
+{#                        {% endif %}{% endfor %}#}
+{#          </div>#}
+{#        </div>#}
+{#      </div>#}
+{##}
+{#      {% with problems=initiative.problems reports=initiative.reports %}{% if problems|length > 0 or reports|length > 0 %}#}
+{#      <div class="row">#}
+{#        {% if problems|length > 0 %}#}
+{#        <div class="{% if reports|length > 0 %}col-md-6{% else %}col-md-12{% endif %}">#}
+{#          <h3>{% trans "Problems" %}</h3>#}
+{#          <ul class="list-unstyled simple-menu">#}
+{#            {% for problem in initiative.problems %}#}
+{#            <li>#}
+{#              <h4>{{ problem.event }}</h4>#}
+{#              <p>{{ problem.impact }}</p>#}
+{#              {% if problem.actions %}#}
+{#              <h4 class="light-gray">{% trans 'Actions taken' %}</h4>#}
+{#              <strong>{{ problem.actions }}</strong>#}
+{#              {% endif %}#}
+{#            </li>#}
+{#            {% endfor %}#}
+{#          </ul>#}
+{#        </div>#}
+{#        {% endif %}#}
+{#        {% if reports|length > 0 %}#}
+{#        <div class="{% if problems|length > 0 %}col-md-6{% else %}col-md-12{% endif %}">#}
+{#          <h3>{% trans "Procurements" %}</h3>#}
+{#          <ul class="list-unstyled simple-menu">#}
+{#            {% for report in initiative.reports %}#}
+{#            <li>#}
+{#              <div class="pull-right"><span class="label" style="background-color: #2b6a7c;">{{ report.status }}</span></div>#}
+{#              <h4>{{ report.awarding_entity }}</h4>#}
+{#              <p>{{ report.description }}</p>#}
+{##}
+{#              <div class="row">#}
+{#                <div class="col-md-6">#}
+{#                  <h5 class="light-gray">{% trans 'Type' %}</h5>#}
+{#                  <strong>{{ report.get_type_display }}</strong>#}
+{#                </div>#}
+{#                <div class="col-md-6">#}
+{#                  <h5 class="light-gray">{% trans 'Procedure' %}</h5>#}
+{#                  <strong>{{ report.get_procurement_procedure_display }}</strong>#}
+{#                </div>#}
+{#              </div>#}
+{#            </li>#}
+{#            {% endfor %}#}
+{#          </ul>#}
+{#        </div>#}
+{#        {% endif %}#}
+{#      </div>#}
+{#    {% endif %}{% endwith %}#}
+{##}
+{##}
+{#      {% with photo_set=initiative.photos %}{% if photo_set|length > 0 %}#}
+{#        <h2>{% trans 'Photo gallery' %}</h2>#}
+{#        <ul class="gallery">#}
+{#          {% for photo in photo_set %}#}
+{#            <li><img src="{{ photo.file.url }}"></li>#}
+{#          {% endfor %}#}
+{#        </ul>#}
+{#      {% endif %}{% endwith %}#}
+{##}
+{#    </div>#}
+{#  </div><!-- .row -->#}
 
 {% endblock content %}
