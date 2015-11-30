@@ -54,7 +54,7 @@
             <div class="small-spacer"></div>
 
             {# status box #}
-            {% with is_suspended=initiative.is_suspended status=initiative.status %}
+            {% with is_suspended=initiative.is_suspended status=initiative.status_temp %}
                 {% if is_suspended or status %}
                     <div class="progress-special">
                         <h3>
@@ -63,15 +63,17 @@
                         {% if is_suspended %}
                             <div class="pull-left">{% icon 'exclamation-circle' %} {% trans 'Suspended intervention' %}</div>
                         {% else %}
-                            <div class="progress">
-                                <div class="progress-bar" role="progressbar" aria-valuenow="{{ status }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ status }}%;">
-                                    <span class="sr-only">{{ status }} {% trans 'Complete' %}</span>
+                            {% if status == '-' %}
+                                <div class="pull-left">{% trans 'Not available' %}</div>
+                            {% else%}
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="{{ status }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ status }}%;">
+                                        <span class="sr-only">{{ status }} {% trans 'Complete' %}</span>
+                                    </div>
                                 </div>
-                            </div>
-                            <strong>{{ status }}%</strong>
+                                <strong>{{ status }}%</strong>
+                            {% endif %}
                         {% endif %}
-
-
                     </div>
                 {% endif %}
             {% endwith %}
@@ -100,16 +102,18 @@
             <div class="small-spacer"></div>
             {% if initiative.photos|length > 0 %}
                 <h3>{% trans 'Photo gallery' %}</h3>
-                {% for photo in initiative.photos %}
-                    <img src="{{ photo.file.url }}" alt="" width="82" height="84">
-                {% endfor %}
+                <ul class="gallery">
+                    {% for photo in initiative.photos %}
+                        <li><img src="{{ photo.file.url }}" alt="" width="82" height="84"></li>
+                    {% endfor %}
+                </ul>
                 <div class="spacer"></div>
             {% endif %}
 
         </div> <!-- /sidebar -->
 
         <!-- MAIN-->
-        <div class="col-md-8 col-sm-12 col-xs-12 col-md-pull-4">
+        <div class="col-md-8 col-sm-12 col-xs-12 col-md-pull-4" id="initiative-tabs">
             <ul id="tabs" class="nav nav-tabs nav-tabs-special nav-tabs-equal-lg-5" data-tabs="tabs">
                 <li class="active"><a href="#tab-descrizione" data-toggle="tab">{% trans "Description" %}</a></li>
                 <li><a href="#tab-progetti" data-toggle="tab">{% trans "Projects" %}</a></li>
@@ -155,30 +159,31 @@
                                     <div class="table-responsive table-special">
                                         <table class="table table-condensed">
                                             <tbody>
-                                            <tr>
-                                                <th scope="row">{% trans 'CRSID' %}</th>
-                                                <td>{{ initiative.crsid|default:"-" }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">{% trans 'Purpose' %}</th>
-                                                <td>{{ initiative.purpose.name|default:"-" }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">{% trans 'Finance type' %}</th>
-                                                <td>{{ initiative.finance_type.name|default:"-" }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">{% trans 'Flow type' %}</th>
-                                                <td>{{ initiative.flow_type|default:"-" }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">{% trans 'Bi/Multilateral' %}</th>
-                                                <td>{{ initiative.bi_multi|default:"-" }}</td>
-                                            </tr>
+                                                <tr>
+                                                    <th scope="row">{% trans 'Initiative number' %}</th>
+                                                    <td>{{ initiative.code|default:"-" }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">{% trans 'Purpose' %}</th>
+                                                    <td>
+                                                        {{ initiative.purpose_temp.name|default:"-" }}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">{% trans 'Sector' %}</th>
+                                                    <td>
+                                                        {% if initiative.purpose_temp %}
+                                                            {% if initiative.purpose_temp.parent %}
+                                                                {{ initiative.purpose_temp.parent.name|default:"-" }}
+                                                            {% endif %}
+                                                        {% else %}
+                                                            -
+                                                        {% endif %}
+                                                    </td>
+                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>
-
                                 </div>
                             </div>
 
@@ -361,15 +366,9 @@
                                 -
                             {% endif %}
                         </div>
-
                     </div> <!-- /tab-content -->
-
                 </div> <!-- /panel-body -->
-
             </div> <!-- /panel -->
-
         </div> <!-- /main -->
-
     </div>
-
 {% endblock content %}
