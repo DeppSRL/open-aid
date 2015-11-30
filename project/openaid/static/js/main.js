@@ -197,7 +197,7 @@ $(document).ready(function(){
     });
 
     // photo gallery
-    $('.gallery li img').on('click',function(){
+    $('ul.gallery li img').on('click',function(){
         var src = $(this).attr('src');
         var img = '<img src="' + src + '" class="img-responsive"/>';
 
