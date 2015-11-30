@@ -13,14 +13,12 @@
     <div class="panel panel-default{% if not selected_facet %} stats-home{% endif %}">
 
         {% if selected_facet %}
-        <div class="panel-heading">
-            {% include 'commons/aid_tabs.html' %}
-        </div>
-        {% endif %}
-
-        {% if selected_facet %}
+            <div class="panel-heading">
+                {% include 'commons/aid_tabs.html' %}
+            </div>
             {% include 'commons/stats.html' %}
         {% else %}
+
         <!-- Tab panes -->
         <div class="tab-content panel-body">
             <div class="tab-pane active" id="bi-multi-tab">
