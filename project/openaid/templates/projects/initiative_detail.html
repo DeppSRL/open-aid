@@ -5,7 +5,7 @@
 {% load staticfiles %}
 {% load humanize %}
 
-{% block page_title %}OpenAID - {{ object.title|truncatechars:10 }} - {{ object.recipient.name }}{% endblock %}
+{% block page_title %}OpenAID - {{ object.title|truncatechars:10 }} - {{ object.recipient_temp.name }}{% endblock %}
 {% block og_title %}OpenAID - {{ object.title }}{% endblock %}
 
 
@@ -15,10 +15,11 @@
         <header class="col-md-12">
             <h2 class="page-title" id="initiative-{{ initiative.pk }}">{{ initiative.title }}</h2>
             <h3 class="sub-title">
-                {% for recipient in initiative.recipients %}
-                  <a href="{% url 'codelists:recipient-detail' code=recipient.code %}">{{ recipient.name }}</a>
-                  {% if not forloop.last %}&middot;{% endif %}
-                {% endfor %}
+                {% if initiative.recipient_temp %}
+                    <a href="{% url 'codelists:recipient-detail' code=initiative.recipient_temp.code %}">{{ initiative.recipient_temp.name }}</a>
+                {% else %}
+                    -
+                {% endif %}
             </h3>
         </header>
     </div>
@@ -54,7 +55,7 @@
             <div class="small-spacer"></div>
 
             {# status box #}
-            {% with is_suspended=initiative.is_suspended status=initiative.status_temp %}
+            {% with is_suspended=initiative.is_suspended_temp status=initiative.status_temp %}
                 {% if is_suspended or status %}
                     <div class="progress-special">
                         <h3>
@@ -80,23 +81,24 @@
 
             <div class="small-spacer"> </div>
             {#   map box #}
-            {% for recipient in initiative.recipients %}
-                <h3>{{ recipient.name }}</h3><br/>
-            {% endfor %}
+            {% if initiative.recipient_temp %}
+                <h3>
+                    {{ initiative.recipient_temp.name }}
+                </h3><br/>
+            {% endif %}
             <div class="row">
                 <div class="col-md-12 col-sm-6 col-xs-12">
-                    <div id="map" data-chart="map" style="height: 160px;" data-iso-code="{% for recipient in initiative.recipients|unique %}{{ recipient.iso_code }}{% if not forloop.last %},{% endif %}{% endfor %}"></div>
+                    <div id="map" data-chart="map" style="height: 160px;" data-iso-code="{{ initiative.recipient_temp.iso_code|default_if_none:"" }}"></div>
                 </div>
-                {% with locations=initiative.locations %}
-                    {% if locations|length > 0 %}
-                        <div class="col-md-12 col-sm-6 col-xs-12">
-                            <h5>{% trans 'Location' %}</h5>
-                            <p>
-                                {% for loc in locations|unique %}{{ loc }} {% if not forloop.last %}, {% endif %}{% endfor %}
-                            </p>
-                        </div>
-                    {% endif %}
-                {% endwith %}
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 col-sm-6 col-xs-12">
+                    <h5>{% trans 'Location' %}</h5>
+                    <p>
+                        {{ initiative.location_temp|default:"-" }}
+                    </p>
+                </div>
             </div>
 
             <div class="small-spacer"></div>
@@ -127,7 +129,7 @@
 
                         <!--DESCRIZIONE-->
                         <div class="tab-pane active" id="tab-descrizione">
-                            {% with description=initiative.description %}
+                            {% with description=initiative.description_temp %}
                                 {% if description %}
                                     <div class="project-description">
                                         <p class="readmore" data-max-height="90">
@@ -145,8 +147,8 @@
                                 <div class="col-md-5">
                                     <h3>{% trans 'Main outcome' %}</h3>
                                     <p>
-                                        {% if initiative.outcome %}
-                                            {{ initiative.outcome|safe }}
+                                        {% if initiative.outcome_temp %}
+                                            {{ initiative.outcome_temp|safe }}
                                         {% else %}
                                             -
                                         {% endif %}
@@ -199,8 +201,8 @@
                                         <tr>
                                             <th scope="row">{% trans 'Counterpart authority' %}</th>
                                             <td>
-                                                {% if initiative.counterpart_authority %}
-                                                    {{ initiative.counterpart_authority }}
+                                                {% if initiative.counterpart_authority_temp %}
+                                                    {{ initiative.counterpart_authority_temp }}
                                                 {% else %}
                                                     <small class="text-muted">-</small>
                                                 {% endif %}
@@ -209,8 +211,8 @@
                                         <tr>
                                             <th scope="row">{% trans 'Representative' %}</th>
                                             <td>
-                                                {% if initiative.email %}
-                                                    {{ initiative.email|default:'-' }}
+                                                {% if initiative.email_temp %}
+                                                    {{ initiative.email_temp|default:'-' }}
                                                 {% else %}
                                                     <small class="text-muted">-</small>
                                                 {% endif %}
@@ -219,8 +221,8 @@
                                         <tr>
                                             <th scope="row">{% trans 'Other financiers' %}</th>
                                             <td>
-                                                {% if initiative.other_financiers %}
-                                                    {{ initiative.other_financiers }}
+                                                {% if initiative.other_financiers_temp %}
+                                                    {{ initiative.other_financiers_temp }}
                                                 {% else %}
                                                     <small class="text-muted">-</small>
                                                 {% endif %}
@@ -232,7 +234,7 @@
                             </div>
 
                             <div class="small-spacer"></div>
-                            {% with beneficiaries=initiative.beneficiaries beneficiaries_female=initiative.beneficiaries_female %}
+                            {% with beneficiaries=initiative.beneficiaries_temp beneficiaries_female=initiative.beneficiaries_female_temp %}
                                 {% if beneficiaries or beneficiaries_female %}
                                     <h3>{% trans 'Beneficiaries' %}</h3>
                                     {% if beneficiaries %}
