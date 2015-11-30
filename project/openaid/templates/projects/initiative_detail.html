@@ -102,9 +102,11 @@
             <div class="small-spacer"></div>
             {% if initiative.photos|length > 0 %}
                 <h3>{% trans 'Photo gallery' %}</h3>
-                {% for photo in initiative.photos %}
-                    <img src="{{ photo.file.url }}" alt="" width="82" height="84">
-                {% endfor %}
+                <ul class="gallery">
+                    {% for photo in initiative.photos %}
+                        <li><img src="{{ photo.file.url }}" alt="" width="82" height="84"></li>
+                    {% endfor %}
+                </ul>
                 <div class="spacer"></div>
             {% endif %}
 
