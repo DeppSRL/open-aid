@@ -155,30 +155,31 @@
                                     <div class="table-responsive table-special">
                                         <table class="table table-condensed">
                                             <tbody>
-                                            <tr>
-                                                <th scope="row">{% trans 'CRSID' %}</th>
-                                                <td>{{ initiative.crsid|default:"-" }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">{% trans 'Purpose' %}</th>
-                                                <td>{{ initiative.purpose.name|default:"-" }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">{% trans 'Finance type' %}</th>
-                                                <td>{{ initiative.finance_type.name|default:"-" }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">{% trans 'Flow type' %}</th>
-                                                <td>{{ initiative.flow_type|default:"-" }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">{% trans 'Bi/Multilateral' %}</th>
-                                                <td>{{ initiative.bi_multi|default:"-" }}</td>
-                                            </tr>
+                                                <tr>
+                                                    <th scope="row">{% trans 'Initiative number' %}</th>
+                                                    <td>{{ initiative.code|default:"-" }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">{% trans 'Purpose' %}</th>
+                                                    <td>
+                                                        {{ initiative.purpose_temp.name|default:"-" }}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">{% trans 'Sector' %}</th>
+                                                    <td>
+                                                        {% if initiative.purpose_temp %}
+                                                            {% if initiative.purpose_temp.parent %}
+                                                                {{ initiative.purpose_temp.parent.name|default:"-" }}
+                                                            {% endif %}
+                                                        {% else %}
+                                                            -
+                                                        {% endif %}
+                                                    </td>
+                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>
-
                                 </div>
                             </div>
 
