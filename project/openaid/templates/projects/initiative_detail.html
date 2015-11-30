@@ -54,7 +54,7 @@
             <div class="small-spacer"></div>
 
             {# status box #}
-            {% with is_suspended=initiative.is_suspended status=initiative.status %}
+            {% with is_suspended=initiative.is_suspended status=initiative.status_temp %}
                 {% if is_suspended or status %}
                     <div class="progress-special">
                         <h3>
@@ -63,15 +63,17 @@
                         {% if is_suspended %}
                             <div class="pull-left">{% icon 'exclamation-circle' %} {% trans 'Suspended intervention' %}</div>
                         {% else %}
-                            <div class="progress">
-                                <div class="progress-bar" role="progressbar" aria-valuenow="{{ status }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ status }}%;">
-                                    <span class="sr-only">{{ status }} {% trans 'Complete' %}</span>
+                            {% if status == '-' %}
+                                <div class="pull-left">{% trans 'Not available' %}</div>
+                            {% else%}
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="{{ status }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ status }}%;">
+                                        <span class="sr-only">{{ status }} {% trans 'Complete' %}</span>
+                                    </div>
                                 </div>
-                            </div>
-                            <strong>{{ status }}%</strong>
+                                <strong>{{ status }}%</strong>
+                            {% endif %}
                         {% endif %}
-
-
                     </div>
                 {% endif %}
             {% endwith %}
