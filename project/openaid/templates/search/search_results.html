@@ -10,6 +10,7 @@
 {% block og_title %}OpenAID - {% trans "Search" %}{% endblock %}
 
 {% block header %}
+    {{ block.super }}
     {% if search_facets %}
     <div class="container">
         <div id="main-title">
