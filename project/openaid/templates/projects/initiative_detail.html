@@ -39,7 +39,6 @@
                     <h3>{% trans 'Total initiative costs' %}</h3>
                     <div class="total-prj-cost">€&nbsp;{{ total_project_costs|intcomma }}</div>
                     <div class="plain-list-special">
-                        {#     todo: tradurre suddivisi in #}
                         {% trans 'Reparted as' %}
                         <ul>
                             <li><i class="fa fa-circle"></i> {% trans 'Loans' %} <strong>{% if initiative.loan_amount_approved %}€&nbsp;{{ initiative.loan_amount_approved|intcomma }}{% else %}-{% endif %}</strong></li>
