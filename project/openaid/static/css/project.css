@@ -319,3 +319,7 @@ ul.gallery-small li {
 #main-content .bordered-radius.top_elements .table-special .table > tbody > tr > th {
     padding-left: 8px;
 }
+
+#main-content .table-special .table > thead > tr > th {
+    text-align: left;
+}
