@@ -30,7 +30,7 @@ class Home(MapFiltersContextMixin, TemplateView):
         return super(Home, self).get_context_data(
             entries_list=Entry.objects.all().order_by('-published_at')[:1],
             top_initiatives=top_initiatives[:settings.TOP_ELEMENTS_NUMBER],
-            top_initiatives_count=len(top_initiatives)
+            top_initiatives_count=len(top_initiatives),
             **kwargs
         )
 
