@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-01 11:40+0100\n"
+"POT-Creation-Date: 2015-12-01 12:49+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -739,11 +739,6 @@ msgstr "Aiuto pubblico Multilaterale"
 msgid "Official Development Assistance (ODA) - total"
 msgstr "Totale dell'aiuto pubblico allo sviluppo (APS)"
 
-#: templates/commons/initiative_element.html:40
-#: templates/commons/project_element.html:29
-msgid "Aid types"
-msgstr "Tipologie di aiuti"
-
 #: templates/commons/main_panel.html:36
 msgid "Committed funds, amounts in euros."
 msgstr "Fondi impegnati, valori in euro"
@@ -767,6 +762,10 @@ msgstr "Impegnati"
 #: templates/projects/project_detail.html:114
 msgid "Used"
 msgstr "Erogati"
+
+#: templates/commons/project_element.html:29
+msgid "Aid types"
+msgstr "Tipologie di aiuti"
 
 #: templates/commons/project_element.html:35
 #: templates/projects/newproject_detail.html:79
