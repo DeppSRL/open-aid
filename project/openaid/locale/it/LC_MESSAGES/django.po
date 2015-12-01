@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-30 19:20+0100\n"
+"POT-Creation-Date: 2015-12-01 11:40+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -622,12 +622,12 @@ msgstr ""
 msgid "Please correct the errors below."
 msgstr ""
 
-#: templates/codelists/base_codelist.html:22
+#: templates/codelists/base_codelist.html:19
 #: templates/projects/project_detail.html:15
 msgid "Download JSON"
 msgstr "Scarica i dati in JSON"
 
-#: templates/codelists/base_codelist.html:28
+#: templates/codelists/base_codelist.html:24
 msgid "Show all projects"
 msgstr "Mostra tutti i progetti"
 
@@ -868,18 +868,24 @@ msgstr ""
 "agevolate (soft loan). "
 
 #: templates/commons/top_initiatives.html:6
-#: templates/commons/top_projects.html:6
-msgid "Most important activities"
-msgstr "Le iniziative più rilevanti"
+msgid "Top thirty initiatives in progress with most funding"
+msgstr "Le trenta iniziative in corso con maggiori finanziamenti"
 
-#: templates/commons/top_initiatives.html:20
-#: templates/commons/top_projects.html:16
-msgid "see all"
-msgstr "vedi tutte"
+#: templates/commons/top_initiatives.html:8
+msgid "All initiatives in progress"
+msgstr "Tutte le iniziative in corso"
 
 #: templates/commons/top_projects.html:6
 msgid "Similar initiatives"
 msgstr "Iniziative correlate"
+
+#: templates/commons/top_projects.html:6
+msgid "Most important activities"
+msgstr "Le iniziative più rilevanti"
+
+#: templates/commons/top_projects.html:16
+msgid "see all"
+msgstr "vedi tutte"
 
 #: templates/commons/years_bar.html:3
 msgid "Aid in numbers"
@@ -920,7 +926,7 @@ msgstr "Completato"
 
 #: templates/projects/initiative_detail.html:105
 #: templates/projects/newproject_detail.html:143
-#: templates/projects/project_detail.html:188
+#: templates/projects/project_detail.html:174
 msgid "Photo gallery"
 msgstr "Galleria foto"
 

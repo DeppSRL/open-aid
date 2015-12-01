@@ -159,13 +159,6 @@
                 {% if project.is_investment %}<li>{% trans 'Investment Project' %}</li>{% endif %}
 
             </ul>
-{#            <span class="eleven light-gray block">#}
-{#                {% if project.start_year == project.end_year %}#}
-{#                PROGETTO INIZIATO E FINITO NEL {{ project.end_year }}.#}
-{#                {% else %}#}
-{#                PROGETTO INIZIATO NEL {{ project.start_year }}, CONCLUSO NEL {{ project.end_year }}#}
-{#                {% endif %}#}
-{#            </span>#}
             <div class="small-spacer"> </div>
 
         </div>
@@ -174,13 +167,6 @@
 
     <div class="row">
         <div class="col-md-4">
-{#            <h2>{% trans 'Documents' %}</h2>#}
-{#            <ul class="list-unstyled simple-menu" style="height: auto;">#}
-                {# MOCKUP #}
-{#                {% for i in '123' %}#}
-{#                <li><a href="#">{% icon 'download' %} Allegato {{ i }}</a></li>#}
-{#                {% endfor %}#}
-{#            </ul>#}
         </div>
 
         <div class="col-md-8">
@@ -194,12 +180,5 @@
             {% endif %}{% endwith %}
         </div>
      </div><!-- .row -->
-
-{# TODO: add an algorithm to retrieve related projects #}
-{#    <div class="row">#}
-{#        <div class="col-md-12">#}
-{#            {% include 'commons/top_projects.html' with project=project top_projects=project.related_projects %}#}
-{#        </div>#}
-{#    </div>#}
 
 {% endblock content %}

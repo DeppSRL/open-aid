@@ -287,7 +287,7 @@ ul.gallery-small li {
 .dl-horizontal dd { color: #f7505a; font-size: 11px; font-weight: bold; text-align: right; margin-top: 5px; }
 .dl-horizontal ~ .simple-menu li { padding-left: 0; padding-right: 0; }
 
-/*fixes red hover on tables that makes links disappear */
+/*page initiative: fixes red hover on tables that makes links disappear */
 #main-content #initiative-tabs .table-special .table > tbody > tr:hover > th{
     background: white!important;
     color: #333333!important;
@@ -300,4 +300,22 @@ ul.gallery-small li {
     background: white!important;
     color: #f7505a;
     text-decoration: none;
+}
+
+/*top initiatives block: fixes red hover on tables that makes links disappear */
+#top_initiatives .table-special .table > tbody > tr:hover > th{
+    background: white!important;
+    color: #333333!important;
+}
+#top_initiatives .table-special .table > tbody > tr:hover > th a{
+    color: #2b6a7c;
+    text-decoration: underline;}
+
+#top_initiatives .table-special .table > tbody > tr:hover > td{
+    background: white!important;
+    color: #f7505a;
+    text-decoration: none;
+}
+#top_initiatives .table-special .table > tbody > tr > th {
+    padding-left: 8px;
 }

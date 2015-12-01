@@ -14,6 +14,11 @@ register = template.Library()
 def currency(amount):
     return intcomma(floatformat((amount or 0.0) * settings.OPENAID_MULTIPLIER, 0))
 
+@register.filter(is_safe=True)
+def currency_initiatives(amount):
+    return intcomma(floatformat((amount or 0.0) * 1, 0))
+
+
 @register.filter
 def unique(args):
     return set([a for a in args if a])

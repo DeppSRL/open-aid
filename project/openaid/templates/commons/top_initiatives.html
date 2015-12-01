@@ -1,22 +1,32 @@
-{% load i18n %}
-{% load icons %}
-{% load search_utils %}
-{% load listutil %}
+{% load i18n icons search_utils listutil crs %}
+
 <div class="progetti">
-    <h2>{% trans "Most important activities" %}</h2>
-    <div class="bordered-radius" style="overflow:hidden;">
-        <ul class="list-unstyled">
-            {% for row in top_initiatives|columns:2 %}
-            <li class="row">
-              {% for result in row %}
-              <div class="col-md-6">
-                {% include 'commons/initiative_element.html' with initiative=result %}
-              </div>
-              {% endfor %}
-            </li>
-            {% endfor %}
-        </ul>
-        <a href="{% if object %}{% search_url object.code_list_facet object.code %}{% else %}{% url 'projects:search' %}{% endif %}"
-           class="read-more pull-right pad">{% trans 'see all' %} {% icon 'align-justify' %}</a>
+    <h2>
+        {% if top_initiatives|length > 29 %}
+            {% trans "Top thirty initiatives in progress with most funding" %}
+        {% else %}
+            {% trans "All initiatives in progress" %}
+        {% endif %}
+    </h2>
+
+    <div class="bordered-radius" style="overflow:hidden;" id="top_initiatives">
+        <div class="table-responsive table-special">
+            <table class="table">
+                <tbody>
+                {% for initiative in top_initiatives %}
+                    <tr>
+                        <th scope="row">
+                            <a href="{{ initiative.get_absolute_url }}">
+                                {{ initiative.title|default:"initiative without name" }}
+                            </a>
+                        </th>
+                        <td>{% if initiative.recipient_temp %}{{ initiative.recipient_temp.name }}{% else %}<small class="text-muted">-</small>{% endif %}</td>
+                        <td>{% if initiative.total_project_costs %}&euro;&nbsp;{{ initiative.total_project_costs|currency_initiatives }}{% else %}<small class="text-muted">-</small>{% endif %}</td>
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
