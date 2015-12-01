@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-01 17:28+0100\n"
+"POT-Creation-Date: 2015-12-01 17:51+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -883,8 +883,8 @@ msgid "Recipient"
 msgstr "Destinatario"
 
 #: templates/commons/top_initiatives.html:20
-msgid "Total cost"
-msgstr "Costo totale"
+msgid "Total&nbsp;cost"
+msgstr "Costo&nbsp;totale"
 
 #: templates/commons/top_projects.html:5
 msgid "Most funded projects"
@@ -990,15 +990,15 @@ msgstr "Il %(beneficiaries_female)s%% dei beneficiari sono donne."
 msgid "Title"
 msgstr "Nessun titolo"
 
-#: templates/projects/initiative_detail.html:319
+#: templates/projects/initiative_detail.html:320
 msgid "Actions taken"
 msgstr "Azioni svolte"
 
-#: templates/projects/initiative_detail.html:350
+#: templates/projects/initiative_detail.html:352
 msgid "Type"
 msgstr "Tipo"
 
-#: templates/projects/initiative_detail.html:354
+#: templates/projects/initiative_detail.html:356
 msgid "Procedure"
 msgstr "Procedura"
 
