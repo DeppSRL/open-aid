@@ -173,7 +173,7 @@ class Project(CodelistsModel, MarkedModel):
             return None
 
     @classmethod
-    def get_top_projects(cls, qnt=3, order_by=None, year=None, **filters):
+    def get_top_projects(cls, qnt=settings.TOP_ELEMENTS_NUMBER, order_by=None, year=None, **filters):
         if year:
             filters['year'] = year
         projects = Activity.objects.filter(**filters).order_by('project').distinct('project').values('project',
@@ -184,9 +184,6 @@ class Project(CodelistsModel, MarkedModel):
 
         projects = sorted(projects, key=order_by or order_by_commitment)[:qnt]
         return cls.objects.filter(pk__in=map(lambda p: p.get('project'), projects))
-
-    def related_projects(self, qnt=3):
-        return Project.objects.all().order_by('?')[:qnt]
 
     def activities(self, year=None):
         if not getattr(self, '_activities', False):
@@ -656,7 +653,7 @@ class Initiative(models.Model):
     has_focus = models.BooleanField(_('Focus'), default=False)
 
     @classmethod
-    def get_top_initiatives(cls, qnt=6, year=None, **filters):
+    def get_top_initiatives(cls, year=None, **filters):
         # excludes from top initiatives those sectors that are for staff wages and other
         excluded_sectors = settings.OPENAID_INITIATIVE_PURPOSE_EXCLUDED
         if year:
@@ -669,19 +666,14 @@ class Initiative(models.Model):
             filter(**filters).\
             distinct()
 
-        top_initiatives_not_null = base_set.exclude(total_project_costs__isnull=True).order_by('-total_project_costs')
-        not_null_count = top_initiatives_not_null.count()
+        top_initiatives = list(base_set.exclude(total_project_costs__isnull=True).order_by('-total_project_costs'))
+        # adds up initiatives with NULL cost at the end of the list, if any
+        top_initiatives_null = base_set.exclude(total_project_costs__isnull=False).order_by('title')
 
-        # if there is not enough initiatives with total proj.cost NOT NULL, adds up initiatives with NULL cost
-        # at the end of the list
-        if not_null_count >= qnt:
-            return top_initiatives_not_null[:qnt]
-        else:
-            difference = qnt - not_null_count
-            top_initiatives_null = base_set.exclude(total_project_costs__isnull=False).order_by('title')
-            top_initiatives = list(top_initiatives_not_null[:])
-            top_initiatives.extend(list(top_initiatives_null[:difference]))
-            return top_initiatives
+        if top_initiatives_null.count()>0:
+            top_initiatives.extend(list(top_initiatives_null))
+
+        return top_initiatives
 
     @property
     def last_update(self):

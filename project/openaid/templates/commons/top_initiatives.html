@@ -3,7 +3,7 @@
 {% if top_initiatives|length > 0 %}
     <div class="progetti">
         <h2>
-            {% if top_initiatives|length > 29 %}
+            {% if top_initiatives_count > top_elements_number %}
                 {% trans "Top thirty initiatives in progress with most funding" %}
             {% else %}
                 {% trans "All initiatives in progress" %}

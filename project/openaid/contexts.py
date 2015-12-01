@@ -62,4 +62,5 @@ def project_context(request):
         'site_full_url': request.build_absolute_uri('/')[:-1],
         'page_full_url': request.build_absolute_uri(),
         'faq_list': Question.objects.all()[:4],
+        'top_elements_number': settings.TOP_ELEMENTS_NUMBER,
     }

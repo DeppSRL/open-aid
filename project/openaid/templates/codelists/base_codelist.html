@@ -52,7 +52,7 @@
           {% if model_name == 'agency' or model_name == 'aidtype'  %}
             {% include 'commons/top_projects.html' with object=object top_projects=top_projects %}
           {% elif model_name == 'recipient' or model_name == 'sector' %}
-            {% include 'commons/top_initiatives.html' with top_initiatives=top_initiatives %}
+            {% include 'commons/top_initiatives.html' with top_initiatives=top_initiatives top_initiatives_count=top_initiatives_count %}
           {% endif %}
         </div>
     </div>

@@ -1,4 +1,5 @@
 from django.views.generic import DetailView
+from django.conf import settings
 from . import models
 from .. import views
 from .. import contexts
@@ -22,13 +23,17 @@ class CodeListView(views.MapFiltersContextMixin, DetailView):
         context = DetailView.get_context_data(self, **context)
 
         # adds model name to the context so the app knows which page of codelist it's rendering
-        context.update({'model_name':self.model.__name__.lower()})
+        model_name = self.model.__name__.lower()
+        context.update({'model_name': model_name})
 
-        context.update({
-            'top_initiatives': self.object.top_initiatives(year=self.request.GET.get('year', contexts.END_YEAR))
-        })
-        if len(context['top_initiatives']) == 0:
+        # depending on which codelist page it's rendereing adds top projs or top inits
+        if model_name in ['agency', 'aidtype']:
             context['top_projects'] = self.object.top_projects(year=self.request.GET.get('year', contexts.END_YEAR))
+        elif model_name in ['recipient', 'sector']:
+            top_initiatives = self.object.top_initiatives(year=self.request.GET.get('year', contexts.END_YEAR))
+            context['top_initiatives'] = top_initiatives[:settings.TOP_ELEMENTS_NUMBER]
+            context['top_initiatives_count'] = len(top_initiatives)
+
         return context
 
     def get_map_filters(self):

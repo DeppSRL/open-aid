@@ -2,6 +2,7 @@ from django.views.generic import TemplateView
 from django.views.generic.base import ContextMixin
 from rest_framework import viewsets
 from blog.models import Entry
+from django.conf import settings
 from openaid import contexts
 from openaid.codelists.models import Recipient
 from openaid.projects.models import Project, Initiative
@@ -24,11 +25,12 @@ class Home(MapFiltersContextMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
 
-        top_initiatives = Initiative.get_top_initiatives(6, year=self.request.GET.get('year', contexts.END_YEAR))
+        top_initiatives = Initiative.get_top_initiatives(year=self.request.GET.get('year', contexts.END_YEAR))
 
         return super(Home, self).get_context_data(
             entries_list=Entry.objects.all().order_by('-published_at')[:1],
-            top_initiatives=top_initiatives,
+            top_initiatives=top_initiatives[:settings.TOP_ELEMENTS_NUMBER],
+            top_initiatives_count=len(top_initiatives)
             **kwargs
         )
 

@@ -21,13 +21,13 @@ class CodeListModel(models.Model):
     def code_list_facet(self):
         return self.code_list + 's'
 
-    def top_projects(self, qnt=3, order_by=None, year=None):
+    def top_projects(self, qnt=settings.TOP_ELEMENTS_NUMBER, order_by=None, year=None):
         return get_model('projects', 'Project').get_top_projects(qnt=qnt, order_by=order_by, year=year, **{
             '%s_id__in' % self.code_list: self.get_descendants_pks(True)
         })
 
-    def top_initiatives(self, qnt=6, year=None):
-        return get_model('projects', 'Initiative').get_top_initiatives(qnt=qnt, year=year, **{
+    def top_initiatives(self, year=None):
+        return get_model('projects', 'Initiative').get_top_initiatives(year=year, **{
             'project__%s_id__in' % self.code_list: self.get_descendants_pks(True)
         })
 
