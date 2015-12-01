@@ -310,16 +310,18 @@
                         <div class="tab-pane" id="tab-problemi">
                             {% if initiative.problems|length > 0 %}
                                 {% for problem in initiative.problems %}
-                                    <div class="focus">
-                                        <h4>{{ problem.event }}</h4>
-                                        <div class="small-spacer"></div>
-                                        <p>{{ problem.impact }}</p>
-                                        <div class="small-spacer"></div>
-                                        {% if problem.actions %}
-                                            <h5>{% trans 'Actions taken' %}</h5>
-                                            <p><span>{{ problem.actions }}</span></p>
-                                        {% endif %}
-                                    </div>
+                                    {% if problem.event or problem.impact or problem.actions %}
+                                        <div class="focus">
+                                            <h4>{{ problem.event }}</h4>
+                                            <div class="small-spacer"></div>
+                                            <p>{{ problem.impact }}</p>
+                                            <div class="small-spacer"></div>
+                                            {% if problem.actions %}
+                                                <h5>{% trans 'Actions taken' %}</h5>
+                                                <p><span>{{ problem.actions }}</span></p>
+                                            {% endif %}
+                                        </div>
+                                    {% endif %}
 
                                     <div class="small-spacer"></div>
                                 {% endfor %}
