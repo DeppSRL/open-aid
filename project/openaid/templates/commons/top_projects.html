@@ -7,24 +7,33 @@
             <div class="table-responsive table-special">
                 <table class="table">
                     <tbody>
-                    <thead>
-                        <th scope="col">{% trans 'Title' %}</th>
-                        <th scope="col">{% trans 'Recipient' %}</th>
-                        <th scope="col">€&nbsp;{% trans 'Committed' %}</th>
-                        <th scope="col">€&nbsp;{% trans 'Used' %}</th>
-                    </thead>
-                    {% for project in top_projects %}
-                        <tr>
-                            <th scope="row">
-                                <a href="{{ project.get_absolute_url }}">
-                                    {{ project.title|default:"Project without name" }}
-                                </a>
-                            </th>
-                            <td>{% if project.recipient %}{{ project.recipient.name }}{% else %}<small class="text-muted">-</small>{% endif %}</td>
-                            <td>{% if project.total_commitment %}{{ project.total_commitment|currency }}{% else %}<small class="text-muted">-</small>{% endif %}</td>
-                            <td>{% if project.total_disbursement %}{{ project.total_disbursement|currency }}{% else %}<small class="text-muted">-</small>{% endif %}</td>
+                        <thead>
+                            <th scope="col"></th>
+                            <th scope="col">{% trans 'Recipient' %}</th>
+                            <th scope="col">€&nbsp;{% trans 'Committed' %}</th>
+                            <th scope="col">€&nbsp;{% trans 'Used' %}</th>
+                        </thead>
+                        {% for project in top_projects %}
+                            <tr>
+                                <th scope="row">
+                                    <a href="{{ project.get_absolute_url }}">
+                                        {{ project.title|default:"Project without name" }}
+                                    </a>
+                                </th>
+                                <td>{% if project.recipient %}{{ project.recipient.name }}{% else %}<small class="text-muted">-</small>{% endif %}</td>
+                                <td>{% if project.total_commitment %}{{ project.total_commitment|currency }}{% else %}<small class="text-muted">-</small>{% endif %}</td>
+                                <td>{% if project.total_disbursement %}{{ project.total_disbursement|currency }}{% else %}<small class="text-muted">-</small>{% endif %}</td>
+                            </tr>
+                        {% endfor %}
+                        <tr style="height: 39px;">
+                        <th scope="row">
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                            <td >
+                                <a href="{% if object %}{% search_url object.code_list_facet object.code %}{% else %}{% url 'projects:search' %}{% endif %}"
+                                    class="read-more pull-right">{% trans 'see all' %} {% icon 'align-justify' %}</a>
+                            </td>
                         </tr>
-                    {% endfor %}
 
                     </tbody>
                 </table>
