@@ -100,7 +100,6 @@ class Command(LabelCommand):
         if row['agency_code'] in ['10', '11']:
             row['agency_code'] = '7'
 
-
         for field, field_value in row.items():
             if field.endswith('_date'):
                 row[field] = '-'.join(reversed(field_value.replace('/', '-').split('-')))
@@ -156,7 +155,7 @@ class Command(LabelCommand):
         })
 
         if models.Activity.objects.filter(project=project, year=activity_form.cleaned_data['year'], recipient=recipient).count() != 0:
-            self.logger.debug('Row:%s, Activity already exists for crsid:"%s" recipient:"%s" year:"%s"' % (i, project.crsid, recipient,row['year']))
+            self.logger.error('Row:%s, Activity already exists for crsid:"%s" recipient:"%s" year:"%s"' % (i, project.crsid, recipient,row['year']))
             return 0,0
 
         activity = activity_form.save()
@@ -202,6 +201,10 @@ class Command(LabelCommand):
 
         activity.save()
         # updates project data based on the activities
-        activity.project.update_from_activities(save=True)
 
+        activity.project.update_from_activities(save=True)
+        if activity.crsid == '2014000135':
+            print activity.title_en
+            print activity.project.title_en
+            exit()
         return activity, project_created
