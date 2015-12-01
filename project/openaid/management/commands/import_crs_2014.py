@@ -203,8 +203,4 @@ class Command(LabelCommand):
         # updates project data based on the activities
 
         activity.project.update_from_activities(save=True)
-        if activity.crsid == '2014000135':
-            print activity.title_en
-            print activity.project.title_en
-            exit()
         return activity, project_created
