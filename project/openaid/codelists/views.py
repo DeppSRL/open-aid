@@ -20,6 +20,10 @@ class CodeListView(views.MapFiltersContextMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super(CodeListView, self).get_context_data(**kwargs)
         context = DetailView.get_context_data(self, **context)
+
+        # adds model name to the context so the app knows which page of codelist it's rendering
+        context.update({'model_name':self.model.__name__.lower()})
+
         context.update({
             'top_initiatives': self.object.top_initiatives(year=self.request.GET.get('year', contexts.END_YEAR))
         })

@@ -302,20 +302,20 @@ ul.gallery-small li {
     text-decoration: none;
 }
 
-/*top initiatives block: fixes red hover on tables that makes links disappear */
-#top_initiatives .table-special .table > tbody > tr:hover > th{
+/*top initiatives/top projects block: fixes red hover on tables that makes links disappear */
+#main-content .bordered-radius.top_elements .table-special .table > tbody > tr:hover > th{
     background: white!important;
     color: #333333!important;
 }
-#top_initiatives .table-special .table > tbody > tr:hover > th a{
+#main-content .bordered-radius.top_elements .table-special .table > tbody > tr:hover > th a{
     color: #2b6a7c;
     text-decoration: underline;}
 
-#top_initiatives .table-special .table > tbody > tr:hover > td{
+#main-content .bordered-radius.top_elements .table-special .table > tbody > tr:hover > td{
     background: white!important;
     color: #f7505a;
     text-decoration: none;
 }
-#top_initiatives .table-special .table > tbody > tr > th {
+#main-content .bordered-radius.top_elements .table-special .table > tbody > tr > th {
     padding-left: 8px;
 }
