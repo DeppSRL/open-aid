@@ -12,7 +12,7 @@ from openaid.projects.models import Initiative
 class Command(BaseCommand):
     option_list = BaseCommand.option_list
 
-    help = 'import financial data for initiatives. 1 dec 2015 only'
+    help = 'import financial data for initiatives. 2 dec 2015 only'
     logger = logging.getLogger('openaid')
     stash_codici = []
     completed_only_xls = []
@@ -84,27 +84,16 @@ class Command(BaseCommand):
                     initiative.status_temp = '-'
                 initiative.save()
 
-    def log_in_corso(self):
-        # print out codes present ONLY in XLS
-        if len(self.corso_only_xls) > 0:
-            self.logger.error("IN CORSO: codes only in XLS:{}".format(self.convert_list_to_string((self.corso_in_xls))))
-
-        # print out codes present ONLY in DB
-        self.logger.debug("There are {} initiatives in corso in xls".format(len(self.corso_in_xls)))
-        corso_missing_xls = Initiative.objects.all().exclude(status_temp='100').exclude( code__in=self.corso_in_xls).order_by('code').values_list('code',flat=True)
-        if len(corso_missing_xls) > 0:
-            self.logger.error("IN CORSO: codes only in DB:{}".format(self.convert_list_to_string((corso_missing_xls))))
-
     def check_subsets(self):
         #     check what are the codes only in the XLS, and then check which are the codes only in the DB
         codes_db = set(Initiative.objects.all().exclude(status_temp='100').order_by('code').values_list('code',flat=True))
-        codes_xls = set(self.stash_codici)
+        codes_xls = set(sorted(self.stash_codici))
 
         stringa_db = self.convert_list_to_string(codes_db-codes_xls)
         stringa_xls = self.convert_list_to_string(codes_xls-codes_db)
 
-        self.logger.info("DB-XLS:{}".format(stringa_db))
-        self.logger.info("XLS-DB:{}".format(stringa_xls))
+        self.logger.info("Codes only in DB:{}".format(stringa_db))
+        self.logger.info("Codes only in XLS:{}".format(stringa_xls))
 
     def handle(self, *args, **options):
         verbosity = options['verbosity']
@@ -141,8 +130,7 @@ class Command(BaseCommand):
         # deal with in corso initiatives
         self.examinate_in_corso(ws_esecuzione_con_scheda)
         self.examinate_in_corso(ws_esecuzione_senza_scheda)
-        self.check_subsets()
         # log the results
-        self.log_in_corso()
+        self.check_subsets()
 
-        self.logger.info(u"finish")
+        self.logger.info(u"Finish")
