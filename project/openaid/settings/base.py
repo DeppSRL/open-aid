@@ -80,14 +80,14 @@ TEMPLATE_DEBUG = DEBUG
 ########## MANAGER CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#admins
 ADMINS = (
-    ('admin', 'admin@depp.it'),
+    ('admin', 'stefano.vergani.it@gmail.com'),
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#managers
 MANAGERS = ADMINS
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#default-from-email
-DEFAULT_FROM_EMAIL = ADMINS[0][1]
+DEFAULT_FROM_EMAIL = "no-reply@openaid.esteri.it"
 ########## END MANAGER CONFIGURATION
 
 
