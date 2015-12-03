@@ -7,12 +7,11 @@ from .base import *
 TEMPLATE_DEBUG = DEBUG
 ########## END DEBUG CONFIGURATION
 
-ALLOWED_HOSTS = ['localhost',]
+ALLOWED_HOSTS = ['localhost','openaid.deppsviluppo.org']
 
 ########## EMAIL CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#email-backend
-# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 ########## END EMAIL CONFIGURATION
 
 
