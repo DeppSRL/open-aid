@@ -80,7 +80,7 @@ TEMPLATE_DEBUG = DEBUG
 ########## MANAGER CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#admins
 ADMINS = (
-    ('admin', 'stefano.vergani.it@gmail.com'),
+    ('admin', 'openaid-dev@depp.it'),
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#managers
