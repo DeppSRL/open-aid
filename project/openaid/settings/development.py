@@ -1,9 +1,6 @@
 """Development settings and globals."""
 
 from __future__ import absolute_import
-
-from os.path import join, normpath
-
 from .base import *
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#template-debug
@@ -14,24 +11,9 @@ ALLOWED_HOSTS = ['localhost',]
 
 ########## EMAIL CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#email-backend
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 ########## END EMAIL CONFIGURATION
-
-
-########## DATABASE CONFIGURATION
-# See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
-DATABASES = {
-    'default': env.db(default='sqlite:///{0}'.format(normpath(join(RESOURCES_PATH, 'db', 'default.db'))))
-}
-########## END DATABASE CONFIGURATION
-
-
-########## CACHE CONFIGURATION
-# See: https://docs.djangoproject.com/en/dev/ref/settings/#caches
-# CACHES = {
-#      'default': env.cache(default='locmem://'),
-# }
-########## END CACHE CONFIGURATION
 
 
 ########## TOOLBAR CONFIGURATION

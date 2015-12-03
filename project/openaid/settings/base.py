@@ -94,7 +94,7 @@ DEFAULT_FROM_EMAIL = "no-reply@openaid.esteri.it"
 ########## DATABASE CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
 DATABASES = {
-    'default': env.db(default='sqlite:///{0}'.format(normpath(join(RESOURCES_PATH, 'db', 'default.db'))))
+    'default': env.db(),
 }
 ########## END DATABASE CONFIGURATION
 
@@ -159,10 +159,8 @@ STATICFILES_FINDERS = (
 
 ########## SECRET CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
-# Note: This key should only be used for development and testing.
-SECRET_KEY = r"9e()(qfzb=tcftxf-=^!#gdt6qn&**sflayycdnbxw93@g@t4u"
+SECRET_KEY = env('SECRET_KEY')
 ########## END SECRET CONFIGURATION
-
 
 ########## SITE CONFIGURATION
 # Hosts/domain names that are valid for this site
