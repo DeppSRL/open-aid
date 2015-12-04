@@ -34,9 +34,6 @@ class Home(MapFiltersContextMixin, TemplateView):
             **kwargs
         )
 
-class Numbers(Home):
-    template_name = 'pages/numbers.html'
-
 
 class OpenaidViewSet(viewsets.ReadOnlyModelViewSet):
     """
