@@ -1,20 +1,15 @@
 # coding=utf-8
 __author__ = 'stefano'
 import logging
-from pprint import pprint
-from datetime import datetime
-from django.core.exceptions import ObjectDoesNotExist
-from openpyxl import load_workbook, Workbook
+from openpyxl import Workbook
 from django.core.management.base import BaseCommand
-from openaid.projects.models import Project, Activity, Initiative, NewProject
+from openaid.projects.models import Initiative
 
 
 class Command(BaseCommand):
 
     help = 'export file with initiatives for check'
     logger = logging.getLogger('openaid')
-
-
 
     def handle(self, *args, **options):
         verbosity = options['verbosity']
@@ -28,15 +23,16 @@ class Command(BaseCommand):
             self.logger.setLevel(logging.DEBUG)
 
         output_filename= 'initiatives.xlsx'
-        initiative_fields = ['code', 'pk', 'title_en', 'recipient_temp','total_project_costs','last_update_temp','updated_at']
+        initiative_fields = ['code', 'title_it', 'title_en', 'loan_amount_approved','grant_amount_approved','total_project_costs','recipient_temp','status_temp']
+        excel_header = ['initiative_code', 'title_it', 'title_en', 'loan_amount_approved','grant_amount_approved','total_project_costs','recipient','status']
         workbook = Workbook()
         ws_output = workbook.create_sheet(index=0, title='sheet')
         self.logger.info(u"start")
 
         # append headers to output file
-        ws_output.append(initiative_fields)
+        ws_output.append(excel_header)
 
-        for init in Initiative.objects.all().order_by('code'):
+        for init in Initiative.objects.all().order_by('recipient_temp','status_temp'):
 
             row = []
 
@@ -45,6 +41,11 @@ class Command(BaseCommand):
                 value = getattr(init, f)
                 if f == 'recipient_temp' and value is not None:
                     row.append(value.name)
+                elif f == 'status_temp':
+                    if value == '-':
+                        row.append("NOT AVAILABLE")
+                    else:
+                        row.append(value+"%")
                 else:
                     row.append(value)
 
@@ -52,4 +53,4 @@ class Command(BaseCommand):
 
         # save output file
         workbook.save(output_filename)
-        self.logger.info(u"finish")
+        self.logger.info(u"Written {} initiatives to file:{}".format(Initiative.objects.all().count(),output_filename))
