@@ -41,10 +41,6 @@ class ProjectList(ListView):
         return queryset
 
 
-class ActivityDetail(DetailView):
-    model = models.Activity
-
-
 class ActivityList(ListView):
     model = models.Activity
     paginate_by = 50

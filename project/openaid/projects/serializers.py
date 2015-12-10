@@ -43,7 +43,6 @@ class ActivitySerializer(TranslatedModelSerializer):
     aid_type = serializers.HyperlinkedRelatedField(read_only=True, view_name='aidtype-detail', lookup_field='code')
     agency = serializers.HyperlinkedRelatedField(read_only=True, view_name='agency-detail', lookup_field='code')
     finance_type = serializers.HyperlinkedRelatedField(read_only=True, view_name='financetype-detail', lookup_field='code')
-    # donor = serializers.HyperlinkedRelatedField(read_only=True, view_name='donor-detail')
     sector = serializers.HyperlinkedRelatedField(read_only=True, view_name='sector-detail', lookup_field='code')
 
     channel_reported = serializers.RelatedField(source='channel_reported.name')
