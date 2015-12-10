@@ -14,6 +14,7 @@ from rest_framework.views import APIView
 from .projects.views import ProjectViewSet, ActivityViewSet, ChannelReportedViewSet
 from .codelists.views import SectorViewSet, RecipientViewSet, ChannelViewSet, AidTypeViewSet, AgencyViewSet, \
     FinanceTypeViewSet, DonorViewSet
+from sitemap import sitemaps
 
 # load admin modules
 from django.contrib import admin
