@@ -50,24 +50,12 @@ class RecipientView(CodeListView):
     model = models.Recipient
 
 
-class ChannelView(CodeListView):
-    model = models.Channel
-
-
 class AidTypeView(CodeListView):
     model = models.AidType
 
 
 class AgencyView(CodeListView):
     model = models.Agency
-
-
-class FinanceTypeView(CodeListView):
-    model = models.FinanceType
-
-
-class DonorView(CodeListView):
-    model = models.Donor
 
 
 class CodelistOpenaidViewSet(OpenaidViewSet):
