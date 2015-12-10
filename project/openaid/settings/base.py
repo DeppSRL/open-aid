@@ -38,6 +38,8 @@ EARLYBIRD_ENABLE = env.bool('EARLYBIRD_ENABLE', True)
 
 ########## MAINTENANCE : maked the WORK IN PROGRESS PAGE appear on every page of the site
 MAINTENANCE = env.bool('MAINTENANCE', False)
+########## INSTANCE TYPE (DEVELOPMENT/STAGING/PRODUCTION)
+INSTANCE_TYPE = env.str('INSTANCE_TYPE', "development")
 
 OPENAID_CRS_DONOR = 6 # Italy
 OPENAID_DSD_FILE = join(RESOURCES_PATH, 'crs', 'dsd.xml')
@@ -238,6 +240,7 @@ DJANGO_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
+    'django.contrib.sitemaps',
 
     # If you want to use the admin integration, modeltranslation must be put before django.contrib.admin.
     # see: https://django-modeltranslation.readthedocs.org/en/latest/installation.html#installed-apps
