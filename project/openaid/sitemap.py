@@ -64,7 +64,16 @@ class AidTypeSitemap(BaseOpenaidSitema):
     prefix = '/code-lists/'
 
     def generate_items(self):
-        return AidType.objects.all().order_by('code').values('code')
+        return AidType.objects.root_nodes().order_by('code').values('code')
+
+
+class SectorSitemap(BaseOpenaidSitema):
+    urlconf = 'openaid.codelists.urls'
+    destination_view = 'sector-detail'
+    prefix = '/code-lists/'
+
+    def generate_items(self):
+        return Sector.objects.root_nodes().order_by('code').values('code')
 
 
 sitemaps = {
@@ -73,4 +82,5 @@ sitemaps = {
     'recipients': RecipientSitemap,
     'agencies': AgencySitemap,
     'aid-type': AidTypeSitemap,
+    'sectors': SectorSitemap,
 }
