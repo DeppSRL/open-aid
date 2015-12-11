@@ -2,6 +2,7 @@ __author__ = 'stefano'
 from copy import copy
 from django.contrib.sitemaps import Sitemap, GenericSitemap
 from django.core.urlresolvers import reverse
+from django.conf import settings
 from projects.models import Initiative, Project
 from codelists.models import Recipient, Sector, Agency, AidType
 
@@ -21,21 +22,20 @@ class BaseOpenaidSitemap(Sitemap):
         result = []
         # doubles the elements to produce a bilingual sitemap
         for element in all_items:
-            element_en = copy(element)
-            element_en['language']='en'
-            result.append(element_en)
-            element_it=copy(element)
-            element_it['language']='it'
-            result.append(element_it)
+            for language in settings.LANGUAGES:
+                element_lang = copy(element)
+                element_lang['language'] = language[0]
+                result.append(element_lang)
         return result
 
     def location(self, item):
         prefix = self.prefix.format(item['language'])
-        item.pop('language',None)
+        item.pop('language', None)
         return reverse(self.destination_view, urlconf=self.urlconf, prefix=prefix, kwargs=item)
 
     def items(self):
         return self.generate_items()
+
 
 class ProjectBaseSitemap(BaseOpenaidSitemap):
     urlconf = 'openaid.projects.urls'
@@ -63,8 +63,8 @@ class CodelistBaseSitemap(BaseOpenaidSitemap):
     prefix = '/{}/code-lists/'
 
     pass
-  
-    
+
+
 class RecipientSitemap(CodelistBaseSitemap):
     destination_view = 'recipient-detail'
 
