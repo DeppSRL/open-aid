@@ -110,4 +110,5 @@ if settings.INSTANCE_TYPE != 'staging':
     urlpatterns += patterns('django.contrib.sitemaps.views',
         (r'^sitemap\.xml$', 'index', {'sitemaps': sitemaps}),
         (r'^sitemap-(?P<section>.+)\.xml$', 'sitemap', {'sitemaps': sitemaps}),
+        (r'^robots\.txt$', include('robots.urls')),
     )

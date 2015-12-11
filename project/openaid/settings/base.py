@@ -262,6 +262,7 @@ DJANGO_APPS = (
     'django_mptt_admin', # admin
     'rest_framework', # api
     'django_select2',
+    'robots'
 )
 
 # Apps specific for this project go here.

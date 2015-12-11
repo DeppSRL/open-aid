@@ -49,3 +49,4 @@ dbf==0.94.003
 openpyxl==2.0.4
 wsgiref==0.1.2
 xlrd==0.9.3
+django-robots==1.1
