@@ -1,78 +1,95 @@
 __author__ = 'stefano'
+from copy import copy
 from django.contrib.sitemaps import Sitemap, GenericSitemap
 from django.core.urlresolvers import reverse
 from projects.models import Initiative, Project
 from codelists.models import Recipient, Sector, Agency, AidType
 
 
-class BaseOpenaidSitema(Sitemap):
+class BaseOpenaidSitemap(Sitemap):
     changefreq = "monthly"
     priority = 0.5
     destination_view = None
     urlconf = None
     prefix = None
 
+    def get_all_items(self):
+        return []
+
     def generate_items(self):
-        pass
+        all_items = self.get_all_items()
+        result = []
+        # doubles the elements to produce a bilingual sitemap
+        for element in all_items:
+            element_en = copy(element)
+            element_en['language']='en'
+            result.append(element_en)
+            element_it=copy(element)
+            element_it['language']='it'
+            result.append(element_it)
+        return result
 
     def location(self, item):
-        return reverse(self.destination_view, urlconf=self.urlconf, prefix=self.prefix, kwargs=item)
+        prefix = self.prefix.format(item['language'])
+        item.pop('language',None)
+        return reverse(self.destination_view, urlconf=self.urlconf, prefix=prefix, kwargs=item)
 
     def items(self):
         return self.generate_items()
 
-
-class InitiativeSitemap(BaseOpenaidSitema):
-    destination_view = 'initiative-detail'
+class ProjectBaseSitemap(BaseOpenaidSitemap):
     urlconf = 'openaid.projects.urls'
-    prefix = '/projects/'
+    prefix = '/{}/projects/'
 
-    def generate_items(self):
+    pass
+
+
+class InitiativeSitemap(ProjectBaseSitemap):
+    destination_view = 'initiative-detail'
+
+    def get_all_items(self):
         return Initiative.objects.all().order_by('code').values('code')
 
 
-class ProjectSitemap(BaseOpenaidSitema):
-    urlconf = 'openaid.projects.urls'
+class ProjectSitemap(ProjectBaseSitemap):
     destination_view = 'project-detail'
-    prefix = '/projects/'
 
-    def generate_items(self):
+    def get_all_items(self):
         return Project.objects.all().order_by('pk').values('pk')
 
 
-class RecipientSitemap(BaseOpenaidSitema):
+class CodelistBaseSitemap(BaseOpenaidSitemap):
     urlconf = 'openaid.codelists.urls'
-    destination_view = 'recipient-detail'
-    prefix = '/code-lists/'
+    prefix = '/{}/code-lists/'
 
-    def generate_items(self):
+    pass
+  
+    
+class RecipientSitemap(CodelistBaseSitemap):
+    destination_view = 'recipient-detail'
+
+    def get_all_items(self):
         return Recipient.objects.all().order_by('code').values('code')
 
 
-class AgencySitemap(BaseOpenaidSitema):
-    urlconf = 'openaid.codelists.urls'
+class AgencySitemap(CodelistBaseSitemap):
     destination_view = 'agency-detail'
-    prefix = '/code-lists/'
 
-    def generate_items(self):
+    def get_all_items(self):
         return Agency.objects.all().order_by('code').values('code')
 
 
-class AidTypeSitemap(BaseOpenaidSitema):
-    urlconf = 'openaid.codelists.urls'
+class AidTypeSitemap(CodelistBaseSitemap):
     destination_view = 'aid_type-detail'
-    prefix = '/code-lists/'
 
-    def generate_items(self):
+    def get_all_items(self):
         return AidType.objects.root_nodes().order_by('code').values('code')
 
 
-class SectorSitemap(BaseOpenaidSitema):
-    urlconf = 'openaid.codelists.urls'
+class SectorSitemap(CodelistBaseSitemap):
     destination_view = 'sector-detail'
-    prefix = '/code-lists/'
 
-    def generate_items(self):
+    def get_all_items(self):
         return Sector.objects.root_nodes().order_by('code').values('code')
 
 
