@@ -14,6 +14,7 @@ from rest_framework.views import APIView
 from .projects.views import ProjectViewSet, ActivityViewSet, ChannelReportedViewSet
 from .codelists.views import SectorViewSet, RecipientViewSet, ChannelViewSet, AidTypeViewSet, AgencyViewSet, \
     FinanceTypeViewSet, DonorViewSet
+from sitemap import sitemaps
 
 # load admin modules
 from django.contrib import admin
@@ -101,3 +102,13 @@ if settings.DEBUG:
 # Work in progress url
 if settings.MAINTENANCE:
     urlpatterns[0] = url(r'^.*$', TemplateView.as_view(template_name='work_in_progress.html'))
+
+
+# Sitemap: disabled in staging
+if settings.INSTANCE_TYPE != 'staging':
+
+    urlpatterns += patterns('django.contrib.sitemaps.views',
+        (r'^sitemap\.xml$', 'index', {'sitemaps': sitemaps}),
+        (r'^sitemap-(?P<section>.+)\.xml$', 'sitemap', {'sitemaps': sitemaps}),
+        (r'^robots\.txt$', include('robots.urls')),
+    )

@@ -6,10 +6,10 @@ from django.conf import settings
 from openaid import contexts
 from openaid.codelists.models import Recipient
 from openaid.projects.models import Project, Initiative
+from openaid import utils
 
 
 class MapFiltersContextMixin(ContextMixin):
-
     def get_context_data(self, **kwargs):
         return super(MapFiltersContextMixin, self).get_context_data(
             map_values=Recipient.get_map_totals(**self.get_map_filters()),
@@ -17,14 +17,14 @@ class MapFiltersContextMixin(ContextMixin):
 
     def get_map_filters(self):
         # the exact lookup is necessary becouse year is already a lookup
-        return {'year__exact': self.request.GET.get('year', contexts.END_YEAR)}
+        year_value = utils.sanitize_get_param(int,self.request.GET.get('year'),contexts.END_YEAR,top=contexts.END_YEAR,length=4)
+        return {'year__exact': year_value}
 
 
 class Home(MapFiltersContextMixin, TemplateView):
     template_name = 'home.html'
 
     def get_context_data(self, **kwargs):
-
         top_initiatives = Initiative.get_top_initiatives(year=self.request.GET.get('year', contexts.END_YEAR))
 
         return super(Home, self).get_context_data(
@@ -45,6 +45,7 @@ class OpenaidViewSet(viewsets.ReadOnlyModelViewSet):
 
 
 from rest_framework import generics
+
 
 class OpenaidApiRoot(generics.GenericAPIView):
     """

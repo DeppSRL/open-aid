@@ -11,6 +11,26 @@ def currency_converter(amount, year):
     return amount * settings.OPENAID_CURRENCY_CONVERSIONS[year]
 
 
+def sanitize_get_param(param_type, param, default, top=None, length=None):
+    # simple sanitize of GET parameter and converting to param_type
+    # if fails: return default value
+    # if top is defined and the value is > than top: return default
+    if not param:
+        return default
+    if length:
+        if len(param) > 4:
+            param = param[:4]
+    try:
+        value = param_type(param)
+    except ValueError:
+        return default
+    else:
+        if not top:
+            return value
+        if value > top:
+            return default
+
+
 class UTF8Recoder:
     """
     Iterator that reads an encoded stream and reencodes the input to UTF-8
