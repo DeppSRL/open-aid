@@ -9,13 +9,13 @@ DATE_TAG=`date +%Y%m%d`
 BUCKET_NAME=open_aid
 
 echo dumping postgres database ...
-pg_dump --clean -Upostgres open-aid-2013 | gzip > pg_dump.gz
+pg_dump --clean -Upostgres open_aid | gzip > pg_dump.gz
 
 echo dumping solr index files ...
 tar cvzf solr_dump.tgz solr/data/*
 
 echo dumping media directory ...
-tar cvzf media_dump.tgz open_aid/resources/media/*
+tar cvzf media_dump.tgz open-aid/resources/media/*
 
 echo sending dumps to s3 in s3://$BUCKET_NAME/daily/$DATE_TAG/
 s3cmd put *_dump.*gz s3://$BUCKET_NAME/daily/$DATE_TAG/
