@@ -51,6 +51,10 @@ class RecipientView(CodeListView):
     model = models.Recipient
 
 
+class ChannelView(CodeListView):
+    model = models.Channel
+
+
 class AidTypeView(CodeListView):
     model = models.AidType
 
