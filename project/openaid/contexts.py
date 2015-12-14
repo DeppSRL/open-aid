@@ -45,7 +45,7 @@ def project_context(request):
         projects_models.Activity,
         'aid_type', 'activity_count', cumulative=True
     )
-
+    
     return {
         'project_name': settings.PROJECT_NAME,
         'available_languages': map(lambda x: x[0], settings.LANGUAGES),

@@ -18,17 +18,19 @@ def sanitize_get_param(param_type, param, default, top=None, length=None):
     if not param:
         return default
     if length:
-        if len(param) > 4:
-            param = param[:4]
+        if len(param) > length:
+            param = param[:length]
     try:
         value = param_type(param)
     except ValueError:
         return default
     else:
-        if not top:
-            return value
-        if value > top:
-            return default
+        if top:
+            if value > top:
+                return default
+            else:
+                return value
+        return value
 
 
 class UTF8Recoder:
