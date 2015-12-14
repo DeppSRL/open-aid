@@ -5,7 +5,7 @@ from .. import views
 from .. import contexts
 from openaid.codelists import serializers
 from openaid.views import OpenaidViewSet
-
+from openaid import utils
 
 class CodeListView(views.MapFiltersContextMixin, DetailView):
     slug_field = 'code'
@@ -26,11 +26,12 @@ class CodeListView(views.MapFiltersContextMixin, DetailView):
         model_name = self.model.__name__.lower()
         context.update({'model_name': model_name})
 
+        year_value = utils.sanitize_get_param(int,self.request.GET.get('year'),contexts.END_YEAR,top=contexts.END_YEAR,length=4)
         # depending on which codelist page it's rendereing adds top projs or top inits
         if model_name in ['agency', 'aidtype']:
-            context['top_projects'] = self.object.top_projects(year=self.request.GET.get('year', contexts.END_YEAR))
+            context['top_projects'] = self.object.top_projects(year=year_value)
         elif model_name in ['recipient', 'sector']:
-            top_initiatives = self.object.top_initiatives(year=self.request.GET.get('year', contexts.END_YEAR))
+            top_initiatives = self.object.top_initiatives(year=year_value)
             context['top_initiatives'] = top_initiatives[:settings.TOP_ELEMENTS_NUMBER]
             context['top_initiatives_count'] = len(top_initiatives)
 
