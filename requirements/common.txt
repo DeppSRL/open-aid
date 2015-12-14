@@ -2,7 +2,7 @@
 --index-url https://pypi.python.org/simple/
 
 # Bleeding edge Django
-Django>=1.6,<1.7
+Django==1.6.5
 django-extensions
 pytz
 
