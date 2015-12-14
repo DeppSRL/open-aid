@@ -9,7 +9,7 @@ DATE_TAG=`date +%Y%m%d`
 BUCKET_NAME=open_aid
 
 echo dumping postgres database ...
-pg_dump --clean -Upostgres open-aid-2013 | gzip > pg_dump.gz
+pg_dump --clean -Upostgres open_aid | gzip > pg_dump.gz
 
 echo dumping solr index files ...
 tar cvzf solr_dump.tgz solr/data/*
