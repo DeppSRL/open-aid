@@ -31,7 +31,7 @@ class CodeListView(views.MapFiltersContextMixin, DetailView):
         if model_name in ['agency', 'aidtype']:
             context['top_projects'] = self.object.top_projects(year=year_value)
         elif model_name in ['recipient', 'sector']:
-            top_initiatives = self.object.top_initiatives(year=year_value)
+            top_initiatives = self.object.top_initiatives()
             context['top_initiatives'] = top_initiatives[:settings.TOP_ELEMENTS_NUMBER]
             context['top_initiatives_count'] = len(top_initiatives)
 

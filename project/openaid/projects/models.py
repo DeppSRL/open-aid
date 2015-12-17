@@ -657,11 +657,9 @@ class Initiative(models.Model):
     has_focus = models.BooleanField(_('Focus'), default=False)
 
     @classmethod
-    def get_top_initiatives(cls, year=None, is_home=False, **filters):
+    def get_top_initiatives(cls, is_home=False, **filters):
         # excludes from top initiatives those sectors that are for staff wages and other
         excluded_sectors = settings.OPENAID_INITIATIVE_PURPOSE_EXCLUDED
-        if year:
-            filters['project__activity__year__exact'] = year
 
         # selects the base set of Initiatives for this case, applying various filters
         base_set = Initiative.objects.\
