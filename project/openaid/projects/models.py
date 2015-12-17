@@ -670,8 +670,9 @@ class Initiative(models.Model):
             filter(**filters).\
             distinct()
 
-        top_initiatives = list(base_set.exclude(total_project_costs__isnull=True).order_by('-total_project_costs'))
-        # adds up initiatives with NULL cost at the end of the list, if any
+        top_initiatives = list(base_set.exclude(total_project_costs__isnull=True).order_by('-has_focus','-total_project_costs'))
+        # adds up initiatives with NULL cost at the end of the list, if any,
+        # this avoids to have initiatives with NULL values on top of the list
         top_initiatives_null = base_set.exclude(total_project_costs__isnull=False).order_by('title')
 
         if top_initiatives_null.count()>0:
