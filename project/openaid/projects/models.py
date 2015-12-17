@@ -657,7 +657,7 @@ class Initiative(models.Model):
     has_focus = models.BooleanField(_('Focus'), default=False)
 
     @classmethod
-    def get_top_initiatives(cls, year=None, **filters):
+    def get_top_initiatives(cls, year=None, is_home=False, **filters):
         # excludes from top initiatives those sectors that are for staff wages and other
         excluded_sectors = settings.OPENAID_INITIATIVE_PURPOSE_EXCLUDED
         if year:
@@ -670,7 +670,14 @@ class Initiative(models.Model):
             filter(**filters).\
             distinct()
 
-        top_initiatives = list(base_set.exclude(total_project_costs__isnull=True).order_by('-has_focus','-total_project_costs'))
+        # if it's the home page skip the ordering by FOCUS, otherwise use the FOCUS ordering with total proj costs
+        top_initiatives_not_null = base_set.exclude(total_project_costs__isnull=True)
+        if not is_home:
+            top_initiatives_not_null = top_initiatives_not_null.order_by('-has_focus','-total_project_costs')
+        else:
+            top_initiatives_not_null = top_initiatives_not_null.order_by('-total_project_costs')
+
+        top_initiatives = list(top_initiatives_not_null)
         # adds up initiatives with NULL cost at the end of the list, if any,
         # this avoids to have initiatives with NULL values on top of the list
         top_initiatives_null = base_set.exclude(total_project_costs__isnull=False).order_by('title')
