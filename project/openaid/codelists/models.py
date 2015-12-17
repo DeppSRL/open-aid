@@ -27,7 +27,7 @@ class CodeListModel(models.Model):
             '%s_id__in' % self.code_list: self.get_descendants_pks(True)
         })
 
-    def top_initiatives(self, year=None):
+    def top_initiatives(self,):
         codelist_complete_set = self.get_descendants_pks(True)
         # filters top initiatives for recipient / sector if needed.
         # todo: change this when initiative OBJ changes field names!
@@ -37,7 +37,7 @@ class CodeListModel(models.Model):
         elif self.code_list == 'sector':
             filters = {'purpose_temp__in': codelist_complete_set}
 
-        return get_model('projects', 'Initiative').get_top_initiatives(year=year, **filters)
+        return get_model('projects', 'Initiative').get_top_initiatives(is_home=False, **filters)
 
     def get_descendants_pks(self, include_self=False):
         return [self, ] if include_self else []

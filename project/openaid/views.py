@@ -25,7 +25,7 @@ class Home(MapFiltersContextMixin, TemplateView):
     template_name = 'home.html'
 
     def get_context_data(self, **kwargs):
-        top_initiatives = Initiative.get_top_initiatives(year=self.request.GET.get('year', contexts.END_YEAR))
+        top_initiatives = Initiative.get_top_initiatives(is_home=True, )
 
         return super(Home, self).get_context_data(
             entries_list=Entry.objects.all().order_by('-published_at')[:1],
