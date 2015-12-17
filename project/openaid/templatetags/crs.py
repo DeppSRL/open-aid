@@ -95,14 +95,14 @@ def crs_stats(context, instance=None, year=None, show_map=True):
             'total_disbursements_sum': (multi_disbursements_sum or 0.0) + disbursements_sum,
         })
 
-        ctx.update({
-            'multi_stats': projects_models.AnnualFunds.objects.filter(year=year).select_related('organization'),
-        })
+        # ctx.update({
+        #     'multi_stats': projects_models.AnnualFunds.objects.filter(year=year).select_related('organization'),
+        # })
 
         # drilldown pie code - to activate later #
-        # ctx.update({
-        #     'multi_stats_commitment': projects_models.AnnualFunds.get_type_distribution(year=year, type='commitment'),
-        #     'multi_stats_disbursement':projects_models.AnnualFunds.get_type_distribution(year=year, type='disbursement')
-        # })
+        ctx.update({
+            'multi_stats_commitment': projects_models.AnnualFunds.get_type_distribution(year=year, type='commitment'),
+            'multi_stats_disbursement': projects_models.AnnualFunds.get_type_distribution(year=year, type='disbursement')
+        })
 
     return ctx

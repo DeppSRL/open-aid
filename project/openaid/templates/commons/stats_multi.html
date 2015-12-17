@@ -3,62 +3,62 @@
 {% load search_utils %}
 <div class="row panel-pad stats-panel-columns">
 
-    <div class="col-md-4">
-        <h3>{% trans 'Committed funds' %}</h3>
-
-        <div id="donut2"></div>
-
-        <div class="table-responsive">
-            <table class="table table-condensed table-hover" data-chart="donut" data-container="donut2">
-                <tbody>
-                {% for fund in multi_stats %}
-                    {% if fund.commitment > 0 %}
-                        <tr class="dotted">
-                            <td class="col-sm-8" data-title="{{ fund.organization }}">{{ fund.organization }}</td>
-                            <td class="col-sm-4"><span data-value="{{ fund.commitment|stringformat:"f" }}">{{ fund.commitment|currency }}</span></td>
-                        </tr>
-                    {% endif %}
-                {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-
-    <div class="col-md-4">
-        <h3>{% trans 'Used funds' %}</h3>
-
-        <div id="donut3"></div>
-
-        <div class="table-responsive">
-            <table class="table table-condensed table-hover" data-chart="donut" data-container="donut3">
-                <tbody>
-                {% for fund in multi_stats %}
-                    {% if fund.disbursement > 0 %}
-                        <tr class="dotted">
-                            <td class="col-sm-8" data-title="{{ fund.organization }}">{{ fund.organization }}</td>
-                            <td class="col-sm-4"><span data-value="{{ fund.disbursement|stringformat:"f" }}">{{ fund.disbursement|currency }}</span></td>
-                        </tr>
-                    {% endif %}
-                {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-
-
-{# drilldown pie code - to activate later #}
 {#    <div class="col-md-4">#}
 {#        <h3>{% trans 'Committed funds' %}</h3>#}
-{#        {% include 'commons/pie_chart_drilldown.html' with tipologies=multi_stats_commitment id='donut2' %}#}
+{##}
+{#        <div id="donut2"></div>#}
+{##}
+{#        <div class="table-responsive">#}
+{#            <table class="table table-condensed table-hover" data-chart="donut" data-container="donut2">#}
+{#                <tbody>#}
+{#                {% for fund in multi_stats %}#}
+{#                    {% if fund.commitment > 0 %}#}
+{#                        <tr class="dotted">#}
+{#                            <td class="col-sm-8" data-title="{{ fund.organization }}">{{ fund.organization }}</td>#}
+{#                            <td class="col-sm-4"><span data-value="{{ fund.commitment|stringformat:"f" }}">{{ fund.commitment|currency }}</span></td>#}
+{#                        </tr>#}
+{#                    {% endif %}#}
+{#                {% endfor %}#}
+{#                </tbody>#}
+{#            </table>#}
+{#        </div>#}
 {#    </div>#}
 {##}
 {##}
 {#    <div class="col-md-4">#}
 {#        <h3>{% trans 'Used funds' %}</h3>#}
-{#        {% include 'commons/pie_chart_drilldown.html' with tipologies=multi_stats_disbursement id='donut3' %}#}
+{##}
+{#        <div id="donut3"></div>#}
+{##}
+{#        <div class="table-responsive">#}
+{#            <table class="table table-condensed table-hover" data-chart="donut" data-container="donut3">#}
+{#                <tbody>#}
+{#                {% for fund in multi_stats %}#}
+{#                    {% if fund.disbursement > 0 %}#}
+{#                        <tr class="dotted">#}
+{#                            <td class="col-sm-8" data-title="{{ fund.organization }}">{{ fund.organization }}</td>#}
+{#                            <td class="col-sm-4"><span data-value="{{ fund.disbursement|stringformat:"f" }}">{{ fund.disbursement|currency }}</span></td>#}
+{#                        </tr>#}
+{#                    {% endif %}#}
+{#                {% endfor %}#}
+{#                </tbody>#}
+{#            </table>#}
+{#        </div>#}
 {#    </div>#}
+
+
+
+{# drilldown pie code - to activate later #}
+    <div class="col-md-4">
+        <h3>{% trans 'Committed funds' %}</h3>
+        {% include 'commons/pie_chart_drilldown.html' with tipologies=multi_stats_commitment id='donut2' %}
+    </div>
+
+
+    <div class="col-md-4">
+        <h3>{% trans 'Used funds' %}</h3>
+        {% include 'commons/pie_chart_drilldown.html' with tipologies=multi_stats_disbursement id='donut3' %}
+    </div>
 
     <div class="col-md-4">
         <h3>{% trans 'Multilateral Official Development Assistance' %}</h3>
