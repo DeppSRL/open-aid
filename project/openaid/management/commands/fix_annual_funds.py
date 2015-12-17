@@ -41,6 +41,7 @@ class Command(BaseCommand):
             'IDA':3,
             'Other World Bank (IBRD,IFC,MIGA)':4,
             'World Trade Organisation':4,
+            'World Trade Organization':4,
             'Regional development banks':5,
             'Other agencies':6,
             'Global Environment Facility (96%)':7,
