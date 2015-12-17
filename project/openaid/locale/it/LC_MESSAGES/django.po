@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-01 20:12+0100\n"
+"POT-Creation-Date: 2015-12-17 17:41+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -496,21 +496,21 @@ msgstr "Autorità locale"
 msgid "Location"
 msgstr "Luogo"
 
-#: projects/models.py:900
+#: projects/models.py:906
 #, fuzzy
 msgid "Initiative"
 msgstr "Dati dell'iniziativa"
 
-#: projects/models.py:901
+#: projects/models.py:907
 #, fuzzy
 msgid "Initiatives"
 msgstr "Dati dell'iniziativa"
 
-#: settings/base.py:377
+#: settings/base.py:383
 msgid "English"
 msgstr "Inglese"
 
-#: settings/base.py:378
+#: settings/base.py:384
 msgid "Italian"
 msgstr "Italiano"
 
@@ -869,8 +869,8 @@ msgstr ""
 "agevolate (soft loan). "
 
 #: templates/commons/top_initiatives.html:7
-msgid "Top thirty initiatives in progress with most funding"
-msgstr "Le trenta iniziative in corso con maggiori finanziamenti"
+msgid "Top thirty initiatives in progress"
+msgstr "Le principali iniziative in corso"
 
 #: templates/commons/top_initiatives.html:9
 msgid "All initiatives in progress"
