@@ -449,20 +449,11 @@ class Organization(models.Model):
     Organizzazioni a cui vanno i fondi multilaterali.
     I Projects sono relativi ai fondi bilaterali.
     """
-    ORGANIZATION_TYPES = Choices(
-        (1, _('UN agencies')),
-        (2, _('EU institutions')),
-        (3, _('IDA')),
-        (4, _('Other World Bank (IBRD,IFC,MIGA)')),
-        (5, _('Regional development banks')),
-        (6, _('Other agencies')),
-        (7, _('Global Environment Facility (96%)')),
-        (8, _('Montreal Protocol')),
-    )
 
+    parent = models.ForeignKey('Organization', null=True, blank=True)
     code = models.CharField(max_length=24, unique=True)
+    acronym = models.CharField(max_length=24, unique=True)
     name = models.CharField(max_length=255)
-    type = models.IntegerField(choices=ORGANIZATION_TYPES, default=None, null=True)
 
     def __unicode__(self):
         return self.name
