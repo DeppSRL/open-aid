@@ -451,8 +451,7 @@ class Organization(models.Model):
     """
 
     parent = models.ForeignKey('Organization', null=True, blank=True)
-    code = models.CharField(max_length=24, unique=True)
-    acronym = models.CharField(max_length=24, unique=True)
+    acronym = models.CharField(max_length=24, unique=True, null=False, blank=False, default='')
     name = models.CharField(max_length=255)
 
     def __unicode__(self):
