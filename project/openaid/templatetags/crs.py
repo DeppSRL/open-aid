@@ -78,8 +78,9 @@ def crs_stats(context, instance=None, year=None, show_map=True):
     ctx['columns'] = 3 if len(ctx['sector_stats']) and len(ctx['agency_stats']) and len(ctx['aid_stats']) else 2
 
     if not selected_facet:
-
-        multi_projects = projects_models.AnnualFunds.objects.filter(year=year).aggregate(
+        # multilateral aid have only to consider the top categories, otherwise the amount is doubled
+        main_organizations = projects_models.Organization.objects.filter(parent__isnull=True)
+        multi_projects = projects_models.AnnualFunds.objects.filter(organization__in=main_organizations,year=year).aggregate(
             multi_commitments_sum=Sum('commitment'),
             multi_disbursements_sum=Sum('disbursement'),
         )
