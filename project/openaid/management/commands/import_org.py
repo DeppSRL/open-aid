@@ -5,6 +5,7 @@ from os.path import join
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.management.base import CommandError, BaseCommand
+from django.db.models import Sum
 from openaid.projects.models import Organization, AnnualFunds
 
 
@@ -73,7 +74,7 @@ class Command(BaseCommand):
             try:
                 order = int(order)
             except ValueError:
-                order=0
+                order = 0
             
             org, created = Organization.objects.get_or_create(
                 acronym=row['acronym'].strip(),
@@ -118,3 +119,24 @@ class Command(BaseCommand):
                 if to_save:
                     fund.save()
                     self.stdout.write(u'Updated fund for %s' % fund)
+
+
+        # check the data
+        self.stdout.write("*********** CHECK THE DATA INSERTED ***********")
+        for main_org in Organization.objects.filter(parent__isnull=True).order_by('name'):
+
+            if Organization.objects.filter(parent=main_org).count() == 0:
+                continue
+
+            for fund in AnnualFunds.objects.filter(organization=main_org).order_by('year'):
+                if AnnualFunds.objects.filter(organization__parent=main_org, year=fund.year).count() ==0:
+                    self.stdout.write(u'For org:{} year:{}, there are no children to compare with, skip'.format(main_org.name, fund.year,))
+                    continue
+                children_sum = AnnualFunds.objects.filter(organization__parent=main_org, year=fund.year).aggregate(**{'commitment':Sum('commitment'),'disbursement':Sum('disbursement')})
+
+                if fund.commitment != children_sum['commitment']:
+                    self.stdout.write(u'Error with Commit sums for org:{} year:{}, total:{}, sum of children:{}'.format(main_org.name, fund.year, fund.commitment, children_sum['commitment'] ))
+
+                if fund.disbursement != children_sum['disbursement']:
+                    self.stdout.write(u'Error with Disbur sums for org:{} year:{}, total:{}, sum of children:{}'.format(main_org.name, fund.year, fund.disbursement, children_sum['disbursement'] ))
+        self.stdout.write("*********** DONE ***********")
