@@ -69,12 +69,18 @@ class Command(BaseCommand):
                 except ObjectDoesNotExist:
                     raise Exception("acronym:{} not in db".format(parent_acronym))
 
+            order = row['order'].strip()
+            try:
+                order = int(order)
+            except ValueError:
+                order=0
             
             org, created = Organization.objects.get_or_create(
                 acronym=row['acronym'].strip(),
                 defaults={
                     'name': row['name_en'].strip(),
-                    'parent': parent
+                    'parent': parent,
+                    'order': order
                     }
             )
             if created:

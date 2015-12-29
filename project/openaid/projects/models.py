@@ -453,6 +453,7 @@ class Organization(models.Model):
     parent = models.ForeignKey('Organization', null=True, blank=True)
     acronym = models.CharField(max_length=24, unique=True, null=False, blank=False, default='')
     name = models.CharField(max_length=255)
+    order = models.IntegerField(null=True, blank=True, default=0)
 
     def __unicode__(self):
         return self.name
@@ -485,7 +486,7 @@ class AnnualFunds(models.Model):
         else:
             raise Exception
 
-        for main_organization in Organization.objects.filter(parent__isnull=True).order_by('name'):
+        for main_organization in Organization.objects.filter(parent__isnull=True).order_by('order'):
 
             main_org_dict = {
                 'name': main_organization.name,
