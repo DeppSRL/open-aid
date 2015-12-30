@@ -361,12 +361,12 @@ class Activity(CodelistsModel, MarkedModel):
     # money parameters
     # NOTA BENE: QUI SONO MILIONI DI EURO / DI USD!!!
     commitment = models.FloatField(blank=True, null=True, validators=[MinValueValidator(0.0)])
-    commitment_usd = models.FloatField(blank=True, null=True,validators=[MinValueValidator(0.0)])
-    disbursement = models.FloatField(blank=True, null=True,validators=[MinValueValidator(0.0)])
-    disbursement_usd = models.FloatField(blank=True, null=True,validators=[MinValueValidator(0.0)])
+    commitment_usd = models.FloatField(blank=True, null=True, validators=[MinValueValidator(0.0)])
+    disbursement = models.FloatField(blank=True, null=True, validators=[MinValueValidator(0.0)])
+    disbursement_usd = models.FloatField(blank=True, null=True, validators=[MinValueValidator(0.0)])
 
     # other parameters
-    grant_element = models.FloatField(blank=True, null=True,validators=[MinValueValidator(0.0)])
+    grant_element = models.FloatField(blank=True, null=True, validators=[MinValueValidator(0.0)])
     number_repayment = models.PositiveIntegerField(blank=True, null=True)
     expected_start_date = models.DateField(blank=True, null=True)
     completion_date = models.DateField(blank=True, null=True)
@@ -449,20 +449,11 @@ class Organization(models.Model):
     Organizzazioni a cui vanno i fondi multilaterali.
     I Projects sono relativi ai fondi bilaterali.
     """
-    ORGANIZATION_TYPES = Choices(
-        (1, _('UN agencies')),
-        (2, _('EU institutions')),
-        (3, _('IDA')),
-        (4, _('Other World Bank (IBRD,IFC,MIGA)')),
-        (5, _('Regional development banks')),
-        (6, _('Other agencies')),
-        (7, _('Global Environment Facility (96%)')),
-        (8, _('Montreal Protocol')),
-    )
 
-    code = models.CharField(max_length=24, unique=True)
+    parent = models.ForeignKey('Organization', null=True, blank=True)
+    acronym = models.CharField(max_length=24, unique=True, null=False, blank=False, default='')
     name = models.CharField(max_length=255)
-    type = models.IntegerField(choices=ORGANIZATION_TYPES, default=None, null=True)
+    order = models.IntegerField(null=True, blank=True, default=0)
 
     def __unicode__(self):
         return self.name
@@ -478,15 +469,15 @@ class AnnualFunds(models.Model):
     disbursement = models.FloatField(blank=True, default=0.0)
 
     def __unicode__(self):
-        return '%s %s: %f/%f' % (self.organization, self.year, self.commitment, self.disbursement)
+        return '{} {}: {}/{}'.format(self.organization, self.year, self.commitment, self.disbursement)
 
     class Meta:
         unique_together = ("year", "organization")
         verbose_name_plural = "Annual funds"
 
     @staticmethod
-    def get_type_distribution(year, type=None):
-        type_data = []
+    def get_multilateral_data(year, type=None):
+        multilateral_data = []
 
         if type == 'commitment':
             sum_aggregate = {'sum': Sum('commitment')}
@@ -495,28 +486,26 @@ class AnnualFunds(models.Model):
         else:
             raise Exception
 
-        for tipologia_id in range(1, len(Organization.ORGANIZATION_TYPES) + 1):
-            tipologia_name = Organization.ORGANIZATION_TYPES[tipologia_id]
-            type_dict = {
-                'name': tipologia_name,
-                'tipologia': tipologia_id,
-                'sum':
-                    AnnualFunds.objects.filter(year=year, organization__type=tipologia_id).aggregate(**sum_aggregate)[
-                        'sum'],
+        for main_organization in Organization.objects.filter(parent__isnull=True).order_by('order'):
+
+            main_org_dict = {
+                'name': main_organization.name,
+                'pk': main_organization.pk,
+                'sum': AnnualFunds.objects.filter(year=year, organization=main_organization).aggregate(**sum_aggregate)[
+                    'sum'],
                 'organizations': []
             }
 
-            organizations = Organization.objects.filter(type=tipologia_id).order_by('name')
+            organizations = Organization.objects.filter(parent=main_organization).order_by('name')
             for org in organizations:
-                type_dict['organizations'].append({
+                main_org_dict['organizations'].append({
                     'name': org.name,
-                    'tipologia': tipologia_id,
                     'sum': AnnualFunds.objects.filter(year=year, organization=org).aggregate(**sum_aggregate)['sum']
                 })
 
-            type_data.append(type_dict)
+            multilateral_data.append(main_org_dict)
 
-        return type_data
+        return multilateral_data
 
 
 class Utl(models.Model):
@@ -617,11 +606,14 @@ class Initiative(models.Model):
     title = models.CharField(max_length=1000, null=True, blank=True, default='')
     # NOTA: VALORI IN EURO
     total_project_costs = models.FloatField(_('Total project costs for Italian Entities'),
-                                            help_text=_('Value in Euro. Example: for 10.000 Euro insert 10000. Do not insert dots or commas for decimals or thousands'),
+                                            help_text=_(
+                                                'Value in Euro. Example: for 10.000 Euro insert 10000. Do not insert dots or commas for decimals or thousands'),
                                             blank=True, null=True, validators=[MinValueValidator(0.0), ])
-    loan_amount_approved = models.FloatField(help_text=_('Value in Euro. Example: for 10.000 Euro insert 10000. Do not insert dots or commas for decimals or thousands'),
+    loan_amount_approved = models.FloatField(help_text=_(
+        'Value in Euro. Example: for 10.000 Euro insert 10000. Do not insert dots or commas for decimals or thousands'),
                                              blank=True, null=True, validators=[MinValueValidator(0.0), ])
-    grant_amount_approved = models.FloatField(help_text=_('Value in Euro. Example: for 10.000 Euro insert 10000. Do not insert dots or commas for decimals or thousands'),
+    grant_amount_approved = models.FloatField(help_text=_(
+        'Value in Euro. Example: for 10.000 Euro insert 10000. Do not insert dots or commas for decimals or thousands'),
                                               blank=True, null=True, validators=[MinValueValidator(0.0), ])
 
     # new fields
@@ -662,16 +654,16 @@ class Initiative(models.Model):
         excluded_sectors = settings.OPENAID_INITIATIVE_PURPOSE_EXCLUDED
 
         # selects the base set of Initiatives for this case, applying various filters
-        base_set = Initiative.objects.\
-            exclude(status_temp='100').\
-            exclude(purpose_temp__code__in=excluded_sectors).\
-            filter(**filters).\
+        base_set = Initiative.objects. \
+            exclude(status_temp='100'). \
+            exclude(purpose_temp__code__in=excluded_sectors). \
+            filter(**filters). \
             distinct()
 
         # if it's the home page skip the ordering by FOCUS, otherwise use the FOCUS ordering with total proj costs
         top_initiatives_not_null = base_set.exclude(total_project_costs__isnull=True)
         if not is_home:
-            top_initiatives_not_null = top_initiatives_not_null.order_by('-has_focus','-total_project_costs')
+            top_initiatives_not_null = top_initiatives_not_null.order_by('-has_focus', '-total_project_costs')
         else:
             top_initiatives_not_null = top_initiatives_not_null.order_by('-total_project_costs')
 
@@ -680,7 +672,7 @@ class Initiative(models.Model):
         # this avoids to have initiatives with NULL values on top of the list
         top_initiatives_null = base_set.exclude(total_project_costs__isnull=False).order_by('title')
 
-        if top_initiatives_null.count()>0:
+        if top_initiatives_null.count() > 0:
             top_initiatives.extend(list(top_initiatives_null))
 
         return top_initiatives
@@ -877,7 +869,7 @@ class Initiative(models.Model):
         if len(self.code) != 6:
             self.code = self.code.zfill(6)
 
-        if (self.title_it is None or self.title_it == '') and (self.title_en is None or self.title_en == '') :
+        if (self.title_it is None or self.title_it == '') and (self.title_en is None or self.title_en == ''):
             raise ValidationError("Initiative must have Italian or English title, fill at least one")
 
         return super(Initiative, self).save(*args, **kwargs)

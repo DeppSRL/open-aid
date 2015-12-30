@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 17:41+0100\n"
+"POT-Creation-Date: 2015-12-17 17:44+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -714,13 +714,13 @@ msgstr ""
 "agli aiuti e alle spese per rifugiati."
 
 #: templates/commons/aid_tabs.html:43 templates/commons/aid_tabs.html.py:63
-#: templates/commons/aid_tabs.html:76 templates/commons/stats_multi.html:7
+#: templates/commons/aid_tabs.html:76 templates/commons/stats_multi.html:53
 #: templates/commons/stats_totals.html:7
 msgid "Committed funds"
 msgstr "Fondi Impegnati"
 
 #: templates/commons/aid_tabs.html:47 templates/commons/aid_tabs.html.py:67
-#: templates/commons/aid_tabs.html:80 templates/commons/stats_multi.html:29
+#: templates/commons/aid_tabs.html:80 templates/commons/stats_multi.html:59
 #: templates/commons/stats_totals.html:29
 msgid "Used funds"
 msgstr "Fondi erogati"

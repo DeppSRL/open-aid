@@ -5,21 +5,22 @@
 <div class="table-responsive">
     <table class="table table-condensed table-hover accordion" data-chart="donut-drilldown" data-container="{{id}}" id="legend-{{ id }}">
         <tbody>
-            {% for tipology in tipologies %}
+            {% for main_organization in organizations %}
 
-                {% if tipology.sum > 0 %}
-                    <tr class="dotted parent" id="accordion-parent-{{ id }}-{{ tipology.name|slugify}}">
-                        <td class="col-sm-8" data-title="{{ tipology.name }}">{{ tipology.name}}</td>
-                        <td class="col-sm-4"><span data-value="{{ tipology.sum|stringformat:"f" }}">{{ tipology.sum|currency }}</span></td>
+                {% if main_organization.sum > 0 %}
+                    <tr class="dotted parent" id="accordion-parent-{{ id }}-{{ main_organization.name|slugify}}">
+                        <td class="col-sm-8" data-title="{{ main_organization.name }}">{{ main_organization.name}}</td>
+                        <td class="col-sm-4"><span data-value="{{ main_organization.sum|stringformat:"f" }}">{{ main_organization.sum|currency }}</span></td>
                     </tr>
 
-
-                    {% if tipology.organizations|length > 0 %}
-                        {% for organization in tipology.organizations %}
-                            <tr class="child active dotted accordion-parent-{{ id }}-{{ tipology.name|slugify}} ">
-                                <td class="col-sm-7 col-sm-offset-1" data-title="{{ organization.name }}">&nbsp;&raquo;&nbsp;{{ organization.name }}</td>
-                                <td class="col-sm-4"><span data-value="{{ organization.sum|stringformat:"f" }}">{{ organization.sum|currency }}</span></td>
-                            </tr>
+                    {% if main_organization.organizations|length > 0 %}
+                        {% for minor_organization in main_organization.organizations %}
+                            {% if minor_organization.sum > 0 %}
+                                <tr class="child active dotted accordion-parent-{{ id }}-{{ main_organization.name|slugify }} ">
+                                    <td class="col-sm-7 col-sm-offset-1" data-title="{{ minor_organization.name }}">&nbsp;&raquo;&nbsp;{{ minor_organization.name }}</td>
+                                    <td class="col-sm-4"><span data-value="{{ minor_organization.sum|stringformat:"f" }}">{{ minor_organization.sum|currency }}</span></td>
+                                </tr>
+                            {% endif %}
                         {% endfor %}
                     {% endif %}
                 {% endif %}
