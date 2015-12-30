@@ -21,17 +21,37 @@ var slug = function(str) {
         "#922842",
         "#b19597",
         "#936c6f",
-        "#584143"
+        "#584143",
+        "#a9898c",
+        "#800000",
+        "#993300"
 
     ];
+
+function getTooltip_drilldown(chart, element, x)
+{
+    element.hover(
+        function () {
+            if(typeof chart.series[0].data[x]!= 'undefined' ){
+                chart.series[0].data[x].setState('hover');
+                chart.tooltip.refresh(chart.series[0].data[x]);
+            }
+
+        },
+        function () {
+            if(typeof chart.series[0].data[x]!= 'undefined' ){
+                chart.series[0].data[x].setState("");
+                chart.tooltip.hide();
+            }
+        }
+    );
+}
 
 
 function SetChartDonutDrilldown(id_donut){
     var objs=[];
     var drilldown=[];
     var total = 0;
-    var number_tr = 0;
-    var number_tr2 = 0;
     var chart;
     var array_valori_no_ripetuti = [];
     var cont_colori=0;
@@ -40,35 +60,11 @@ function SetChartDonutDrilldown(id_donut){
     var table_parent_tr = $("table[data-container='"+id_donut+"'] tr.parent");
 
     table_parent_tr.each(function() {
-
-        function getTooltip(element, x)
-        {
-            element.hover(
-                function () {
-                    if(typeof chart.series[0].data[x]!= 'undefined' ){
-                        chart.series[0].data[x].setState('hover');
-                        chart.tooltip.refresh(chart.series[0].data[x]);
-                    }
-
-                },
-                function () {
-                    if(typeof chart.series[0].data[x]!= 'undefined' ){
-                        chart.series[0].data[x].setState("");
-                        chart.tooltip.hide();
-                    }
-                }
-            );
-        }
-
         //calcolo somma totale
         var valore = $(this).find("*[data-value]").data('value');
 
         if (valore != "") {
-            //gestione tooltip
-            getTooltip($(this), number_tr);
-
             total = total + parseFloat(valore);
-            number_tr++;
         }
     });
 
@@ -85,19 +81,10 @@ function SetChartDonutDrilldown(id_donut){
                 array_valori_no_ripetuti.push(parent_value);
                 cont_colori++;
             }
-
             var obj_dict = {y:parent_percent, name:parent_name, drilldown:null};
-            number_tr2++;
 
             // look for children
-            var drilldown_name;
-            if (parent_name.match("^Other World Bank")) {
-                //this is a fix for "Other World Bank (IBRD,IFC,MIGA)" needed because django and JS slugify strings differently
-                drilldown_name = "other-world-bank-ibrdifcmiga-dd";
-            }
-            else
-                drilldown_name = slug(parent_name+"-dd");
-
+            var drilldown_name = slug(parent_name+"-dd");
             var drill_obj = {name: parent_name, id:drilldown_name, data:[]};
 
             $(this).nextUntil('tr.parent').each(
@@ -114,7 +101,6 @@ function SetChartDonutDrilldown(id_donut){
                 obj_dict.drilldown = drilldown_name;
             }
             objs.push(obj_dict);
-
         }
     });
 
@@ -176,7 +162,7 @@ function SetChartDonutDrilldown(id_donut){
         tooltip: {
             useHTML: true,
             formatter: function() {
-                return '<div id="highcharts-tooltip"><p style="text-align:left; background: #f7505a">'+ this.point.name +'</p><table><tr><td style="text-align:left;color:#f7505a;font-size:22px;padding:10px 40px 10px 10px; line-height:12px;"><strong>' + this.y + ' %</td></tr></table>';
+                return '<div id="highcharts-tooltip"><p style="text-align:left; background: #f7505a">'+ this.point.name +'</p><table><tr><td style="text-align:left;color:#f7505a;font-size:22px;padding:10px 40px 10px 10px; line-height:12px;"><strong>' + this.y + '%</td></tr></table>';
             },
             style: {
                 padding: 0,
@@ -201,6 +187,27 @@ function SetChartDonutDrilldown(id_donut){
 
     });
 
+    //    set tooltip for main org and minor orgs
+    var i=j=0;
+    table_parent_tr.each(function() {
+        i++;
+        j=0;
+        var valore = $(this).find("*[data-value]").data('value');
+
+        if (valore != "") {
+            //gestione tooltip
+            getTooltip_drilldown(chart, $(this), i);
+
+            $(this).nextUntil('tr.parent').each(
+                function(){
+
+                    //gestione tooltip
+                    getTooltip_drilldown(chart, $(this), j);
+                    j++;
+                }
+            );
+        }
+    });
 }
 
 function SetChartDonut(id_donut) {

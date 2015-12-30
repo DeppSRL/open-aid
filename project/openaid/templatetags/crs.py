@@ -78,14 +78,14 @@ def crs_stats(context, instance=None, year=None, show_map=True):
     ctx['columns'] = 3 if len(ctx['sector_stats']) and len(ctx['agency_stats']) and len(ctx['aid_stats']) else 2
 
     if not selected_facet:
-
-        multi_projects = projects_models.AnnualFunds.objects.filter(year=year).aggregate(
+        # multilateral aid have only to consider the top categories, otherwise the amount is doubled
+        main_organizations = projects_models.Organization.objects.filter(parent__isnull=True)
+        multi_projects = projects_models.AnnualFunds.objects.filter(organization__in=main_organizations,year=year).aggregate(
             multi_commitments_sum=Sum('commitment'),
             multi_disbursements_sum=Sum('disbursement'),
         )
         multi_commitments_sum = multi_projects['multi_commitments_sum']
         multi_disbursements_sum = multi_projects['multi_disbursements_sum']
-
 
         # adds the % commitment and % disbursement for every organization to display in the template
         ctx.update(multi_projects)
@@ -95,14 +95,10 @@ def crs_stats(context, instance=None, year=None, show_map=True):
             'total_disbursements_sum': (multi_disbursements_sum or 0.0) + disbursements_sum,
         })
 
+        # drilldown pie code
         ctx.update({
-            'multi_stats': projects_models.AnnualFunds.objects.filter(year=year).select_related('organization'),
+            'multi_stats_commitment': projects_models.AnnualFunds.get_multilateral_data(year=year, type='commitment'),
+            'multi_stats_disbursement': projects_models.AnnualFunds.get_multilateral_data(year=year, type='disbursement')
         })
-
-        # drilldown pie code - to activate later #
-        # ctx.update({
-        #     'multi_stats_commitment': projects_models.AnnualFunds.get_type_distribution(year=year, type='commitment'),
-        #     'multi_stats_disbursement':projects_models.AnnualFunds.get_type_distribution(year=year, type='disbursement')
-        # })
 
     return ctx

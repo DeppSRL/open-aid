@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 17:49+0100\n"
+"POT-Creation-Date: 2015-12-30 11:22+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -175,7 +175,7 @@ msgstr ""
 msgid "Agency"
 msgstr "Finanziatore"
 
-#: projects/filters.py:38 projects/models.py:83 projects/models.py:631
+#: projects/filters.py:38 projects/models.py:83 projects/models.py:623
 msgid "Country"
 msgstr ""
 
@@ -197,15 +197,15 @@ msgstr "Anno di fine"
 msgid "Main Sector"
 msgstr "Settore principale"
 
-#: projects/models.py:134 projects/models.py:596 projects/models.py:630
+#: projects/models.py:134 projects/models.py:585 projects/models.py:622
 msgid "Abstract"
 msgstr ""
 
-#: projects/models.py:136 projects/models.py:581 projects/models.py:595
+#: projects/models.py:136 projects/models.py:570 projects/models.py:584
 msgid "N. ID DGCS"
 msgstr ""
 
-#: projects/models.py:143 projects/models.py:657
+#: projects/models.py:143 projects/models.py:649
 msgid "Focus"
 msgstr "Focus on"
 
@@ -213,40 +213,40 @@ msgstr "Focus on"
 msgid "Last update"
 msgstr ""
 
-#: projects/models.py:145 projects/models.py:632
+#: projects/models.py:145 projects/models.py:624
 msgid "Main Outcome"
 msgstr "Obiettivo principale"
 
-#: projects/models.py:146 projects/models.py:634
+#: projects/models.py:146 projects/models.py:626
 #: templates/projects/initiative_detail.html:238
 msgid "Beneficiaries"
 msgstr "Beneficiari"
 
-#: projects/models.py:147 projects/models.py:635
+#: projects/models.py:147 projects/models.py:627
 msgid "of which females (%)"
 msgstr ""
 
-#: projects/models.py:148 projects/models.py:636
+#: projects/models.py:148 projects/models.py:628
 msgid "Beneficiaries of which females (%)"
 msgstr ""
 
-#: projects/models.py:150 projects/models.py:640
+#: projects/models.py:150 projects/models.py:632
 msgid "Status"
 msgstr ""
 
-#: projects/models.py:150 projects/models.py:640
+#: projects/models.py:150 projects/models.py:632
 msgid "Progress based on Approved vs Disbursed"
 msgstr ""
 
-#: projects/models.py:152 projects/models.py:642
+#: projects/models.py:152 projects/models.py:634
 msgid "suspended"
 msgstr "sospeso"
 
-#: projects/models.py:154 projects/models.py:647
+#: projects/models.py:154 projects/models.py:639
 msgid "Other funders"
 msgstr "Altri finanziatori"
 
-#: projects/models.py:158 projects/models.py:649
+#: projects/models.py:158 projects/models.py:641
 msgid "Officer in charge (email)"
 msgstr ""
 
@@ -359,149 +359,115 @@ msgstr ""
 msgid "Investment Project"
 msgstr "Progetto di investimento"
 
-#: projects/models.py:453
-msgid "UN agencies"
-msgstr ""
-
-#: projects/models.py:454
-msgid "EU institutions"
-msgstr ""
-
-#: projects/models.py:455
-msgid "IDA"
-msgstr ""
-
-#: projects/models.py:456
-msgid "Other World Bank (IBRD,IFC,MIGA)"
-msgstr ""
-
-#: projects/models.py:457
-#, fuzzy
-msgid "Regional development banks"
-msgstr "Le iniziative della cooperazione italiana nel mondo"
-
-#: projects/models.py:458
-#, fuzzy
-msgid "Other agencies"
-msgstr "Altri finanziatori"
-
-#: projects/models.py:459
-msgid "Global Environment Facility (96%)"
-msgstr ""
-
-#: projects/models.py:460
-msgid "Montreal Protocol"
-msgstr ""
-
-#: projects/models.py:548
+#: projects/models.py:537
 msgid "Unforeseen event"
 msgstr ""
 
-#: projects/models.py:550
+#: projects/models.py:539
 msgid "Actions carried out"
 msgstr ""
 
-#: projects/models.py:557
+#: projects/models.py:546
 msgid "Technical Assistance/Consultancy and related expenses"
 msgstr ""
 
-#: projects/models.py:558
+#: projects/models.py:547
 msgid "Works, Supply, Services"
 msgstr ""
 
-#: projects/models.py:559
+#: projects/models.py:548
 msgid "Contributions"
 msgstr ""
 
-#: projects/models.py:560
+#: projects/models.py:549
 msgid "Scholarships"
 msgstr ""
 
-#: projects/models.py:564
+#: projects/models.py:553
 msgid "Call for Proposal"
 msgstr ""
 
-#: projects/models.py:565
+#: projects/models.py:554
 msgid "Direct Contracting/Direct Assignment"
 msgstr ""
 
-#: projects/models.py:566
+#: projects/models.py:555
 msgid "Competitive Bidding"
 msgstr ""
 
-#: projects/models.py:567
+#: projects/models.py:556
 msgid "Call for Grant"
 msgstr ""
 
-#: projects/models.py:571
+#: projects/models.py:560
 msgid "Tender preparation"
 msgstr ""
 
-#: projects/models.py:572
+#: projects/models.py:561
 msgid "Tender launched"
 msgstr ""
 
-#: projects/models.py:573
+#: projects/models.py:562
 msgid "Selection procedure"
 msgstr ""
 
-#: projects/models.py:574
+#: projects/models.py:563
 msgid "Contract awarded"
 msgstr ""
 
-#: projects/models.py:583
+#: projects/models.py:572
 msgid "Observation"
 msgstr ""
 
-#: projects/models.py:589
+#: projects/models.py:578
 msgid "Procurement"
 msgstr ""
 
-#: projects/models.py:590 templates/projects/initiative_detail.html:123
+#: projects/models.py:579 templates/projects/initiative_detail.html:123
 msgid "Procurements"
 msgstr ""
 
-#: projects/models.py:598 projects/models.py:599
+#: projects/models.py:587 projects/models.py:588
 msgid "Migliaia di euro"
 msgstr "Thousand of euro"
 
-#: projects/models.py:616
+#: projects/models.py:605
 msgid "N.ID Iniziativa DGCS"
 msgstr ""
 
-#: projects/models.py:619
+#: projects/models.py:608
 msgid "Total project costs for Italian Entities"
 msgstr ""
 
-#: projects/models.py:620 projects/models.py:622 projects/models.py:624
+#: projects/models.py:610 projects/models.py:613 projects/models.py:616
 msgid ""
 "Value in Euro. Example: for 10.000 Euro insert 10000. Do not insert dots or "
 "commas for decimals or thousands"
 msgstr ""
 
-#: projects/models.py:629
+#: projects/models.py:621
 msgid "Data aggiornamento scheda"
 msgstr ""
 
-#: projects/models.py:633
+#: projects/models.py:625
 #, fuzzy
 msgid "Purpose code"
 msgstr "Scopo"
 
-#: projects/models.py:648 templates/projects/initiative_detail.html:201
+#: projects/models.py:640 templates/projects/initiative_detail.html:201
 msgid "Counterpart authority"
 msgstr "Autorità locale"
 
-#: projects/models.py:650 templates/projects/initiative_detail.html:96
+#: projects/models.py:642 templates/projects/initiative_detail.html:96
 msgid "Location"
 msgstr "Luogo"
 
-#: projects/models.py:906
+#: projects/models.py:898
 #, fuzzy
 msgid "Initiative"
 msgstr "Dati dell'iniziativa"
 
-#: projects/models.py:907
+#: projects/models.py:899
 #, fuzzy
 msgid "Initiatives"
 msgstr "Dati dell'iniziativa"
@@ -714,13 +680,13 @@ msgstr ""
 "agli aiuti e alle spese per rifugiati."
 
 #: templates/commons/aid_tabs.html:43 templates/commons/aid_tabs.html.py:63
-#: templates/commons/aid_tabs.html:76 templates/commons/stats_multi.html:7
+#: templates/commons/aid_tabs.html:76 templates/commons/stats_multi.html:8
 #: templates/commons/stats_totals.html:7
 msgid "Committed funds"
 msgstr "Fondi Impegnati"
 
 #: templates/commons/aid_tabs.html:47 templates/commons/aid_tabs.html.py:67
-#: templates/commons/aid_tabs.html:80 templates/commons/stats_multi.html:29
+#: templates/commons/aid_tabs.html:80 templates/commons/stats_multi.html:14
 #: templates/commons/stats_totals.html:29
 msgid "Used funds"
 msgstr "Fondi erogati"
@@ -731,7 +697,7 @@ msgstr "Fondi erogati"
 msgid "Projects"
 msgstr "Progetti"
 
-#: templates/commons/aid_tabs.html:59 templates/commons/stats_multi.html:64
+#: templates/commons/aid_tabs.html:59 templates/commons/stats_multi.html:19
 msgid "Multilateral Official Development Assistance"
 msgstr "Aiuto pubblico Multilaterale"
 
@@ -827,7 +793,7 @@ msgstr ""
 "iniziative di Aiuto Pubblico allo Sviluppo con fondi attinti direttamente "
 "dal proprio bilancio.<br/>&nbsp;"
 
-#: templates/commons/stats_multi.html:67
+#: templates/commons/stats_multi.html:22
 msgid ""
 "These funds are classified as multilateral ODA (all other categories fall\n"
 "under bilateral ODA). The recipient multilateral institution pools "
@@ -1058,6 +1024,14 @@ msgstr "Rimuovi filtri"
 #: templates/search/search_results.html:113
 msgid "Channel"
 msgstr "Canale"
+
+#, fuzzy
+#~ msgid "Regional development banks"
+#~ msgstr "Le iniziative della cooperazione italiana nel mondo"
+
+#, fuzzy
+#~ msgid "Other agencies"
+#~ msgstr "Altri finanziatori"
 
 #~ msgid "Similar initiatives"
 #~ msgstr "Iniziative correlate"
