@@ -3,29 +3,29 @@
 
 # Bleeding edge Django
 Django>=1.6,<1.7
-django-extensions
+django-extensions==1.6.1
 pytz
 
 # Configuration
 django-environ>=0.3
 
 # Forms
-django-braces
-django-tinymce
+django-braces==1.8.1
+django-tinymce==2.3.0
 Pillow==2.5.0
 
 # Models
 South
 django-model-utils
-django-mptt
-django-mptt-admin
+django-mptt==0.7.4
+django-mptt-admin==0.2.1
 django-modeltranslation
 
 # For the persistance stores
 psycopg2
 
 # Searching
-django-haystack
+django-haystack==2.4.1
 requests
 lxml
 cssselect
