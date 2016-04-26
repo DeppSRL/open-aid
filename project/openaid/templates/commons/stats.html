@@ -13,6 +13,7 @@
     </div>
     {% endif %}
 
+    {% if not widget %}
     <div class="row panel-pad stats-panel-columns">
 
         {% if sector_stats %}
@@ -127,5 +128,6 @@ entities should not be reported as extending agencies but as channels of deliver
         </div>
         {% endif %}
     </div><!-- .row -->
+    {% endif %}
 
 </div><!-- .row -->

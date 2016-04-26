@@ -14,6 +14,7 @@ admin.autodiscover()
 
 urlpatterns = [
     url(r'^$', views.Home.as_view()),
+    url(r'^widget/$', views.Widget.as_view()),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^tinymce/', include('tinymce.urls')),
     url(r'^i18n/', include('django.conf.urls.i18n')),

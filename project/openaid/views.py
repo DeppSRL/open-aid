@@ -42,3 +42,7 @@ class Home(MapFiltersContextMixin, TemplateView):
 
 class Numbers(Home):
     template_name = 'pages/numbers.html'
+
+
+class Widget(Home):
+    template_name = 'widget.html'

@@ -1,0 +1,22 @@
+{% extends 'base_map.html' %}
+{% load i18n %}
+{% load staticfiles %}
+{% load idioticon %}
+{% load icons %}
+{% load humanize %}
+{% load crs %}
+
+{% block body_header %}{% endblock %}
+{% block body_footer %}{% endblock %}
+
+
+{% block body_content %}
+
+    <div id="main-content">
+    {% crs_stats with widget=True %}
+    <div id="map"></div>
+    </div>
+
+
+
+{% endblock %}

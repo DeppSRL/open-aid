@@ -41,9 +41,11 @@
 </head>
 
 <body>
-
+{% block body_header %}
 {% include 'header.html' %}
+{% endblock %}
 
+{% block body_content %}
 {% if messages %}
 {% for message in messages %}
     <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}</div>
@@ -57,8 +59,11 @@
     {% block content %}{% endblock content %}
     </div>
 </div><!-- /#main-content -->
+{% endblock %}
 
+{% block body_footer %}
 {% include 'footer.html' %}
+{% endblock %}
 
 {% block modal %}
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

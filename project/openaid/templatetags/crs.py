@@ -24,7 +24,7 @@ def _get_code_list_items(instance, model):
     return model.objects.root_nodes()
 
 @register.inclusion_tag('commons/main_panel.html', takes_context=True)
-def crs_stats(context, instance=None, year=None, show_map=True):
+def crs_stats(context, instance=None, year=None, show_map=True, widget=False):
 
     start_year = contexts.START_YEAR
     end_year = contexts.END_YEAR
@@ -68,6 +68,7 @@ def crs_stats(context, instance=None, year=None, show_map=True):
         'disbursements_sum': disbursements_sum,
         'years': range(start_year, end_year + 1),
         'show_map': show_map,
+        'widget': widget
     }
 
     ctx['columns'] = 3 if len(ctx['sector_stats']) and len(ctx['agency_stats']) and len(ctx['aid_stats']) else 2
