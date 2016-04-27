@@ -1,0 +1,48 @@
+{% load staticfiles %}<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Widget OpenAID</title>
+    <link rel="stylesheet" href="{% static 'js/vendor/bootstrap/css/bootstrap.css' %}">
+</head>
+<body>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="openaid-widget" style="border:1px solid #ccc; padding:5px; margin: auto 10px;"></div>
+            <script>!function (d, w, s, id, ns, url, wc, config) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (w[ns] == undefined) w[ns] = {};
+                if (w[ns][wc] === undefined) w[ns][wc] = config;
+                if (!d.getElementById(id)) {
+                    js = d.createElement(s);
+                    js.id = id;
+                    js.src = url;
+                    js.async = true;
+                    fjs.parentNode.insertBefore(js, fjs);
+                }
+            }(document, window, "script", "openaid-widget-loader", "widgets_loader_ns", "{{ js_url }}", 'openaid-widget', {
+                base_url: "{{ widget_url }}",
+                height: "570",
+                width: "100%"
+            });</script>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+            <textarea name="embed_code" id="id_embed_code" rows="5" class="form-control"
+		          onClick="this.focus();this.select();"><div class="openaid-widget"></div>
+<script>!function (e,t,a,n,r,d,i,o){var c,m=e.getElementsByTagName(a)[0];void 0==t[r]&&(t[r]={}),void 0===t[r][i]&&(t[r][i]=o),e.getElementById(n)||(c=e.createElement(a),c.id=n,c.src=d,c.async=!0,m.parentNode.insertBefore(c,m))
+}(document, window, "script", "openaid-widget-loader", "widgets_loader_ns", "{{ js_url }}", 'openaid-widget', {
+    base_url: "{{ widget_url }}",
+    height: "570",
+    width: "100%"
+});</script></textarea>
+                </div>
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

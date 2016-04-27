@@ -18,14 +18,21 @@
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div id="years">
-                <ul class="nav navbar-nav">
+{#                <ul class="nav navbar-nav">#}
+{#                    {% for year in years %}#}
+{#                    <li class="{% spaceless %}#}
+{#                    {% if year == selected_year %}selected {% endif %}#}
+{#                    {% if forloop.first %}first{% elif forloop.last %}last{% endif %}">#}
+{#                        <a href="?year={{ year }}" class=""><span class="point hidden-xs hidden-sm"> </span> {{ year }}</a></li>{% endspaceless %}#}
+{#                    {% endfor %}#}
+{#                </ul>#}
+                <div class="btn-group btn-group-justified" role="group">
                     {% for year in years %}
-                    <li class="{% spaceless %}
-                    {% if year == selected_year %}selected {% endif %}
-                    {% if forloop.first %}first{% elif forloop.last %}last{% endif %}">
-                        <a href="?year={{ year }}" class=""><span class="point hidden-xs hidden-sm"> </span> {{ year }}</a></li>{% endspaceless %}
+                    <a href="?year={{ year }}" class="btn{% if year == selected_year %} selected{% endif %}">
+                        <span class="point hidden-xs hidden-sm"> </span> {{ year }}
+                    </a>
                     {% endfor %}
-                </ul>
+                </div>
             </div><!-- /.navbar-collapse -->
         </nav>
     </div><!-- .years-navigation -->

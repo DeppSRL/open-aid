@@ -25,17 +25,19 @@
         <div class="tab-content panel-body">
             <div class="tab-pane active" id="bi-multi-tab">
                 {% include 'commons/stats.html' %}
-            </div>
+            </div>{% if not widget %}
             <div class="tab-pane" id="multi-tab">
                 {% include 'commons/stats_multi.html' %}
             </div>
             <div class="tab-pane" id="total-aid-tab">
                 {% include 'commons/stats_totals.html' %}
-            </div>
+            </div>{% endif %}
         </div>
         {% endif %}
+        {% if not widget %}
         <div class="panel-footer text-right">
             <small class="text-muted">{% trans 'Committed funds, amounts in euros.' %}</small>
         </div>
+        {% endif %}
     </div>
 </div>
