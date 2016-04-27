@@ -73,8 +73,6 @@ router.register(r'finance_types', FinanceTypeViewSet)
 
 urlpatterns = [
     url(r'^$', views.Home.as_view()),
-    url(r'^widget/$', views.Widget.as_view(), name='widget'),
-    url(r'^widget/embed/$', views.WidgetEmbed.as_view()),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^tinymce/', include('tinymce.urls')),
     url(r'^i18n/', include('django.conf.urls.i18n')),
@@ -86,6 +84,8 @@ urlpatterns = [
 
 openaid_urls = (
     url(r'^$', views.Home.as_view(), name='home'),
+    url(r'^widget/$', views.Widget.as_view(), name='widget'),
+    url(r'^widget/embed/$', views.WidgetEmbed.as_view()),
     url(r'^news/', include('blog.urls')),
     url(r'^faq/', include('faq.urls')),
     url(r'^projects/', include('openaid.projects.urls', namespace='projects')),
