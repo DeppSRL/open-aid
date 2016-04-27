@@ -4,18 +4,18 @@ from django.utils.translation import ugettext_lazy as _
 from haystack.forms import FacetedSearchForm
 from openaid.projects.models import Project, Markers, Activity, ChannelReported
 
+
 def text_cleaner(text):
     # http://stackoverflow.com/questions/2077897/substitute-multiple-whitespace-with-single-whitespace-in-python
     return u' '.join(text.split()).strip(u' ')
 
 
 class ProjectForm(forms.ModelForm):
-
     class Meta:
         model = Project
 
-class ActivityForm(forms.ModelForm):
 
+class ActivityForm(forms.ModelForm):
     def clean_title(self):
         title = self.cleaned_data.get('title')
         return text_cleaner(title)
@@ -35,10 +35,6 @@ class ActivityForm(forms.ModelForm):
             if data['long_description'] and slugify(data['description']) == slugify(data['long_description']):
                 data['long_description'] = ''
 
-        if data['title']:
-            if data['description'] and slugify(data['title']) == slugify(data['description']):
-                data['description'] = ''
-
         return data
 
     class Meta:
@@ -46,24 +42,21 @@ class ActivityForm(forms.ModelForm):
 
 
 class CodeListForm(forms.Form):
-
     id = forms.IntegerField(min_value=0)
     name = forms.CharField(max_length=500)
 
 
 class MarkersForm(forms.ModelForm):
-
     class Meta:
         model = Markers
 
-class ChannelReportedForm(forms.ModelForm):
 
+class ChannelReportedForm(forms.ModelForm):
     class Meta:
         model = ChannelReported
 
 
 class FacetedProjectSearchForm(FacetedSearchForm):
-
     default_order = 'start_year'
     default_desc = True
     order_by = forms.ChoiceField(initial=default_order, required=False, choices=(

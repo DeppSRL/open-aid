@@ -24,7 +24,13 @@
 .dropdown-submenu:hover>a:after{border-left-color:#ffffff;}
 .dropdown-submenu.pull-left{float:none;}.dropdown-submenu.pull-left>.dropdown-menu{left:-100%;margin-left:10px;-webkit-border-radius:6px 0 6px 6px;-moz-border-radius:6px 0 6px 6px;border-radius:6px 0 6px 6px;}
 
-.small-map {margin-top: 20px; }
+.small-map, .project-initiative {margin-top: 20px; }
+.project-initiative {
+    border-top: 2px dotted #8a8274;
+    border-bottom: 2px dotted #8a8274;
+    margin-bottom: 20px;
+    padding-bottom: 5px;
+}
 
 .collapse-menu > li.active > a {
   background: #fff;
@@ -247,6 +253,10 @@ ul.gallery-small li {
     text-align:right;
 }
 
+#main-content .years-navigation .navbar-nav > li {
+    width: 9% !important;
+}
+
 
 @media (min-width: 768px) and (max-width: 991px) {
     #main-menu > .container { width: 100%; }
@@ -269,4 +279,50 @@ ul.gallery-small li {
     #main-menu > .container > .row .navbar-nav > li > a { padding-left: 10px; padding-right: 10px; }
     #main-content .years-navigation .navbar-nav > li { width: 10% !important; float:left; }
     /*#main-content .years-navigation .navbar-nav > li.selected a { color: #f7505a; }*/
+}
+
+.numbers { display: inline-block; }
+.small-pad.numbers { padding: 6px; margin-left: 5px; margin-right: 5px;}
+.progetti .media-body p {text-transform: none; }
+.dl-horizontal { border-bottom: 2px dotted #8a8274; margin: 0; padding-top: 5px; padding-bottom: 5px; }
+.dl-horizontal> * {  }
+.dl-horizontal dt { text-align: left; font-weight: normal; }
+.dl-horizontal dd { color: #f7505a; font-size: 11px; font-weight: bold; text-align: right; margin-top: 5px; }
+.dl-horizontal ~ .simple-menu li { padding-left: 0; padding-right: 0; }
+
+/*page initiative: fixes red hover on tables that makes links disappear */
+#main-content #initiative-tabs .table-special .table > tbody > tr:hover > th{
+    background: white!important;
+    color: #333333!important;
+}
+#main-content #initiative-tabs .table-special .table > tbody > tr:hover > th a{
+    color: #2b6a7c;
+    text-decoration: underline;}
+
+#main-content #initiative-tabs .table > tbody > tr:hover > td{
+    background: white!important;
+    color: #f7505a;
+    text-decoration: none;
+}
+
+/*top initiatives/top projects block: fixes red hover on tables that makes links disappear */
+#main-content .bordered-radius.top_elements .table-special .table > tbody > tr:hover > th{
+    background: white!important;
+    color: #333333!important;
+}
+#main-content .bordered-radius.top_elements .table-special .table > tbody > tr:hover > th a{
+    color: #2b6a7c;
+    text-decoration: underline;}
+
+#main-content .bordered-radius.top_elements .table-special .table > tbody > tr:hover > td{
+    background: white!important;
+    color: #f7505a;
+    text-decoration: none;
+}
+#main-content .bordered-radius.top_elements .table-special .table > tbody > tr > th {
+    padding-left: 8px;
+}
+
+#main-content .table-special .table > thead > tr > th {
+    text-align: left;
 }

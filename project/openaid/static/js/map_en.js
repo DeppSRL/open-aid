@@ -5,9 +5,9 @@
 var map = L.map('map', {
     minZoom: 2,
     maxZoom: 5,
-    scrollWheelZoom: false
-//    maxBounds: [[-90.0, -180.0],[90.0, 180.0]]
-}).setView([0.0, 0.0], 2);
+    scrollWheelZoom: false,
+    maxBounds: [[90.0,-220.0],[-70.0,220.0]]
+}).setView([0.0, 0.0],2);
 
 // proxied tiles
 var cloudmade = L.tileLayer('http://tilestache.openpolis.it/cm_109537/{z}/{x}/{y}.png', {

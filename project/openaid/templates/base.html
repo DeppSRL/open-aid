@@ -20,12 +20,13 @@
     <![endif]-->
 
     {% block css %}
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="{% static 'js/vendor/bootstrap/css/bootstrap.css' %}">
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="{% static 'js/vendor/bootstrap/css/bootstrap.css' %}">
 
-    <!-- This file store project specific CSS -->
-    <link href="{% static 'css/project.css' %}" rel="stylesheet">
-    <link href="{% static 'css/main.css' %}" rel="stylesheet">
+        <!-- This file store project specific CSS -->
+        <link href="{% static 'css/main.css' %}" rel="stylesheet">
+        <link href="{% static 'css/updates.css' %}" rel="stylesheet">
+        <link href="{% static 'css/project.css' %}" rel="stylesheet">
     {% endblock css %}
 
     <link rel="icon" type="image/png" href="{% static 'img/favicon.png' %}"><!-- Major Browsers -->
@@ -41,72 +42,88 @@
 </head>
 
 <body>
+
+{% block cookies %}
+    {% include 'cookies.html' %}
+{% endblock %}
+
 {% block body_header %}
 {% include 'header.html' %}
 {% endblock %}
 
 {% block body_content %}
 {% if messages %}
-{% for message in messages %}
-    <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}</div>
-{% endfor %}
+    {% for message in messages %}
+        <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}</div>
+    {% endfor %}
 {% endif %}
 
 <div id="main-content">
-{% include 'navbar.html' %}
+    {% block navbar %}
+        {% include 'navbar.html' %}
+    {% endblock %}
     <div class="container">
-    <div class="row"><div class="col-md-12">{% include 'commons/share_buttons.html' %}</div></div>
-    {% block content %}{% endblock content %}
+        {# social buttons       #}
+        {% block social_buttons %}
+            <div class="row">
+                <div class="col-md-12">
+                    {% include 'commons/share_buttons.html' %}
+                </div>
+            </div>
+        {% endblock %}
+
+        {% block content %}{% endblock content %}
     </div>
 </div><!-- /#main-content -->
 {% endblock %}
 
 {% block body_footer %}
-{% include 'footer.html' %}
+    {% include 'footer.html' %}
 {% endblock %}
 
 {% block modal %}
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-body">
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 {% endblock modal %}
 
 <!-- Javascripts
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 {% block javascript %}
-<!-- Latest JQuery -->
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <!-- Latest JQuery -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="{% static 'js/jquery.cookie.js' %}"></script>
 
 <!-- Latest compiled and minified JavaScript -->
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 {% if not widget %}
 <!-- Your stuff: Third-party javascript libraries go here -->
     <!-- Custom scripts -->
-    <script src="http://code.highcharts.com/highcharts.js"></script>
-    <script src="http://code.highcharts.com/highcharts-more.js"></script>
-    <script src="http://code.highcharts.com/modules/exporting.js"></script>
+    <script src="{% static 'js/vendor/highcharts/highcharts.js' %}"></script>
+    <script src="{% static 'js/vendor/highcharts/drilldown.js' %}"></script>
+    <script src="{% static 'js/vendor/highcharts/highcharts-more.js' %}"></script>
+{#    <script src="{% static 'js/vendor/highcharts/exporting.js' %}"></script>#}
 
     <script src="{% static 'js/readmore.min.js' %}"></script>
-    <script src="{% static 'js/vendor/highcharts-donut.js' %}"></script>
-    <script src="{% static 'js/vendor/highcharts-bubble.js' %}"></script>
+    <script src="{% static 'js/pie-chart.js' %}"></script>
     <script src="{% static 'js/vendor/raphael/raphael.js' %}"></script>
-    <script src="{% static 'js/vendor/g.raphael/g.raphael.js' %}"></script>
-    <script src="{% static 'js/vendor/g.raphael/g.pie.js' %}"></script>
+    <script src="{% static 'js/vendor/g.raphael/g.raphael-min.js' %}"></script>
+    <script src="{% static 'js/vendor/g.raphael/pie.js' %}"></script>
 
 {% endif %}
     <!-- place project specific Javascript in this file -->
     <script src="{% static 'js/main.js' %}"></script>
 
-
 {% endblock javascript %}
 
 {% if not widget %}
+
     {% verbatim %}<script type="text/javascript">
         var addthis_share =
         {

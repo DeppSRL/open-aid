@@ -2,14 +2,15 @@
 {% load i18n %}
 <footer id="footer">
     <div class="container">
-    <div class="row">
+        <div class="row">
             <div class="col-md-3 col-sm-6 col-xs-6">
                 <h4>{% trans 'Open Aid Italia' %}</h4>
                 <ul class="list-unstyled">
                     {% for url_name, label in footer_sections.oai.items %}
-                    <li>
-                        <a href="{% url url_name %}">{% trans label %}</a>
-                    </li>
+                        <li>
+                            <a href="{% if work_in_progress %}{% else %}{% url url_name %}{% endif %}">{% trans label %}</a>
+
+                        </li>
                     {% endfor %}
                 </ul>
             </div>
@@ -17,18 +18,13 @@
             <div class="col-md-3 col-sm-6 col-xs-6">
                 <h4>{% trans 'FAQ' %}</h4>
                 <ul class="list-unstyled">
-                    {# TODO: Remove this hardcoding stuff!!!! #}
-                    <li><a href="{% url 'faq_question_list' %}#update">{% trans "Why isn't the data updated to 2013?" %}</a></li>
-                    <li><a href="{% url 'faq_question_list' %}#fonte">{% trans "Where does the data come from?" %}</a></li>
-                    <li><a href="{% url 'faq_question_list' %}#data">{% trans "To which extent is the data reliable?" %}</a></li>
-                    <li><a href="{% url 'faq_question_list' %}#bilaterale">{% trans "What do we mean by Bilateral and Multi-bilateral ODA?" %}</a></li>
-{#                    {% for url_name, label in footer_sections.comefare.items %}#}
-{#                    <li>#}
-{#                        <a href="{% url url_name %}">{% trans label %}</a>#}
-{#                    </li>#}
-{#                    {% endfor %}#}
+                    {% for faq in faq_list %}
                     <li>
-                        <a href="{% url 'faq_question_list' %}"><i>{% trans "More questions and answers" %}</i></a>
+                        <a href="{% if work_in_progress %}{% else %}{% url 'faq_question_list' %}#{{ faq.slug }}{% endif %}">{{ faq.text|safe }}</a>
+                    </li>
+                    {% endfor %}
+                    <li>
+                        <a href="{% if work_in_progress %}{% else %}{% url 'faq_question_list' %}{% endif %}"><i>{% trans "More questions and answers" %}</i></a>
                     </li>
                 </ul>
             </div>
@@ -40,14 +36,14 @@
                     {# TODO: Remove this hardcoding stuff!!!! #}
                     {% if url_name != 'licenze_cc' and url_name != 'dati_per_ricerca' and url_name != 'open_data_pa' %}
                     <li>
-                        <a href="{% url url_name %}">{% trans label %}</a>
+                        <a href="{% if work_in_progress %}{% else %}{% url url_name %}{% endif %}">{% trans label %}</a>
                     </li>
                     {% endif %}
                     {% endfor %}
                 </ul>
                 <ul class="list-unstyled">
                     <li>
-                        <a href="{% url 'licenza' %}">
+                        <a href="{% if work_in_progress %}{% else %}{% url 'licenza' %}{% endif %}">
                             <img src="http://creativecommons.org/images/public/somerights20.png" alt="CC License"/>
                         </a>
                     </li>
@@ -66,13 +62,12 @@
                 <ul class="list-unstyled clearfix">
                     <li>
                         <a href="http://www.cooperazioneallosviluppo.esteri.it/" target="_blank">
-                            <img src="{% static 'img/layout/logo_dgcs_neg.png' %}" class="img-responsive" style="width: 163px" 
+                            <img src="{% static 'img/layout/logo_dgcs_neg.png' %}" class="img-responsive" style="width: 163px"
                                  alt="DGCS" />
                         </a>
                     </li>
                 </ul>
             </div>
-        </div><!-- .container -->
-    </div><!-- .row -->
-
+        </div><!-- .row-->
+    </div><!-- .container -->
 </footer><!-- #footer -->

@@ -11,9 +11,9 @@
 <div class="media">
 
     {% if object.iso_alpha2 %}
-    <span class="pull-left">
-        <img style="height: 56px;" class="media-object img-thumbnail" src="{% static 'img/flags' %}/{{ object.iso_alpha2|lower }}.png" alt="{{ object.name }}"/>
-    </span>
+        <span class="pull-left">
+            <img style="height: 56px;" class="media-object img-thumbnail" src="{% static 'img/flags' %}/{{ object.iso_alpha2|lower }}.png" alt="{{ object.name }}"/>
+        </span>
     {% endif %}
     <div class="media-body">
         {{ block.super }}

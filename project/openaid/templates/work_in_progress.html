@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block cookies %}{% endblock %}
+
+{% block body_header %}
+    {% include 'header.html' with work_in_progress=True %}
+{% endblock %}
+
+{% block navbar %}
+    {% include 'navbar.html' with work_in_progress=True %}
+{% endblock %}
+{% block social_buttons %}{% endblock %}
+
+{% block body_footer %}
+    {% include 'footer.html' with work_in_progress=True %}
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="span12" style="font-size: 20px;">
+            <p>
+                Il sito &egrave; in manutenzione programmata.<br/>
+                Attendi qualche minuto, torneremo al più presto.
+            </p>
+
+            <p>
+                Grazie per la pazienza,<br/>
+                lo staff di Open Aid
+            </p>
+
+        </div>
+    </div>
+{% endblock %}

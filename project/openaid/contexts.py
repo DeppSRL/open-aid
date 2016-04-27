@@ -1,10 +1,11 @@
 from django.conf import settings
 from django.db.models import Min, Max, Count
+from faq.models import Question
 from openaid.pages import urls as pages_urls
 from .codelists import models
 from .projects import models as projects_models
 from .projects.forms import FacetedProjectSearchForm
-
+from openaid import utils
 
 YEAR_FIELD = 'selected_year'
 YEAR_GET_FIELD = 'year'
@@ -44,7 +45,7 @@ def project_context(request):
         projects_models.Activity,
         'aid_type', 'activity_count', cumulative=True
     )
-
+    
     return {
         'project_name': settings.PROJECT_NAME,
         'available_languages': map(lambda x: x[0], settings.LANGUAGES),
@@ -53,11 +54,13 @@ def project_context(request):
         'sectors': sectors,
         'agencies': agencies,
         'aid_types': aid_types,
-        YEAR_FIELD: request.GET.get(YEAR_GET_FIELD, END_YEAR),
+        YEAR_FIELD: utils.sanitize_get_param(int, request.GET.get(YEAR_GET_FIELD), END_YEAR, top=END_YEAR, length=4),
         YEARS_RANGE_FIELD: YEARS,
         'search_form': FacetedProjectSearchForm(request.GET),
         'addthis_profile': settings.ADDTHIS_PROFILE,
         'donor_code': settings.OPENAID_CRS_DONOR,
         'site_full_url': request.build_absolute_uri('/')[:-1],
         'page_full_url': request.build_absolute_uri(),
+        'faq_list': Question.objects.all()[:4],
+        'top_elements_number': settings.TOP_ELEMENTS_NUMBER,
     }

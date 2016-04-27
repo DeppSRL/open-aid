@@ -9,7 +9,8 @@
 {% block page_title %}OpenAID - {% trans "Search" %}{% endblock %}
 {% block og_title %}OpenAID - {% trans "Search" %}{% endblock %}
 
-{% block header %}
+{% block body_header %}
+    {{ block.super }}
     {% if search_facets %}
     <div class="container">
         <div id="main-title">
