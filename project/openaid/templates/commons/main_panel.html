@@ -34,8 +34,10 @@
             </div>{% endif %}
         </div>
         {% endif %}
+        {% if not widget %}
         <div class="panel-footer text-right">
             <small class="text-muted">{% trans 'Committed funds, amounts in euros.' %}</small>
         </div>
+        {% endif %}
     </div>
 </div>

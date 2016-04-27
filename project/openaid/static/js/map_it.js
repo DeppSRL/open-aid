@@ -98,7 +98,11 @@ function zoomToFeature(e) {
 }
 
 function navigateToFeatureURL(e) {
-    window.location = e.target.feature.properties.url;
+    if (window.is_widget) {
+        window.open(e.target.feature.properties.url, '_blank');
+    } else {
+        window.location = e.target.feature.properties.url;
+    }
 }
 
 function onEachFeature(feature, layer) {

@@ -13,10 +13,20 @@
 {% block body_content %}
 
     <div id="main-content">
-    {% crs_stats with widget=True %}
-    <div id="map"></div>
+    <div class="container">
+
+        {% crs_stats %}
+    </div>
     </div>
 
 
+
+{% endblock %}
+
+{% block javascript %}
+
+    <script>window.is_widget = true;</script>
+
+    {{ block.super }}
 
 {% endblock %}

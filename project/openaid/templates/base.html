@@ -85,7 +85,7 @@
 
 <!-- Latest compiled and minified JavaScript -->
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-
+{% if not widget %}
 <!-- Your stuff: Third-party javascript libraries go here -->
     <!-- Custom scripts -->
     <script src="http://code.highcharts.com/highcharts.js"></script>
@@ -99,10 +99,14 @@
     <script src="{% static 'js/vendor/g.raphael/g.raphael.js' %}"></script>
     <script src="{% static 'js/vendor/g.raphael/g.pie.js' %}"></script>
 
-
+{% endif %}
     <!-- place project specific Javascript in this file -->
     <script src="{% static 'js/main.js' %}"></script>
+
+
 {% endblock javascript %}
+
+{% if not widget %}
     {% verbatim %}<script type="text/javascript">
         var addthis_share =
         {
@@ -124,5 +128,6 @@
       ga('send', 'pageview');
 
     </script>
+{% endif %}
 </body>
 </html>

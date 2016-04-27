@@ -24,8 +24,8 @@ def _get_code_list_items(instance, model):
     return model.objects.root_nodes()
 
 @register.inclusion_tag('commons/main_panel.html', takes_context=True)
-def crs_stats(context, instance=None, year=None, show_map=True, widget=False):
-
+def crs_stats(context, instance=None, year=None, show_map=True):
+    widget = context.get('widget', False)
     start_year = contexts.START_YEAR
     end_year = contexts.END_YEAR
     year = int(year or context.get(contexts.YEAR_FIELD, None) or end_year)
