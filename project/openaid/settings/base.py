@@ -36,10 +36,18 @@ env = Env()
 ########## OPENAID CONFIGURATION
 EARLYBIRD_ENABLE = env.bool('EARLYBIRD_ENABLE', True)
 
+########## MAINTENANCE : maked the WORK IN PROGRESS PAGE appear on every page of the site
+MAINTENANCE = env.bool('MAINTENANCE', False)
+########## INSTANCE TYPE (DEVELOPMENT/STAGING/PRODUCTION)
+INSTANCE_TYPE = env.str('INSTANCE_TYPE', "development")
+
 OPENAID_CRS_DONOR = 6 # Italy
 OPENAID_DSD_FILE = join(RESOURCES_PATH, 'crs', 'dsd.xml')
 OPENAID_MULTIPLIER = 1000000.0
 OPENAID_CURRENCY = 918 # EUR
+
+TOP_ELEMENTS_NUMBER = 30
+
 # USD-EUR
 OPENAID_CURRENCY_CONVERSIONS = {
     2004: 0.8049,
@@ -51,7 +59,12 @@ OPENAID_CURRENCY_CONVERSIONS = {
     2010: 0.755,
     2011: 0.7192,
     2012: 0.778,
+    2014: 0.7537,
 }
+
+# purpose codes to be excluded when querying for Most important initiatives in DB (recipient page, etc)
+OPENAID_INITIATIVE_PURPOSE_EXCLUDED = ['91010','93010']
+
 
 ADDTHIS_PROFILE = 'ra-53be8c5b31fee67d'
 ########## END OPENAID CONFIGURATION
@@ -69,21 +82,21 @@ TEMPLATE_DEBUG = DEBUG
 ########## MANAGER CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#admins
 ADMINS = (
-    ('admin', 'admin@depp.it'),
+    ('admin', 'openaid-dev@depp.it'),
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#managers
 MANAGERS = ADMINS
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#default-from-email
-DEFAULT_FROM_EMAIL = ADMINS[0][1]
+DEFAULT_FROM_EMAIL = "no-reply@openaid.esteri.it"
 ########## END MANAGER CONFIGURATION
 
 
 ########## DATABASE CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
 DATABASES = {
-    'default': env.db(default='sqlite:///{0}'.format(normpath(join(RESOURCES_PATH, 'db', 'default.db'))))
+    'default': env.db(),
 }
 ########## END DATABASE CONFIGURATION
 
@@ -148,10 +161,8 @@ STATICFILES_FINDERS = (
 
 ########## SECRET CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
-# Note: This key should only be used for development and testing.
-SECRET_KEY = r"9e()(qfzb=tcftxf-=^!#gdt6qn&**sflayycdnbxw93@g@t4u"
+SECRET_KEY = env('SECRET_KEY')
 ########## END SECRET CONFIGURATION
-
 
 ########## SITE CONFIGURATION
 # Hosts/domain names that are valid for this site
@@ -229,6 +240,7 @@ DJANGO_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
+    'django.contrib.sitemaps',
 
     # If you want to use the admin integration, modeltranslation must be put before django.contrib.admin.
     # see: https://django-modeltranslation.readthedocs.org/en/latest/installation.html#installed-apps
@@ -248,6 +260,9 @@ DJANGO_APPS = (
     'tinymce',
     'bootstrap_pagination',
     'django_mptt_admin', # admin
+    'rest_framework', # api
+    'django_select2',
+    'robots'
 )
 
 # Apps specific for this project go here.
@@ -326,6 +341,11 @@ LOGGING = {
             'level': 'DEBUG',
             'propagate': False,
         },
+        'openaid': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
         'django.request': {
             'handlers': ['mail_admins'],
             'level': 'ERROR',
@@ -350,6 +370,10 @@ INSTALLED_APPS += (
 )
 # Don't need to use South when setting up a test database.
 SOUTH_TESTS_MIGRATE = False
+
+SOUTH_MIGRATION_MODULES = {
+        'robots': 'robots.south_migrations',
+    }
 ########## END SOUTH CONFIGURATION
 
 
@@ -372,9 +396,10 @@ INSTALLED_APPS += (
     'haystack',
 )
 SOLR_BASE_URL = env.str('SOLR_BASE_URL', default='http://127.0.0.1:8080/solr/open-aid-{lang}')
+
+
 def solr_url(lang):
     return {
-        # 'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
         'ENGINE': 'openaid.backends.MultilingualSolrEngine',
         'URL': SOLR_BASE_URL.format(lang=lang),
     }
@@ -386,4 +411,33 @@ HAYSTACK_CONNECTIONS.update(dict([
 ]))
 ########## END DJANGO-HAYSTACK CONFIGURATION
 
+########## REST FRAMEWORK CONFIGURATION
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': (
+        'rest_framework.filters.DjangoFilterBackend',
+        'rest_framework.filters.OrderingFilter',
+    ),
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.JSONPRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    ),
+
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ),
+    'DEFAULT_THROTTLE_CLASSES': (
+        'rest_framework.throttling.AnonRateThrottle',
+        'rest_framework.throttling.UserRateThrottle'
+    ),
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '12/minute',  # 1 req every 5 seconds
+        'user': '2/second',  # un-throttled  (default: '1/second')
+    },
+    'PAGINATE_BY': 25,
+    'MAX_PAGE_BY': 500,
+    'PAGINATE_BY_PARAM': 'page_size',
+}
+########## END REST FRAMEWORK CONFIGURATION
 

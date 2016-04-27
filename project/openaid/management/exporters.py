@@ -22,21 +22,27 @@ EXPORTED_FIELDS = (
     ['openaid_id', ] +
     mapping.ACTIVITY_FIELDS_MAP.keys() +
     mapping.CHANNEL_REPORTED_MAP.keys() +
-    mapping.MARKERS_FIELDS_MAP.keys()
+    mapping.MARKERS_FIELDS_MAP.keys() 
     # CODELISTS_CSV_MAP.keys() +
     # ['eur_commitment', 'eur_disbursement']
 )
 
 CODELISTS_FIELDS = []
 for cl in CODELISTS_CSV_MAP.keys():
-    CODELISTS_FIELDS += [cl, cl.replace('code', 'name')]
+    CODELISTS_FIELDS.append(cl)
+    if cl.endswith('_t'):
+        CODELISTS_FIELDS.append(cl + 'name')
+    else:
+        CODELISTS_FIELDS.append(cl.replace('code', 'name'))
 EXPORTED_FIELDS += CODELISTS_FIELDS
 EXPORTED_FIELDS += ['eur_commitment', 'eur_disbursement']
-print EXPORTED_FIELDS
+
 
 def serialize_activity(activity):
-    act = {'openaid_id': activity.pk}
-    act.update(dict.fromkeys(EXPORTED_FIELDS, ''))
+    # act = {'openaid_id': activity.pk}
+    # act.update(dict.fromkeys(EXPORTED_FIELDS, ''))
+    act = dict.fromkeys(EXPORTED_FIELDS, '')
+    act['openaid_id'] = activity.pk
     for field in EXPORTED_FIELDS:
 
         if field in mapping.ACTIVITY_FIELDS_MAP:
@@ -54,7 +60,10 @@ def serialize_activity(activity):
         elif field in CODELISTS_FIELDS:
 
             if field.endswith('name'):
-                codelist = CODELISTS_CSV_MAP[field.replace('name', 'code')]
+                if field.endswith('_tname'):
+                    codelist = CODELISTS_CSV_MAP[field.replace('name', '')]
+                else:
+                    codelist = CODELISTS_CSV_MAP[field.replace('name', 'code')]
                 codelist_item = getattr(activity, codelist.code_list, None) or ''
                 act[field] = codelist_item.name_en if codelist_item else ''
             else:
@@ -67,8 +76,6 @@ def serialize_activity(activity):
 
     for euros in ['commitment', 'disbursement']:
         act['eur_%s' % euros] = getattr(activity, euros, '')
-
-    act['openaid_id'] = activity.pk
 
     return act
 

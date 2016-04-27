@@ -1,7 +1,12 @@
-from django.contrib.contenttypes.generic import GenericTabularInline
-from .models import Photo
+from modeltranslation.admin import TranslationGenericStackedInline
+from .models import Photo, Document
 
 
-class PhotoInlineAdmin(GenericTabularInline):
+class PhotoInlineAdmin(TranslationGenericStackedInline):
     model = Photo
+    extra = 1
+
+
+class DocumentInlineAdmin(TranslationGenericStackedInline):
+    model = Document
     extra = 1

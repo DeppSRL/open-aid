@@ -22,14 +22,14 @@ django-mptt-admin==0.2.1
 django-modeltranslation
 
 # For the persistance stores
-psycopg2
+psycopg2==2.5.3
 
 # Searching
 django-haystack==2.4.1
-requests
-lxml
-cssselect
-pysolr
+requests==2.3.0
+lxml==3.3.5
+cssselect==0.9.1
+pysolr==3.2.0
 django-bootstrap-pagination==1.5.0
 
 # OpenAID specific
@@ -37,3 +37,16 @@ csvkit
 sdmx
 -e git://github.com/joke2k/iconfonts.git#egg=iconfonts
 -e git://github.com/openpolis/django-idioticon.git#egg=django-idioticon
+
+# Api
+djangorestframework==2.4.2
+django-filter==0.8
+Markdown==2.5.1
+Django-Select2==4.2.2
+SQLAlchemy==0.9.6
+argparse==1.2.1
+dbf==0.94.003
+openpyxl==2.0.4
+wsgiref==0.1.2
+xlrd==0.9.3
+django-robots==1.1

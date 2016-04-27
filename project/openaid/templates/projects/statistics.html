@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <table class="table text-right">
+    <thead>
+        <tr>
+            <td>Anno</td>
+            <td>Attivita'</td>
+            <td>Promessi</td>
+            <td>Erogati</td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for year, stats in activity_by_years.items %}
+        <tr>
+            <td>{{ year }}</td>
+            <td>{{ stats.count }}</td>
+            <td>{{ stats.commitment }}</td>
+            <td>{{ stats.disbursement }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <td>TOTALI:</td>
+            <td>{{ activity_count }}</td>
+            <td>{{ activity_commitments }}</td>
+            <td>{{ activity_disbursements }}</td>
+        </tr>
+    </tfoot>
+    </table>
+
+{% endblock %}

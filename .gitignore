@@ -3,7 +3,7 @@
 *.pyc
 __pycache__
 migrations/
-
+dumps/
 # Env file
 .env
 
@@ -17,8 +17,8 @@ pip-log.txt
 nosetests.xml
 
 # Translations
-*.mo
 *.pot
+*.mo
 
 # Pycharm
 .idea
@@ -28,6 +28,9 @@ nosetests.xml
 *~
 *.swp
 *.swo
+
+#temmp
+.~*
 
 # npm
 node_modules/

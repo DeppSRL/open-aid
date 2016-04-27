@@ -5,82 +5,82 @@
 {% load search_utils %}
 {% if selected_facet %}
 
-<div class="col-md-4">
-    <h4>{{ projects_count|intcomma }}
-        <a href="{% search_url selected_facet selected_code_list.code %}&selected_facets=years:{{ selected_year }}">{% trans 'Show activities list' %} {% icon 'list-alt' %}</a>
-    </h4>
-    <p>{% trans "Italian development activities" %}</p>
-</div>
-<div class="col-md-4">
-    <h4>€ {{ commitments_sum|currency }}</h4>
-    <p>{% trans "Total funding committed" %}</p>
-</div>
-<div class="col-md-4">
-    <h4>€ {{ disbursements_sum|currency }}</h4>
-    <p>{% trans 'Total funding used' %}</p>
-</div>
+    <div class="col-md-4">
+        <h4>{{ projects_count|intcomma }}
+            <a href="{% search_url selected_facet selected_code_list.code %}&selected_facets=years:{{ selected_year }}">{% trans 'Show projects list' %} {% icon 'list-alt' %}</a>
+        </h4>
+        <p>{% trans "Italian development projects" %}</p>
+    </div>
+    <div class="col-md-4">
+        <h4>€ {{ commitments_sum|currency }}</h4>
+        <p>{% trans "Total funding committed" %}</p>
+    </div>
+    <div class="col-md-4">
+        <h4>€ {{ disbursements_sum|currency }}</h4>
+        <p>{% trans 'Total funding used' %}</p>
+    </div>
 
 {% else %}
 
-<ul class="nav nav-tabs" role="tablist">
-    <li class="active" style="width: 40%"><a href="#bi-multi-tab" role="tab" data-toggle="tab">
-        <h4>{% trans 'Bilateral and Multi-bilateral Official Development Assistance' %}
-            <span
-               data-toggle="popover"
-               title="{% trans 'Bilateral and Multi-bilateral Official Development Assistance' %}"
-               data-content="{% blocktrans %}Bilateral transactions are those undertaken by a donor country directly
-with a developing country.  They also encompass transactions with non-governmental organizations active in development
-and other, internal development-related transactions such as interest subsidies, spending on promotion of development
-awareness, debt reorganization and administrative costs.{% endblocktrans %}">
-                {% icon 'question-circle' %}
-            </span></h4>
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="active" style="width: 40%"><a href="#bi-multi-tab" role="tab" data-toggle="tab">
+            <h4>{% trans 'Bilateral and Multi-bilateral Official Development Assistance' %}
+                <span
+                   data-toggle="popover"
+                   title="{% trans 'Bilateral and Multi-bilateral Official Development Assistance' %}"
+                   data-content="{% blocktrans %}Bilateral transactions are those undertaken by a donor country directly
+    with a developing country.  They also encompass transactions with non-governmental organizations active in development
+    and other, internal development-related transactions such as interest subsidies, spending on promotion of development
+    awareness, debt reorganization and administrative costs.{% endblocktrans %}">
+                    {% icon 'question-circle' %}
+                </span></h4>
 
-        <div class="row">
-            <div class="col-md-9 col-sm-7 col-xs-7">
-                <div class="row">
-                    <div class="col-md-6">
-                        <span class="currency">€ {{ commitments_sum|floatformat:3 }} <span>mln</span></span><br/>
-                        <small>{% trans 'Committed funds' %}</small>
-                    </div>
-                    <div class="col-md-6">
-                        <span class="currency">€ {{ disbursements_sum|floatformat:3 }} <span>mln</span></span><br/>
-                        <small>{% trans 'Used funds' %}</small>
+            <div class="row">
+                <div class="col-md-9 col-sm-7 col-xs-7">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <span class="currency">€ {{ commitments_sum|floatformat:3 }} <span>mln</span></span><br/>
+                            <small>{% trans 'Committed funds' %}</small>
+                        </div>
+                        <div class="col-md-6">
+                            <span class="currency">€ {{ disbursements_sum|floatformat:3 }} <span>mln</span></span><br/>
+                            <small>{% trans 'Used funds' %}</small>
+                        </div>
                     </div>
                 </div>
+                <div class="col-md-3 col-sm-5 col-xs-5">
+                    <span class="currency">{{ projects_count|intcomma }}</span> <br/>
+                    <small>{% trans 'Projects' %}</small>
+                </div>
             </div>
-            <div class="col-md-3 col-sm-5 col-xs-5">
-                <span class="currency">{{ projects_count|intcomma }}</span> <br/>
-                <small>{% trans 'Activities' %}</small>
-            </div>
-        </div>
 
-    </a></li>
-    <li style="width: 30%"><a href="#multi-tab" role="tab" data-toggle="tab">
-        <h4>{% trans 'Multilateral Official Development Assistance' %}</h4>
-        <div class="row">
-            <div class="col-md-6">
-                <span class="currency">€ {{ multi_commitments_sum|floatformat:3 }} <span>mln</span></span><br/>
-                <small>{% trans 'Committed funds' %}</small>
+        </a></li>
+        <li style="width: 30%"><a href="#multi-tab" role="tab" data-toggle="tab">
+            <h4>{% trans 'Multilateral Official Development Assistance' %}</h4>
+            <div class="row">
+                <div class="col-md-6">
+                    <span class="currency">€ {{ multi_commitments_sum|floatformat:3 }} <span>mln</span></span><br/>
+                    <small>{% trans 'Committed funds' %}</small>
+                </div>
+                <div class="col-md-6">
+                    <span class="currency">€ {{ multi_disbursements_sum|floatformat:3 }} <span>mln</span></span><br/>
+                    <small>{% trans 'Used funds' %}</small>
+                </div>
             </div>
-            <div class="col-md-6">
-                <span class="currency">€ {{ multi_disbursements_sum|floatformat:3 }} <span>mln</span></span><br/>
-                <small>{% trans 'Used funds' %}</small>
+        </a></li>
+        <li style="width: 30%"><a href="#total-aid-tab" role="tab" data-toggle="tab">
+            <h4>{% trans 'Official Development Assistance (ODA) - total' %}</h4>
+            <div class="row">
+                <div class="col-md-6">
+                    <span class="currency">€ {{ total_commitments_sum|floatformat:3 }} <span>mln</span></span><br/>
+                    <small>{% trans 'Committed funds' %}</small>
+                </div>
+                <div class="col-md-6">
+                    <span class="currency">€ {{ total_disbursements_sum|floatformat:3 }} <span>mln</span></span><br/>
+                    <small>{% trans 'Used funds' %}</small>
+                </div>
             </div>
-        </div>
-    </a></li>
-    <li style="width: 30%"><a href="#total-aid-tab" role="tab" data-toggle="tab">
-        <h4>{% trans 'Official Development Assistance (ODA) - total' %}</h4>
-        <div class="row">
-            <div class="col-md-6">
-                <span class="currency">€ {{ total_commitments_sum|floatformat:3 }} <span>mln</span></span><br/>
-                <small>{% trans 'Committed funds' %}</small>
-            </div>
-            <div class="col-md-6">
-                <span class="currency">€ {{ total_disbursements_sum|floatformat:3 }} <span>mln</span></span><br/>
-                <small>{% trans 'Used funds' %}</small>
-            </div>
-        </div>
-    </a></li>
-</ul>
+        </a></li>
+    </ul>
 
 {% endif %}

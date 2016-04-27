@@ -13,13 +13,13 @@
                                     <a href="#" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown">{{ recipient.name }}</a>
                                     <ul class="dropdown-menu">
                                         {% for child in children|dictsort:'name' %}{% if child.activity_count > 0 %}
-                                        <li><a href="{% url 'codelists:recipient-detail' code=child.code %}">{{ child.name }}</a></li>
+                                        <li><a href="{% if work_in_progress %}{% else %}{% url 'codelists:recipient-detail' code=child.code %}{% endif %}">{{ child.name }}</a></li>
                                         {% endif %}{% endfor %}
                                     </ul>
                                 </li>
                                 {% else %}
                                 <li>
-                                    <a href="{% url 'codelists:recipient-detail' code=recipient.code %}">{{ recipient.name }}</a>
+                                    <a href="{% if work_in_progress %}{% else %}{% url 'codelists:recipient-detail' code=recipient.code %}{% endif %}">{{ recipient.name }}</a>
                                 </li>
                                 {% endif %}{% endif %}
                                 {% endfor %}
@@ -29,7 +29,7 @@
                             <ul class="dropdown-menu">
                                 {% for sector in sectors|dictsort:'code' %}{% if sector.activity_count > 0 %}
                                 <li>
-                                    <a href="{% url 'codelists:sector-detail' code=sector.code %}">{{ sector.name }}</a>
+                                    <a href="{% if work_in_progress %}{% else %}{% url 'codelists:sector-detail' code=sector.code %}{% endif %}">{{ sector.name }}</a>
                                 </li>
                                 {% endif %}{% endfor %}
                             </ul>
@@ -38,7 +38,7 @@
                             <ul class="dropdown-menu">
                                 {% for agency in agencies|dictsort:'code' %}{% if agency.activity_count > 0 %}
                                 <li>
-                                    <a href="{% url 'codelists:agency-detail' code=agency.code %}">{{ agency.name }}</a>
+                                    <a href="{% if work_in_progress %}{% else %}{% url 'codelists:agency-detail' code=agency.code %}{% endif %}">{{ agency.name }}</a>
                                 </li>
                                 {% endif %}{% endfor %}
                             </ul>
@@ -47,32 +47,36 @@
                             <ul class="dropdown-menu">
                                 {% for aid_type in aid_types|dictsort:'code' %}{% if aid_type.activity_count > 0 %}
                                 <li>
-                                    <a href="{% url 'codelists:aid_type-detail' code=aid_type.code %}">{{ aid_type.name }}</a>
+                                    <a href="{% if work_in_progress %}{% else %}{% url 'codelists:aid_type-detail' code=aid_type.code %}{% endif %}">{{ aid_type.name }}</a>
                                 </li>
                                 {% endif %}{% endfor %}
 
                             </ul>
                         </li>
                     </ul>
-                    <form class="navbar-form navbar-right" action="{% url 'projects:search' %}" method="get" role="search">
+                    {% if work_in_progress %}
 
-                        <div class="search-form">
-                            <div class="form-white">
-                                <input class="form-control" id="search-input" name="{{ search_form.q.html_name }}"
-                                   value="{{ search_form.q.value|default_if_none:'' }}"
-                                   type="text" placeholder="{% trans "Search" %}">
-                                {#<ul class="{% comment %}nav navbar-nav pull-right">#}
-                                {#    <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">REALIZZATORI<b class="caret"></b></a>#}
-                                {#        <ul class="dropdown-menu">#}
-                                {#            <li><a href="#">Action</a></li>#}
-                                {#            <li><a href="#">Action</a></li>#}
-                                {#        </ul>#}
-                                {#    </li>#}
-                                {#</ul>{% endcomment %}#}
+                    {% else %}
+                        <form class="navbar-form navbar-right" action="{% url 'projects:search' %}" method="get" role="search">
+
+                            <div class="search-form">
+                                <div class="form-white">
+                                    <input class="form-control" id="search-input" name="{{ search_form.q.html_name }}"
+                                       value="{{ search_form.q.value|default_if_none:'' }}"
+                                       type="text" placeholder="{% trans "Search" %}">
+                                    {#<ul class="{% comment %}nav navbar-nav pull-right">#}
+                                    {#    <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">REALIZZATORI<b class="caret"></b></a>#}
+                                    {#        <ul class="dropdown-menu">#}
+                                    {#            <li><a href="#">Action</a></li>#}
+                                    {#            <li><a href="#">Action</a></li>#}
+                                    {#        </ul>#}
+                                    {#    </li>#}
+                                    {#</ul>{% endcomment %}#}
+                                </div>
+                                <button type="submit" class="fa fa-search" style="float:right"> </button>
                             </div>
-                            <button type="submit" class="fa fa-search" style="float:right"> </button>
-                        </div>
-                    </form>
+                        </form>
+                    {% endif %}
                 </nav>
             </div><!-- .col-md-12 -->
         </div><!-- .row -->

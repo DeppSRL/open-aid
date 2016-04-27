@@ -5,8 +5,8 @@
 var map = L.map('map', {
     minZoom: 2,
     maxZoom: 5,
-    scrollWheelZoom: false
-//    maxBounds: [[-90.0, -180.0],[90.0, 180.0]]
+    scrollWheelZoom: false,
+    maxBounds: [[90.0,-220.0],[-70.0,220.0]]
 }).setView([0.0, 0.0], 2);
 
 // proxied tiles
