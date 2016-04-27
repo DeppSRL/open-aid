@@ -1,10 +1,11 @@
 from django.views.generic import DetailView
+from django.conf import settings
 from . import models
 from .. import views
 from .. import contexts
 from openaid.codelists import serializers
 from openaid.views import OpenaidViewSet
-
+from openaid import utils
 
 class CodeListView(views.MapFiltersContextMixin, DetailView):
     slug_field = 'code'
@@ -20,12 +21,20 @@ class CodeListView(views.MapFiltersContextMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super(CodeListView, self).get_context_data(**kwargs)
         context = DetailView.get_context_data(self, **context)
-        context.update({
-            # 'top_projects': self.object.top_projects(year=self.request.GET.get('year', contexts.END_YEAR)),
-            'top_initiatives': self.object.top_initiatives(year=self.request.GET.get('year', contexts.END_YEAR))
-        })
-        if len(context['top_initiatives']) == 0:
-            context['top_projects'] = self.object.top_projects(year=self.request.GET.get('year', contexts.END_YEAR))
+
+        # adds model name to the context so the app knows which page of codelist it's rendering
+        model_name = self.model.__name__.lower()
+        context.update({'model_name': model_name})
+
+        year_value = utils.sanitize_get_param(int,self.request.GET.get('year'),contexts.END_YEAR,top=contexts.END_YEAR,length=4)
+        # depending on which codelist page it's rendereing adds top projs or top inits
+        if model_name in ['agency', 'aidtype']:
+            context['top_projects'] = self.object.top_projects(year=year_value)
+        elif model_name in ['recipient', 'sector']:
+            top_initiatives = self.object.top_initiatives()
+            context['top_initiatives'] = top_initiatives[:settings.TOP_ELEMENTS_NUMBER]
+            context['top_initiatives_count'] = len(top_initiatives)
+
         return context
 
     def get_map_filters(self):
@@ -41,10 +50,6 @@ class SectorView(CodeListView):
 class RecipientView(CodeListView):
     model = models.Recipient
 
-    # def get_context_data(self, **kwargs):
-    #     # bypass totale_territori loader
-    #     return DetailView.get_context_data(self, top_projects=self.object.top_projects(year=self.request.GET.get('year', contexts.END_YEAR)), **kwargs)
-
 
 class ChannelView(CodeListView):
     model = models.Channel
@@ -56,14 +61,6 @@ class AidTypeView(CodeListView):
 
 class AgencyView(CodeListView):
     model = models.Agency
-
-
-class FinanceTypeView(CodeListView):
-    model = models.FinanceType
-
-
-class DonorView(CodeListView):
-    model = models.Donor
 
 
 class CodelistOpenaidViewSet(OpenaidViewSet):

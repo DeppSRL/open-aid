@@ -12,57 +12,49 @@
 
 {% block content %}
 
-<div class="container">
-    <div class="row">
+    <div class="container">
+        <div class="row">
+            <header class="col-md-9">
+                <div class="btn-group">
+                    <a href="{% url 'api' %}" class="btn btn-aid">{% trans 'Download JSON' %} <span class="fa fa-download"> </span></a>
+                </div>
+                <br>
+                {% block codelist_header %}
+                    <h2 class="pull-left">{{ object.name }}</h2>
+                    <a href="{% search_url object.code_list_facet object.code %}" class="read-more pull-left pad">{% trans 'Show all projects' %} {% icon 'list-alt' %}</a>
+                    {% if object.parent %}
+                        <h3 class="sub-title">{% if object.parent.parent %}&gt; {{ object.parent.parent.name }} {% endif %}&gt; {{ object.parent.name }}</h3>
+                    {% endif %}
+                {% endblock %}
+            </header>
+            <div class="col-md-3 text-right">
 
-
-        <header class="col-md-9">
-
-            <div class="btn-group">
-                <a href="{% url 'api' %}" class="btn btn-aid">{% trans 'Download JSON' %} <span class="fa fa-download"> </span></a>
-{#                <a href="#" class="btn btn-aid">{% trans 'Download XML' %} <span class="fa fa-download"> </span></a>#}
             </div>
-            <br>
-            {% block codelist_header %}
-            <h2 class="pull-left">{{ object.name }}</h2>
-            <a href="{% search_url object.code_list_facet object.code %}" class="read-more pull-left pad">{% trans 'Show all activities' %} {% icon 'list-alt' %}</a>
-            {% if object.parent %}
-            <h3 class="sub-title">{% if object.parent.parent %}&gt; {{ object.parent.parent.name }} {% endif %}&gt; {{ object.parent.name }}</h3>
-            {% endif %}
-            {% endblock %}
-        </header>
-        <div class="col-md-3 text-right">
-
         </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                {% block codelist_description %}
+                    <p>{{ object.description|safe }}</p>
+                {% endblock %}
+            </div>
+        </div><!-- .row -->
+
     </div>
+
+    <div class="spacer"> </div>
+    {% block codelist_statistics %}
+        {% crs_stats object %}
+    {% endblock %}
 
     <div class="row">
         <div class="col-md-12">
-            {% block codelist_description %}
-            <p>
-                {{ object.description|safe }}
-{#                <a href="#" class="readmore-open">{% trans 'read more' %} {% icon 'caret-down' %}</a>#}
-{#                <a href="#" class="readmore-close">{% trans 'close' %} {% icon 'caret-up' %}</a>#}
-            </p>
-            {% endblock %}
+          {% if model_name == 'agency' or model_name == 'aidtype'  %}
+            {% include 'commons/top_projects.html' with object=object top_projects=top_projects %}
+          {% elif model_name == 'recipient' or model_name == 'sector' %}
+            {% include 'commons/top_initiatives.html' with top_initiatives=top_initiatives top_initiatives_count=top_initiatives_count %}
+          {% endif %}
         </div>
-    </div><!-- .row -->
-
-</div>
-
-<div class="spacer"> </div>
-{% block codelist_statistics %}
-{% crs_stats object %}
-{% endblock %}
-
-<div class="row">
-    <div class="col-md-12">
-      {% if top_initiatives|length == 0 %}
-        {% include 'commons/top_projects.html' with object=object top_projects=top_projects %}
-      {% else %}
-        {% include 'commons/top_initiatives.html' with object=object top_initiatives=top_initiatives %}
-      {% endif %}
     </div>
-</div>
 
 {% endblock %}

@@ -20,6 +20,7 @@ and helping developing countries to strengthen their institutions and governance
 In recent years, due to new global plights, Italian Cooperation has played a crucial role in
 defining Italian foreign policy,
 aimed at maintaining peace and managing migration flows.{% endblocktrans %}
+
                     <a href="{% url 'cooperazione_italiana' %}"
                        class="read-more pull-right twelve">{% trans 'read more' %} {% icon 'caret-right' %}</a>
                 </p>
@@ -39,9 +40,6 @@ aimed at maintaining peace and managing migration flows.{% endblocktrans %}
                                 <div class="text">
                                     {{ entry.abstract|safe }}
                                 </div>
-{#                                <footer>#}
-{#                                    <time datetime="2014-05-06 19:00">{{ entry.published_at|date:'d/m/Y' }}</time>#}
-{#                                </footer>#}
                             </article>
                         </li>
                     {% endfor %}
@@ -65,28 +63,28 @@ aimed at maintaining peace and managing migration flows.{% endblocktrans %}
 {% endblock %}
 
 {% block modal %}
-{{ block.super }}
-{#<div class="modal fade" id="welcomeModal" tabindex="-1" role="dialog" aria-labelledby="welcomeModalLabel">#}
-{#    <div class="modal-dialog">#}
-{#        <div class="modal-content">#}
-{#            <div class="modal-header">#}
-{#                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">{% trans 'close' %}</span></button>#}
-{#                <h4 class="modal-title" id="welcomeModalLabel">{% trans "WELCOME TO OPEN AID ITALIA" %}</h4>#}
-{#            </div>#}
-{#            <div class="modal-body">{% blocktrans %}<p class="text-center">Welcome to the website that publishes all the data regarding Italy's Development AID</p>#}
-{#<p class="text-center">NEWS</p>#}
-{#<p>The 2013 data has been updated, and communicated to the OECD that is undergoing its usual certification process.</p>#}
-{#<p>The Api (Application Programming Interface) has been published, for the free reuse of the data</p>#}
-{#<p>The website is continuously updating with more content, also multimedia, on single initiatives and more information on individual actors involved</p>#}
-{#<p>The website is evolving: do not hesitate in contacting us with your comments and complaints</p>#}
-{#<p>In the next phases of the project the website will be open to the contributions of different actors, that will be able to publish content on the activities in which they are involved</p>#}
-{#<p>The platform will then be able to give detailed information about other types of development aid, to paint a more complete pictures of Italy's effort</p>#}
-{#<p>Keep on following us!</p>{% endblocktrans %}#}
-{#                <div class="text-right"><a href="#" class="text-muted" data-dismiss="modal">{% trans 'close' %}</a></div>#}
-{#            </div>#}
-{#        </div><!-- /.modal-content -->#}
-{#    </div><!-- /.modal-dialog -->#}
-{#</div><!-- /.modal -->#}
+    {{ block.super }}
+    {#<div class="modal fade" id="welcomeModal" tabindex="-1" role="dialog" aria-labelledby="welcomeModalLabel">#}
+    {#    <div class="modal-dialog">#}
+    {#        <div class="modal-content">#}
+    {#            <div class="modal-header">#}
+    {#                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">{% trans 'close' %}</span></button>#}
+    {#                <h4 class="modal-title" id="welcomeModalLabel">{% trans "WELCOME TO OPEN AID ITALIA" %}</h4>#}
+    {#            </div>#}
+    {#            <div class="modal-body">{% blocktrans %}<p class="text-center">Welcome to the website that publishes all the data regarding Italy's Development AID</p>#}
+    {#<p class="text-center">NEWS</p>#}
+    {#<p>The 2013 data has been updated, and communicated to the OECD that is undergoing its usual certification process.</p>#}
+    {#<p>The Api (Application Programming Interface) has been published, for the free reuse of the data</p>#}
+    {#<p>The website is continuously updating with more content, also multimedia, on single initiatives and more information on individual actors involved</p>#}
+    {#<p>The website is evolving: do not hesitate in contacting us with your comments and complaints</p>#}
+    {#<p>In the next phases of the project the website will be open to the contributions of different actors, that will be able to publish content on the activities in which they are involved</p>#}
+    {#<p>The platform will then be able to give detailed information about other types of development aid, to paint a more complete pictures of Italy's effort</p>#}
+    {#<p>Keep on following us!</p>{% endblocktrans %}#}
+    {#                <div class="text-right"><a href="#" class="text-muted" data-dismiss="modal">{% trans 'close' %}</a></div>#}
+    {#            </div>#}
+    {#        </div><!-- /.modal-content -->#}
+    {#    </div><!-- /.modal-dialog -->#}
+    {#</div><!-- /.modal -->#}
 {% endblock modal %}
 
 {% block javascript %}
@@ -100,15 +98,12 @@ aimed at maintaining peace and managing migration flows.{% endblocktrans %}
 {#            }#}
             $('a[href=#multi-tab]').on('shown.bs.tab', function(){
                 $('#focus-panels').hide();
-                console.log('shown');
             });
             $('a[href=#bi-multi-tab]').on('shown.bs.tab', function(){
                 $('#focus-panels').show();
-                console.log('hidden');
             });
             $('a[href=#total-aid-tab]').on('shown.bs.tab', function(){
                 $('#focus-panels').show();
-                console.log('hidden');
             });
         });
     </script>

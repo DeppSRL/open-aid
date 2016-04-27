@@ -14,12 +14,12 @@
                                 <img src="{% static 'img/layout/logo_dgcs.png' %}" alt="DGCS"/>
                             </a>
                         </div>
-                        <a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'img/layout/logo_openaid.png' %}" class="img-responsive"></a>
+                        <a class="navbar-brand" href="{% if work_in_progress %}{% else %}{% url 'home' %}{% endif %}"><img src="{% static 'img/layout/logo_openaid.png' %}" class="img-responsive"></a>
                     </div>
 
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="{% url 'cooperazione_italiana' %}"><span class="icon sprite-confronti"></span> {% trans 'Italian Development Cooperation' %}</a></li>
-                        <li><a href="{% url 'blog_home' %}"><span class="icon sprite-classifiche"></span> {% trans 'News' %}</a></li>
+                        <li><a href="{% if work_in_progress %}{% else %}{% url 'cooperazione_italiana' %}{% endif %}"><span class="icon sprite-confronti"></span> {% trans 'Italian Development Cooperation' %}</a></li>
+                        <li><a href="{% if work_in_progress %}{% else %}{% url 'blog_home' %}{% endif %}"><span class="icon sprite-classifiche"></span> {% trans 'News' %}</a></li>
                     </ul>
 
                     <div class="language">

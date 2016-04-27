@@ -5,6 +5,7 @@ from django.conf import settings
 from django.conf.urls import patterns, include, url
 from django.conf.urls.static import static
 from django.conf.urls.i18n import i18n_patterns
+from django.views.generic import TemplateView
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from rest_framework.routers import DefaultRouter
@@ -13,6 +14,7 @@ from rest_framework.views import APIView
 from .projects.views import ProjectViewSet, ActivityViewSet, ChannelReportedViewSet
 from .codelists.views import SectorViewSet, RecipientViewSet, ChannelViewSet, AidTypeViewSet, AgencyViewSet, \
     FinanceTypeViewSet, DonorViewSet
+from sitemap import sitemaps
 
 # load admin modules
 from django.contrib import admin
@@ -67,8 +69,6 @@ router.register(r'channels', ChannelViewSet)
 router.register(r'aid_types', AidTypeViewSet)
 router.register(r'agencies', AgencyViewSet)
 router.register(r'finance_types', FinanceTypeViewSet)
-# router.register(r'donors', DonorViewSet)
-# router.register(r'channel_reported', ChannelReportedViewSet)
 
 
 urlpatterns = [
@@ -100,3 +100,17 @@ urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 if settings.DEBUG:
     import debug_toolbar
     urlpatterns += patterns('', url(r'^__debug__/', include(debug_toolbar.urls)), )
+
+# Work in progress url
+if settings.MAINTENANCE:
+    urlpatterns[0] = url(r'^.*$', TemplateView.as_view(template_name='work_in_progress.html'))
+
+
+# Sitemap: disabled in staging
+if settings.INSTANCE_TYPE != 'staging':
+
+    urlpatterns += patterns('django.contrib.sitemaps.views',
+        (r'^sitemap\.xml$', 'index', {'sitemaps': sitemaps}),
+        (r'^sitemap-(?P<section>.+)\.xml$', 'sitemap', {'sitemaps': sitemaps}),
+        (r'^robots\.txt$', include('robots.urls')),
+    )

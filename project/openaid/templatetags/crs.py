@@ -14,6 +14,11 @@ register = template.Library()
 def currency(amount):
     return intcomma(floatformat((amount or 0.0) * settings.OPENAID_MULTIPLIER, 0))
 
+@register.filter(is_safe=True)
+def currency_initiatives(amount):
+    return intcomma(floatformat((amount or 0.0) * 1, 0))
+
+
 @register.filter
 def unique(args):
     return set([a for a in args if a])
@@ -51,8 +56,8 @@ def crs_stats(context, instance=None, year=None, show_map=True):
 
     selected_facet = instance.code_list_facet if instance else None
 
-    commitment_sum = activities.aggregate(Sum('commitment'))['commitment__sum']
-    disbursements_sum = activities.aggregate(Sum('disbursement'))['disbursement__sum']
+    commitment_sum = 0 if activities.aggregate(Sum('commitment'))['commitment__sum'] is None else activities.aggregate(Sum('commitment'))['commitment__sum']
+    disbursements_sum = 0 if activities.aggregate(Sum('disbursement'))['disbursement__sum'] is None else activities.aggregate(Sum('disbursement'))['disbursement__sum']
 
     ctx = {
         'selected_year': year,
@@ -74,21 +79,27 @@ def crs_stats(context, instance=None, year=None, show_map=True):
     ctx['columns'] = 3 if len(ctx['sector_stats']) and len(ctx['agency_stats']) and len(ctx['aid_stats']) else 2
 
     if not selected_facet:
-
-        multi_projects = projects_models.AnnualFunds.objects.filter(year=year).aggregate(
+        # multilateral aid have only to consider the top categories, otherwise the amount is doubled
+        main_organizations = projects_models.Organization.objects.filter(parent__isnull=True)
+        multi_projects = projects_models.AnnualFunds.objects.filter(organization__in=main_organizations,year=year).aggregate(
             multi_commitments_sum=Sum('commitment'),
             multi_disbursements_sum=Sum('disbursement'),
         )
+        multi_commitments_sum = multi_projects['multi_commitments_sum']
+        multi_disbursements_sum = multi_projects['multi_disbursements_sum']
 
+        # adds the % commitment and % disbursement for every organization to display in the template
         ctx.update(multi_projects)
 
         ctx.update({
-            'total_commitments_sum': (multi_projects['multi_commitments_sum'] or 0.0) + commitment_sum,
-            'total_disbursements_sum': (multi_projects['multi_disbursements_sum'] or 0.0) + disbursements_sum,
+            'total_commitments_sum': (multi_commitments_sum or 0.0) + commitment_sum,
+            'total_disbursements_sum': (multi_disbursements_sum or 0.0) + disbursements_sum,
         })
 
+        # drilldown pie code
         ctx.update({
-            'multi_stats': projects_models.AnnualFunds.objects.filter(year=year).select_related('organization'),
+            'multi_stats_commitment': projects_models.AnnualFunds.get_multilateral_data(year=year, type='commitment'),
+            'multi_stats_disbursement': projects_models.AnnualFunds.get_multilateral_data(year=year, type='disbursement')
         })
 
     return ctx

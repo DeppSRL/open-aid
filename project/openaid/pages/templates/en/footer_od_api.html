@@ -1,10 +1,33 @@
 {% extends 'pages_base.html' %}
 
+
 {% block container %}
-    <p>The APIs for Open Aid Italia will be soon available.</p>
-    <p>The APIs will allow any external software component to access all the data on Italian Development Cooperation Aid.</p>
-    <p>The data will be available in json and html formats and the structure will be Iati standard compatible.</p>
-    <p>In the meantime, you can already download all the data in CSV format by clicking <a
-            href="{% url 'scarica_dati' %}">here</a>.</p>
+    <p>
+        Open Aid Italia API are an applicative interface that allows any software module to access the data and are realized following REST architecture scheme.
+    </p>
+    <p>The API access address is <a href="http://{{ request.get_host }}{% url 'api-root' %}" class="label label-info">http://{{ request.get_host }}{% url 'api-root' %}</a>.</p>
+    <p>Data are available in HTML and JSON formats. <br/> The following data types are available:</p>
+    <ul>
+        <li>Projects, list of international aid initiatives</li>
+        <li>Project, specific details on a single project</li>
+        <li>Activities, the list of activities related to a specific project carried out throughout the years</li>
+        <li>Recipients, the codelist of countries and geographic areas that receive international aid</li>
+        <li>Agencies, the list of Italian institutions and agencies that finance the initiatives</li>
+        <li>Sectors, the codelist of sectors of intervention related to the initiatives</li>
+        <li>Finance_types, types of possibile funding</li>
+        <li>Channels, the codelist of funding channels</li>
+        <li>Aid_types, the codelist of aid types </li>
+    </ul>
+
+    <p>For example:</p>
+    <ul>
+        <li>Complete list of all projects: <span class="label label-info">http://{{ request.get_host }}{% url 'project-list' format='json' %}</span></li>
+        <li>Detail of a single project: <span class="label label-info">http://{{ request.get_host }}{% url 'project-detail' format='json' pk='PROJECT_ID' %}</span></li>
+        <li>List of sector of intervention: <span class="label label-info">http://{{ request.get_host }}{% url 'sector-list' format='json' %}</span></li>
+    </ul>
+
+    <p>All data are released with CC BY-SA 3.0 license.</p>
+    <p>Browsing the API with a browser a detailed documentation in English is available.</p>
+
 {% endblock container %}
 

@@ -11,6 +11,7 @@ from .serializers import ProjectSerializer, ProjectDetailSerializer, ActivitySer
 class ProjectDetail(DetailView):
     model = models.Project
 
+
 class ProjectList(ListView):
     model = models.Project
     paginate_by = 50
@@ -40,22 +41,12 @@ class ProjectList(ListView):
         return queryset
 
 
-class ActivityDetail(DetailView):
-    model = models.Activity
-
 class ActivityList(ListView):
     model = models.Activity
     paginate_by = 50
 
-class ProjectActivityList(ActivityList):
-
-    def get_queryset(self):
-        project_pk = self.kwargs.get('pk')
-        return super(ProjectActivityList, self).get_queryset().filter(project=int(project_pk))
-
 
 class SearchFacetedProjectView(FacetedSearchView):
-
     template = 'search/search_results.html'
 
     def __init__(self, *args, **kwargs):
@@ -242,7 +233,7 @@ class ActivityViewSet(OpenaidViewSet):
         'title',
         'description',
         'channel_reported',
-        
+
         'geography',
         'report_type',
         'flow_type',
@@ -250,7 +241,7 @@ class ActivityViewSet(OpenaidViewSet):
         'is_ftc',
         'is_pba',
         'is_investment',
-        
+
         'commitment',
         'commitment_usd',
         'disbursement',
@@ -299,41 +290,7 @@ class ChannelReportedViewSet(OpenaidViewSet):
     serializer_class = ChannelReportedSerializer
 
 
-class ProjectStatsView(TemplateView):
-
-    template_name = 'projects/statistics.html'
-
-    def get_context_data(self, **kwargs):
-
-        context = super(ProjectStatsView, self).get_context_data(**kwargs)
-
-        from collections import OrderedDict
-        from django.db.models import Min, Max, Sum
-        from .models import Activity
-
-        START_YEAR = Activity.objects.aggregate(Min('year'))['year__min']
-        END_YEAR = Activity.objects.aggregate(Max('year'))['year__max']
-        context['activity_by_years'] = OrderedDict()
-        context['activity_count'] = 0
-        context['activity_commitments'] = 0.0
-        context['activity_disbursements'] = 0.0
-
-        for year in range(START_YEAR, END_YEAR+1):
-            activities = Activity.objects.filter(year=year)
-            context['activity_by_years'][year] = {
-                'count': activities.count(),
-                'disbursement': activities.aggregate(Sum('commitment'))['commitment__sum'],
-                'commitment': activities.aggregate(Sum('disbursement'))['disbursement__sum']
-            }
-            context['activity_count'] += context['activity_by_years'][year]['count']
-            context['activity_commitments'] += context['activity_by_years'][year]['commitment']
-            context['activity_disbursements'] += context['activity_by_years'][year]['disbursement']
-
-        return context
-
-
 class InitiativeDetail(DetailView):
-
     model = models.Initiative
     slug_field = 'code'
     slug_url_kwarg = 'code'
@@ -351,11 +308,10 @@ class InitiativeDetail(DetailView):
             if p.total_disbursement:
                 obj.total_disbursement += p.total_disbursement
 
+        # aggregate to the obj the docs and the photos
+        obj.documents = obj.document_set.all()
+        obj.photos = obj.photo_set.all()
+
         return super(InitiativeDetail, self).get_context_data(
             projects=projects,
             **kwargs)
-
-
-class NewProjectDetail(DetailView):
-
-    model = models.NewProject

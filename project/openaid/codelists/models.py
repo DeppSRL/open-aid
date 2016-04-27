@@ -10,26 +10,34 @@ from tinymce import models as tinymce_models
 
 #### ABSTRACT CLASSES
 
-class CodeListModel(models.Model):
 
+class CodeListModel(models.Model):
     code = models.CharField(max_length=16, unique=True)
     name = models.CharField(max_length=512, blank=True)
     description = tinymce_models.HTMLField(blank=True)
 
     code_list = ''
+
     @property
     def code_list_facet(self):
         return self.code_list + 's'
 
-    def top_projects(self, qnt=3, order_by=None, year=None):
+    def top_projects(self, qnt=settings.TOP_ELEMENTS_NUMBER, order_by=None, year=None):
         return get_model('projects', 'Project').get_top_projects(qnt=qnt, order_by=order_by, year=year, **{
             '%s_id__in' % self.code_list: self.get_descendants_pks(True)
         })
 
-    def top_initiatives(self, qnt=6, year=None):
-        return get_model('projects', 'Initiative').get_top_initiatives(qnt=qnt, year=year, **{
-            'project__%s_id__in' % self.code_list: self.get_descendants_pks(True)
-        })
+    def top_initiatives(self,):
+        codelist_complete_set = self.get_descendants_pks(True)
+        # filters top initiatives for recipient / sector if needed.
+        # todo: change this when initiative OBJ changes field names!
+        filters = {}
+        if self.code_list == 'recipient':
+            filters = {'recipient_temp__in': codelist_complete_set}
+        elif self.code_list == 'sector':
+            filters = {'purpose_temp__in': codelist_complete_set}
+
+        return get_model('projects', 'Initiative').get_top_initiatives(is_home=False, **filters)
 
     def get_descendants_pks(self, include_self=False):
         return [self, ] if include_self else []
@@ -65,7 +73,6 @@ class CodeListModel(models.Model):
 
 
 class CodeListTreeModel(MPTTModel, CodeListModel):
-
     parent = TreeForeignKey('self', null=True, blank=True, related_name='children')
 
     def get_descendants_pks(self, include_self=False):
@@ -80,7 +87,6 @@ class CodeListTreeModel(MPTTModel, CodeListModel):
 #### CODE LISTS CLASSES
 
 class Recipient(CodeListTreeModel):
-
     code_list = 'recipient'
     code_list_facet = 'recipient'
 
@@ -107,7 +113,6 @@ class Recipient(CodeListTreeModel):
 
     @classmethod
     def get_map_totals(cls, field='commitment', **filters):
-
         filters = dict([
             ('activity__%s' % key, value)
             for key, value in filters.items()
@@ -134,11 +139,10 @@ class Recipient(CodeListTreeModel):
         ordering = ('name', 'code', )
 
     class MPTTMeta:
-        order_insertion_by=['name', ]
+        order_insertion_by = ['name', ]
 
 
 class Donor(CodeListModel):
-
     code_list = 'donor'
 
     GROUPS = Choices(
@@ -152,7 +156,6 @@ class Donor(CodeListModel):
 
 
 class Agency(CodeListModel):
-
     code_list = 'agency'
     code_list_facet = 'agencies'
 
@@ -177,12 +180,14 @@ class FinanceType(CodeListTreeModel):
     code_list = 'finance_type'
     code_list_csv_field = 'finance_t'
 
+
 class AidType(CodeListTreeModel):
     """
     Used to distinguish aid modalities.
     """
     code_list = 'aid_type'
     code_list_csv_field = 'aid_t'
+
 
 class Sector(CodeListTreeModel):
     """
@@ -196,6 +201,7 @@ class Sector(CodeListTreeModel):
 CODE_LISTS = [Recipient, Donor, Agency, Channel, FinanceType, AidType, Sector]
 CODE_LIST_NAMES = [c.code_list for c in CODE_LISTS]
 CODE_LISTS_DICT = dict(zip(CODE_LIST_NAMES, CODE_LISTS))
+
 
 def get_codelist(name):
     return CODE_LISTS_DICT[name]

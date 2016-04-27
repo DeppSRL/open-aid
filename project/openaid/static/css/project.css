@@ -254,7 +254,7 @@ ul.gallery-small li {
 }
 
 #main-content .years-navigation .navbar-nav > li {
-    width: 10% !important;
+    width: 9% !important;
 }
 
 
@@ -289,3 +289,40 @@ ul.gallery-small li {
 .dl-horizontal dt { text-align: left; font-weight: normal; }
 .dl-horizontal dd { color: #f7505a; font-size: 11px; font-weight: bold; text-align: right; margin-top: 5px; }
 .dl-horizontal ~ .simple-menu li { padding-left: 0; padding-right: 0; }
+
+/*page initiative: fixes red hover on tables that makes links disappear */
+#main-content #initiative-tabs .table-special .table > tbody > tr:hover > th{
+    background: white!important;
+    color: #333333!important;
+}
+#main-content #initiative-tabs .table-special .table > tbody > tr:hover > th a{
+    color: #2b6a7c;
+    text-decoration: underline;}
+
+#main-content #initiative-tabs .table > tbody > tr:hover > td{
+    background: white!important;
+    color: #f7505a;
+    text-decoration: none;
+}
+
+/*top initiatives/top projects block: fixes red hover on tables that makes links disappear */
+#main-content .bordered-radius.top_elements .table-special .table > tbody > tr:hover > th{
+    background: white!important;
+    color: #333333!important;
+}
+#main-content .bordered-radius.top_elements .table-special .table > tbody > tr:hover > th a{
+    color: #2b6a7c;
+    text-decoration: underline;}
+
+#main-content .bordered-radius.top_elements .table-special .table > tbody > tr:hover > td{
+    background: white!important;
+    color: #f7505a;
+    text-decoration: none;
+}
+#main-content .bordered-radius.top_elements .table-special .table > tbody > tr > th {
+    padding-left: 8px;
+}
+
+#main-content .table-special .table > thead > tr > th {
+    text-align: left;
+}

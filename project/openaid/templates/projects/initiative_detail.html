@@ -5,261 +5,373 @@
 {% load staticfiles %}
 {% load humanize %}
 
-{% block page_title %}OpenAID - {{ object.title|truncatechars:10 }} - {{ object.recipient.name }}{% endblock %}
+{% block page_title %}OpenAID - {{ object.title|truncatechars:10 }} - {{ object.recipient_temp.name }}{% endblock %}
 {% block og_title %}OpenAID - {{ object.title }}{% endblock %}
 
 
 {% block content %}
 
-  <div class="row">
-    <header class="col-md-9">
-      <h2 class="pull-left" id="initiative-{{ initiative.pk }}">{{ initiative.title }}</h2>
-      <h3 class="sub-title">
-        {% for recipient in initiative.recipients %}
-          <a href="{% url 'codelists:recipient-detail' code=recipient.code %}">{{ recipient.name }}</a>
-          {% if not forloop.last %}&middot;{% endif %}
-        {% endfor %}
-      </h3>
-    </header>
-  </div>
+    <div class="row" id="main-content">
+        <header class="col-md-12">
+            <h2 class="page-title" id="initiative-{{ initiative.pk }}">{{ initiative.title }}</h2>
+            <h3 class="sub-title">
+                {% if initiative.recipient_temp %}
+                    <a href="{% url 'codelists:recipient-detail' code=initiative.recipient_temp.code %}">{{ initiative.recipient_temp.name }}</a>
+                {% else %}
+                    -
+                {% endif %}
+            </h3>
+        </header>
+    </div>
 
   <div class="spacer"> </div>
 
-  <div class="row">
-    <div class="col-md-4 col-sm-6 col-xs-6">
-      <div class="small-map"><div id="map" data-chart="map" style="height: 260px;" data-iso-code="{% for recipient in initiative.recipients|unique %}{{ recipient.iso_code }}{% if not forloop.last %},{% endif %}{% endfor %}"></div></div>
-      <br/>
-      {% with locations=initiative.locations %}{% if locations|length > 0 %}
-      <p><strong>{% trans 'Location' %}:</strong>
-      {% for loc in locations|unique %}{{ loc }} {% if not forloop.last %}, {% endif %}{% endfor %}
-      </p>
-      {% endif %}{% endwith %}
+    <div class="row">
+        <!-- SIDEBAR -->
+        <div class="col-md-4 col-sm-12 col-xs-12 col-md-push-8">
+            {% with years=initiative.years_range %}
+                {% if years %}
+                    <h4>{% trans 'Initiative timeframe' %}: <strong>{{ years|first }}/{% if years|length > 1 %}{{ years|last }}{% endif %}</strong></h4>
+                {% endif %}
+            {% endwith %}
+            {% with total_project_costs=initiative.total_project_costs loan_amount_approved=initiative.loan_amount_approved grant_amount_approved=initiative.grant_amount_approved %}
+                {% if total_project_costs or loan_amount_approved or grant_amount_approved %}
+                    <h3>{% trans 'Total initiative costs' %}</h3>
+                    <div class="total-prj-cost">€&nbsp;{{ total_project_costs|intcomma }}</div>
+                    <div class="plain-list-special">
+                        {% trans 'Reparted as' %}
+                        <ul>
+                            <li><i class="fa fa-circle"></i> {% trans 'Loans' %} <strong>{% if initiative.loan_amount_approved %}€&nbsp;{{ initiative.loan_amount_approved|intcomma }}{% else %}-{% endif %}</strong></li>
+                            <li><i class="fa fa-circle"></i> {% trans 'Grants' %} <strong>{% if initiative.grant_amount_approved %}€&nbsp;{{ initiative.grant_amount_approved|intcomma }}{% else %}-{% endif %}</strong></li>
+                        </ul>
+                    </div>
+                {% endif %}
+            {% endwith %}
+            {% if initiative.last_update_temp %}
+                <p class="text-muted small">Dati finanziari aggiornati al {{ initiative.last_update_temp.day }}.{{ initiative.last_update_temp.month }}.{{ initiative.last_update_temp.year }}</p>
+            {% endif %}
 
-      <h4>{% trans 'Initiative data' %}</h4>
-      <dl class="dl-horizontal">
-        <dt>{% trans 'CRSID' %}</dt><dd>{{ initiative.crsid }}</dd>
-      </dl><dl class="dl-horizontal">
-        <dt>{% trans 'Purpose' %}</dt><dd>{{ initiative.purpose.name }}</dd>
-      </dl><dl class="dl-horizontal">
-        <dt>{% trans 'Finance type' %}</dt><dd>{{ initiative.finance_type.name }}</dd>
-      </dl><dl class="dl-horizontal">
-        <dt>{% trans 'Flow type' %}</dt><dd>{{ initiative.flow_type }}</dd>
-      </dl><dl class="dl-horizontal">
-        <dt>{% trans 'Bi/Multilateral' %}</dt><dd>{{ initiative.bi_multi }}</dd>
-      </dl>
-      <ul class="list-unstyled simple-menu">
-        {% if initiative.is_ftc %}<li>{% trans 'Free Standing Technical Cooperation' %}</li>{% endif %}
-        {% if initiative.is_pba %}<li>{% trans 'Programme Based Approaches' %}</li>{% endif %}
-        {% if initiative.is_investment %}<li>{% trans 'Investment Project' %}</li>{% endif %}
-      </ul>
+            <div class="small-spacer"></div>
 
-      {% with documents=initiative.documents %}{% if documents|length > 0 %}
-      <h2>{% trans 'Documents' %}</h2>
-      <ul class="list-unstyled simple-menu" style="height: auto;">
-        {% for document in documents %}
-          <li><a href="{% if document.file %}{{ document.file.url }}{% else %}{{ document.source_url|default:'#' }}{% endif %}">{% icon 'download' %} {{ document.name }}</a>
-          <p class="small-paragraph">{{ document.description }}</p>
-          <h5>{{ document.date|date:"r" }}</h5>
-          </li>
-        {% endfor %}
-      </ul>
-      {% endif %}{% endwith %}
-    </div>
+            {# status box #}
+            {% with is_suspended=initiative.is_suspended_temp status=initiative.status_temp %}
+                {% if is_suspended or status %}
+                    <div class="progress-special">
+                        <h3>
+                            Status
+                        </h3>
+                        {% if is_suspended %}
+                            <div class="pull-left">{% icon 'exclamation-circle' %} {% trans 'Suspended intervention' %}</div>
+                        {% else %}
+                            {% if status == '-' %}
+                                <div class="pull-left">{% trans 'Not available' %}</div>
+                            {% else%}
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="{{ status }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ status }}%;">
+                                        <span class="sr-only">{{ status }} {% trans 'Complete' %}</span>
+                                    </div>
+                                </div>
+                                <strong>{{ status }}%</strong>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                {% endif %}
+            {% endwith %}
 
-    <div class="col-md-8 col-sm-6 col-xs-6">
-      <div class="spacer"></div>
-      <div class="focus">
-        {% with description=initiative.description %}{% if description %}
-        <div class="project-description">
-          <p class="readmore" data-max-height="90">
-            {{ initiative.description|safe }}
-            <a href="#" class="readmore-open">{% trans 'read more' %} {% icon 'caret-down' %}</a>
-            <a href="#" class="readmore-close">{% trans 'close' %} {% icon 'caret-up' %}</a>
-          </p>
-        </div>
-        {% endif %}{% endwith %}
-
-      </div>
-
-      {% with is_suspended=initiative.is_suspended status=initiative.status %}{% if is_suspended or status %}
-      <div class="focus">
-        {% if is_suspended %}
-        <div class="pull-right">{% icon 'exclamation-circle' %} {% trans 'Suspended intervention' %}</div>{% endif %}
-        <div>STATUS
-          <div class="progress" style="width: 200px; display: inline-block; margin-bottom: 0; height: 14px; margin-top:4px; ">
-            <div class="progress-bar" role="progressbar" aria-valuenow="{{ status }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ status }}%;">
-              <span class="sr-only">{{ status }} {% trans 'Complete' %}</span>
+            <div class="small-spacer"> </div>
+            {#   map box #}
+            {% if initiative.recipient_temp %}
+                <h3>
+                    {{ initiative.recipient_temp.name }}
+                </h3><br/>
+            {% endif %}
+            <div class="row">
+                <div class="col-md-12 col-sm-6 col-xs-12">
+                    <div id="map" data-chart="map" style="height: 160px;" data-iso-code="{{ initiative.recipient_temp.iso_code|default_if_none:"" }}"></div>
+                </div>
             </div>
-          </div>
-          {{ initiative.status }}%
-        </div>
-      </div>
-      {% endif %}{% endwith %}
 
-      <div class="focus">
-        <div class="row">
-          <div class="col-md-4">
-            <h4>{% trans 'Agency' %}</h4>{{ initiative.agency.name }}
-          </div>
-          <div class="col-md-4">
-            <h4>{% trans 'Representative' %}</h4><small class="text-muted">{{ initiative.email|default:'-' }}</small>
-          </div>
-          <div class="col-md-4">
-            <h4>{% trans 'Counterpart authority' %}</h4>{{ initiative.counterpart_authority|default:'-' }}
-          </div>{% if initiative.other_financiers %}
-          <div class="col-md-12">
-            <h4>{% trans 'Other financiers' %}</h4>
-            {{ initiative.other_financiers|default:'-' }}
-          </div>{% endif %}
-        </div>
-      </div>
-
-       {% with years=initiative.years_range %}{% if years %}
-      <div class="focus">
-        <h4>{% trans 'Start date' %}: {{ years|first }}{% if years|length > 1 %}
-          {% trans 'End date' %}: {{ years|last }}{% endif %}</h4>
-      </div>
-      {% endif %}{% endwith %}
-
-      {% if initiative.outcome %}
-      <div class="focus">
-        <h4>{% trans 'Main outcome' %}</h4>
-        <p>{{ initiative.outcome|safe }}</p>
-      </div>
-      {% endif %}
-
-      <div class="focus">
-
-        <div class="row">
-          <div class="col-md-6">
-            {% with total_project_costs=initiative.total_project_costs loan_amount_approved=initiative.loan_amount_approved grant_amount_approved=initiative.grant_amount_approved %}{% if total_project_costs or loan_amount_approved or grant_amount_approved %}
-              <h3>{% trans 'Total initiative costs' %}</h3>
-              <div style="color:#f7505a; text-transform: uppercase;"><span style="font-size: 2.1em; font-weight: bold;">€ {{ total_project_costs|intcomma }}</span> suddivisi in</div>
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="list-group">
-                    <p class="list-group-item" style="color:#2b6a7c; border-color:#2b6a7c; padding: 4px 8px;">
-                      {% if initiative.loan_amount_approved %}
-                      <strong>€ {{ initiative.loan_amount_approved|intcomma }}</strong>{% else %}-{% endif %}
-                      <br/><span style="font-size: 0.8em">{% trans 'Loans' %}</span>
+            <div class="row">
+                <div class="col-md-12 col-sm-6 col-xs-12">
+                    <h5>{% trans 'Location' %}</h5>
+                    <p>
+                        {{ initiative.location_temp|default:"-" }}
                     </p>
-                  </div>
                 </div>
-                <div class="col-md-6">
-                  <div class="list-group">
-                    <p class="list-group-item" style="color:#2b6a7c; border-color:#2b6a7c; padding: 4px 8px;">
-                      {% if initiative.grant_amount_approved %}
-                      <strong>€ {{ initiative.grant_amount_approved|intcomma }}</strong>{% else %}-{% endif %}
-                      <br/><span style="font-size: 0.8em">{% trans 'Grants' %}</span>
-                    </p>
-                  </div>
-                </div>
-              </div>
-              {% endif %}{% endwith %}
-          </div>
-          <div class="col-md-6">
-            <h3>{% trans 'Initiative projects' %}</h3>
-            <ul class="list-unstyled simple-menu">
-              {% for project in projects %}
-              <li><a href="{{ project.get_absolute_url }}">{{ project.title }}</a></li>
-              {% endfor %}
+            </div>
+
+            <div class="small-spacer"></div>
+            {% if initiative.photos|length > 0 %}
+                <h3>{% trans 'Photo gallery' %}</h3>
+                <ul class="gallery">
+                    {% for photo in initiative.photos %}
+                        <li><img src="{{ photo.file.url }}" alt="" width="82" height="84"></li>
+                    {% endfor %}
+                </ul>
+                <div class="spacer"></div>
+            {% endif %}
+
+        </div> <!-- /sidebar -->
+
+        <!-- MAIN-->
+        <div class="col-md-8 col-sm-12 col-xs-12 col-md-pull-4" id="initiative-tabs">
+            <ul id="tabs" class="nav nav-tabs nav-tabs-special nav-tabs-equal-lg-5" data-tabs="tabs">
+                <li class="active"><a href="#tab-descrizione" data-toggle="tab">{% trans "Description" %}</a></li>
+                <li><a href="#tab-progetti" data-toggle="tab">{% trans "Projects" %}</a></li>
+                <li><a href="#tab-documenti" data-toggle="tab">{% trans "Documents" %}</a></li>
+                <li><a href="#tab-problemi" data-toggle="tab">{% trans "Problems" %}</a></li>
+                <li><a href="#tab-procurements" data-toggle="tab">{% trans "Procurements" %}</a></li>
             </ul>
-          </div>
-        </div>
-      </div><!-- .focus -->
+            <div class="panel with-nav-tabs panel-special">
+                <div class="panel-body">
+                    <div class="tab-content">
 
-      {% with beneficiaries=initiative.beneficiaries beneficiaries_female=initiative.beneficiaries_female %}{% if beneficiaries or beneficiaries_female %}
-      <div class="focus">
-        <h4>{% trans 'Beneficiaries' %}</h4>
-        {% if beneficiaries %}<p>{{ beneficiaries }}</p>{% endif %}
-        {% if beneficiaries_female %}<strong>
-          {% blocktrans %}Beneficiaries of which females {{ beneficiaries_female }}%{% endblocktrans %}</strong>{% endif %}
-      </div>{% endif %}{% endwith %}
+                        <!--DESCRIZIONE-->
+                        <div class="tab-pane active" id="tab-descrizione">
+                            {% with description=initiative.description_temp %}
+                                {% if description %}
+                                    <div class="project-description">
+                                        <p class="readmore" data-max-height="90">
+                                            {{ initiative.description|safe }}
+                                            <a href="#" class="readmore-open">{% trans 'read more' %} <i class="fa fa-caret-down"></i></a>
+                                            <a href="#" class="readmore-close">{% trans 'close' %} <i class="fa fa-caret-up"></i></a>
+                                        </p>
+                                    </div>
+                                {% endif %}
+                            {% endwith %}
 
-      <div class="focus">
-        <div class="row">
-          <div class="col-md-5">
-            <ul class="nav nav-pills" style="border: 0;">
-                {% for sector in initiative.sectors|unique %}
-                <li>
-                    <a href="{% url 'codelists:sector-detail' code=sector.get_root.code %}">{% icon 'chevron-right' %}{{ sector.get_root.name }}</a>
-                </li>
-                {% endfor %}
-            </ul>
-          </div>
-          <div class="col-md-4">
-            <span class="eleven light-gray block">{% trans 'Aid type' %}</span>
-                        {% for aid_type in initiative.aid_types|unique %}{% if aid_type %}
-                        <a href="{% url 'codelists:aid_type-detail' code=aid_type.code %}" class="eleven">{{ aid_type.name }}</a>{% if not forloop.last %}, {% endif %}
-                        {% endif %}{% endfor %}
-          </div>
-          <div class="col-md-3">
-            <span class="eleven light-gray block">{% trans 'Channels' %}</span>
-                        {% for channel in initiative.channels|unique %}{% if channel %}
-                        <a href="{% url 'codelists:channel-detail' code=channel.code %}" class="eleven">{{ channel.name }}</a>{% if not forloop.last %}, {% endif %}
-                        {% endif %}{% endfor %}
-          </div>
-        </div>
-      </div>
+                            <div class="small-spacer"></div>
 
-      {% with problems=initiative.problems reports=initiative.reports %}{% if problems|length > 0 or reports|length > 0 %}
-      <div class="row">
-        {% if problems|length > 0 %}
-        <div class="{% if reports|length > 0 %}col-md-6{% else %}col-md-12{% endif %}">
-          <h3>{% trans "Problems" %}</h3>
-          <ul class="list-unstyled simple-menu">
-            {% for problem in initiative.problems %}
-            <li>
-              <h4>{{ problem.event }}</h4>
-              <p>{{ problem.impact }}</p>
-              {% if problem.actions %}
-              <h4 class="light-gray">{% trans 'Actions taken' %}</h4>
-              <strong>{{ problem.actions }}</strong>
-              {% endif %}
-            </li>
-            {% endfor %}
-          </ul>
-        </div>
-        {% endif %}
-        {% if reports|length > 0 %}
-        <div class="{% if problems|length > 0 %}col-md-6{% else %}col-md-12{% endif %}">
-          <h3>{% trans "Procurements" %}</h3>
-          <ul class="list-unstyled simple-menu">
-            {% for report in initiative.reports %}
-            <li>
-              <div class="pull-right"><span class="label" style="background-color: #2b6a7c;">{{ report.status }}</span></div>
-              <h4>{{ report.awarding_entity }}</h4>
-              <p>{{ report.description }}</p>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <h3>{% trans 'Main outcome' %}</h3>
+                                    <p>
+                                        {% if initiative.outcome_temp %}
+                                            {{ initiative.outcome_temp|safe }}
+                                        {% else %}
+                                            -
+                                        {% endif %}
+                                    </p>
+                                </div>
+                                <div class="col-md-7">
 
-              <div class="row">
-                <div class="col-md-6">
-                  <h5 class="light-gray">{% trans 'Type' %}</h5>
-                  <strong>{{ report.get_type_display }}</strong>
-                </div>
-                <div class="col-md-6">
-                  <h5 class="light-gray">{% trans 'Procedure' %}</h5>
-                  <strong>{{ report.get_procurement_procedure_display }}</strong>
-                </div>
-              </div>
-            </li>
-            {% endfor %}
-          </ul>
-        </div>
-        {% endif %}
-      </div>
-    {% endif %}{% endwith %}
+                                    <h3>{% trans 'Initiative data' %}</h3>
 
+                                    <div class="table-responsive table-special">
+                                        <table class="table table-condensed">
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">{% trans 'Initiative number' %}</th>
+                                                    <td>{{ initiative.code|default:"-" }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">{% trans 'Purpose' %}</th>
+                                                    <td>
+                                                        {{ initiative.purpose_temp.name|default:"-" }}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">{% trans 'Sector' %}</th>
+                                                    <td>
+                                                        {% if initiative.purpose_temp %}
+                                                            {% if initiative.purpose_temp.parent %}
+                                                                {{ initiative.purpose_temp.parent.name|default:"-" }}
+                                                            {% endif %}
+                                                        {% else %}
+                                                            -
+                                                        {% endif %}
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
 
-      {% with photo_set=initiative.photos %}{% if photo_set|length > 0 %}
-        <h2>{% trans 'Photo gallery' %}</h2>
-        <ul class="gallery">
-          {% for photo in photo_set %}
-            <li><img src="{{ photo.file.url }}"></li>
-          {% endfor %}
-        </ul>
-      {% endif %}{% endwith %}
+                            <div class="small-spacer"></div>
+                            <h3>{% trans 'Subjects' %}</h3>
+                            <div class="table-responsive table-special">
+                                <table class="table">
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">{% trans 'Agency' %}</th>
+                                            <td>MAE - Direzione Generale per la Cooperazione allo Sviluppo</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">{% trans 'Counterpart authority' %}</th>
+                                            <td>
+                                                {% if initiative.counterpart_authority_temp %}
+                                                    {{ initiative.counterpart_authority_temp }}
+                                                {% else %}
+                                                    <small class="text-muted">-</small>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">{% trans 'Representative' %}</th>
+                                            <td>
+                                                {% if initiative.email_temp %}
+                                                    {{ initiative.email_temp|default:'-' }}
+                                                {% else %}
+                                                    <small class="text-muted">-</small>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">{% trans 'Other financiers' %}</th>
+                                            <td>
+                                                {% if initiative.other_financiers_temp %}
+                                                    {{ initiative.other_financiers_temp }}
+                                                {% else %}
+                                                    <small class="text-muted">-</small>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
 
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="small-spacer"></div>
+                            {% with beneficiaries=initiative.beneficiaries_temp beneficiaries_female=initiative.beneficiaries_female_temp %}
+                                {% if beneficiaries or beneficiaries_female %}
+                                    <h3>{% trans 'Beneficiaries' %}</h3>
+                                    {% if beneficiaries %}
+                                        <p>{{ beneficiaries }}</p>
+                                    {% endif %}
+                                    {% if beneficiaries_female %}
+                                        {% blocktrans %}Beneficiaries of which females {{ beneficiaries_female }}%{% endblocktrans %}
+                                    {% endif %}
+                                {% endif %}
+                            {% endwith %}
+                        </div>
+
+                        <!--PROGETTI-->
+                        <div class="tab-pane" id="tab-progetti">
+                            {% if projects|length > 0 %}
+                                <div class="table-responsive table-special">
+                                    <table class="table">
+                                        <thead>
+                                            <th scope="col">{% trans 'Title' %}</th>
+                                            <th scope="col">€&nbsp;{% trans 'Committed' %}</th>
+                                            <th scope="col">€&nbsp;{% trans 'Used' %}</th>
+                                        </thead>
+                                        <tbody>
+                                        {% for project in projects %}
+                                            <tr>
+                                                <th scope="row">
+                                                    <a href="{{ project.get_absolute_url }}">
+                                                        {{ project.title|default:"Project without name" }}
+                                                    </a>
+                                                </th>
+                                                <td>{% if project.total_commitment %}{{ project.total_commitment|currency }}{% else %}<small class="text-muted">-</small>{% endif %}</td>
+                                                <td>{% if project.total_disbursement %}{{ project.total_disbursement|currency }}{% else %}<small class="text-muted">-</small>{% endif %}</td>
+                                            </tr>
+                                        {% endfor %}
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            {% else %}
+                                -
+                            {% endif %}
+                        </div>
+
+                        <!--DOCUMENTI-->
+                        <div class="tab-pane" id="tab-documenti">
+                            {% if initiative.document_set.all|length > 0 %}
+                                {% for document in initiative.document_set.all %}
+                                    <div class="focus">
+                                        <h4>
+                                            <a href="{% if document.file %}{{ document.file.url }}{% else %}{{ document.source_url }}{% endif %}" title="{{ document.name }}">
+                                                {{ document.name|default:"No name" }} <strong>(Download)</strong>
+                                            </a>
+                                        </h4>
+                                        <div class="small-spacer"></div>
+                                        <p>{{ document.description|default:"-" }}</p>
+                                        <div class="table-responsive table-special">
+                                            <table class="table table-condensed table-no-borders">
+                                                <tbody>
+                                                    <tr>
+                                                        <th scope="row"><strong>Date</strong></th>
+                                                        <td>{{ document.date|date }}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            {% else %}
+                                -
+                            {% endif %}
+                        </div>
+
+                        <!--PROBLEMI-->
+                        <div class="tab-pane" id="tab-problemi">
+                            {% if initiative.problems|length > 0 %}
+                                {% for problem in initiative.problems %}
+                                    {% if problem.event or problem.impact or problem.actions %}
+                                        <div class="focus">
+                                            <h4>{{ problem.event }}</h4>
+                                            <div class="small-spacer"></div>
+                                            <p>{{ problem.impact }}</p>
+                                            <div class="small-spacer"></div>
+                                            {% if problem.actions %}
+                                                <h5>{% trans 'Actions taken' %}</h5>
+                                                <p><span>{{ problem.actions }}</span></p>
+                                            {% endif %}
+                                        </div>
+                                    {% endif %}
+
+                                    <div class="small-spacer"></div>
+                                {% endfor %}
+                            {% else %}
+                                -
+                            {% endif %}
+                        </div>
+
+                        <!--PROCUREMENTS-->
+                        <div class="tab-pane" id="tab-procurements">
+                            {% if initiative.reports|length > 0 %}
+                                {% for report in initiative.reports %}
+                                    <div class="focus">
+                                        <h4>{{ report.awarding_entity|default:"-" }}</h4>
+                                        <div class="small-spacer"> </div>
+                                        {% if report.description %}
+                                            <p>{{ report.description}}</p>
+                                        {% endif %}
+
+                                        <div class="table-responsive table-special">
+                                            <table class="table table-condensed table-no-borders">
+                                                <tbody>
+                                                <tr>
+                                                    <th scope="row"><strong>Status</strong></th>
+                                                    <td>{{ report.status|title|default:"-" }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row"><strong>{% trans 'Type' %}</strong></th>
+                                                    <td>{{ report.get_type_display|default:"-" }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row"><strong>{% trans 'Procedure' %}</strong></th>
+                                                    <td>{{ report.get_procurement_procedure_display|default:"-" }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row"><strong>Procurement notice</strong></th>
+                                                    <td>{{ report.get_procurement_notice_display|default:"-" }}</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            {% else %}
+                                -
+                            {% endif %}
+                        </div>
+                    </div> <!-- /tab-content -->
+                </div> <!-- /panel-body -->
+            </div> <!-- /panel -->
+        </div> <!-- /main -->
     </div>
-  </div><!-- .row -->
-
 {% endblock content %}

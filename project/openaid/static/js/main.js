@@ -9,13 +9,7 @@ var load_small_map = function(iso_code) {
             country.setStyle({fillColor: "#901800"});
         }
     }
-    //country = geojson_layer_from_alpha3(iso_code);
-    //if ( country ) {
-    //    map.fitBounds(country);
-    //    country.setStyle({fillColor: "#901800"});
-    //    //L.marker(country.getBounds().getCenter()).addTo(map);
-    //} // else { if ('console' in window) { console.log("Unable to find iso_code '{{ object.iso_code }}'"); }}
-    //map.removeControl(map.zoomControl);
+
     map.removeControl(map.attributionControl);
     info.removeFrom(map);
     legend.removeFrom(map);
@@ -23,8 +17,91 @@ var load_small_map = function(iso_code) {
     map.dragging.disable();
 };
 
+var slug = function(str) {
+    var $slug = '';
+    var trimmed = $.trim(str);
+    $slug = trimmed.replace(/[^a-z0-9-]/gi, '-').
+    replace(/-+/g, '-').
+    replace(/^-|-$/g, '');
+    return $slug.toLowerCase();
+};
 
 $(document).ready(function(){
+
+    // ACCORDION LOGIC START
+    //activates accordion table where needed
+    // show parents row, hides child rows
+    var accordion_parents =$(".accordion tr.parent");
+
+    $(".accordion tr.child").hide();
+    accordion_parents.show();
+
+
+    accordion_parents.click(function(event){
+        //identifies the chart
+        var element_triggered=null;
+        if(event.target.tagName == "SPAN"){
+            element_triggered = event.target.parentElement.parentElement.id;
+        }
+        else if(event.target.tagName == "TD"){
+            element_triggered = event.target.parentElement.id;
+        }
+        if(element_triggered == null || element_triggered == ''){
+            console.log("element is null, tag is:"+event.target.tagName);
+            return;
+        }
+
+        var id_donut = element_triggered.replace("accordion-parent-","").substring(0, 6);
+        var index=$("#"+id_donut).data('highchartsChart');
+        var chart=Highcharts.charts[index];
+
+        var class_to_toggle = "#legend-"+id_donut+" tr."+element_triggered;
+        // when an element is clicked
+        // 1) hides children row not from the row clicked: hides open rows if there are any, but doesnt' hide the rows relative to the row that has just been clicked
+        $("#legend-"+id_donut+" tr.child").not( class_to_toggle ).filter(function() {
+             return $(this).css('display') == 'table-row';
+        }).fadeToggle(500);
+
+        // 2) toggles the child rows relative to this click
+        $(class_to_toggle).fadeToggle(500);
+
+        var string_to_replace = "accordion-parent-"+id_donut +"-";
+        var nome_serie_da_attivare = element_triggered.replace(string_to_replace,"")+"-dd";
+
+        // se il grafico e' gia' in drilldown prende il nome della serie attiva e fa drillup
+        var nome_serie_attiva = null;
+        if(chart.hasOwnProperty('drilldownLevels')){
+            if(typeof chart.drilldownLevels[0]!= 'undefined'){
+                nome_serie_attiva = chart.ddDupes[0];
+                chart.drillUp();
+            }
+        }
+
+        if(nome_serie_attiva != nome_serie_da_attivare){
+            for(var i=0; i < chart.series[0].data.length; i++){
+                if(chart.series[0].data[i].drilldown == nome_serie_da_attivare){
+                    chart.series[0].data[i].firePointEvent('click', event);
+                }
+            }
+
+        }
+    });
+
+    // ACCORDION LOGIC END
+
+
+    /*cookies consent start*/
+    var cookie_consent = $.cookie('cookie_consent');
+    if (cookie_consent != '1') {
+        $('#accept-cookies').css("display", "block");
+    }
+
+    //hides the cookie banner when the button is clicked
+    $('#dismiss-cookie-adv').click(function () {
+        $('#accept-cookies').toggle();
+        $.cookie('cookie_consent', '1', { expires: 7, path: '/' });
+    });
+    /*cookies consent end*/
 	
 	function setPieChart(holder, x, y, radius, data)
 	{
@@ -32,10 +109,21 @@ $(document).ready(function(){
 		y = y || 0;
 		radius = radius || 0;
 		data = data || [];
-	
-		var r = Raphael(holder),
-			pie = r.piechart(x, y, radius, data, {init: true, colors:['#f74f59', '#2b6a7c'], stroke: 'none'});
-		pie.rotate(225);
+		var r = Raphael(holder);
+
+        var pie = r.piechart(x, y, // center
+                     radius,      // radius
+                     data,
+                     {  init: true,
+                         matchColors : true,
+                         colors       : [
+                                            "#f74f59",
+                                            "#2b6a7c",
+                                        ],
+
+                         stroke: 'none'
+                     });
+        pie.rotate(-90);
 	}
 
     $('*[data-chart=map]').each(function(i, el){
@@ -53,6 +141,9 @@ $(document).ready(function(){
             if (v == 0.0) {
                 return 1.0;
             }
+            if (v==tot){
+                return 359.0;
+            }
             return tot > 0.0 ? (v / tot) * 360.0 : 0.0
         });
         setPieChart($(el).prop('id'), 25, 25, 20, values);
@@ -62,9 +153,10 @@ $(document).ready(function(){
         SetChartDonut($(el).data('container'));
     });
 
-    $('*[data-chart=bubble]').each(function(i, el){
-        SetChartBubble($(el).data('container'));
+    $('*[data-chart=donut-drilldown]').each(function(i, el){
+        SetChartDonutDrilldown($(el).data('container'));
     });
+
 
     $('.readmore').each(function(){
         var opener = $(this).find('.readmore-open').remove();
@@ -105,7 +197,7 @@ $(document).ready(function(){
     });
 
     // photo gallery
-    $('.gallery li img').on('click',function(){
+    $('ul.gallery li img').on('click',function(){
         var src = $(this).attr('src');
         var img = '<img src="' + src + '" class="img-responsive"/>';
 
@@ -131,7 +223,7 @@ $(document).ready(function(){
 
     });
 
-    //new code
+    //new code TODO: does what???
     $(document).on('click', 'a.controls', function(){
         var index = $(this).attr('href');
         var src = $('ul.gallery li:nth-child('+ index +') img').attr('src');
