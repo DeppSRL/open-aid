@@ -211,13 +211,14 @@ TEMPLATE_DIRS = (
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#middleware-classes
 MIDDLEWARE_CLASSES = (
     # Default Django middleware.
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
     # openaid earlybird middleware
     'openaid.middlewares.PrivateBetaMiddleware'
 )
@@ -241,6 +242,8 @@ DJANGO_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     'django.contrib.sitemaps',
+
+    'corsheaders',
 
     # If you want to use the admin integration, modeltranslation must be put before django.contrib.admin.
     # see: https://django-modeltranslation.readthedocs.org/en/latest/installation.html#installed-apps
@@ -410,6 +413,8 @@ HAYSTACK_CONNECTIONS.update(dict([
     ('default_%s' % lang, solr_url(lang)) for lang, __ in LANGUAGES if lang != LANG_CODE
 ]))
 ########## END DJANGO-HAYSTACK CONFIGURATION
+
+CORS_URLS_REGEX = r'^/widget/?$'
 
 ########## REST FRAMEWORK CONFIGURATION
 REST_FRAMEWORK = {

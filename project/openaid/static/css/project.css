@@ -101,6 +101,9 @@ dl#acronyms dt {
 #main-content .years-navigation .navbar-nav > li.selected { background-color: #f7505a; }
 #main-content .years-navigation .navbar-nav > li.selected a { color: white; }
 #main-content .years-navigation .navbar-nav > li.selected a .point { background-color: #f7505a; }
+#main-content .years-navigation #years a.selected { background-color: #f7505a; }
+#main-content .years-navigation #years a.selected a { color: white; }
+#main-content .years-navigation #years a.selected .point { background-color: #f7505a; }
 #main-content #stats-panel .tab-content { padding: 0; }
 #main-content #stats-panel .nav-tabs li:last-child a { margin-right:0;  }
 #main-content #stats-panel .nav-tabs a {

@@ -38,6 +38,8 @@ sdmx
 -e git://github.com/joke2k/iconfonts.git#egg=iconfonts
 -e git://github.com/openpolis/django-idioticon.git#egg=django-idioticon
 
+django-cors-headers==1.1.0
+
 # Api
 djangorestframework==2.4.2
 django-filter==0.8

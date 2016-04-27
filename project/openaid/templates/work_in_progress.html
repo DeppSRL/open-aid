@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block cookies %}{% endblock %}
 
-{% block header %}
+{% block body_header %}
     {% include 'header.html' with work_in_progress=True %}
 {% endblock %}
 
@@ -10,7 +10,7 @@
 {% endblock %}
 {% block social_buttons %}{% endblock %}
 
-{% block footer %}
+{% block body_footer %}
     {% include 'footer.html' with work_in_progress=True %}
 {% endblock %}
 

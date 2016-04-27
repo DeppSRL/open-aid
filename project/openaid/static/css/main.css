@@ -1,5 +1,4 @@
 @import url(http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css);
-
 @import url(http://fonts.googleapis.com/css?family=PT+Sans:400,700);
 /**
  * Main style
@@ -98,7 +97,6 @@ a:focus {
 }
 .read-more {
   /*font-size:16px;*/
-
   margin-top: 15px;
 }
 header .read-more {
@@ -385,9 +383,6 @@ a.btn-aid:hover {
 #main-content .media-list .media .media-body footer time {
   color: #c9c5bd;
 }
-@media (min-width: 380px) {
-  
-}
 #main-content > .panel-heading {
   padding-bottom: 0;
   padding-top: 15px;
@@ -580,37 +575,18 @@ a.btn-aid:hover {
 #main-content .years-navigation {
   margin: 40px 0px 10px;
 }
-#main-content .years-navigation .navbar-default {
-  background-color: transparent;
-  border-color: transparent;
-}
-#main-content .years-navigation .navbar {
-  margin-bottom: 0px;
-}
-#main-content .years-navigation .navbar-nav {
-  background: transparent;
-  border-right: 0px none;
-  width: 100%;
-}
-#main-content .years-navigation .navbar-nav > li {
-  width: 11.1%;
-  text-align: center;
-}
-#main-content .years-navigation .navbar-nav > li a:hover {
-  color: #f7505a;
-}
-#main-content .years-navigation .navbar-nav > li > a {
+#main-content .years-navigation #years .btn-group a {
   color: #2b6a7c;
   font-size: 12px;
   text-transform: uppercase;
-  border-left: 0px none;
-  border-right: 0px none;
-  padding: 8px 0px 0px;
+  border-left: 0;
+  border-right: 0;
+  padding: 8px 0 0;
   border-top: 2px solid #c5c1b8;
+  font-weight: bold;
   position: relative;
-  display: block;
 }
-#main-content .years-navigation .navbar-nav > li > a .point {
+#main-content .years-navigation #years .btn-group a .point {
   border-radius: 16px 16px 16px 16px;
   border: 1px solid #FFFFFF;
   display: block;
@@ -619,13 +595,26 @@ a.btn-aid:hover {
   position: absolute;
   top: -10px;
   width: 16px;
-  background: #c5c1b8;
+  background-color: #c5c1b8;
 }
-#main-content .years-navigation .navbar-nav a:hover {
+#main-content .years-navigation #years .btn-group a:hover {
   color: #f7505a;
 }
-#main-content .years-navigation .navbar-nav a:hover .point {
-  background: #f7505a;
+#main-content .years-navigation #years .btn-group a:hover .point {
+  background-color: #f7505a;
+}
+#main-content .years-navigation #years .btn-group a.selected {
+  color: white;
+}
+#main-content .years-navigation #years .btn-group a.selected .point {
+  background-color: #f7505a;
+}
+#main-content .years-navigation .navbar-default {
+  background-color: transparent;
+  border-color: transparent;
+}
+#main-content .years-navigation .navbar {
+  margin-bottom: 0px;
 }
 #main-content .pagination > li > a {
   color: #2b6a7c;

@@ -47,10 +47,11 @@
     {% include 'cookies.html' %}
 {% endblock %}
 
-{% block header %}
-    {% include 'header.html' %}
+{% block body_header %}
+{% include 'header.html' %}
 {% endblock %}
 
+{% block body_content %}
 {% if messages %}
     {% for message in messages %}
         <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}</div>
@@ -74,8 +75,9 @@
         {% block content %}{% endblock content %}
     </div>
 </div><!-- /#main-content -->
+{% endblock %}
 
-{% block footer %}
+{% block body_footer %}
     {% include 'footer.html' %}
 {% endblock %}
 
@@ -98,10 +100,10 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="{% static 'js/jquery.cookie.js' %}"></script>
 
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-
-    <!-- Your stuff: Third-party javascript libraries go here -->
+<!-- Latest compiled and minified JavaScript -->
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+{% if not widget %}
+<!-- Your stuff: Third-party javascript libraries go here -->
     <!-- Custom scripts -->
     <script src="{% static 'js/vendor/highcharts/highcharts.js' %}"></script>
     <script src="{% static 'js/vendor/highcharts/drilldown.js' %}"></script>
@@ -114,11 +116,13 @@
     <script src="{% static 'js/vendor/g.raphael/g.raphael-min.js' %}"></script>
     <script src="{% static 'js/vendor/g.raphael/pie.js' %}"></script>
 
-
+{% endif %}
     <!-- place project specific Javascript in this file -->
     <script src="{% static 'js/main.js' %}"></script>
 
 {% endblock javascript %}
+
+{% if not widget %}
 
     {% verbatim %}<script type="text/javascript">
         var addthis_share =
@@ -141,5 +145,6 @@
       ga('send', 'pageview');
 
     </script>
+{% endif %}
 </body>
 </html>

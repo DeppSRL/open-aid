@@ -23,7 +23,7 @@
 {% else %}
 
     <ul class="nav nav-tabs" role="tablist">
-        <li class="active" style="width: 40%"><a href="#bi-multi-tab" role="tab" data-toggle="tab">
+        <li class="active" style="width: {% if widget %}100%{% else %}40%{% endif %}"><a href="#bi-multi-tab" role="tab" data-toggle="tab">
             <h4>{% trans 'Bilateral and Multi-bilateral Official Development Assistance' %}
                 <span
                    data-toggle="popover"
@@ -54,7 +54,7 @@
                 </div>
             </div>
 
-        </a></li>
+        </a></li>{% if not widget %}
         <li style="width: 30%"><a href="#multi-tab" role="tab" data-toggle="tab">
             <h4>{% trans 'Multilateral Official Development Assistance' %}</h4>
             <div class="row">
@@ -80,7 +80,6 @@
                     <small>{% trans 'Used funds' %}</small>
                 </div>
             </div>
-        </a></li>
-    </ul>
-
+    </a></li>{% endif %}
+</ul>
 {% endif %}

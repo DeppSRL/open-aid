@@ -1,3 +1,4 @@
+from __future__ import print_function
 from django.views.generic import TemplateView
 from django.views.generic.base import ContextMixin
 from rest_framework import viewsets
@@ -34,6 +35,27 @@ class Home(MapFiltersContextMixin, TemplateView):
             **kwargs
         )
 
+class Numbers(Home):
+    template_name = 'pages/numbers.html'
+
+
+class Widget(Home):
+    template_name = 'widget.html'
+
+    def get_context_data(self, **kwargs):
+        return super(Widget, self).get_context_data(widget=True, **kwargs)
+
+
+class WidgetEmbed(TemplateView):
+    template_name = 'widget_embed.html'
+
+    def get_context_data(self, **kwargs):
+        from django.core.urlresolvers import reverse
+        from django.contrib.staticfiles.templatetags.staticfiles import static
+        url = self.request.build_absolute_uri(reverse('widget'))
+        js_url = self.request.build_absolute_uri(static('js/widget.js'))
+
+        return super(WidgetEmbed, self).get_context_data(widget_url=url,js_url=js_url, **kwargs)
 
 class OpenaidViewSet(viewsets.ReadOnlyModelViewSet):
     """
