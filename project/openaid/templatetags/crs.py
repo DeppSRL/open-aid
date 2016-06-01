@@ -77,6 +77,9 @@ def crs_stats(context, instance=None, year=None, show_map=True):
     }
 
     ctx['columns'] = 3 if len(ctx['sector_stats']) and len(ctx['agency_stats']) and len(ctx['aid_stats']) else 2
+    if instance and hasattr(instance, 'parent') and instance.parent and instance.code_list == 'sector':
+        ctx['columns'] = 2
+        ctx['sector_stats'] = None
 
     if not selected_facet:
         # multilateral aid have only to consider the top categories, otherwise the amount is doubled
