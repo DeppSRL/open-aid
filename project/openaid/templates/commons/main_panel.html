@@ -2,6 +2,41 @@
 
 <div class="row">
     <div class="col-md-12">
+        <div class="col-md-3">
+            <h2>{% trans 'Aid during the time' %}</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium, modi, voluptate. </p>
+            <br><br>
+            <p class="lead">
+                <i class="fa fa-circle" style="font-size: 13px; color: #f7505a;"></i> {% trans "Committed" %} <br>
+                <i class="fa fa-circle" style="font-size: 13px; color: #2b6a7c;"></i> {% trans "Used" %}
+            </p>
+        </div>
+        <div class="col-md-9">
+            <div id="time-chart"></div>
+            <table class="hide" id="time-chart-table">
+            <thead>
+                <tr>
+                    <th>Year</th>
+                    <th>{% trans "Committed" %}</th>
+                    <th>{% trans "Used" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for year, commitment, disbursement in years_values %}
+                <tr>
+                    <td>{{ year }}</td>
+                    <td data-value="{{ commitment|stringformat:"f" }}">{{ commitment|currency }}</td>
+                    <td data-value="{{ disbursement|stringformat:"f" }}">{{ disbursement|currency }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
         {% include 'commons/years_bar.html' %}
     </div>
 </div>

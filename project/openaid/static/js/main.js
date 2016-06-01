@@ -102,7 +102,7 @@ $(document).ready(function(){
         $.cookie('cookie_consent', '1', { expires: 7, path: '/' });
     });
     /*cookies consent end*/
-	
+
 	function setPieChart(holder, x, y, radius, data)
 	{
 		x = x || 0;
@@ -257,6 +257,93 @@ $(document).ready(function(){
 
 
         return false;
+    });
+
+    var time_chart_series = [],
+        time_chart_years = [],
+        time_chart_table = $('#time-chart-table');
+
+    $.each(time_chart_table.find('thead tr'), function() {
+        var row = $(this).find('th').map(function(){
+            return $(this).text();
+        }).get();
+        // add commintment serie
+        time_chart_series.push({
+            name: row[1],
+            data: [],
+            color: '#f7505a',
+            marker: {
+                symbol: 'circle'
+            }
+        });
+        // add disbursement serie
+        time_chart_series.push({
+            name: row[2],
+            data: [],
+            color: '#2b6a7c',
+            marker: {
+                symbol: 'circle'
+            }
+        });
+    });
+
+    $.each(time_chart_table.find('tbody tr'), function(){
+        var row = $(this).find('td').map(function(ix){
+            if (ix == 0) {
+                return $(this).text();
+            } else {
+                return parseInt(parseFloat($(this).data('value')), 10);
+            }
+        }).get();
+        time_chart_years.push(row[0]);
+        time_chart_series[0]['data'].push(row[1]);
+        time_chart_series[1]['data'].push(row[2]);
+        // console.log($(this).find('td'), row);
+    });
+    console.log(time_chart_series);
+
+    $('#time-chart').highcharts({
+        title: {text: ''},
+        legend: {enabled: false},
+        credits: { enabled: false},
+        exporting: {enabled: false},
+        chart: {
+            marginLeft: 0,
+            marginRight: 0
+        },
+        xAxis: {
+            categories: time_chart_years,
+            plotLines: [{
+                color: '#c5c1b8'
+            }]
+        },
+        yAxis: {
+            title: {
+                enabled: false
+            },
+            plotLines: [{
+                value: 0,
+                width: 1,
+                color: '#c5c1b8'
+            }],
+            labels: {
+                align: 'left',
+                x: 4,
+                y: -2,
+                formatter: function() {
+                    if (this.value == 0) {
+                        return '0'
+                    }
+                    return parseInt(this.value / 1000000.0, 10) + ' mln €';
+                }
+            },
+            min: 0
+        },
+        tooltip: {
+            valueSuffix: ' €',
+            shared: true
+        },
+        series: time_chart_series
     });
 
 });
