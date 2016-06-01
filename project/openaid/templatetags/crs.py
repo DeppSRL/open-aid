@@ -56,8 +56,14 @@ def crs_stats(context, instance=None, year=None, show_map=True):
 
     selected_facet = instance.code_list_facet if instance else None
 
-    commitment_sum = 0 if activities.aggregate(Sum('commitment'))['commitment__sum'] is None else activities.aggregate(Sum('commitment'))['commitment__sum']
-    disbursements_sum = 0 if activities.aggregate(Sum('disbursement'))['disbursement__sum'] is None else activities.aggregate(Sum('disbursement'))['disbursement__sum']
+    # commitment_sum = 0 if activities.aggregate(Sum('commitment'))['commitment__sum'] is None else activities.aggregate(Sum('commitment'))['commitment__sum']
+    commitment_sum = activities.aggregate(Sum('commitment'))['commitment__sum']
+    if commitment_sum is None:
+        commitment_sum = 0
+    # disbursements_sum = 0 if activities.aggregate(Sum('disbursement'))['disbursement__sum'] is None else activities.aggregate(Sum('disbursement'))['disbursement__sum']
+    disbursements_sum = activities.aggregate(Sum('disbursement'))['disbursement__sum']
+    if disbursements_sum is None:
+        disbursements_sum = 0
 
     ctx = {
         'selected_year': year,
@@ -104,5 +110,21 @@ def crs_stats(context, instance=None, year=None, show_map=True):
             'multi_stats_commitment': projects_models.AnnualFunds.get_multilateral_data(year=year, type='commitment'),
             'multi_stats_disbursement': projects_models.AnnualFunds.get_multilateral_data(year=year, type='disbursement')
         })
+
+    ctx['years_values'] = []
+    for year in ctx['years']:
+        if instance:
+            year_commitment = instance.get_total_commitment(year=year)
+            year_disbursement = instance.get_total_disbursement(year=year)
+        else:
+            # Calculate data for homepage (no codelist selected)
+            year_commitment = projects_models.Activity.objects.filter(year=year).aggregate(Sum('commitment'))['commitment__sum']
+            year_disbursement = projects_models.Activity.objects.filter(year=year).aggregate(Sum('disbursement'))['disbursement__sum']
+
+        ctx['years_values'].append([
+            year,
+            (year_commitment or 0.0) * settings.OPENAID_MULTIPLIER,
+            (year_disbursement or 0.0) * settings.OPENAID_MULTIPLIER
+        ])
 
     return ctx
