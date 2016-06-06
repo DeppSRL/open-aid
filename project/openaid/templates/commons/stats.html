@@ -41,7 +41,7 @@ should be reported under the sector to which they are directed, not under educat
                                             {% if not selected_code_list %}
                                                 <a href="{% url 'codelists:sector-detail' code=sector.code %}?year={{ selected_year }}" data-title="{{ sector.name }}">{{ sector.name }}</a>
                                             {% elif selected_code_list.code_list == 'sector' %}
-                                                <span data-title="{{ sector.name }}">{{ sector.name }}</span>
+                                                <span data-title="{{ sector.name }}"><a href="{% url 'codelists:sector-detail' code=sector.code %}">{{ sector.name }}</a></span>
                                             {% else %}
                                                 <a href="{% search_url sector.code_list_facet sector.code %}&selected_facets={{ selected_facet }}:{{ selected_code_list.code }}&selected_facets=years:{{ selected_year }}" data-title="{{ sector.name }}">{{ sector.name }}</a>
                                             {% endif %}
