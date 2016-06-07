@@ -412,7 +412,7 @@ def projects_solr_url(lang):
     return solr_url(lang, 'InitiativeIndex')
 
 def initiatives_solr_url(lang):
-    return solr_url(lang, 'ProjectIndex')
+    return solr_url('initiative-%s' % lang, 'ProjectIndex')
 
 HAYSTACK_CONNECTIONS = {
     'default': projects_solr_url(LANG_CODE),
@@ -423,14 +423,6 @@ for lang, _ in LANGUAGES:
         continue
     HAYSTACK_CONNECTIONS['default_%s' % lang] = projects_solr_url(lang)
     HAYSTACK_CONNECTIONS['initiatives_%s' % lang] = initiatives_solr_url(lang)
-
-# HAYSTACK_CONNECTIONS.update(dict([
-#     ('default_%s' % lang, solr_url(lang)) for lang, _ in LANGUAGES if lang != LANG_CODE
-# ]))
-# HAYSTACK_CONNECTIONS.update(dict([
-#     ('initiative_%s' % lang, solr_url('initiative-%s' % lang)) for lang, _ in LANGUAGES if lang != LANG_CODE
-# ]))
-# HAYSTACK_ROUTERS = ['openaid.routers.OpenaidRouter', 'haystack.routers.DefaultRouter']
 ########## END DJANGO-HAYSTACK CONFIGURATION
 
 

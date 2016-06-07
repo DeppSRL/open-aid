@@ -15,13 +15,21 @@ def only_roots(objects):
 def prepare_codelist(items):
     return set([i.code for i in items if i])
 
+
 class AbstractIndex(object):
+
+    def __init__(self):
+        # FIX field_map error.
+        indexes.SearchIndex.__init__(self)
+        super(AbstractIndex, self).__init__()
+
     def _prepare_codelist(self, items, roots=True):
         if roots:
             items = only_roots(items)
         return list(set([i.code for i in items if i]))
 
-class ProjectIndex(indexes.ModelSearchIndex, indexes.Indexable, AbstractIndex):
+
+class ProjectIndex(AbstractIndex, indexes.ModelSearchIndex, indexes.Indexable):
 
     text = indexes.CharField(document=True, use_template=True)
 
@@ -68,7 +76,7 @@ class ProjectIndex(indexes.ModelSearchIndex, indexes.Indexable, AbstractIndex):
                     'outcome_en', 'beneficiaries_en', 'other_financiers_en', 'counterpart_authority_en', 'location_en']
 
 
-class InitiativeIndex(indexes.ModelSearchIndex, indexes.Indexable, AbstractIndex):
+class InitiativeIndex(AbstractIndex, indexes.ModelSearchIndex, indexes.Indexable):
 
     text = indexes.CharField(document=True, use_template=True)
 
