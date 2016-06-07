@@ -1,0 +1,10 @@
+{{ object.title }}
+{{ object.code }}
+{{ object.agency.name }}
+{{ object.finance_type.name }}
+{% for codelist in object.recipients %}{% if codelist %}{{ codelist.name }} {% endif %}{% endfor %}
+{% for year in object.years_range %}{{ year }} {% endfor %}
+{% for codelist in object.aid_types %}{% if codelist %}{{ codelist.name }} {% endif %}{% endfor %}
+{% for codelist in object.channels %}{% if codelist %}{{ codelist.name }} {% endif %}{% endfor %}
+{% for codelist in object.sectors %}{% if codelist %}{{ codelist.name }} {% endif %}{% endfor %}
+
