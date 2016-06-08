@@ -15,7 +15,7 @@ class MultilingualSolrSearchBackend(SolrSearchBackend):
         # keep starting language
         initial_language = translation.get_language()[:2]
 
-        if self.connection_alias in ('default', 'initiative'):
+        if self.connection_alias in ('default', 'initiatives'):
             # default connection is for settings.LANGUAGE_CODE[:2] (LANG_CODE)
             language = settings.LANG_CODE
         else:
@@ -33,7 +33,7 @@ class MultilingualSolrSearchBackend(SolrSearchBackend):
 class MultilingualSolrSearchQuery(SolrSearchQuery):
     def __init__(self, using=DEFAULT_ALIAS):
         language = translation.get_language()[:2]
-        using = get_using(language)
+        using = get_using(language, using)
         super(MultilingualSolrSearchQuery, self).__init__(using)
 
 

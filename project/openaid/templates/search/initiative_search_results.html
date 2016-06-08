@@ -1,0 +1,41 @@
+{% extends 'search/search_results.html' %}
+
+{% load i18n %}
+{% load icons %}
+{% load search_utils %}
+
+
+{% block facets-sidebar %}
+    <div class="edit-filters">
+        <h4>{% trans 'Sector' %}</h4>
+        {% show_facets 'sectors' codelist='sector' %}
+    </div>
+    <div class="edit-filters">
+        <h4>{% trans 'Agency' %}</h4>
+        {% show_facets 'agency' codelist='agency' %}
+    </div>
+    <div class="edit-filters">
+        <h4>{% trans 'Year' %}</h4>
+        {% show_facets 'years' %}
+    </div>
+    <div class="edit-filters">
+        <h4>{% trans 'Aid type' %}</h4>
+        {% show_facets 'aid_types' codelist='aid_type' %}
+    </div>
+    <div class="edit-filters">
+        <h4>{% trans 'Finance type' %}</h4>
+        {% show_facets 'finance_type' codelist='finance_type' %}
+    </div>
+    <div class="edit-filters">
+        <h4>{% trans 'Channel' %}</h4>
+        {% show_facets 'channels' codelist='channel' %}
+    </div>
+    <div class="edit-filters">
+        <h4>{% trans 'Recipient' %}</h4>
+        <div class="readmore" data-max-height="200">
+            {% show_facets 'recipients' codelist='recipient' %}
+            <a href="#" class="readmore-open">{% trans 'read more' %} {% icon 'caret-down' %}</a>
+            <a href="#" class="readmore-close">{% trans 'close' %} {% icon 'caret-up' %}</a>
+        </div>
+    </div>
+{% endblock %}
