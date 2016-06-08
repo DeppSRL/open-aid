@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-06-08 06:14+0200\n"
-"PO-Revision-Date: 2016-06-08 06:16+0200\n"
+"PO-Revision-Date: 2016-06-08 06:31+0200\n"
 "Last-Translator: Daniele Faraglia <daniele.faraglia@gmail.com>\n"
 "Language-Team: \n"
 "Language: it\n"
@@ -1041,7 +1041,7 @@ msgstr "Risultati della ricerca"
 
 #: templates/search/search_results.html:142
 msgid "Filters"
-msgstr ""
+msgstr "Filtri"
 
 #: templates/search/search_results.html:145
 msgid "Edit filters"
