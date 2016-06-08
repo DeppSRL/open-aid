@@ -726,7 +726,7 @@ class Initiative(models.Model):
             return ''
 
     def projects(self):
-        if not getattr(self, '_projects', False):
+        if not hasattr(self, '_projects'):
             self._projects = list(self.project_set.all().prefetch_related('recipient'))
         return self._projects
 
