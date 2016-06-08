@@ -16,7 +16,7 @@
         <header>
 {#            <div id="project-pie-{{ project.pk }}" data-chart="pie" data-values="{{ project.total_commitment|stringformat:"f"|default:'0' }}|{{ project.total_disbursement|stringformat:"f"|default:'0' }}"></div>#}
             {% with project_title=project.title %}
-            <a href="{% url 'projects:project-detail' pk=project.pk %}">{% if project_title %}{{ project.title }}{% else %}<i>{% trans 'No title' %}</i>{% endif %}</a>
+            <a href="{{ project.get_absolute_url }}">{% if project_title %}{{ project.title }}{% else %}<i>{% trans 'No title' %}</i>{% endif %}</a>
             {% endwith %}
         </header>
         <div class="row">
