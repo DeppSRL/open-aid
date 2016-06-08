@@ -36,6 +36,30 @@
     #main-content .filters .edit-filters {
         border-bottom: 1px solid #ddd;
     }
+    #main-content .progetti article.progetti-body header {
+        border: 0;
+        min-height: 10px;
+    }
+    #main-content .progetti article.progetti-body .light-gray {
+        color: #8D8D8D;
+        font-weight: bold;
+    }
+    #main-content .progetti article.progetti-body hr {
+        margin: 5px 0;
+    }
+    section.filters .list-unstyled a {
+        color: #8D8D8D;
+    }
+    #main-content .progetti article.progetti-body .total-cost {
+        color: #f7505a;
+        font-weight: bold;
+    }
+    #main-content .progetti ul li .row {
+         line-height: .8em;
+    }
+    #main-content .progetti ul li {
+        border-bottom: 1px solid #ddd;
+    }
     </style>
 {% endblock %}
 
@@ -73,11 +97,11 @@
     <div class="row">
         <div class="col-md-8">
             <div class="progetti">
-                <div class="bordered-radius" style="overflow:hidden;">
+                <div class="" style="overflow:hidden;">
                     <ul class="list-unstyled">
                         {% for result in page.object_list %}
                         <li>
-                            {% include 'commons/project_element.html' with project=result.object %}
+                            {% include 'search/search_result_element.html' with project=result.object %}
                         </li>
                         {% endfor %}
                     </ul>

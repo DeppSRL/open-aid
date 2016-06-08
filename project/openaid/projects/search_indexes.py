@@ -43,8 +43,7 @@ class ProjectIndex(AbstractIndex, indexes.ModelSearchIndex, indexes.Indexable):
     finance_types = indexes.FacetMultiValueField()
     sectors = indexes.FacetMultiValueField()
 
-    def prepare_years(self, obj):
-        return obj.years_range()
+
     def prepare_recipient(self, obj):
         return obj.recipient.code
 
@@ -89,6 +88,9 @@ class InitiativeIndex(AbstractIndex, indexes.ModelSearchIndex, indexes.Indexable
     channels = indexes.FacetMultiValueField()
     finance_type = indexes.FacetCharField()
     sectors = indexes.FacetMultiValueField()
+
+    def prepare_years(self, obj):
+        return obj.years_range()
 
     def prepare_recipients(self, obj):
         return self._prepare_codelist(obj.recipients(), roots=False)
