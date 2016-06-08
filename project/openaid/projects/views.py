@@ -3,7 +3,7 @@ from django.db.models import Count, Sum
 from haystack.query import SearchQuerySet
 from haystack.views import FacetedSearchView
 from . import models
-from .forms import FacetedProjectSearchForm
+from .forms import FacetedProjectSearchForm, FacetedInitiativeSearchForm
 from openaid.views import OpenaidViewSet
 from .serializers import ProjectSerializer, ProjectDetailSerializer, ActivitySerializer, ChannelReportedSerializer
 
@@ -46,24 +46,25 @@ class ActivityList(ListView):
     paginate_by = 50
 
 
-class SearchFacetedProjectView(FacetedSearchView):
-    template = 'search/search_results.html'
+class SearchFacetedAbstractView(FacetedSearchView):
+    using = 'default'
+    facets = []
 
     def __init__(self, *args, **kwargs):
 
-        sqs = SearchQuerySet().order_by('-end_year')
+        sqs = SearchQuerySet(using=self.using).order_by('-end_year')
 
-        for facet in kwargs.pop('facets', []):
+        for facet in self.facets:
             sqs = sqs.facet(facet, mincount=1, limit=300)
 
-        super(SearchFacetedProjectView, self).__init__(
+        super(SearchFacetedAbstractView, self).__init__(
             form_class=FacetedProjectSearchForm, searchqueryset=sqs, *args, **kwargs)
 
     def extra_context(self):
         """
         Builds extra context, to build facets filters and breadcrumbs
         """
-        extra = super(SearchFacetedProjectView, self).extra_context()
+        extra = super(SearchFacetedAbstractView, self).extra_context()
         extra['n_results'] = len(self.results)
 
         # make get array as mutable QueryDict
@@ -80,8 +81,29 @@ class SearchFacetedProjectView(FacetedSearchView):
             extra['facets'] = self.results.facet_counts()
 
         extra['order_by'] = self.request.GET.get('order_by', self.form.default_order)
+        extra['search_using'] = self.using
 
         return extra
+
+
+class SearchFacetedProjectView(SearchFacetedAbstractView):
+    using = 'default'
+    form_class = FacetedProjectSearchForm
+    template = 'search/project_search_results.html'
+    facets = [
+        'years', 'recipient', 'agencies', 'aid_types', 'channels',
+        'finance_types', 'sectors'
+    ]
+
+
+class SearchFacetedInitiativeView(SearchFacetedAbstractView):
+    using = 'initiatives'
+    form_class = FacetedInitiativeSearchForm
+    template = 'search/initiative_search_results.html'
+    facets = [
+        'years', 'recipients', 'agency', 'aid_types', 'channels',
+        'finance_type', 'sectors'
+    ]
 
 
 class ProjectViewSet(OpenaidViewSet):

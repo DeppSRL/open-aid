@@ -401,17 +401,28 @@ INSTALLED_APPS += (
 SOLR_BASE_URL = env.str('SOLR_BASE_URL', default='http://127.0.0.1:8080/solr/open-aid-{lang}')
 
 
-def solr_url(lang):
+def solr_url(lang, excluded_index):
     return {
         'ENGINE': 'openaid.backends.MultilingualSolrEngine',
         'URL': SOLR_BASE_URL.format(lang=lang),
+        'EXCLUDED_INDEXES': ['openaid.projects.search_indexes.%s' % excluded_index],
     }
+
+def projects_solr_url(lang):
+    return solr_url(lang, 'InitiativeIndex')
+
+def initiatives_solr_url(lang):
+    return solr_url('initiative-%s' % lang, 'ProjectIndex')
+
 HAYSTACK_CONNECTIONS = {
-    'default': solr_url(LANG_CODE),
+    'default': projects_solr_url(LANG_CODE),
+    'initiatives': initiatives_solr_url(LANG_CODE),
 }
-HAYSTACK_CONNECTIONS.update(dict([
-    ('default_%s' % lang, solr_url(lang)) for lang, __ in LANGUAGES if lang != LANG_CODE
-]))
+for lang, _ in LANGUAGES:
+    if lang == LANG_CODE:
+        continue
+    HAYSTACK_CONNECTIONS['default_%s' % lang] = projects_solr_url(lang)
+    HAYSTACK_CONNECTIONS['initiatives_%s' % lang] = initiatives_solr_url(lang)
 ########## END DJANGO-HAYSTACK CONFIGURATION
 
 
