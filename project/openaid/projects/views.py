@@ -47,7 +47,7 @@ class ActivityList(ListView):
 
 
 class SearchFacetedAbstractView(FacetedSearchView):
-
+    using = 'default'
     facets = []
 
     def __init__(self, *args, **kwargs):
@@ -81,6 +81,7 @@ class SearchFacetedAbstractView(FacetedSearchView):
             extra['facets'] = self.results.facet_counts()
 
         extra['order_by'] = self.request.GET.get('order_by', self.form.default_order)
+        extra['search_using'] = self.using
 
         return extra
 

@@ -9,6 +9,36 @@
 {% block page_title %}OpenAID - {% trans "Search" %}{% endblock %}
 {% block og_title %}OpenAID - {% trans "Search" %}{% endblock %}
 
+{% block css %}
+    {{ block.super }}
+    <style>
+    #results-header {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+    #results-header .nav .pagination {
+        margin: 0;
+    }
+    #results-header .nav > li.active > a {
+        background-color: #fff;
+        color: #555;
+    }
+    #results-header .nav > li > a {
+        background-color: #f7505a;
+        color: white;
+    }
+    #results-header .nav .lead {
+        margin-bottom: 0;
+        margin-right: 20px;
+        float: left;
+    }
+    .text-upper { text-transform: uppercase !important; }
+    #main-content .filters .edit-filters {
+        border-bottom: 1px solid #ddd;
+    }
+    </style>
+{% endblock %}
+
 {% block body_header %}
     {{ block.super }}
     {% if search_facets %}
@@ -21,10 +51,20 @@
 {% endblock %}
 
 {% block content %}
-<div class="container">
+<div class="container" id="results-header">
     <div class="row">
-        <div class="col-md-8">
-            {% include 'search/pagination.html' %}
+        <div class="col-md-12">
+            <ul class="nav nav-tabs">
+                <li{% if 'initiatives' in search_using %} class="active"{% endif %}><a href="{% url 'projects:initiative-search' %}">{% trans "Initiatives" %}</a></li>
+                <li{% if 'default' in search_using %} class="active"{% endif %}><a href="{% url 'projects:project-search' %}">{% trans "Projects" %}</a></li>
+                <li class="pull-right">
+
+                    {% include 'search/pagination.html' %}</li>
+                <li class="pull-right">
+                    <p class="lead"><strong>{{ n_results }}</strong> {% trans "Search results" %}</p>
+                </li>
+            </ul>
+
         </div>
     </div>
 </div>
@@ -73,13 +113,12 @@
 {#            </section>#}
 
             <section class="filters">
-                <div class="filter-labels">FILTRA</div>
-                <div class="filter-content">
 
-                    <p class="lead"><strong>{{ n_results }}</strong> {% trans "Search result" %}</p>
+                <div class="filter-content">
+                    <div class="edit-filters"><h3 class="text-upper">{% trans "Filters" %}</h3></div>
                     <div class="edit-filters">
 
-                        <h4>MODIFICA I FILTRI <small class="pull-right eleven">{% trans "Remove filters" %} <a href="{% url 'projects:search' %}">{% icon 'times' %}</a></small></h4>
+                        <h4 class="text-upper">{% trans "Edit filters" %} <small class="pull-right eleven">{% trans "Remove filters" %} <a href="{% url 'projects:search' %}">{% icon 'times' %}</a></small></h4>
                     </div>
 {#                    <div class="edit-filters">#}
 {#                        <p class="eleven no-marg-all filter-typology">TIPOLOGIA</p>#}

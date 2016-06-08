@@ -186,7 +186,7 @@ class Project(CodelistsModel, MarkedModel):
         return cls.objects.filter(pk__in=map(lambda p: p.get('project'), projects))
 
     def activities(self, year=None):
-        if not getattr(self, '_activities', False):
+        if not hasattr(self, '_activities'):
             self._activities = list(
                 self.activity_set.all().prefetch_related('recipient', 'agency', 'aid_type', 'channel', 'finance_type',
                                                          'sector'))
