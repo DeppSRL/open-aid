@@ -5,7 +5,7 @@
             <div class="col-sm-12">
                 <nav class="navbar navbar-default navbar-main" role="navigation">
                     <ul class="nav navbar-nav">
-                        <li><a href="#" class="dropdown-toggle first" data-toggle="dropdown">{% trans 'Where does the aid go?' %} <b class="caret"></b></a>
+                        <li><a href="#" class="dropdown-toggle first" data-toggle="dropdown">{% trans 'Where does the aid go' %}? <b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 {% for recipient, children in recipients %}{% if recipient.activity_count > 0 %}
                                 {% if children|length > 0 %}
@@ -25,7 +25,7 @@
                                 {% endfor %}
                             </ul>
                         </li>
-                        <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">{% trans 'What is it spent for?' %} <b class="caret"></b></a>
+                        <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">{% trans 'What is it spent for' %}? <b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 {% for sector in sectors|dictsort:'code' %}{% if sector.activity_count > 0 %}
                                 <li>
@@ -57,7 +57,7 @@
                     {% if work_in_progress %}
 
                     {% else %}
-                        <form class="navbar-form navbar-right" action="{% url 'projects:search' %}" method="get" role="search">
+                        <form class="navbar-form navbar-right" action="{% url 'projects:initiative-search' %}" method="get" role="search">
 
                             <div class="search-form">
                                 <div class="form-white">

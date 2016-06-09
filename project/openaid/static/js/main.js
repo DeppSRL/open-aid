@@ -308,8 +308,9 @@ $(document).ready(function(){
         credits: { enabled: false},
         exporting: {enabled: false},
         chart: {
-            marginLeft: 0,
-            marginRight: 0
+            // marginLeft: 0,
+            marginRight: 0,
+            height: 300
         },
         xAxis: {
             categories: time_chart_years,
@@ -327,14 +328,14 @@ $(document).ready(function(){
                 color: '#c5c1b8'
             }],
             labels: {
-                align: 'left',
-                x: 4,
-                y: -2,
+                align: 'right',
+                // x: 4,
+                // y: -2,
                 formatter: function() {
                     if (this.value == 0) {
-                        return '0'
+                        return '0';
                     }
-                    return parseInt(this.value / 1000000.0, 10) + ' mln €';
+                    return Humanize.intcomma(parseInt(this.value / 1000000.0, 10)).replace(/,/g, '.') + ' mln €';
                 }
             },
             min: 0

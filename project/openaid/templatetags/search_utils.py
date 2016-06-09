@@ -39,7 +39,14 @@ def search_url(context, facet='', term='', remove=False, absolute=True):
     Else replace or append provided facet:term.
     If remove is True this tag remove only provided facet:term.
     """
-    url = reverse('projects:search')
+    if 'search_using' in context:
+        if context['search_using'].startswith('initiative'):
+            url = reverse('projects:initiative-search')
+        else:
+            url = reverse('projects:project-search')
+    else:
+        # back-compatibility
+        url = reverse('projects:project-search')
 
     if not facet:
         return url
@@ -74,7 +81,7 @@ def search_url(context, facet='', term='', remove=False, absolute=True):
     # remove page from query to avoid empty pages
     if 'page' in query:
         del query['page']
-        
+
     return u"{0}?{1}".format(url, query.urlencode(safe=':/'))
 
 
@@ -93,6 +100,7 @@ def show_facets(context, facet, skip_empty=True, multi_select=False, codelist=No
         'terms': [],
         'selected_terms': [],
         'multi_select': multi_select,
+        'search_using': context['search_using']
     }
     codelist_terms = []
     for term, count in context['facets']['fields'][facet]:
