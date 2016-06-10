@@ -709,6 +709,10 @@ msgstr "Totale dell'aiuto pubblico allo sviluppo (APS)"
 msgid "Committed funds, amounts in euros."
 msgstr "Fondi impegnati, valori in euro"
 
+#: templates/commons/main_panel.html:6
+msgid "Aid during the time"
+msgstr "Gli aiuti nel tempo"
+
 #: templates/commons/project_element.html:16
 msgid "No title"
 msgstr "Nessun titolo"
