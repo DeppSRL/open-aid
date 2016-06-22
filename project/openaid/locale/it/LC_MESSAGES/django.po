@@ -706,7 +706,7 @@ msgstr "Totale dell'aiuto pubblico allo sviluppo (APS)"
 
 #: templates/commons/main_panel.html:6
 msgid "Aid during the time"
-msgstr "L'Aiuto in numeri"
+msgstr "Gli aiuti nel tempo"
 
 #: templates/commons/main_panel.html:7
 msgid "The variation of resources committed and paid for development aid."
