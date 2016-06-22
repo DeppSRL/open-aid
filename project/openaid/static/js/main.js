@@ -347,4 +347,15 @@ $(document).ready(function(){
         series: time_chart_series
     });
 
+    var printUpdate = function () {
+        $('#time-chart').highcharts().reflow();
+    };
+
+    if (window.matchMedia) {
+        var mediaQueryList = window.matchMedia('print');
+        mediaQueryList.addListener(function (mql) {
+            printUpdate();
+        });
+    }
+
 });

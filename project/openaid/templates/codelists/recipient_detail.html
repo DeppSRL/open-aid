@@ -69,10 +69,12 @@
         h1, h2, h3, h4, h5 { color: #f7505a !important; }
         header .media .media-body h2, header .media .media-body h3 { color: #f7505a !important; }
         header .media .media-body h3 { font-style: italic; font-weight: normal; }
-        .dl-horizontal { border-top: 2px dotted #8a8274; }
-        .dl-horizontal > dt { width: auto; display: inline-block; margin-right: 20px; font-weight: normal; }
-        .dl-horizontal > dd { color: #f7505a !important; font-size: 1.2em; }
-        #main-content .print-title h2 { color: white !important; text-transform: uppercase; font-size: 20px; background-color: #f7505a !important; padding-top: 5px; padding-bottom: 5px; }
+        .dl-horizontal { border-top: 2px dotted #8a8274; width: 100%;  overflow: hidden; padding: 0; margin: 0}
+        .dl-horizontal > dt { float: left;
+  width: 50%; font-weight: normal; padding: 0; margin: 0}
+        .dl-horizontal > dd { color: #f7505a !important; font-size: 1.2em; float: left;
+  width: 50%; padding: 0; margin: 0}
+        #main-content .print-title h2 { -webkit-print-color-adjust: exact; color: white !important; text-transform: uppercase; font-size: 20px; background-color: #f7505a !important; padding-top: 5px; padding-bottom: 5px; }
         #social-bar { display: none; }
         #header { padding-top: 20px; }
         #header .navbar { display: block; }
@@ -86,8 +88,17 @@
         #codelist-header > .row { width: 50%; float: left; }
         .stats-panel-columns table a {font-weight: normal; text-decoration: none;}
         .stats-panel-columns table span {color: #f7505a !important; }
+        .stats-panel-columns .col-md-4 {float:left; width: 33.333333%; }
+        #codelist-chart-container .col-md-12 > .col-md-3 { width: 25%; float:left; }
+        #codelist-chart-container > .col-md-12 > .col-md-9 { width: 75%; float:left; }
+        #time-chart { width: 90%; background-color: gray !important; }
     }
     </style>
+{% endblock %}
+
+{% block api-buttons %}
+    {{ block.super }}
+    <a href="javascript:window.print()" class="btn btn-aid">{% trans 'Print' %} <span class="fa fa-print"> </span></a>
 {% endblock %}
 
 {% block codelist_header %}

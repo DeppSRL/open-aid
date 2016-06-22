@@ -31,7 +31,7 @@ should be reported under the sector to which they are directed, not under educat
 
                 <div id="donut-left"></div>
 
-                <div class="table-responsive">
+                <div class="no-table-responsive">
                     <table class="table table-condensed table-hover" data-chart="donut" data-container="donut-left">
                         <tbody>
                             {% for sector, tot in sector_stats %}
@@ -67,7 +67,7 @@ a multilateral organisation, or a basket fund).  It does not track the end uses
                 </p>
                 <div id="donut1"></div>
 
-                <div class="table-responsive">
+                <div class="no-table-responsive">
                     <table class="table table-condensed table-hover" data-chart="donut" data-container="donut1">
                         <tbody>
                         {% for aid_type, tot in aid_stats %}
@@ -107,7 +107,7 @@ entities should not be reported as extending agencies but as channels of deliver
                 </p>
                 <div id="donut-right"></div>
 
-                <div class="table-responsive">
+                <div class="no-table-responsive">
                     <table class="table table-condensed table-hover" data-chart="donut" data-container="donut-right">
                         <tbody>
                         {% for agency, tot in agency_stats %}{% if tot > 0.0 %}

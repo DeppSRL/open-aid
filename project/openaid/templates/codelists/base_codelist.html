@@ -16,7 +16,9 @@
         <div class="row">
             <header class="col-md-9">
                 <div class="btn-group">
+                    {% block api-buttons %}
                     <a href="{% url 'api' %}" class="btn btn-aid">{% trans 'Download JSON' %} <span class="fa fa-download"> </span></a>
+                    {% endblock %}
                 </div>
                 <br>
                 {% block codelist_header %}
