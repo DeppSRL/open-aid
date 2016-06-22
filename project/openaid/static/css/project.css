@@ -284,7 +284,7 @@ ul.gallery-small li {
 .numbers { display: inline-block; }
 .small-pad.numbers { padding: 6px; margin-left: 5px; margin-right: 5px;}
 .progetti .media-body p {text-transform: none; }
-.dl-horizontal { border-bottom: 2px dotted #8a8274; margin: 0; padding-top: 5px; padding-bottom: 5px; }
+.dl-horizontal { border-bottom: 2px dotted #8a8274; margin: 0; padding-top: 10px; padding-bottom: 10px; }
 .dl-horizontal> * {  }
 .dl-horizontal dt { text-align: left; font-weight: normal; }
 .dl-horizontal dd { color: #f7505a; font-size: 11px; font-weight: bold; text-align: right; margin-top: 5px; }

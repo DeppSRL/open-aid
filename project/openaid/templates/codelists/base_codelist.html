@@ -12,24 +12,23 @@
 
 {% block content %}
 
-    <div class="container">
+    <div class="container" id="codelist-header">
         <div class="row">
             <header class="col-md-9">
                 <div class="btn-group">
+                    {% block api-buttons %}
                     <a href="{% url 'api' %}" class="btn btn-aid">{% trans 'Download JSON' %} <span class="fa fa-download"> </span></a>
+                    {% endblock %}
                 </div>
                 <br>
                 {% block codelist_header %}
                     <h2 class="pull-left">{{ object.name }}</h2>
                     <a href="{% search_url object.code_list_facet object.code %}" class="read-more pull-left pad">{% trans 'Show all projects' %} {% icon 'list-alt' %}</a>
                     {% if object.parent %}
-                        <h3 class="sub-title">{% if object.parent.parent %}&gt; {{ object.parent.parent.name }} {% endif %}&gt; {{ object.parent.name }}</h3>
+                        <h3 class="sub-title">{% if object.parent.parent %}<span class="sr-only">&gt;</span> {{ object.parent.parent.name }} {% endif %}<span class="sr-only">&gt;</span> {{ object.parent.name }}</h3>
                     {% endif %}
                 {% endblock %}
             </header>
-            <div class="col-md-3 text-right">
-
-            </div>
         </div>
 
         <div class="row">

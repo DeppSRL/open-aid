@@ -6,6 +6,101 @@
 {% load icons %}
 {% load humanize %}
 
+
+{% block css %}
+    {{ block.super }}
+    <style>
+        .visible-print {
+            display: none !important;
+        }
+        @media print {
+            .visible-print {
+                display: block !important;
+            }
+            table.visible-print {
+                display: table !important;
+            }
+            tr.visible-print {
+                display: table-row !important;
+            }
+            th.visible-print,
+            td.visible-print {
+                display: table-cell !important;
+            }
+        }
+        .visible-print-block {
+            display: none !important;
+        }
+        @media print {
+            .visible-print-block {
+                display: block !important;
+            }
+        }
+        .visible-print-inline {
+            display: none !important;
+        }
+        @media print {
+            .visible-print-inline {
+                display: inline !important;
+            }
+        }
+        .visible-print-inline-block {
+            display: none !important;
+        }
+        @media print {
+            .visible-print-inline-block {
+                display: inline-block !important;
+            }
+        }
+        @media print {
+            .hidden-print {
+                display: none !important;
+            }
+        }
+    @media print {
+        * { text-shadow: none !important; filter:none !important; -ms-filter: none !important; }
+        a, a:visited { text-decoration: underline; }
+        a[href]:after { content: ""; }
+        abbr[title]:after { content: ""; }
+        .ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after { content: ""; }  /* Don't show links for images, or javascript/internal links */
+        @page { margin: 0.5cm; }
+        .btn-aid,
+        .read-more { display: none; }
+        h1, h2, h3, h4, h5 { color: #f7505a !important; }
+        header .media .media-body h2, header .media .media-body h3 { color: #f7505a !important; }
+        header .media .media-body h3 { font-style: italic; font-weight: normal; }
+        .dl-horizontal { border-top: 2px dotted #8a8274; width: 100%;  overflow: hidden; padding: 0; margin: 0}
+        .dl-horizontal > dt { float: left;
+  width: 50%; font-weight: normal; padding: 0; margin: 0}
+        .dl-horizontal > dd { color: #f7505a !important; font-size: 1.2em; float: left;
+  width: 50%; padding: 0; margin: 0}
+        #main-content .print-title h2 { -webkit-print-color-adjust: exact; color: white !important; text-transform: uppercase; font-size: 20px; background-color: #f7505a !important; padding-top: 5px; padding-bottom: 5px; }
+        #social-bar { display: none; }
+        #header { padding-top: 20px; }
+        #header .navbar { display: block; }
+        #header .navbar .nav, #header .navbar .language { display: none; }
+        #footer, .progetti { display: none; }
+        .small-map { display: none; }
+        #stats-panel .panel-heading, #years-header { display: none; }
+        #stats-panel .stats-panel-columns .readmore { display: none; }
+        #stats-panel .stats-panel-columns .readmore-js-toggle { display: none; }
+        #main-content .panel-default { border-color: transparent; }
+        #codelist-header > .row { width: 50%; float: left; }
+        .stats-panel-columns table a {font-weight: normal; text-decoration: none;}
+        .stats-panel-columns table span {color: #f7505a !important; }
+        .stats-panel-columns .col-md-4 {float:left; width: 33.333333%; }
+        #codelist-chart-container .col-md-12 > .col-md-3 { width: 25%; float:left; }
+        #codelist-chart-container > .col-md-12 > .col-md-9 { width: 75%; float:left; }
+        #time-chart { width: 90%; background-color: gray !important; }
+    }
+    </style>
+{% endblock %}
+
+{% block api-buttons %}
+    {{ block.super }}
+    <a href="javascript:window.print()" class="btn btn-aid">{% trans 'Print' %} <span class="fa fa-print"> </span></a>
+{% endblock %}
+
 {% block codelist_header %}
 
 <div class="media">
@@ -22,12 +117,24 @@
 {% endblock %}
 
 {% block codelist_statistics %}
+<div class="visible-print-block row print-title">
+    <h2 class="col-md-12">{% trans "The Italian Development Cooperation" %} - {% trans "Historical series" %}</h2>
+</div>
+
 {% crs_stats object show_map=False %}
+
+    {% if object.description %}
+    <hr>
+    <div class="visible-print-block">
+    <h2>{% trans "Italian development aid in brief" %}</h2>
+    {{ object.description|safe }}
+    </div>
+    {% endif %}
 {% endblock %}
 
 {% block codelist_description %}
-<div class="row">
-    <div class="col-md-4 col-sm-6">
+<div class="row hidden-print">
+    <div class="col-md-4 col-sm-6 small-map-container">
         <div class="small-map"><div id="map" data-chart="map" style="height: 260px;" data-iso-code="{{ object.iso_code }}"></div></div>
         {% if object.description %}
         <h3>{% trans 'Info' %}</h3>
@@ -65,4 +172,16 @@
     </div>
 
 </div><!-- .row -->
+<div class="row visible-print-block">
+    <div class="col-md-12">
+        <h3>{% trans 'Info' %}</h3>
+        <dl class="dl-horizontal">
+            <dt>{% trans 'Population' %}</dt><dd>{{ object.popolazione|intcomma|default_if_none:'-' }}</dd>
+            <dt>{% trans 'Population growth' %}</dt><dd>{% if object.crescita_popolazione %}{{ object.crescita_popolazione }} % {% else %}-{% endif %}</dd>
+            <dt>{% trans 'GDP' %}</dt><dd>{% if object.pil %}{{ object.pil|intcomma }} ${% else %}-{% endif %}</dd>
+            <dt>{% trans 'GDP per capita' %}</dt><dd>{% if object.pil_procapite %}{{ object.pil_procapite|intcomma }} ${% else %}-{% endif %}</dd>
+        </dl>
+        <span class="eleven light-gray block"><a href="http://stats.oecd.org/" target="_blank">{% trans "OECD data" %}</a></span>
+    </div>
+</div>
 {% endblock %}

@@ -7,12 +7,17 @@
                 <div class="navbar navbar-default navbar-main" role="navigation">
                     <div class="navbar-header">
                         <div class="navbar-brand">
-                            <a href="http://www.esteri.it/" target="_blank">
-                                <img src="{% static 'img/layout/logo_farnesina.png' %}" alt="Ministero degli Esteri" />
+                            <a href="#">
+                                <img src="{% static 'img/repubblica-italiana.png' %}" alt="Ministero degli Esteri"
+                                     style="max-height: 60px; width: auto;"
+                                     class="image-responsive">
                             </a>
-                            <a href="http://www.cooperazioneallosviluppo.esteri.it/" target="_blank">
-                                <img src="{% static 'img/layout/logo_dgcs.png' %}" alt="DGCS"/>
-                            </a>
+{#                            <a href="http://www.esteri.it/" target="_blank">#}
+{#                                <img src="{% static 'img/layout/logo_farnesina.png' %}" alt="Ministero degli Esteri" />#}
+{#                            </a>#}
+{#                            <a href="http://www.cooperazioneallosviluppo.esteri.it/" target="_blank">#}
+{#                                <img src="{% static 'img/layout/logo_dgcs.png' %}" alt="DGCS"/>#}
+{#                            </a>#}
                         </div>
                         <a class="navbar-brand" href="{% if work_in_progress %}{% else %}{% url 'home' %}{% endif %}"><img src="{% static 'img/layout/logo_openaid.png' %}" class="img-responsive"></a>
                     </div>
