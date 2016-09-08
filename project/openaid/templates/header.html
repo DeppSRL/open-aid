@@ -4,9 +4,29 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
+                <div class="navbar navbar-default navbar-main" style="min-height: 20px; " role="navigation">
+                    <ul class="nav navbar-nav navbar-right" style="margin-right: 0;">
+                        <li><a href="{% if work_in_progress %}{% else %}{% url 'cooperazione_italiana' %}{% endif %}"><span class="icon sprite-confronti"></span> {% trans 'Italian Development Cooperation' %}</a></li>
+                        <li><a href="{% if work_in_progress %}{% else %}{% url 'blog_home' %}{% endif %}"><span class="icon sprite-classifiche"></span> {% trans 'News' %}</a></li>
+                        <li class="divider-vertical"></li>
+                        <li>
+                            {% get_current_language as LANGUAGE_CODE %}
+                            {% get_language_info_list for LANGUAGES as languages %}
+                            {% with full_path=request.get_full_path lang_prefix='/'|add:LANGUAGE_CODE|add:'/' %}
+                            {% for language in languages %}{% if language.code != LANGUAGE_CODE %}
+                                <a href="{% if full_path|slice:':4' == lang_prefix %}/{{ language.code }}{{ full_path|slice:'3:' }}{% else %}/{{ language.code }}{{ full_path }}{% endif %}">{{ language.name_local }}</a>
+                            {% endif %}{% endfor %}
+                            {% endwith %}
+                        </li>
+                    </ul>
+                </div>
                 <div class="navbar navbar-default navbar-main" role="navigation">
+                    <a class="navbar-brand pull-right" style="padding-right:0;" href="http://www.cooperazioneallosviluppo.esteri.it">
+                        <img src="{% static 'img/top-logo.png' %}"
+                             alt="Agenzia Italiana per la Cooperazione allo Sviluppo">
+                    </a>
                     <div class="navbar-header">
-                        <div class="navbar-brand">
+                        <div class="navbar-brand" style="height: 60px; border-right: 1px solid #C9C9C9; padding-top: 0; padding-bottom: 0;">
                             <a href="#">
                                 <img src="{% static 'img/repubblica-italiana.png' %}" alt="Ministero degli Esteri"
                                      style="max-height: 60px; width: auto;"
@@ -19,24 +39,12 @@
 {#                                <img src="{% static 'img/layout/logo_dgcs.png' %}" alt="DGCS"/>#}
 {#                            </a>#}
                         </div>
+
                         <a class="navbar-brand" href="{% if work_in_progress %}{% else %}{% url 'home' %}{% endif %}"><img src="{% static 'img/layout/logo_openaid.png' %}" class="img-responsive"></a>
-                    </div>
-
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="{% if work_in_progress %}{% else %}{% url 'cooperazione_italiana' %}{% endif %}"><span class="icon sprite-confronti"></span> {% trans 'Italian Development Cooperation' %}</a></li>
-                        <li><a href="{% if work_in_progress %}{% else %}{% url 'blog_home' %}{% endif %}"><span class="icon sprite-classifiche"></span> {% trans 'News' %}</a></li>
-                    </ul>
-
-                    <div class="language">
-                        {% get_current_language as LANGUAGE_CODE %}
-                        {% get_language_info_list for LANGUAGES as languages %}
-                        {% with full_path=request.get_full_path lang_prefix='/'|add:LANGUAGE_CODE|add:'/' %}
-                        {% for language in languages %}{% if language.code != LANGUAGE_CODE %}
-                            <a href="{% if full_path|slice:':4' == lang_prefix %}/{{ language.code }}{{ full_path|slice:'3:' }}{% else %}/{{ language.code }}{{ full_path }}{% endif %}">{{ language.name_local }}</a>
-                        {% endif %}{% endfor %}
-                        {% endwith %}
 
                     </div>
+
+
                 </div><!-- /.navbar -->
             </div>
         </div><!-- .row -->

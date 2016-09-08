@@ -1,5 +1,3 @@
-@import url(http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css);
-@import url(http://fonts.googleapis.com/css?family=PT+Sans:400,700);
 /**
  * Main style
  * @author alegiangy
@@ -10,6 +8,8 @@
  * @author alegiangy
  * @version 1.0
  **/
+@import url(http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css);
+@import url(http://fonts.googleapis.com/css?family=PT+Sans:400,700);
 /**
  * Common LESS mixins
  * @author mleone
@@ -246,6 +246,12 @@ a.btn-aid:hover {
   font-size: 11px;
   text-transform: uppercase;
 }
+.navbar-main .divider-vertical {
+  height: 20px;
+  margin: 0 9px;
+  border-left: 1px solid #C9C9C9;
+  border-right: 1px solid #F2F2F2;
+}
 #main-content {
   width: 99%;
   position: relative;
@@ -382,6 +388,8 @@ a.btn-aid:hover {
 }
 #main-content .media-list .media .media-body footer time {
   color: #c9c5bd;
+}
+@media (min-width: 380px) {
 }
 #main-content > .panel-heading {
   padding-bottom: 0;
@@ -818,7 +826,7 @@ a.btn-aid:hover {
   margin-bottom: 20px;
 }
 #footer a {
-  color: #ffffff;
+  color: #fff;
   padding-bottom: 6px;
   display: block;
 }

@@ -3,7 +3,7 @@
 <footer id="footer">
     <div class="container">
         <div class="row">
-            <div class="col-md-3 col-sm-6 col-xs-6">
+            <div class="col-md-6 col-sm-6 col-xs-6">
                 <h4>{% trans 'Open Aid Italia' %}</h4>
                 <ul class="list-unstyled">
                     {% for url_name, label in footer_sections.oai.items %}
@@ -15,7 +15,7 @@
                 </ul>
             </div>
 
-            <div class="col-md-3 col-sm-6 col-xs-6">
+            <div class="col-md-4 col-sm-6 col-xs-6">
                 <h4>{% trans 'FAQ' %}</h4>
                 <ul class="list-unstyled">
                     {% for faq in faq_list %}
@@ -29,11 +29,11 @@
                 </ul>
             </div>
 
-            <div class="col-md-3 col-sm-6 col-xs-6">
+            <div class="col-md-2 col-sm-6 col-xs-6">
                 <h4>{% trans 'Open data' %}</h4>
                 <ul class="list-unstyled">
                     {% for url_name, label in footer_sections.od.items %}
-                    {# TODO: Remove this hardcoding stuff!!!! #}
+                        {% comment %}TODO: Remove this hardcoding stuff!!!!{% endcomment %}
                     {% if url_name != 'licenze_cc' and url_name != 'dati_per_ricerca' and url_name != 'open_data_pa' %}
                     <li>
                         <a href="{% if work_in_progress %}{% else %}{% url url_name %}{% endif %}">{% trans label %}</a>
@@ -53,20 +53,18 @@
                         </a>
                     </li>
                 </ul>
-
-
             </div>
 
-            <div class="col-md-3 col-sm-6 col-xs-6">
-                <h4>{% trans 'Open Aid is a project by' %}</h4>
-                <ul class="list-unstyled clearfix">
-                    <li>
-                        <a href="http://www.cooperazioneallosviluppo.esteri.it/" target="_blank">
-                            <img src="{% static 'img/footer-logo.png' %}" class="img-responsive" alt="DGCS" />
-                        </a>
-                    </li>
-                </ul>
-            </div>
+{#            <div class="col-md-3 col-sm-6 col-xs-6">#}
+{#                <h4>{% trans 'Open Aid is a project by' %}</h4>#}
+{#                <ul class="list-unstyled clearfix">#}
+{#                    <li>#}
+{#                        <a href="http://www.cooperazioneallosviluppo.esteri.it/" target="_blank">#}
+{#                            <img src="{% static 'img/footer-logo.png' %}" class="img-responsive" alt="DGCS" />#}
+{#                        </a>#}
+{#                    </li>#}
+{#                </ul>#}
+{#            </div>#}
         </div><!-- .row-->
     </div><!-- .container -->
 </footer><!-- #footer -->
