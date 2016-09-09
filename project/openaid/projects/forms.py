@@ -88,3 +88,7 @@ class FacetedProjectSearchForm(FacetedSearchForm):
         Retrieve all search results for empty query string
         """
         return self.searchqueryset.all()
+
+
+class FacetedInitiativeSearchForm(FacetedProjectSearchForm):
+    pass
