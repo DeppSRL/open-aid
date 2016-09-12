@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <div class="navbar navbar-default navbar-main" style="min-height: 20px; " role="navigation">
+                <div class="navbar navbar-default navbar-main" style="min-height: 20px; margin-top:20px;" role="navigation">
                     <ul class="nav navbar-nav navbar-right" style="margin-right: 0;">
                         <li><a href="{% if work_in_progress %}{% else %}{% url 'cooperazione_italiana' %}{% endif %}"><span class="icon sprite-confronti"></span> {% trans 'Italian Development Cooperation' %}</a></li>
                         <li><a href="{% if work_in_progress %}{% else %}{% url 'blog_home' %}{% endif %}"><span class="icon sprite-classifiche"></span> {% trans 'News' %}</a></li>
@@ -20,7 +20,7 @@
                         </li>
                     </ul>
                 </div>
-                <div class="navbar navbar-default navbar-main" role="navigation">
+                <div class="navbar navbar-default navbar-main" style="margin-bottom:14px" role="navigation">
                     <a class="navbar-brand pull-right" style="padding-right:0;" href="http://www.cooperazioneallosviluppo.esteri.it">
                         <img src="{% static 'img/top-logo.png' %}"
                              alt="Agenzia Italiana per la Cooperazione allo Sviluppo">
