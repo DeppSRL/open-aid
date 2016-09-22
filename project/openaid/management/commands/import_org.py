@@ -12,7 +12,7 @@ from openaid.projects.models import Organization, AnnualFunds
 
 class Command(BaseCommand):
     args = '<crs_file crs_file ...>'
-    help = 'Importa le informazioni sui fondi multilaterali (resources/crs/organizations.csv)'
+    help = 'Importa le informazioni sui fondi multilaterali %s' % join(settings.RESOURCES_PATH, 'multilateral')
 
     option_list = BaseCommand.option_list + (
         make_option(
@@ -75,7 +75,7 @@ class Command(BaseCommand):
                 order = int(order)
             except ValueError:
                 order = 0
-            
+
             org, created = Organization.objects.get_or_create(
                 acronym=row['acronym'].strip(),
                 defaults={

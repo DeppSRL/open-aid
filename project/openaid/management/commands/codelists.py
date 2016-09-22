@@ -12,7 +12,7 @@ from openaid.projects.forms import text_cleaner
 
 class Command(LabelCommand):
 
-    ACTIONS = ['import', 'reload', 'clear', 'translate', 'stats']
+    ACTIONS = ['import', 'reload', 'clear', 'translate', 'stats', 'update']
 
     args = '|'.join(ACTIONS)
     help = 'Execute an action on code lists.'
@@ -29,7 +29,7 @@ class Command(LabelCommand):
             help="Override old values."),
         make_option('-c', '--codelist',
             action='store', dest='codelist',
-            help="Translate only this codelist."),
+            help="Use only this codelist."),
     )
 
     def handle_label(self, action, **options):
@@ -58,6 +58,11 @@ class Command(LabelCommand):
 
             for codelist in models.CODE_LISTS:
                 self.import_codelist(codelist)
+
+        elif action == 'update':
+            for codelist in models.CODE_LISTS:
+                if options['codelist'] == codelist.code_list:
+                    self.update_codelist(codelist)
 
     def handle_stats(self, **options):
         for codelist, count in self.get_code_list_counters():
@@ -178,6 +183,38 @@ class Command(LabelCommand):
                 self.stdout.write('\nDeleting %s' % CodeList.code_list)
                 self.stdout.write(': %d' % CodeList.objects.count())
                 CodeList.objects.all().delete()
+
+    def update_codelist(self, codelist):
+
+        i = c = 0
+        start_time = time.time()
+        self.stdout.write('\n### UPDATE CODELIST: %s' % codelist.code_list)
+        csv_path = path.join(settings.RESOURCES_PATH, 'codelists', '%s.csv' % codelist.code_list)
+        reader = csvkit.DictReader(open(csv_path))
+        for row in reader:
+            # agency has donor
+            if codelist.code_list == 'agency':
+                # skip other agencies (code is unique)
+                if int(row['donor']) != settings.OPENAID_CRS_DONOR:
+                    continue
+                row['donor'] = models.Donor.objects.get(code=row['donor'])
+            if row.has_key('parent'):
+                try:
+                    row['parent'] = codelist.objects.get(code=row['parent'])
+                except codelist.DoesNotExist:
+                    row['parent'] = None
+            _, created = codelist.objects.get_or_create(
+                code=row['code'],
+                defaults=row
+            )
+            i += 1
+            if created:
+                c += 1
+
+        self.stdout.write("Total rows: %d" % i)
+        self.stdout.write("Created items: %d" % c)
+        self.stdout.write("Execution time: %d seconds" % (time.time() - start_time))
+        self.stdout.write('###\n')
 
     def get_code_list_counters(self):
         return [(cl, cl.objects.count()) for cl in models.CODE_LISTS]
