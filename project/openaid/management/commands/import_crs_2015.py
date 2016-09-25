@@ -2,6 +2,8 @@
 from django.db.models import Count
 from django.db.transaction import set_autocommit, commit
 
+from openaid import utils
+
 __author__ = 'stefano'
 from optparse import make_option
 import time
@@ -135,6 +137,11 @@ class Command(LabelCommand):
                     row[field] = 0.0
                 row[field] = float(row[field])
                 row[field] /= 1000
+
+        if row['currency_code'] != '302':
+            # usd fix
+            row['usd_commitment'] = utils.eur_to_usd_converter(row['commitment'], 2015)
+            row['usd_disbursement'] = utils.eur_to_usd_converter(row['disbursement'], 2015)
 
 
         # 1. creo l'Activity

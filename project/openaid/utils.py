@@ -10,6 +10,9 @@ from django.conf import settings
 def currency_converter(amount, year):
     return amount * settings.OPENAID_CURRENCY_CONVERSIONS[year]
 
+def eur_to_usd_converter(amount, year):
+    return amount / settings.OPENAID_CURRENCY_CONVERSIONS[year]
+
 
 def sanitize_get_param(param_type, param, default, top=None, length=None):
     # simple sanitize of GET parameter and converting to param_type
