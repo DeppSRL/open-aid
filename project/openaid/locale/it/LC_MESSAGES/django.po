@@ -721,7 +721,6 @@ msgid "Aid during the time"
 msgstr "Gli aiuti nel tempo"
 
 #: templates/commons/main_panel.html:8
-#, fuzzy
 msgid ""
 "The variation of resources committed and paid for Bilateral and Multi-"
 "bilateral development aid"
