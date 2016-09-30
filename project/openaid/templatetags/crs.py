@@ -119,7 +119,9 @@ def crs_stats(context, instance=None, year=None, show_map=True):
         else:
             # Calculate data for homepage (no codelist selected)
             year_commitment = projects_models.Activity.objects.filter(year=year).aggregate(Sum('commitment'))['commitment__sum']
+            year_commitment += projects_models.AnnualFunds.objects.filter(year=year).aggregate(Sum('commitment'))['commitment__sum']
             year_disbursement = projects_models.Activity.objects.filter(year=year).aggregate(Sum('disbursement'))['disbursement__sum']
+            year_disbursement += projects_models.AnnualFunds.objects.filter(year=year).aggregate(Sum('disbursement'))['disbursement__sum']
 
         ctx['years_values'].append([
             year,

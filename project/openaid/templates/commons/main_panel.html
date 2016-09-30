@@ -4,7 +4,11 @@
     <div class="col-md-12">
         <div class="col-md-3">
             <h2>{% trans 'Aid during the time' %}</h2>
+            {% if selected_facet %}
+            <p>{% blocktrans %}The variation of resources committed and paid for Bilateral and Multi-bilateral development aid{% endblocktrans %}</p>
+            {% else %}
             <p>{% blocktrans %}The variation of resources committed and paid for development aid.{% endblocktrans %}</p>
+            {% endif %}
             <br><br>
             <p class="lead">
                 <i class="fa fa-circle" style="font-size: 13px; color: #f7505a !important;"></i> {% trans "Committed" %} <br>

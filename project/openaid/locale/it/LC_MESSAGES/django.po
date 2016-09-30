@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-22 16:22+0200\n"
+"POT-Creation-Date: 2016-09-30 17:06+0200\n"
 "PO-Revision-Date: 2016-06-08 06:31+0200\n"
 "Last-Translator: Daniele Faraglia <daniele.faraglia@gmail.com>\n"
 "Language-Team: \n"
@@ -470,11 +470,11 @@ msgstr "Iniziativa"
 msgid "Initiatives"
 msgstr "Iniziative"
 
-#: settings/base.py:386
+#: settings/base.py:387
 msgid "English"
 msgstr "Inglese"
 
-#: settings/base.py:387
+#: settings/base.py:388
 msgid "Italian"
 msgstr "Italiano"
 
@@ -494,15 +494,11 @@ msgstr "Altre domande e risposte"
 msgid "Open data"
 msgstr "Open data"
 
-#: templates/footer.html:61
-msgid "Open Aid is a project by"
-msgstr "Open Aid è un progetto di"
-
-#: templates/header.html:26 templates/home.html:13
+#: templates/header.html:9 templates/home.html:13
 msgid "Italian Development Cooperation"
 msgstr "La Cooperazione Italiana allo Sviluppo"
 
-#: templates/header.html:27 templates/home.html:31
+#: templates/header.html:10 templates/home.html:31
 msgid "News"
 msgstr "Notizie"
 
@@ -724,13 +720,22 @@ msgstr "Totale dell'aiuto pubblico allo sviluppo (APS)"
 msgid "Aid during the time"
 msgstr "Gli aiuti nel tempo"
 
-#: templates/commons/main_panel.html:7
+#: templates/commons/main_panel.html:8
+#, fuzzy
+msgid ""
+"The variation of resources committed and paid for Bilateral and Multi-"
+"bilateral development aid"
+msgstr ""
+"Le variazioni negli anni delle risorse impegnante ed erogate per l'aiuto "
+"pubblico bilaterale e multi-bilaterale."
+
+#: templates/commons/main_panel.html:10
 msgid "The variation of resources committed and paid for development aid."
 msgstr ""
 "Le variazioni negli anni delle risorse impegnante ed erogate per la "
 "cooperazione allo sviluppo."
 
-#: templates/commons/main_panel.html:10 templates/commons/main_panel.html:20
+#: templates/commons/main_panel.html:14 templates/commons/main_panel.html:24
 #: templates/commons/top_projects.html:13
 #: templates/projects/initiative_detail.html:256
 #: templates/projects/newproject_detail.html:37
@@ -740,7 +745,7 @@ msgstr ""
 msgid "Committed"
 msgstr "Impegnati"
 
-#: templates/commons/main_panel.html:11 templates/commons/main_panel.html:21
+#: templates/commons/main_panel.html:15 templates/commons/main_panel.html:25
 #: templates/commons/top_projects.html:14
 #: templates/projects/initiative_detail.html:257
 #: templates/projects/newproject_detail.html:38
@@ -750,7 +755,7 @@ msgstr "Impegnati"
 msgid "Used"
 msgstr "Erogati"
 
-#: templates/commons/main_panel.html:72
+#: templates/commons/main_panel.html:76
 msgid "Committed funds, amounts in euros."
 msgstr "Fondi impegnati, valori in euro"
 
@@ -1066,6 +1071,9 @@ msgstr "Modifica filtri"
 #: templates/search/search_results.html:145
 msgid "Remove filters"
 msgstr "Rimuovi filtri"
+
+#~ msgid "Open Aid is a project by"
+#~ msgstr "Open Aid è un progetto di"
 
 #~ msgid "Aid types"
 #~ msgstr "Tipologie di aiuti"
