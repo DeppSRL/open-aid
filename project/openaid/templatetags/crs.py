@@ -87,9 +87,9 @@ def crs_stats(context, instance=None, year=None, show_map=True):
         ctx['columns'] = 2
         ctx['sector_stats'] = None
 
+    main_organizations = projects_models.Organization.objects.filter(parent__isnull=True)
     if not selected_facet:
         # multilateral aid have only to consider the top categories, otherwise the amount is doubled
-        main_organizations = projects_models.Organization.objects.filter(parent__isnull=True)
         multi_projects = projects_models.AnnualFunds.objects.filter(organization__in=main_organizations,year=year).aggregate(
             multi_commitments_sum=Sum('commitment'),
             multi_disbursements_sum=Sum('disbursement'),
@@ -118,10 +118,16 @@ def crs_stats(context, instance=None, year=None, show_map=True):
             year_disbursement = instance.get_total_disbursement(year=year)
         else:
             # Calculate data for homepage (no codelist selected)
+            multi_projects = projects_models.AnnualFunds.objects.filter(
+                organization__in=main_organizations,
+                year=year).aggregate(
+                    multi_commitments_sum=Sum('commitment'),
+                    multi_disbursements_sum=Sum('disbursement'),
+                )
             year_commitment = projects_models.Activity.objects.filter(year=year).aggregate(Sum('commitment'))['commitment__sum']
-            year_commitment += projects_models.AnnualFunds.objects.filter(year=year).aggregate(Sum('commitment'))['commitment__sum']
+            year_commitment += (multi_projects['multi_commitments_sum'] or 0.0)
             year_disbursement = projects_models.Activity.objects.filter(year=year).aggregate(Sum('disbursement'))['disbursement__sum']
-            year_disbursement += projects_models.AnnualFunds.objects.filter(year=year).aggregate(Sum('disbursement'))['disbursement__sum']
+            year_disbursement += (multi_projects['multi_disbursements_sum'] or 0.0)
 
         ctx['years_values'].append([
             year,
