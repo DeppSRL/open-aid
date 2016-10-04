@@ -121,28 +121,18 @@ class Command(LabelCommand):
                 else:
                     self.logger.error("Invalid date format on row %s: %s" % (i, row[field]))
 
-                # if field == 'commitment_date' and '/' in row[field]:
-                #     row[field] = "{1}-{2}-{0}".format(*row[field].split('-'))
-                # row[field] = '-'.join(reversed(field_value.replace('/', '-').split('-')))
-                # if row[field] and field != 'commitment_date':
-                #     try:
-                #         row[field] = "{0}-{2}-{1}".format(*row[field].split('-'))
-                #     except IndexError:
-                #         self.stdout.write("DATE!!!! '%s' on row %s" % (row[field], i))
-                #         raise
             elif field in ['commitment', 'disbursement', 'usd_commitment', 'usd_disbursement']:
-                # in this case the money value is already in thousands of Euro, so no division by 1000 is needed
-                row[field] = field_value.strip().replace('.', '').replace(',', '.')
+                row[field] = field_value.strip()
                 if row[field] == '-' or not row[field]:
                     row[field] = 0.0
                 row[field] = float(row[field])
-                row[field] /= 1000
 
         if row['currency_code'] != '302':
             # usd fix
             row['usd_commitment'] = utils.eur_to_usd_converter(row['commitment'], 2015)
             row['usd_disbursement'] = utils.eur_to_usd_converter(row['disbursement'], 2015)
-
+        row['commitment'] /= 1000
+        row['disbursement'] /= 1000
 
         # 1. creo l'Activity
         activity_form = mapping.create_mapped_form(forms.ActivityForm, row, mapping.OrderedDict([
